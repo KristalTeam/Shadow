@@ -46,6 +46,6 @@ export default function Sidebar(props) {
         <h3><Link href="/wiki/api">API Reference</Link></h3>
         <hr/>
         <p>An auto-generated API reference for Kristal.</p>
-        <a href="#top" style={{"text-align": "right"}}>⮬Back to Top⮭</a>
+        <a href="#top" style={{textAlign: "right"}}>⮬Back to Top⮭</a>
     </div>
 }

@@ -3,7 +3,7 @@ import Docbox from 'components/Docbox';
 import styles from './page.module.css';
 import Link from 'next/link';
 import SwapVisibilityButton from 'components/SwapVisibilityButton'
-import { subscribe } from 'diagnostics_channel';
+import { Fragment } from 'react';
 
 export const metadata = {
     title: 'API Reference',
@@ -61,7 +61,7 @@ const ListTreeItem = ({ item }) => {
       children = (
         <ul>
           {item.children.map(i => (
-            <ListTreeItem item={i} key={i.id}/>
+            <ListTreeItem item={i} key={i.data.name} />
           ))}
         </ul>
       );
@@ -96,12 +96,12 @@ export default async function Api() {
     const tree = sortTree(types)
     return (
         <>
-        <h1 style = {{"text-align": "center"}}>API Reference</h1>
+        <h1 style = {{textAlign: "center"}}>API Reference</h1>
         <SwapVisibilityButton componentA = "tree" componentB = "alphabetical">schmesting</SwapVisibilityButton>
         <Docbox id = "tree" className = {styles.wikiNoShadow} style={{display: "none"}}>
-            <ul className = {styles.tree}>
+            <ul className={styles.tree}>
                 {tree.map(i => (
-                    <ListTreeItem item={i} key={i.id} />
+                    <ListTreeItem item={i} key={i.data.name} />
                 ))}
             </ul>
         </Docbox>
@@ -109,7 +109,7 @@ export default async function Api() {
         <Docbox id = "alphabetical" className = {styles.wikiNoShadow}>
         {
             alphabetical.map( (section, letter) => {
-                return <>
+                return <Fragment key={letter}>
                     <details id="letter" open>
                         <summary><h1>{String.fromCharCode(letter).toUpperCase()}</h1></summary>
                         <hr/>
@@ -122,7 +122,7 @@ export default async function Api() {
                         }
                     </details>
                     <br/>
-                </>
+                </Fragment>
             })
         }
         </Docbox>

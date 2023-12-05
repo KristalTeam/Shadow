@@ -1,10 +1,9 @@
 import { notFound } from 'next/navigation';
-import { TYPES, sanitizeLink } from 'src/docparser.js';
+import { TYPES } from 'src/docparser.js';
 import { parse } from 'src/markdown.js';
 import Docbox from 'components/Docbox';
 import styles from './page.module.css';
-//import details from 'components/details.tsx';
-//const util = require('util')
+import { Fragment } from 'react';
 
 export async function generateStaticParams() {
     const types = TYPES
@@ -170,11 +169,11 @@ export default async function Api({ params }) {
                                     await Promise.all(initializer.extends.args.map(async (arg, index) => {
                                         if (index == 0 && arg.name == "self") {
                                             // imagine this is a continue
-                                            return <></>
+                                            return <Fragment key={initializer.name + arg.name}></Fragment>
                                         }
                                         else
                                         {
-                                            return <tr key={arg.name}>
+                                            return <tr key={initializer.name + arg.name} >
                                                 <td>
                                                     <span className = {styles.syntaxSymbol}>{arg.name}</span>
                                                     <span className = {styles.syntax}>: </span>
@@ -248,11 +247,11 @@ export default async function Api({ params }) {
                                         await Promise.all(method.extends.args.map(async (arg, index) => {
                                             if (index == 0 && arg.name == "self") {
                                                 // imagine this is a continue
-                                                return <></>
+                                                return <Fragment key={method.name + arg.name}></Fragment>
                                             }
                                             else
                                             {
-                                                return <tr key={arg.name}>
+                                                return <tr key={method.name + arg.name}>
                                                     <td>
                                                         <span className = {styles.syntaxSymbol}>{arg.name}</span>
                                                         <span className = {styles.syntax}>: </span>
@@ -278,7 +277,7 @@ export default async function Api({ params }) {
                                     <tbody>
                                     {
                                         await Promise.all(method.extends.returns.map(async (ret, index) => {
-                                            return <tr key={index}>
+                                            return <tr key={method.name + index}>
                                                 <td>
                                                     <span className = {styles.syntaxSymbol}>{ret.name || index + 1}</span>
                                                     <span className = {styles.syntax}>: </span>
