@@ -66,23 +66,7 @@ function parseTypes(view){
         : <a key={str} className = {styles.syntaxType} href = { outgoingLinks[str] ||tryGetLoveWiki(str) ||("/wiki/api/" + str) }><span>{str}</span></a>
     )
 }
-export default async function Api({ params }) {
-
-    // read the types from TYPES 
-
-    let type = null;
-
-    for (const current of TYPES)
-    {
-        if (current.name == params.path[0]) {
-            type = current;
-            break
-        }
-    }
-
-    if (!type) {
-        return notFound();
-    }
+async function Api_type(type, { params }) {
     const classHeirarchy = getClassHeirarchy(type, [])
     const methods = []
     const fields = []
@@ -362,4 +346,48 @@ export default async function Api({ params }) {
         <hr/>
         </Docbox>
     </div>
+}
+
+function Api_variable(type, { params }) {
+    return <div>
+        <Docbox className = {styles.wikiNoShadow}>
+        
+        <div id={type.name}>
+
+            <h1>
+                <a href={"#"+type.name}>{type.name}</a> 
+            </h1>
+            <h4>
+            
+            </h4>
+            <p>{type.rawdesc || type.desc}</p>
+
+        </div>
+
+        </Docbox>
+    </div>
+}
+
+export default async function Api({ params }) {
+        
+    // read the types from TYPES 
+
+    let type = null;
+
+    for (const current of TYPES)
+    {
+        if (current.name == params.path[0]) {
+            type = current;
+            break
+        }
+    }
+
+    if (!type) {
+        return notFound();
+    }
+    if(type.type === "type"){
+        return Api_type(type, { params })
+    }else if (type.type === "variable"){
+        return Api_variable(type, { params })
+    }
 }

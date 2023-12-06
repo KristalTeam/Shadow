@@ -72,13 +72,13 @@ const ListTreeItem = ({ item }) => {
         {
         children ?
             <details open>
-                <summary><Link href={`/wiki/api/${item.data.name}`} className={styles.type}>{item.data.name}</Link></summary>
+                <summary><Link href={`/wiki/api/${item.data.name}`} className={styles[item.data.type]}>{item.data.name}</Link></summary>
                 <ul>
                     {children}
                 </ul>
             </details>
         :
-            <Link href={`/wiki/api/${item.data.name}`} className={styles.type}>{item.data.name}</Link>
+            <Link href={`/wiki/api/${item.data.name}`} className={styles[item.data.type]}>{item.data.name}</Link>
         }
         </li>
     )
@@ -116,7 +116,7 @@ export default async function Api() {
                         {
                             section.map( (type) => {
                             return <div key={type.name}>
-                            <Link href={`/wiki/api/${type.name}`} className={styles.type}>{type.name}</Link>
+                            <Link href={`/wiki/api/${type.name}`} className={styles[type.type]}>{type.name}</Link>
                             </div>
                             })
                         }

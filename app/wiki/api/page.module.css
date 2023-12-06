@@ -15,6 +15,15 @@
     user-select: none;
 }
 
+.type {
+  font-family: "8bitOperatorPlus-Bold", monospace;
+}
+
+.variable {
+  font-family: "8bitOperatorPlus-Regular", monospace;
+  font-style: italic;
+  color: white
+}
 /*
 https://iamkate.com/code/tree-views/
 */
