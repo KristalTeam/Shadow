@@ -8,7 +8,7 @@ export default function Navbar() {
             <Link href="/" className={styles.item}>Home</Link>
             <Link href="/wiki" className={styles.item}>Wiki</Link>
             <NewTab href="https://github.com/KristalTeam/Kristal/" className={styles.item}>Source</NewTab>
-            <Link href="/wiki/Downloading" className={styles.item}>Downloads</Link>
+            <Link href="/wiki/downloading" className={styles.item}>Downloads</Link>
             <NewTab href="https://discord.gg/8ZGuKXJE2C" className={styles.item}>Discord</NewTab>
         </div>
     </div>
