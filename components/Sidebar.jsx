@@ -1,9 +1,11 @@
 import Link from "next/link";
 import styles from "./Sidebar.module.css";
+import Searchbar from 'components/Searchbar'
 
 export default function Sidebar(props) {
     return <div className={styles.sidebar}>
         <h2>Kristal Wiki</h2>
+        <Searchbar placeholder = "Search Wiki" submit = "Go"/>
         <hr/>
         <h3><Link href="/wiki/">Getting Started</Link></h3>
         <hr/>

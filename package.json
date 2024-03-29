@@ -13,6 +13,7 @@
     "@mdx-js/react": "^3.0.0",
     "@next/mdx": "^14.0.3",
     "@types/mdx": "^2.0.10",
+    "js-search": "^2.0.1",
     "next": "14.0.2",
     "react": "^18",
     "react-dom": "^18",
