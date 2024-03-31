@@ -42,14 +42,14 @@ export default function Page({
         <h2> Getting Started </h2>
         <hr/>
 
-        The first thing you should do is go ahead and download the engine. Read the [download guide](/wiki/downloading) for more information.
+        The first thing you should do is go ahead and download the engine. Read the <Link href="/wiki/downloading">download guide</Link> for more information.
     </Box>
 
     <Box>
         <h2>Contributing to the Wiki</h2>
         <hr/>
 
-        If you want to contribute to the wiki, you can do so by forking the repository and making a pull request. You can find the repository [here](https://github.com/KristalTeam/Shadow).
+        If you want to contribute to the wiki, you can do so by forking the repository and making a pull request. You can find the repository <Link href="https://github.com/KristalTeam/Shadow">here</Link>.
     </Box>
 
     </>)
