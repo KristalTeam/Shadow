@@ -1,9 +1,7 @@
-import * as JsSearch from 'js-search';
-import path from 'path';
-import fs from 'fs';
-import {TYPES} from '/src/docparser.js';
-import {ProgrammingTokenizer} from '/src/programTokenizer.ts';
-
+import lunr from 'lunr';
+import data from '/app/data/wiki-index.json'
+const STRING_MAX_SIZE = 80;
+/*
 const dirRelativeToPublicFolder = './wiki/'
 const dir = path.resolve('./app/', dirRelativeToPublicFolder);
 const paths = fs.readdirSync(dir, {recursive: true})
@@ -40,7 +38,8 @@ const articles = paths.map(rpath => {
         description: "(Tutorial) "+(metadata?.description ?? "[no metadata]"),
         text: text,
 
-        route: "/wiki/" + rpath.split(path.sep).join(path.posix.sep).replace(/\/page\..*/,"")
+        route: "/wiki/" + rpath.split(path.sep).join(path.posix.sep).replace(/\/page\..*
+        /,"")
     }
 });
 //type and function of type lookup
@@ -158,9 +157,18 @@ const merge = (a, b, predicate = (a, b) => a === b) => {
     b.forEach((bItem) => (c.some((cItem) => predicate(bItem, cItem)) ? null : c.push(bItem)))
     return c;
 }
+*/
 
+const index = lunr.Index.load(data);
 export function searchQuery(q){
-    let results = [];
-    searches.forEach( (search) => results = merge( results, search.search(q) ));
-    return results;
+    return typeof(q) == "string" && q.length > 0 ? 
+        index.search(q).map( (raw) => {
+            var trim = JSON.parse(raw.ref);
+            //trim.route = 
+            trim.title = trim.title.length > STRING_MAX_SIZE - 3 ? trim.title.substring(0, STRING_MAX_SIZE - 3) + "..." : trim.title;
+            trim.description = trim.description.length > STRING_MAX_SIZE - 3 ? trim.description.substring(0, STRING_MAX_SIZE - 3 ) + "..." : trim.description;
+            return trim;
+        })
+        :
+        []
 }

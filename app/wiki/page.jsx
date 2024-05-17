@@ -1,8 +1,9 @@
 import Box from 'components/Box'
 import styles from './page.module.css'
-import '/src/wikisearch.js'
 import Link from 'next/link'
 import {searchQuery} from 'src/wikisearch.js'
+import SearchResultsPaginate from 'components/SearchResultsPaginate'
+
 export default function Page({
     params,
     searchParams,
@@ -13,26 +14,11 @@ export default function Page({
     
     {
         searchParams.search ?
-        (<Box>
-        <h2>
-            {"Search Reults for: \""+searchParams.search+"\""}
-        </h2>
-        <hr/>
-        <ol>
-            {searchQuery(searchParams.search).map(p => (
-            <li key={p.name}>
-                <Link href = {p.route ?? ("/wiki/api/"+p.name) }>
-                    <h3 style={{display: "inline"}}>{p.display_title ?? p.title}</h3>
-                    <div>{p.description}</div>
-                </Link>
-                <br/>
-            </li>
-            ))}
-        </ol>
-        
-        </Box>)
-        :
-        <></>
+        <Box>
+            <h2>{"Search Reults for: \""+searchParams.search+"\""}</h2>
+            <SearchResultsPaginate itemsPerPage = {10} items = {searchQuery(searchParams.search)}/>
+        </Box>
+        :<></>
     }
     <Box>
         Kristal is an *awesome* DELTARUNE fangame engine, written in Lua, using LÖVE.

@@ -1,0 +1,109 @@
+
+.description {
+    font-size: 18px;
+    margin-left: 2em;
+    color: #ddd;
+}
+
+.items {
+    list-style-type: none;
+    padding: 10px;
+}
+
+.pbreak {
+    display: inline-block;
+    vertical-align: middle;
+    list-style-type: none;
+    cursor: pointer;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.pbreaklink {
+    color: white;
+}
+
+.pcontainer {
+    text-align: center;
+    width: auto;
+}
+.pcontainer::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.ppage{
+    display: inline-block;
+    vertical-align: middle;
+    list-style-type: none;
+    cursor: pointer;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    
+}
+.ppage a {
+    color: white;
+}
+.ppage a:hover {
+    color: #00FFFF;
+    text-decoration-line: underline;
+}
+
+.pactive{
+    font-size: 150%;
+    color: white;
+    text-decoration: underline;
+}
+.pactive a {
+    color: rgba(0, 255, 255, 1);
+    text-decoration-line: underline;
+}
+.pactivelink {
+    color: white;
+    
+}
+
+.pnext {
+    float: right;
+    list-style-type: none;
+    font-size: 150%;
+    margin: 0;
+    margin-left: 1rem;
+}
+
+.pnextlink {
+    color: white;
+}
+.pnextlink::after{
+    content: '>';
+}
+
+.pprevious {
+    float: left;
+    list-style-type: none;
+    font-size: 150%;
+    margin: 0;
+    margin-right: 1rem;
+}
+
+.ppreviouslink{
+    color: white;
+    cursor: pointer;
+}
+.ppreviouslink::after{
+    content: '<';
+}
+
+
+.pdisabled{
+    color: #505860;
+    cursor: not-allowed;
+}
+.pdisabled::after{
+    content: '|';
+}
+
+.pdisabledlink::after{
+    content: '';
+}
