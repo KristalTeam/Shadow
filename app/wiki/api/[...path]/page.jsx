@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { TYPES } from 'src/docparser.js';
+import { TYPES } from 'src/docparser.mjs';
 import { parse } from 'src/markdown.js';
 import Docbox from 'components/Docbox';
 import styles from './page.module.css';
@@ -13,6 +13,13 @@ export async function generateStaticParams() {
             slug: type.name
         }
     });
+}
+
+export async function generateMetadata({ params }){
+    return {
+        title: String(params.path),
+        description: "Kristal API Reference"
+    }
 }
 
 function getClassHeirarchy(type, arr) {
