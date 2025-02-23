@@ -44,6 +44,8 @@ export default function Sidebar(props) {
         <ul>
             <li><Link href="/wiki/battlers">Battlers</Link></li>
             <li><Link href="/wiki/encounters">Encounters</Link></li>
+            <li><Link href="/wiki/enemy-attacks">Enemy Attacks (Waves)</Link></li>
+            <li><Link href="/wiki/wavemaking-reference">Wavemaking Tricks and References</Link></li>
         </ul>
         <br/>
         <h3><Link href="/wiki/api">API Reference</Link></h3>

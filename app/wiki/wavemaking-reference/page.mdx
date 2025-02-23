@@ -1,0 +1,1693 @@
+import Box from 'components/Box'
+
+export const metadata = {
+    title: 'Wavemaking Tricks and References',
+    description: '',
+}
+
+# Wavemaking Tricks and References [tips-and-references]
+
+<Box>
+
+This page is focused on tips and tricks for things that are commonly relevant to waves, as well as a quick reference for several useful functions.
+
+</Box>
+
+<Box>
+## Table of Contents
+
+- [Battle Objects](#battle-objects)
+- [Arena Functions](#arena-functions)
+- [The Physics Table](#physics-table)
+- [The Graphics Table](#graphics-table)
+- [Selecting Waves](#selecting-waves)
+- [Blue/Orange Bullets](#blue-orange-bullets)
+- [Green Bullets](#green-bullets)
+- [Cricles](#circles)
+- [Afterimages](#afterimages)
+- [Attack Telegraphing](#attack-telegraphing)
+- [Masking Bullets to the arena](#bullet-masking)
+- [Custom Soul Modes](#custom-souls)
+
+-- TODO: review guides
+</Box>
+
+<Box>
+## Battle Objects
+
+There are a lot of objects relating to battles that are relevant to waves! Below is a list of all of the objects relevant to waves!
+
+Clicking on any of them will take you to their API reference page where you can learn more about them.
+
+---
+### Used in Waves
+The objects below are all used directly in waves.
+
+- [Arena](/wiki/api/Arena) 
+- [Bullet](/wiki/api/Bullet)
+- [Solid](/wiki/api/Solid)
+- [Soul](/wiki/api/Soul)
+- [Timer](/wiki/api/Timer)
+- [Wave](/wiki/api/Wave)
+
+---
+### Colliders
+These are all the [Collider](/wiki/api/Collider) types in Kristal. They may be useful for custom bullet collision!
+
+- [CircleCollider](/wiki/api/CircleCollider)
+- [ColliderGroup](/wiki/api/ColliderGroup)
+- [Hitbox](/wiki/api/Hitbox)
+- [LineCollider](/wiki/api/LineCollider)
+- [PointCollider](/wiki/api/PointCollider)
+- [PolygonCollider](/wiki/api/PolygonCollider)
+
+---
+### Related Objects
+These objects aren't always involved directly in waves, but may have important or related functions.
+
+- [AfterImage](/wiki/api/AfterImage)
+- [Battle](/wiki/api/Battle)
+- [Encounter](/wiki/api/Encounter)
+- [EnemyBattler](/wiki/api/EnemyBattler)
+- [PartyBattler](/wiki/api/PartyBattler)
+</Box>
+
+<Box>
+## Arena Functions [arena-functions]
+
+As well as being an [`Object`](/wiki/api/Object), the [`Arena`](/wiki/api/Arena) has functions of it's own. 
+
+There are also additional functions inside of `Wave` that can be used inside `Wave:init()` to alter the initial state of the arena. These changes will also apply to the arena transition.
+
+### `Arena:setSize(width, height)`
+Sets the size of the rectangular arena.
+The arena's default size is 142x142.
+
+### `Wave:setArenaSize(width, height)`
+Sets the initial size of the rectangular arena.
+The arena's default size is 142x142.
+
+### `Arena:setShape(...)`
+Sets the arena shape to a polygon defined by the vertices passed into this function.
+Each vertex should be its own table with two values to represent (x, y) co-ordinates. Co-ordinates are relative to the arena's position.
+
+### `Wave:setArenaShape(...)`
+Sets the initial shape of the arena. See above for usage.
+
+### `Wave:setArenaRotation(angle)`
+Sets the initial rotation of the arena.
+
+### `Wave:setArenaPosition(x, y)`
+Sets the initial arena position relative to the top-left of the screen.
+
+### `Wave:setArenaOffset(x, y)`
+Sets the initial arena position relative to it's standard spawn position.
+
+### `Arena:setBackgroundColor(r, g, b, a)`
+Sets the color used for the background of the arena.
+
+### `Arena:getBackgroundColor()`
+Returns the current color of the arena as an `{r, g, b, a}` table.
+</Box>
+
+<Box>
+## The physics table [physics-table]
+
+Everything in waves, including the likes of `Bullet`s and the `Arena`, are [`Object`](/wiki/api/Object)s, which means that they inherit the `physics` table.
+
+The `physics` table automates basic object movement through the various keys of the table.
+
+The keys that exist on `physics` and their effects are as follows:
+- `speed` - The amount of pixels this object will move each frame in `direction` at 30fps.
+- `speed_x` and `speed_y` - The amount of pixels the object will move on each axis per frame at 30fps.
+- `direction` - The direction in which the object is moving. Defaults to `0`, which moves the object to the right. `math.pi / 2` = down, `math.pi` = left, and `3*math.pi / 2` = up.
+- `spin` - The amount that `direction` will increase by each frame at 30fps.
+- `match_rotation` - Whether the value of `direction` should be updated each frame to be the same as the object's `rotation`.
+- `friction` - The amount that `speed` or `speed_x` and `speed_y` will be reduced by each frame at 30fps.
+- `gravity` - The amount of acceleration the object will experience in `gravity_direction` each frame at 30fps. Defaults to 0.
+- `gravity_direction` - The direction of gravity. Defaults to `math.pi / 2`, directly downwards.
+- `move_target` - Stores information when `slideTo()` or `slideToSpeed()` are called on the object. **Do not try to change this manually**, however you may set this to `nil` to cancel the aforementioned movement functions. 
+- `move_path` - Stores information when `slidePath()` is called on the object. **Do not try to change this manually**, however you may set this  to `nil` to cancel the aforementioned function.
+</Box>
+
+<Box>
+## The graphics table [graphics-table]
+
+Everything in waves, including the likes of `Bullet`s and the `Arena`, are [`Object`](/wiki/api/Object)s, which means that they inherit the `graphics` table.
+
+The `graphics` table auotmates simple graphical effects by setting the various keys on the table. 
+
+The keys that exist on it and their effects are as follows:
+- `spin` - How much the object's `rotation` will change each frame at 30fps.
+- `grow` - How much the object's scale will increase each frame at 30fps.
+- `grow_x` and `grow_y` - How much the object's x and y scales will increase each frame at 30fps.
+- `remove_shrunk` - Whether the object should be removed once it's scale reaches or goes below zero.
+- `fade` - The amount that the object's `alpha` value will change each frame, approaching the value set by `fade_to`
+- `fade_to` - The value that the object's `alpha` is approaching.
+- `fade_callback` - A callback function that will be run when the object reaches it's target `alpha`, set by the value of `fade_to`.
+</Box>
+
+<Box>
+## Selecting Waves [selecting-waves]
+
+Kristal provides many options for controlling what waves are selected in each DEFENDING turn.
+
+If we want to understand how to modify the waves chosen each turn, it helps to know the steps Kristal takes to do so. 
+
+Let's take a look. 
+
+### Wave Selection Process
+When preparing the DEFENDING state, the Battle first requests waves from the encounter with [`Encounter:getNextWaves()`](/wiki/api/Encounter#getNextWaves).
+
+[`Encounter:getNextWaves()`](/wiki/api/Encounter#getNextWaves) then requests a wave from each enemy using [`EnemyBattler:selectWave()`](/wiki/api/EnemyBattler#selectWave).
+
+[`EnemyBattler:selectWave()`](/wiki/api/EnemyBattler#selectWave) gets the available waves for that enemy from [`EnemyBattler:getNextWaves()`](/wiki/api/EnemyBattler#getNextWaves) and selects one at random to use.
+
+[`EnemyBattler:getNextWaves()`](/wiki/api/EnemyBattler#getNextWaves) returns the [`EnemyBattler.waves`](/wiki/api/EnemyBattler#waves) table, or [`EnemyBattler.wave_override`](/wiki/api/EnemyBattler#wave_override) if it is set.
+
+Waves selected by each enemy are then sent back up the chain and to the battle.
+
+Okay, thats a lot of information at once - let's break that down into something more digestible.
+
+### The waves variable
+
+The most straightforward and arguably the "standard" method of wave selection is to define the `waves` table in your `EnemyBattler`. You're probably familiar with this already.
+
+For example, you can see the mod template's dummy file sets this up to select the three waves also included in the mod template:
+
+```lua
+-- In scripts/battle/enemies/dummy.lua
+
+function Dummy:init(...)
+    super.init(self, ...)
+
+    -- Other code inside init()...
+
+    self.waves = {
+        "aiming",
+        "movingarena",
+        "basic",
+    }
+
+    -- More code inside init()...
+end
+```
+
+One wave is then selected from here at random by this enemy to use each turn!
+
+### The wave_override variable
+
+The second method we can use, the `wave_override` variable of the `EnemyBattler`, is best used together with the `waves` table.
+
+When we set `wave_override` on an enemy, it will **force their chosen wave that turn to be that wave**.
+
+For example, we could make our enemy select a specific wave when an ACT is used on it:
+
+```lua
+-- In a scripts/battle/enemies file
+function MyEnemy:onAct(battler, name)
+    if name == "Hug" then
+        self.wave_override = "green_bullets"
+
+        return "Some ACT text"
+    end
+
+    return super.onAct(self, battler, name)
+end
+```
+
+This code would cause the enemy to use the wave `green_bullets` on every turn that we use the Hug act on it.
+
+---
+As well as variables, we also have some functions at our disposal!
+
+Functions let us write new logic for wave selection, so naturally these are tailored towards more complex setups.
+
+### EnemyBattler:getNextWaves()
+`EnemyBattler:getNextWaves()` is used during wave selection to grab either the `waves` table or `wave_override` (if it is set).
+
+As such, this function is less useful for custom wave selection behaviour than our other waves, but can be useful if you want to mainly rely on the default system but with minor tweaks.
+
+Let's look at what the original function does:
+
+```lua
+--- *(Override)* Gets the list of waves this enemy can use each turn.
+--- *By default, returns the [`waves`](lua://EnemyBattler.waves) table, unless [`wave_override`](lua://EnemyBattler.wave_override) is set.
+---@return string[]
+function EnemyBattler:getNextWaves()
+    if self.wave_override then
+        local wave = self.wave_override
+        self.wave_override = nil
+        return {wave}
+    end
+    return self.waves
+end
+```
+
+You should be able to see how the function works as described above - now let's make some changes.
+
+We're going to make it so that at certain HP thresholds, the waves the enemy can select from will change.
+
+```lua
+-- In a scripts/battle/enemies file
+function MyEnemy:getNextWaves()
+    -- Keeping this block allows us to keep using wave_override if we want to
+    if self.wave_override then
+        local wave = self.wave_override
+        self.wave_override = nil
+        return {wave}
+    end
+
+    local waves = Utils.copy(self.waves) -- Create a copy of the original waves table
+
+    -- Add or remove waves based on HP.
+    if self.health <= self.max_health * 2/3 then -- with 2/3rds or less HP left
+        Utils.removeFromTable(waves, "high_health_wave")
+    end
+    if self.health <= self.max_health * 1/3 then -- with 1/3rd or less HP left
+        table.insert(waves, "low_health_wave")
+    end
+
+    return waves -- return the new table 
+end
+```
+
+Also, this function is **always expected to return a table**! So even if you want to force one wave through this method, that wave **must** also be wrapped in a table.
+
+You can copy how the `wave_override` system handles this - wrap the name of your wave in `{}` and it will create a single item table, e.g. `return {"special_wave"}` instead of `return "special_wave"` if you want to force `special_wave` to be chosen.
+
+### EnemyBattler:selectWave()
+
+This function is best for granular control over wave selection on a specific enemy.
+
+Let's look again at the default implementation of this function to see what it does:
+
+```lua
+--- *(Override)* Selects the wave that this enemy will use each turn.
+--- *By default, picks from the available selection provided by [`EnemyBattler:getNextWaves()`](lua://EnemyBattler.getNextWaves)*
+---@return string? wave_id
+function EnemyBattler:selectWave()
+    local waves = self:getNextWaves()
+    if waves and #waves > 0 then
+        local wave = Utils.pick(waves)
+        self.selected_wave = wave
+        return wave
+    end
+end
+```
+
+This function returns either a wave id, or nothing at all.
+
+Additionally, this function **must** set `selected_wave` to the name of the chosen wave as well.
+
+The default behaviour manages random wave selection, including making use of `getNextWaves()` - therefore if you override this function, then overriding that method will have no effect unless you reuse it in your new code.
+
+As an example override, let's make a boss-like wave select that selects specific waves based on the current turn:
+
+```lua
+-- In a scripts/battle/enemies file
+function MyBossEnemy:selectWave()
+    local turn = Game.battle.turn_count -- The battle keeps track of the current turn automatically
+
+    -- Select specific waves based on the turn
+    if turn == 1 then
+        self.selected_wave = "scripted_wave_1"
+        return self.selected_wave
+    elseif turn == 2 then
+        self.selected_wave = "scripted_wave_2"
+        return self.selected_wave
+    elseif turn == 3 then
+        self.selected_wave = "scripted_wave_3"
+        return self.selected_wave
+    elseif turn == 4 then
+        self.selected_wave = "scripted_wave_4"
+        return self.selected_wave
+    elseif turn == 5 then
+        self.selected_wave = "ultimate_attack"
+        return self.selected_wave
+    end
+
+    -- Use random wave selection when the script runs out (assuming self.waves is set)
+    return super.selectWave(self)
+end
+```
+
+Here, we set and return the selected wave for the enemy based on the current turn of the battle.
+
+A more complex system could implement it's own progress counter and have more specific conditions for the battle to advance, such as a mercy or health threshold.
+
+As shown in the function above, we can also always rely on the standard wave picker as a fallback option by calling the super function, `super.selectWave(self)`.
+
+### Encounter:getNextWaves()
+
+The encounter is the last location that we might control wave selection from.
+
+Unlike all our other methods, this is at the **encounter** level, so runs **independently** from enemies. 
+
+By default, this function is used to communicate the selected waves from the enemies to the battle:
+```lua
+--- *(Override)* Retrieves the waves to be used for the next defending phase. \
+--- *By default, iterates through all active enemies and selects one wave each using [`EnemyBattler:selectWave()`](lua://EnemyBattler.selectWave)*
+---@return Wave[]
+function Encounter:getNextWaves()
+    local waves = {}
+    for _,enemy in ipairs(Game.battle:getActiveEnemies()) do
+        local wave = enemy:selectWave()
+        if wave then
+            table.insert(waves, wave)
+        end
+    end
+    return waves
+end
+```
+
+A unique ability of this function is that, unlike enemies, it can select an **unlimited number of waves** to be used.
+
+This does, however, come with some important considerations about the waves we use, related to what we talked about in `selectWave()` above.
+
+Normally, every enemy selects a wave and then sets it's `selected_wave` variable accordingly. This allows each wave to **know which EnemyBattler(s) are using it**.
+
+When a wave is chosen by the encounter instead, it will have no attackers. (Unless we set them manually, but that defeats the point of using this over `selectWave()`.)
+
+A wave with no attackers isn't non-functional, but we have to make sure our wave is designed to be **independent of attackers** if we select it this way.
+
+Designing a wave that is attacker independent requires that we do **two** things:
+- Never rely on the wave having attackers. You can still use `Wave:getAttackers()` if an enemy *might* use this wave, but expect that it might return an empty table.
+- Make sure all bullets spawned by the wave have their `damage` variable set, or their `getDamage()` function returns a value.
+
+Let's take a look at an example override for this function:
+
+```lua
+-- In a scripts/battle/encounters file
+function SnowstormEncounter:getNextWaves()
+    local waves = super.getNextWaves(self) -- Call the original function to get enemy selected waves
+
+    table.insert(waves, "snowstorm_hazard") -- Add a wave of our own
+
+    return waves -- Return the final list of waves
+end
+```
+
+Here, we use the original enemy wave selection with `super.getNextWaves(self)`, then add `snowstorm_hazard` as an additional wave by inserting it into the table.
+
+Therefore, every turn in this encounter, the `snowstorm_hazard` wave is active as well as the enemy selected waves.
+
+`snowstorm_hazard` would have to be an attacker independent wave that fits the criteria we mentioned above.
+</Box>
+
+<Box>
+## Bullet Example: Blue/Orange Bullet [blue-orange-bullets]
+
+A common pair of bullet behaviours are the Blue/Orange movement bullets from UNDERTALE. 
+
+Let's see how to give a Custom Bullet this behaviour.
+
+To start, open the file of the custom bullet you want to give this behaviour to, or if you don't have one yet, create a new one in `scripts/bullets` and insert this boilerplate:
+```lua
+local BlueOrangeBullet, super = Class(Bullet)
+
+function BlueOrangeBullet:init(x, y)
+    super.init(self, x, y, "bullets/smallbullet")
+end
+
+function BlueOrangeBullet:onDamage(soul)
+
+end
+
+return BlueOrangeBullet
+```
+
+Before we code the effect, we should start by making the bullet our desired colour! 
+
+The colour codes used for blue/orange in UNDERTALE are `#14a9ff` and `#ffa040` respectively.
+
+You can choose to either modify your bullet sprite directly to be the colour you want, OR if your bullet sprite is white, this can instead be done through code.
+
+We can use `Utils.hexToRgb()` and `setColor()` to set the colour we want onto our bullet within `Bullet:init()` like so:
+```lua
+function BlueOrangeBullet:init(x, y)
+    super.init(self, x, y, "bullets/smallbullet")
+
+    self:setColor(Utils.hexToRgb("#14a9ff")) -- Use this for blue
+    self:setColor(Utils.hexToRgb("#ffa040")) -- Use this for orange
+end
+```
+
+While we're looking at the init function, we should also consider disabling `destroy_on_hit` for our bullets, as any collision will cause them to disappear otherwise, even once we have added our custom code.
+
+Just add this line to the `init()` function:
+```lua
+self.destroy_on_hit = false
+```
+
+Now, let's write the actual code for the behaviour of these bullets. Everything we do from here on out is in the `Bullet:onDamage(soul)` function.
+
+`Bullet:onDamage(soul)` is responsible for damage logic, meaning that if we hook/override it, we can change the conditions under which normal damage occurs - But how do we do that exactly?
+
+When we first override a function, it acts like an *overwrite* of that function - whatever was originally in that function is completely replaced with our own code. 
+
+However, the `super` variable has a stored copy of our base class functions, so if we hook `Bullet:onDamage(soul)` but call `super.onDamage(self, soul)` inside of it, we can still use the original damage logic for bullets.
+
+We can use this to make damage logic only happen in specific conditions - we can simply use `Soul:isMoving()` to check the movement state of the soul, and then run `super.onDamage(self, soul)` accordingly.
+
+`Bullet:onDamage(soul)` also returns a `table` value. We don't have to concern ourselves with this too much, but we should **return the value of the super call**, and add `return {}` to the end of our function.
+
+In practice, our `onDamage` hook will have one of the two chunks of code in the below function depending on which bullet type we are creating:
+```lua
+function BlueOrangeBullet:onDamage(soul)
+    -- Blue bullet (deal damage when the soul IS moving)
+    if soul:isMoving() then
+        return super.onDamage(self, soul)
+    end
+    -- Orange bullet (deal damage when the soul IS NOT moving)
+    if not soul:isMoving() then
+        return super.onDamage(self, soul)
+    end
+
+    -- Return a blank table when we cancel damage (both bullet types)
+    return {}
+end
+```
+</Box>
+
+<Box>
+## Bullet Example: Green (healing) Bullet [green-bullets]
+
+Not all bullets are evil! Sometimes you want to have a bullet that heals the player when they hit it. Let's look at how to do that.
+
+Start by opening the file of the bullet that you want to turn green - or if you don't have one yet you can create a new one in `scrips/bullets` and insert this boilerplate:
+```lua
+local GreenBullet, super = Class(Bullet)
+
+function GreenBullet:init(x, y)
+    super.init(self, x, y, "bullets/smallbullet")
+end
+
+function GreenBullet:onCollide(soul)
+
+end
+
+return GreenBullet
+```
+
+First things first, let's make our bullet green! You could make your bullet sprite green directly (green bullets are usually `#00ff00`), but if you have an all-white bullet, it's also possible through code.
+
+To turn the bullet sprite green in code, go to your `init()` function and add the following:
+```lua
+self:setColor(COLORS.lime) --lime is #00ff00, the colour usually used for green bullets. 
+```
+
+Next, we need to make our bullets heal instead of do damage. For this, we'll be working with the `Bullet:onCollide(soul)` function.
+
+`Bullet:onCollide(soul)` happens right as the soul collides with the bullet, and will activate damage logic if the player is not in an invulnerable state.
+
+We don't want any of that, so we're removing it! Add an `onCollide(soul)` override to your bullet if you haven't done so already.
+```lua
+function GreenBullet:onCollide(soul)
+
+end
+```
+Because we haven't called `super.onCollide(self, soul)` here, we've overwritten the original function entirely, meaning our bullet can no longer attempt to deal damage.
+
+Now we need to add the code that will heal our party.
+
+We have the option to heal either one or all of our party members - let's look at how to do both.
+
+If we want to heal every party member, then we can use a loop to iterate through each [`PartyBattler`](/wiki/api/PartyBattler) in our party, and call `PartyBattler:heal(amount)`. They're all stored in the table `Game.battle.party`.
+
+Afterwards, we call `remove()` on our bullet to make it disappear.
+```lua
+function GreenBullet:onCollide(soul)
+    for _, party in ipairs(Game.battle.party) do
+        party:heal(10) - Change this number to change how much HP the bullet heals
+    end
+    self:remove()
+end
+```
+
+If we want to heal just one party member, then we can use [`Utils.pick(tbl)`](/wiki/api/Utils#pick) to select a random party member from `Game.battle.party`, and call `PartyBattler:heal(amount)` on them.
+
+Afterwards, we call `remove()` on our bullet to make it disappear.
+```lua
+function GreenBullet:onCollide(soul)
+    local target = Utils.pick(Game.battle.party)
+    target:heal(10) -- Change this number to change how much HP the bullet heals
+    
+    self:remove()
+end
+```
+</Box>
+
+<Box>
+## Bullet Example: Circles [circles]
+
+Circles and sections of a circle can often be relevant to bullet patterns.
+
+Let's look at how we can set these up and use them in our waves!
+
+---
+
+To start with, we need some basic but important values for any circle and some formula that we can use to calculate positions on our circles:
+
+```lua
+local radius = 50
+local center_x = 320
+local center_y = 240
+
+local angle = math.rad(0)
+
+local x = center_x + radius * math.cos(angle)
+local y = center_y + radius * math.sin(angle)
+```
+
+Let's break down the above code a bit.
+
+Firstly, the three variables `radius`, `center_x`, and `center_y` define the circle itself. In this case, we've chosen a 50 pixel radius, and centered the circle on the middle of the screen.
+
+Second, we have the `angle` variable - this effectively controls the position on the circle that we end up calculating. A degree of zero is the rightmost point on the circle, and as the value increases, the point we are finding moves clockwise around the circle.
+
+Finally, we have the formula for `x` and `y`. We don't need to alter this in most circumstances and as we'll show later, changing the definition of the circle is much more relevant to waves.
+
+### Spawning Bullets on a Circle
+
+Now that we've established the properties and calculations we're going to be working with across our circles, it's time to start applying them.
+
+First up is the simplest setup - let's look at how to spawn bullets along a circle.
+
+Inside a new wave, let's add our values from above inside the onStart function:
+
+```lua
+function CircleWave:onStart()
+    local radius = 50
+    local center_x = 320
+    local center_y = 240
+
+    local start_angle = math.rad(0)
+end
+```
+
+We've changed `angle` to `start_angle` here because we're going to be spwaning more than one bullet, and each bullet will have a different angle value.
+
+`start_angle` is, as you might have guessed, the angle of the first bullet we're spawning. It'll affect the position of all bullets as a result.
+
+Now we need to start spawning our bullets!
+
+We should set up a loop that runs one time for each bullet we want to spawn:
+
+```lua
+function CircleWave:onStart()
+    local radius = 50
+    local center_x = 320
+    local center_y = 240
+
+    local start_angle = math.rad(0)
+
+    local angle = start_angle
+    local bullet_count = 8
+    for i=1, bullet_count do
+        local angle_increment = (i-1) * 2*math.pi / bullet_count
+        local x = center_x + radius * math.cos(angle + angle_increment)
+        local y = center_y + radius * math.sin(angle + angle_increment)
+        self:spawnBullet("smallbullet", x, y)
+    end
+end
+```
+
+#### "Woah! what's happening to the x and y calculations?"
+
+Right! Because we want to spawn *multiple* bullets, the angle we use needs to change between them - that's what the extra part of the calculation is.
+
+In this case, `(i-1) * 2*math.pi / bullet_count` increases the angle such that every bullet will be spaced evenly around the circle.
+
+This works by splitting the angle value of a full turn, `2*math.pi` into parts equal in number to the number of bullets we are spawning, `bullet_count`.
+
+Then, for each bullet we spawn after the first, `(i-1)`, we add one of these parts to the angle.
+
+We can see this in action by running our wave twice with two different bullet counts and seeing how the wave adapts.
+
+But, before we do that - let's slightly modify the wave to spawn each bullet with a delay so we can see the incremental spawns in action.
+
+For this we can use a timer script that waits after each iteration of the loop like so:
+
+```lua
+function CircleWave:onStart()
+    local radius = 50
+    local center_x = 320
+    local center_y = 240
+
+    local start_angle = math.rad(0)
+
+    local angle = start_angle
+    local bullet_count = 8
+    self.timer:script(function (wait)
+        for i=1, bullet_count do
+            local angle_increment = (i-1) * 2*math.pi / bullet_count
+            local x = center_x + radius * math.cos(angle + angle_increment)
+            local y = center_y + radius * math.sin(angle + angle_increment)
+            self:spawnBullet("smallbullet", x, y)
+
+            wait(1/3)
+        end
+    end)
+end
+```
+
+Now let's see this in action!
+
+<video controls preload="none">
+    <source src="/wiki/circle_bullets_1.mp4" type="video/mp4" />
+    Your browser does not support this video. Sorry!
+</video>
+
+Let's set the bullet count to `12` now, and try again:
+
+<video controls preload="none">
+    <source src="/wiki/circle_bullets_2.mp4" type="video/mp4" />
+    Your browser does not support this video. Sorry!
+</video>
+
+Brilliant! As well as seeing how the incrementation works here, we also see how our bullets start at the rightmost point of the circle and then move around clockwise as the angle increases.
+
+Another thing of note is that the direction from the bullet to the center of the circle is the opposite of the angle used to spawn it.
+
+That means if we were to set the direction of the bullets in the above case to `math.pi + angle + angle_increment` then it would head towards the center of the circle.
+
+Another alternative to this is to set the direction the *same* as the angle, and set a negative speed value instead - both work the same.
+
+It'll be easier to see the circle now if we remove the timer we put in earlier to spawn all our bullets in at once as well.
+
+Let's see it in action!
+
+<video controls preload="none">
+    <source src="/wiki/circle_bullets_3.mp4" type="video/mp4" />
+    Your browser does not support this video. Sorry!
+</video>
+
+
+### Moving Circles (CircleController)
+
+Spawning bullets on a circle is good, but we can go further!
+
+Let's now look at how to make bullets move along a circle and move the circle itself.
+
+This stage benefits from a more complex setup - we're going to be creating and using a `CircleController` object to represent the circle and move the bullets for us.
+
+Doing this rather than making a custom bullet also means that we can attach whatever objects we want to the circle later, bullet or otherwise.
+
+We can create this new `CircleController` inside `scripts/objects`. Insert a new file called `CircleController.lua` and add in the boilerplate code below:
+
+```lua
+local CircleController, super = Class(Object)
+
+function CircleController:init(x, y)
+    super.init(self, x, y)
+
+end
+
+function CircleController:update()
+    super.update(self)
+end
+
+return CircleController
+```
+
+Now let's start setting up the controller!
+
+Let's set up our `init()` function to have the most basic variables we need for our calculations again.
+
+We're going to need the radius and the angle - the center is now the position of this controller object.
+
+We'll make arguments for those in the object's `init()` as well since we'll very commonly want to set both every time:
+
+```lua
+function CircleController:init(x, y, radius, angle)
+    super.init(self, x, y)
+
+    -- Radius of the circle, in pixels
+    self.radius = radius or 25
+
+    -- Angle of rotation for the circle, in radians
+    self.angle = angle or 0
+end
+```
+
+Now that we have these, we can set up our `update()` function. This one is very similar to our previous code, but we're looping through the object's children.
+
+```lua
+function CircleController:update()
+    super.update(self)
+
+    local spacing_angle = 2*math.pi / #self.children
+
+    for i, child in ipairs(self.children) do
+        child.x = self.radius * math.cos(self.angle + spacing_angle * i)
+        child.y = self.radius * math.sin(self.angle + spacing_angle * i)
+    end
+end
+```
+
+We don't need to add a center x/y value here because all of the bullets on our circle will be parented to this object, making it's position act as the circle's center automatically.
+
+Now let's look at how we use this in our wave!
+
+Let's go into a new wave file and set up something basic to show this off:
+
+```lua
+local Circle, super = Class(Wave)
+
+function Circle:onStart()
+    self.timer:everyInstant(5/4, function()
+        local x = Game.battle.soul.x
+        local y = Game.battle.soul.y
+
+        local radius = 50
+        local angle = 2*math.pi
+
+        local circle = CircleController(x, y, radius, angle)
+        self:addChild(circle)
+
+        for i=1, 9 do
+            local bullet = self:spawnBulletTo(circle, "bullets/smallbullet", 640, 640)
+            bullet.remove_offscreen = false
+        end
+    end)
+end
+
+function Circle:update()
+    super.update(self)
+end
+
+return Circle
+```
+
+As seen in the code above, we first have to create an instance of our `CircleController`, and parent it to another object:
+```lua
+local circle = CircleController(x, y, radius, angle)
+self:addChild(circle)
+```
+
+Then, inside of our `for` loop, we can use `spawnBulletTo()` to directly spawn our bullets to the circle. We're using a basic bullet with the smallbullet sprite here:
+```lua
+local bullet = self:spawnBulletTo(circle, "bullets/smallbullet", 640, 640)
+```
+We set their position to `640, 640` here so that they don't have any chance to spawn ontop of the soul and deal damage before the controller moves them to their correct position.
+
+These cirles should each spawn centered on our player soul. Let's see it in action!
+
+<video controls preload="none">
+    <source src="/wiki/circle_controller_1.mp4" type="video/mp4" />
+    Your browser does not support this video. Sorry!
+</video>
+
+Huh? Our bullets shouldn't be doing that!
+
+The issue here is that our bullets get destroyed when hit, and in turn disappear from the `children` table, which messes up the spacing.
+
+Returning to our `CircleController`, what we can do is make a "memory" for the circle's children instead.
+
+Inside of `CircleController:init()` we can define this new table:
+
+```lua
+self.children_memory = {}
+```
+
+Next, we need to track the children being added to this circle. We do this by hooking into the `addChild` and `removeChild` methods:
+
+```lua
+function CircleController:addChild(child)
+    super.addChild(self, child)
+
+    table.insert(self.children_memory, child)
+end
+
+function CircleController:removeChild(child)
+    super.removeChild(self, child)
+
+    local i = Utils.getIndex(self.children_memory, child)
+
+    self.children_memory[i] = false
+end
+```
+
+Our `children_memory` table now serves as a second reference to the circle's children. 
+
+Rather than removing child entries entirely, we set them to `false`, removing the reference to the object, but keeping a note that there *was* one here, so no object's position in the table never changes.
+
+Finally, we have to change our update function slightly to account for our new table:
+
+```lua
+function CircleController:update()
+    super.update(self)
+
+    local spacing_angle = 2*math.pi / #self.children_memory
+
+    for i, child in ipairs(self.children_memory) do
+        if child then
+            child.x = self.radius * math.cos(self.angle + spacing_angle * i)
+            child.y = self.radius * math.sin(self.angle + spacing_angle * i)
+        end
+    end
+end
+```
+
+The function now uses our `children_memory` table, and we've added this `if child then` check - this skips over our `false` values, rather than trying to use them like objects (causing a crash).
+
+If you test this in action again, you'll see that the bullets don't shift around any more when they get removed.
+
+---
+### Detaching Bullets from the Circle
+
+Sorting out our removed children issue also allows us to detatch bullets (not destroying them) without issue! Let's look at how to do that.
+
+You would first need to store a reference to the bullet you plan to change - then, using `setParent(parent)` you can change it to be parented to another object (ideally to the current wave).
+
+Since this changes the bullet's origin co-ordinates, we need some extra code to keep the bullet's current position:
+
+```lua
+-- Bullet reference when we spawn our bullet initially
+local bullet = self:spawnBulletTo(circle, ...)
+
+-- Somewhere else in the wave file... It's time to detatch our bullet
+local x, y = bullet:getScreenPos() -- Remember where our bullet currently is on the screen.
+bullet:setParent(self) -- We're in a wave file, so this parents it to the current wave, and unparents it from the circle.
+bullet:setScreenPos(x, y) -- Set our bullet to where it was on the screen before we reparented it.
+```
+
+---
+### Actually Moving Circles
+
+All of this is great, but we haven't actually showed off the whole reason we made this object yet! This segment is all about *moving* circles after all!
+
+For starters, the circle itself moves very easily - it's all tied to the position of the `CircleController` itself, giving us a few options.
+
+A simple way is to use the `physics` table to make the circle move around. This example wave (a modification of the one from earlier) does just that:
+
+```lua
+local Circle, super = Class(Wave)
+
+function Circle:onStart()
+    self.timer:everyInstant(5/4, function()
+        local x = SCREEN_WIDTH + 80
+        local y = Utils.random(Game.battle.arena:getTop(), Game.battle.arena:getBottom())
+
+        local radius = 50
+        local angle = 2*math.pi
+
+        local circle = CircleController(x, y, radius, angle)
+        circle.physics.speed_x = -8
+        self:addChild(circle)
+
+        for i=1, 9 do
+            local bullet = self:spawnBulletTo(circle, "bullets/smallbullet", 640, 640)
+            bullet.remove_offscreen = false
+        end
+    end)
+end
+
+function Circle:update()
+    super.update(self)
+end
+
+return Circle
+```
+
+And let's also show what that looks like in action:
+
+<video controls preload="none">
+    <source src="/wiki/circle_controller_moving_physics.mp4" type="video/mp4" />
+    Your browser does not support this video. Sorry!
+</video>
+
+The alternative option here is to use parenting, binding the movement of the circle to the movement of it's parent.
+
+This is useful if you want to center the circle on something else/have an object at the circle's center.
+
+Let's say you have a wave and want to center a circle on each attacker. You could do that like so:
+
+```lua
+for _, battler in ipairs(self:getAttackers()) do
+    local circle = CircleController(battler.width / 2, battler.height / 2, 50, 0) -- Circle centered on the battler, with radius 50
+    battler:addChild(circle)
+end
+```
+
+This also allows us to get more creative with our circles, as we can in fact have a CircleController parented to a CircleController, making circles of circles:
+
+```lua
+local circle = CircleController(SCREEN_WIDTH, SCREEN_HEIGHT / 2, 50, 0) -- Circle centered on the right-center edge of the screen, with radius 50
+self:addChild(circle)
+for i=1, 3 do
+    local subcircle = CircleController(0, 0, 16, 0)
+    circle:addChild(subcircle)
+end
+```
+
+We would also need to add bullets to our subcircles (and optionally, our main circle). Let's show another example variation of our wave with subcircles:
+
+```lua
+local Circle, super = Class(Wave)
+
+function Circle:onStart()
+    self.timer:everyInstant(5/4, function()
+        local x = SCREEN_WIDTH + 80
+        local y = Utils.random(Game.battle.arena:getTop(), Game.battle.arena:getBottom())
+
+        local radius = 50
+        local angle = 2*math.pi
+
+        local circle = CircleController(x, y, radius, angle)
+        circle.physics.speed_x = -8
+        self:addChild(circle)
+        for i=1, 3 do
+            local subcircle = CircleController(0, 0, 16, 0)
+            circle:addChild(subcircle)
+
+            for i=1, 6 do
+                local bullet = self:spawnBulletTo(subcircle, "bullets/smallbullet", 0, 0)
+                bullet.remove_offscreen = false
+            end
+        end
+    end)
+end
+
+function Circle:update()
+    super.update(self)
+end
+
+return Circle
+```
+
+And let's see how this one looks in action:
+
+<video controls preload="none">
+    <source src="/wiki/circle_controller_subcircles.mp4" type="video/mp4" />
+    Your browser does not support this video. Sorry!
+</video>
+
+That's pretty cool, but you'll notice that it's not feeling very "circle-y" because it's static. That brings us to our next point!
+
+---
+### Moving Bullets around a Circle
+
+We also need to look at how to tinker with the bullet positions along the circle (not movement of the circle as a whole)!
+
+As you'll know by now, this is all down to the angle and radius of the circle, that's precisely why we even have the `angle` variable.
+
+The two variables are very similar to work with as well actually! All we need to do is increment and decrement them as we please.
+
+This can be done directly from the wave, or inside the object itself. For the sake of keeping `CircleController` flexible, we'll be opting for the wave method.
+
+The `doWhile()` timer function will be our aid here, it's essentially like an `update` function blended with a `while` loop.
+
+It's time for (yet another) variation of our wave:
+
+```lua
+local Circle, super = Class(Wave)
+
+function Circle:onStart()
+    self.timer:everyInstant(5/4, function()
+        local x, y = Game.battle.arena:getCenter()
+
+        local radius = 90
+        local angle = Utils.random(0, 2*math.pi)
+
+        local circle = CircleController(x, y, radius, angle)
+        self:addChild(circle)
+
+        for i=1, 6 do
+            local bullet = self:spawnBulletTo(circle, "bullets/smallbullet", 640, 640)
+            bullet.remove_offscreen = false
+        end
+
+        self.timer:doWhile(function() return circle end, function ()
+            circle.radius = circle.radius - 50 * DT -- Decrease radius by 50 per second
+            circle.angle = circle.angle + math.rad(90 * DT) -- Turn clockwise at 90 degrees per second
+
+            if circle.radius <= 0 then
+                circle:remove()
+            end
+        end)
+    end)
+end
+
+function Circle:update()
+    super.update(self)
+end
+
+return Circle
+```
+
+The key difference here is our `doWhile` loop being involved. Let's run the wave to see what this looks like, and then break it down.
+
+<video controls preload="none">
+    <source src="/wiki/circle_controller_dowhile.mp4" type="video/mp4" />
+    Your browser does not support this video. Sorry!
+</video>
+
+Firstly, we provide a condition to `doWhile` - this comes in the form of a function, for us that function is this:
+```lua
+function()
+    return circle
+end
+```
+This is an incredibly basic condition that simply checks the existence of `circle` - so the condition is effectively "while the circle exists".
+
+Now, for the actual content of our timer:
+
+```lua
+circle.radius = circle.radius - 50 * DT -- Decrease radius by 50 per second
+circle.angle = circle.angle + math.rad(90 * DT) -- Turn at 90 degrees per second
+
+if circle.radius <= 0 then
+    circle:remove()
+end
+```
+
+We modify the values of `radius` and `angle` on our circle directly.
+
+We've also included an additional check to remove our circle once the radius hits zero, so the bullets don't start moving outwards again when the radius goes negative.
+
+Our calculations here rely on deltatime (`DT`) for consistency across framerates. 
+
+When multiplying a value, `a`, by deltatime in the way shown above it means that the rate of change of the variable is `a` units per second. For example, take the `50 * DT` for the radius translating to shrinking 50 pixels per second.
+
+That's all there is to changing `angle` and `radius`. 
+
+Now lets turn our attention to the spacing of our bullets to end off our circle tutorials.
+
+---
+### Configurable Bullet Spacing
+
+This does require some changes to `CircleController` to work.
+
+Firstly, we want to set up *two* new variables in `CircleController:init()`:
+
+```lua
+self.fixed_spacing = nil
+self.auto_spacing_range = 2*math.pi
+```
+
+Our first variable, `fixed_spacing`, will let us define a series of distinct angle spacing values for each bullet around the circle, as a table.
+
+Our second variable, `auto_spacing_range`, will let us define the **total angle of the circle covered by auto spacing**, effectively allowing us to create a "gap" in the auto-spacing.
+
+Now these variables need implementing. Returning to `CircleController:update()`:
+
+```lua
+function CircleController:update()
+    super.update(self)
+
+    local spacing_angle = self.fixed_spacing and 0 or self.auto_spacing_range / #self.children_memory
+
+    for i, child in ipairs(self.children_memory) do
+        if self.fixed_spacing then
+            -- Accumulate the spacing value with the newest index, if it exists
+            spacing_angle = self.fixed_spacing[i] and spacing_angle + self.fixed_spacing[i]
+        end
+        if child then
+            if self.fixed_spacing then
+                -- If there are fixed spacing values...
+                child.x = self.radius * math.cos(self.angle + spacing_angle)
+                child.y = self.radius * math.sin(self.angle + spacing_angle)
+            else
+                -- If there are no fixed spacing values...
+                child.x = self.radius * math.cos(self.angle + spacing_angle * i)
+                child.y = self.radius * math.sin(self.angle + spacing_angle * i)
+            end
+        end
+    end
+end
+```
+
+This revised version of update makes some changes to the way `spacing_angle` is calculated:
+- If the `fixed_spacing` table is defined, then it turns into a cumulative sum of the values of the table up to `i`.
+- Otherwise, it is calculated as the auto_spacing_range divided by the number of children - the same even spread from before but now able to cover less than a full circle.
+
+To change these fields in a wave, all you have to do is set them directly, just like `angle` and `radius`:
+
+```lua
+-- Example circle spawn
+local circle = CircleController(x, y, radius, angle)
+self:addChild(circle)
+
+self.auto_spacing_range = math.rad(300) -- Leaves a 60 degree gap in the circle.
+self.fixed_spacing = {math.rad(80), math.rad(20), math.rad(20), math.rad(80), math.rad(20), math.rad(20), math.rad(80), math.rad(20), math.rad(20)} -- Creates three groups of bunched up bullets on the circle.
+```
+
+Note that, when defined, `fixed_spacing` will take priority - for this reason we make it `nil` by default.
+
+The `auto_spacing_range` should be fairly self-explanatory, but `fixed_spacing` is slightly more complex, so let's show a wave example for that one:
+
+```lua
+local Circle, super = Class(Wave)
+
+function Circle:onStart()
+    self.timer:everyInstant(5/4, function()
+        local x, y = Game.battle.arena:getCenter()
+
+        local radius = 90
+        local angle = Utils.random(0, 2*math.pi)
+
+        local circle = CircleController(x, y, radius, angle)
+        self:addChild(circle)
+        circle.fixed_spacing = {math.rad(80), math.rad(20), math.rad(20), math.rad(80), math.rad(20), math.rad(20), math.rad(80), math.rad(20), math.rad(20)}
+
+        for i=1, #circle.fixed_spacing do
+            local bullet = self:spawnBulletTo(circle, "bullets/smallbullet", 640, 640)
+            bullet.remove_offscreen = false
+        end
+
+        self.timer:doWhile(function() return circle end, function ()
+            circle.radius = circle.radius - 50 * DT -- Decrease radius by 20 per second
+            circle.angle = circle.angle + math.rad(90 * DT) -- Turn at 90 degrees per second
+            
+            if circle.radius <= 0 then
+                circle:remove()
+            end
+        end)
+    end)
+end
+
+function Circle:update()
+    super.update(self)
+end
+
+return Circle
+```
+
+We've incorporated our previous `doWhile` into this as well, but the focus here is the `fixed_spacing` table.
+
+The table itself is just the angle between one bullet to the next, but we also want to remember to **limit our bullets to the length of this table**, hence the use of `#circle.fixed_spacing` for the upper bound of our `for` loop.
+
+The wave looks like this when put in action:
+
+<video controls preload="none">
+    <source src="/wiki/circle_controller_fixed_spacing.mp4" type="video/mp4" />
+    Your browser does not support this video. Sorry!
+</video>
+
+---
+
+And that's just about everything for circles in your waves!
+
+As a footnote, this code is technically not wave exclusive at all! It's compatible with any type of object if you do need this same movement elsewhere.
+
+Mix and match these circle movements together to see how you can spice up your waves!
+</Box>
+
+<Box>
+## Basic Afterimages [afterimages]
+
+A common effect you may want to add to certain bullets, battlers, or other graphics in battle is an afterimage.
+
+Kristal provides the [`AfterImage`](/wiki/api/AfterImage) object to simplify the process of setting up an afterimage on an object.
+
+The AfterImage object **automates the effect of** an after-image sprite - in other words, the AfterImage object is a single sprite in a series of other AfterImage sprites, **not an object that automates the entire effect.**
+
+For this reason, we need to make the necessary code to spawn AfterImages to make the complete effect.
+
+AfterImage works on anything that has a sprite or is a sprite, so we'll take that a `sprite_to_afterimage` local variable is defined in this example, and it holds the Sprite we want to create AfterImages from.
+
+We also want both a `Timer` instance ready, which we'll refer to as `timer`. In a wave, you'll probably be using `self.timer` (the wave's timer), and other objects will use `Game.battle.timer`.
+
+You can swap out these placeholder variables with the actual reference to your sprite and timer, or you could start by assinging the target sprite and timer to the variables. 
+
+For example, if you're working in a bullet file you could do:
+```lua
+local sprite_to_afterimage = self.sprite
+local timer = self.wave.timer
+```
+
+As for the actual afterimage, we can make use of a simple timer:
+```lua
+-- This timer will automatically create at an interval of `1/15` seconds - you can make the interval faster/slower to suit the effect by changing the number in the function below
+timer:every(1/15, function()
+    -- If our sprite stops existing, this stops the timer so we don't crash
+    if not sprite_to_afterimage then
+        return false
+    end
+    
+    -- The AfterImage takes three arguments - the sprite, the initial alpha of the afterimage, and the fade speed.
+    -- Play around with these values to decide what fits your effect best!
+    local after_image = AfterImage(sprite_to_afterimage, 0.4, 0.04)
+    -- Parent the AfterImage to the sprite otherwise it won't appear in-game!
+    sprite_to_afterimage:addChild(after_image)
+end)
+```
+Remember that you must define `timer` and `sprite_to_afterimage` before this or replace `timer` and `sprite_to_afterimage` with valid `Timer` and `Sprite` objects.
+
+### Pausing and Resuming
+If we want to toggle our afterimages on and off, we can make use of the function's handle on the timer.
+
+To get our function's handle, we take the direct return result of the initial function, for example, take this line below:
+```lua
+local handle = timer:every(...)
+```
+This gives us the handle for our new timer function in a nice `handle` local variable, which we can use to subsequently pause and resume. Using the same Timer object we set our handle onto:
+```lua
+timer:pause(handle) -- Pauses our handle indefinitely
+timer:unpause(handle) -- Resumes our handle
+```
+Of course, make sure to use an appropriate timer and variable for your handle for your usecase!
+
+For example, if you were setting up an `AfterImage` for an `EnemyBattler` to use in some waves, you'd want to set up your timer in `EnemyBattler:init()`, but likely access it inside of your wave scripts.
+
+Using a local variable for your handle would render it inaccessible to the wave, so assigning it to a field of the enemy such as `self.afterimage_handle` would be necessary instead.
+
+Selecting an accessible timer is also straightforward thanks to the globally accessible `Game.battle.timer` while the battle is ongoing.
+</Box>
+
+<Box>
+## Attack Telegraphing (Warnings) [attack-telegraphing]
+
+All waves should strive to be readable by players. A wave that you can't understand or prepare for is probably a wave you can't dodge either!
+
+Knowing how to telegraph your waves is therefore important for making battles fun to play.
+
+This mini-guide is focussed on code tricks for drawing basic attack telegraphs only, but there are certainly other means of telegraphing.
+
+Take for example the + bombs in the Spamton NEO fight, whose sprites indicate the mechanics of their explosions. This type of telegraphing may be more relevant to some scenarios than our code solutions.
+
+### Striaght-line Trajectories
+
+Sometimes you might have bullets moving very fast along a line of motion, or a lot of bullets coming in from different angles at once.
+
+Let's look at how you can draw a straight line that matches the trajectory of your bullet.
+
+The LOVE function `love.graphics.line(x1, y1, x2, y2)` allows us to draw lines as long as we're inside a `draw()` function - it requires two different co-ordinates to draw a line between.
+
+Before we look at the co-ordinates though, it's important to know that **the layer of the line will be the same as the layer of the object whose `draw` function it is called from**.
+
+Choose which object's `draw` function you use wisely based on what layer you want to draw your line on.
+
+Anyway - the first point of the line, `(x1, y1)`, should be the spawn point of the incoming bullet.
+
+The second point then has to be calculated as a point along the bullet's path of motion.
+
+Taking the bullet's direction as `direction`, the first point on the movement path as `(x1, y1)`, and the length of the line we want to draw (in pixels) as `length` we can calculate the second point of the line as follows:
+
+```lua
+local x2 = x1 + length * math.cos(direction)
+local y2 = y1 + length * math.sin(direction)
+```
+
+Now, we need to draw the line! All we have to do is:
+
+```lua
+love.graphics.line(x1, y1, x2, y2)
+```
+
+Although, we probably want to change how the line looks too... We can do that by changing the graphics state before drawing the line with some additional functions.
+
+Let's look at our options below:
+
+```lua
+love.graphics.setColor({ 1, 0, 0, 0.4 }) -- Draw in a translucent red colour
+love.graphics.setLineWidth(16) -- Draw a 16px width line
+love.grpahics.setLineStyle("rough") -- Draw the line with rough edges
+```
+
+This example above makes the line draw with 16px of width, and as a translucent red.
+
+You could instead opt for a very thin line:
+
+```lua
+love.graphics.setColor(COLORS.red) -- Draw in pure red
+love.graphics.setLineWidth(1) -- Draw 1px line
+love.graphics.setLineStyle("rough") -- Draw the line with rough edges
+```
+
+Fiddle around with the values until you get the line style you desire.
+
+Making the telegraph appear and disappear at the right times may be more difficult depending on the wave. 
+
+One or two lines can easily be handled by setting up boolean values to communicate between the wave/bullets and the `draw()` function.
+
+Add more bullets and randomness and it becomes necessary to have a more coordinated solution.
+
+A good strategy here is to make use of tables - we can add information about lines to a table, and then read that table to draw our lines. 
+
+Let's explore that a bit more.
+
+Let's define a table on our wave - `self.lines = {}`. This goes inside `Wave:init()`.
+
+When we want to start telegraphing a bullet, we need to add to this table.
+
+Calculate `x1`, `y1`, `x2`, and `y2` at this point.
+
+With these values, we want to insert a new entry into the table, we can do that with `table.insert()`:
+
+```lua
+table.insert(self.lines, {x1, y1, x2, y2})
+```
+
+When we want to stop drawing the telegraph, we then have to remove it.
+
+Assuming our bullets are all telegraphed for the same duration, we can treat the table like a stack, and just remove the first entry each time with `table.remove(self.lines, 1)`. 
+
+If we want variable telegraphing lengths, then we instead add another number to our table to act as a timer:
+
+```lua
+table.insert(self.lines, {x1, y1, x2, y2, time})
+```
+
+Here, `time` should be a local variable assigned the time in seconds that the telgraph should be visible for.
+
+Now, for drawing the line telegraphs, we should loop through the lines and draw all of the ones that are present:
+
+```lua
+-- Inside a draw() function...
+
+-- Used to store lines with 0 time left if using line lifetimes.
+local lines_to_remove = {}
+
+-- IMPORTANT: This line should change to reference the `lines` table of the wave from wherever it is being drawn.
+local lines_table = self.lines 
+
+for _, line in ipairs(lines_table) do
+    local x1, y1, x2, y2, time = unpack(line)
+
+    -- Configure graphics state here
+
+    -- Draw the line
+    love.graphics.line(x1, y1, x2, y2)
+
+    -- Process timer
+    if time then
+        line[5] = time - DT
+
+        if line[5] <= 0 then
+            table.insert(lines_to_remove, line)
+        end
+    end
+end
+
+-- Remove lines with expired timers. This is done seperately because you shouldn't remove things from a table while iterating through it.
+for _, line in ipairs(lines_to_remove) do
+    Utils.removeFromTable(line)
+end
+```
+
+This solution should handle as many lines as we need!
+
+### Shape Functions
+
+Another option for quick telegraphing is to draw a shape that represents an area that is about to become dangerous.
+
+We have a few shape functions available through LOVE for use here:
+
+- `love.graphics.circle(mode, x, y, radius)`
+- `love.graphics.rectangle(mode, x, y, width, height)`
+- `love.graphics.polygon(mode, vertices)`
+
+The way we approach implementing these is largely the same as drawing lines - just without the calculation for the second point - so we won't go over implementation tactics again.
+
+Let's instead look at important notes about the differences between these and lines!
+
+Firstly, these all specify a `mode` - this is because we can have either just the outline of the shape by passing in `"line"`, or draw the filled shape, with `"fill"`.
+
+If you want to draw any of these shapes with a line coloured one way and a fill coloured another way, then you can draw the fill beneath the outline and use different colours. For example:
+
+```lua
+love.graphics.setLineWidth(2) -- 2px line width
+love.graphics.setColor({ 0, 0, 1, 0.4 }) -- Translucent blue circle fill
+love.graphics.circle("fill", ...) -- Draws the fill coloured translucent blue
+love.graphics.setColor(COLORS.red) -- Red circle outline
+love.graphics.circle("line", ...) -- Draws the circle outline pure red
+```
+
+Our `x` and `y` values for each type of shape vary: 
+- For circles, `x` and `y` represent the center of the circle.
+- For rectangles, they represent the top-left of the rectangle.
+- For polygons, every vertex is it's own set of co-ordinates, hence why there is no `x` and `y`.
+
+### Warning Sprites
+
+If you want to display sprites to signify warnings, that's an option too!
+
+This one is fairly easy to pull off, as sprites are just objects we can spawn in and remove at will.
+
+All we need to know is where we want the top-left point of the sprite to be to spawn it in position.
+
+```lua
+local warning_sprite = Sprite(texture, x, y)
+```
+
+We store this sprite in the `warning_sprite` variable so that we can alter it as we please (including removing it later).
+
+If you want to make your sprite animate, you can start it here:
+
+```lua
+warning_sprite:play(speed, loop, on_finished)
+```
+
+The third argument here is particularly useful if you have a non-looping animation and you want to line up the attack with the end of it.
+
+As it's name suggests, that argument is a callback function that runs when the animation is finished.
+
+Let's say our sprite the animation of a wind up to an explosion - rather than trying to line up the animation with the explosion via a timer, we can just use the `on_finished` callback to spawn the explosion bullet and remove our sprite:
+
+```lua
+-- Somewhere in the wave file...
+
+warning_sprite:play(1/15, false, function()
+    self:spawnBullet("explosionbullet", warning_sprite.x, warning_sprite.y)
+
+    warning_sprite:remove()
+end)
+```
+
+In other circumstances, the best approach to removing the sprite is just doing so at the same point the bullet(s) related to it appear.
+
+Alternatively - if you don't want an appearing and disappearing sprite but ones that are always present and change to indicate an attack, you can use the same logic, but with a few changes to the setup.
+
+Rather than spawning new sprites, you can use `setSprite()` on the target instead - and `resetSprite()` instead of removing it.
+
+This method can work on both sprites spawned in by your wave and ones that already existed. 
+
+In particular, enemy sprites are stored under their EnemyBattlers in `EnemyBattler.sprite`. They are best accessed in a wave through `Wave:getAttackers()`.
+</Box>
+
+<Box>
+## Masking Bullets to the Arena [bullet-masking]
+
+The `Arena` object contains a special `ArenaMask` which masks all bullets (and any other objects) parented to it to the arena. This mask is stored under the `mask` variable of the arena, which can be accessed through `Game.battle.arena.mask`.
+
+Spawning bullets to the Arena mask can be done through `Wave:spawnBulletTo(parent, bullet, ...)`.
+The function works the same as `Wave:spawnBullet(bullet, ...)`, but we specify the parent first:
+```lua
+self:spawnBulletTo(Game.battle.arena.mask, "mybullet", 0, 0)
+```
+
+Parenting a bullet to the mask can also be done after spawning it, all you need to do is call `setParent()` on the bullet like so:
+```lua
+-- With the `bullet` variable containing the bullet we want to mask...
+bullet:setParent(Game.battle.arena.mask)
+```
+
+You may be inclined to believe using `addChild()` on the mask has the same effect, however **this will cause several issues because the bullet already has a parent**. Do not do this.
+
+### Non-zero parent positions
+One more consideration when you start masking bullets to the arena's mask - it's not positioned at `(0, 0)`! Well actually... the *mask* is, but the *arena* is not. Regardless - what does this mean for us?
+
+Whenever you parent one object to another, the origin co-ordinate for the child object - `(0, 0)` - becomes the origin of it's parent, instead of the top-left of the screen.
+
+What this means is that our bullet's position tends to get messed up as it's `x` and `y` values are now translated by the arena position to get it's position on the screen. 
+
+While it is perfectly fine to design waves with this in mind, it's not *ideal* to redesign a wave where we thought the bullet's origin was going to be the top-left of the screen. Fortunately, there's a solution!
+
+All objects have `getScreenPos()` and `setScreenPos(x, y)` functions that allow us to get and set their co-ordinates as they appear on the screen. How convenient!
+
+If we just spawned in a new bullet at `(320, 240)` and parented it to the arena mask, then the co-ordinates we put into `spawnBullet()` get translated by the arena's position. If we put them back into `setScreenPos()` however, the bullet will be back at `(320, 240)` (the center of the screen!)
+
+Here's that process as a little block of code:
+```lua
+local bullet = self:spawnBullet("bullets/smallbullet", 320, 240) -- Spawn a bullet with the smallbullet texture at the center of the screen (320, 240)
+bullet:setParent(Game.battle.arena.mask) -- Mask the bullet to the arena. This has moved our bullet away from `(320, 240)`!
+bullet:setScreenPos(320, 240) -- Moves the bullet back to (320, 240).
+```
+
+For a stationary arena, we only need to 'calibrate' our bullets like this when we spawn them and do non-relative movement of the bullet.
+
+If the arena is also moving, then masked bullets move with the arena as well - Keep that in mind when designing your waves too!
+</Box>
+
+<Box>
+## Custom Soul Modes [custom-souls]
+
+Kristal provides us with the standard red soul mode in battles as part of the [`Soul`](/wiki/api/Soul) object - But what if we're feeling blue? Or green? Or yellow? Or any other colour?
+
+What we need in these situations is a custom soul mode! Let's look at how a custom soul is made and activated in battle.
+
+**(This is not a tutorial on how to create a specific soul type.)**
+
+**(If you're using a custom soul library and just want to know how to change to its custom soul, jump to ["Changing Souls in Battle"](/wiki/wavemaking-reference#changing-souls-in-battle))**
+
+To start with creating a custom soul mode, we want to **create a new object** and make sure that object **extends the original `Soul`**.
+
+This means creating a new file inside of your mod's `scripts/objects` folder, and inserting the following code:
+
+```lua
+local MySoul, super = Class(Soul)
+
+function MySoul:init(x, y, color)
+    super.init(self, x, y, color)
+end
+
+return MySoul
+```
+
+This copies the original red soul into our new object, which is necessary as `Soul` includes important functions related to code such as battle transitions and GameOvers - it also just gives us a good base to work off of.
+
+### The `doMovement()` function
+You can take a look at every function available on the `Soul` object by checking the [API Reference](/wiki/api/Soul), but the most important one to highlight in this mini-guide is `Soul:doMovement()`.
+
+`Soul:doMovement()` is called every frame that the soul is able to move, determined by the `soul.can_move` variable. For the default soul, `doMovement()` looks like this:
+
+```lua
+--- Called every frame from within [`Soul:update()`](lua://Soul.update) if the soul is able to move. \
+--- Movement for the soul based on player input should be controlled within this method.
+function Soul:doMovement()
+    local speed = self.speed
+
+    -- Do speed calculations here if required.
+
+    if self.allow_focus then
+        if Input.down("cancel") then speed = speed / 2 end -- Focus mode.
+    end
+
+    local move_x, move_y = 0, 0
+
+    -- Keyboard input:
+    if Input.down("left")  then move_x = move_x - 1 end
+    if Input.down("right") then move_x = move_x + 1 end
+    if Input.down("up")    then move_y = move_y - 1 end
+    if Input.down("down")  then move_y = move_y + 1 end
+
+    self.moving_x = move_x
+    self.moving_y = move_y
+
+    if move_x ~= 0 or move_y ~= 0 then
+        if not self:move(move_x, move_y, speed * DTMULT) then
+            self.moving_x = 0
+            self.moving_y = 0
+        end
+    end
+end
+```
+
+Whether or not this code is helpful to creating your envisioned soul mode will depend on how far you plan to change things up, but we should go over some **important** things this code does:
+- The `moving_x` and `moving_y` variables are set to `-1/0/1` based on movement. This allows other code to know the direction the soul is moving, and whether it is moving at all - these variables are behind the `Soul:isMoving()` function!
+- The `self:move()` function is called - This function performs collision checks with the arena's bounds. It is also inside an `if` condition - the particular condition here runs the inner block if the soul does not move at all from collision and appropriately resets `moving_x` and `moving_y` to 0.
+- The speed of the soul is multiplied by **DTMULT** - the code in `doMovement()` is **run every frame**, so we must do this to keep the soul's movement speed consistent across framerates.
+
+Even for things that you may not consider *movement*, but are part of the player's control, you will want to use `doMovement()`.
+
+This is because the Soul's update function is structured to do Transition checks -> Movement (`doMovement()`) -> Collision and Grazing. The first step, the transition checks, will stop any movement and collision checks if the soul is in the transition in.
+
+As such, `doMovement()` provides the ideal location for all player inputs, because of these transition checks and the subsequent grazing code that we can nicely nestle all our input code between, without having to touch `update()` at all.
+
+*(In a more complex soul, such as the Green Soul, you'd probably want custom graze code too, at which point whether you do or don't use `doMovement()` instead of `update()` starts to not matter so much as you're hooking it either way.)*
+
+### Changing Souls in Battle
+
+Whether you've made your own soul type, or are using one through a custom library, you will need to know how to actually make this the player soul in battle.
+
+#### The Encounter:createSoul() function
+
+For starters, we want to look at our **Encounter** files. The `Encounter` object is actually responsible for choosing the soul spawned at the start of each wave via `Encounter:createSoul(x, y, color)`.
+
+It's default implementation is as such:
+```lua
+--- *(Override)* Creates the soul being used this battle (Called at the start of each wave)
+--- By default, returns the regular (red) soul.
+---@param x         number  The x-coordinate the soul should spawn at.
+---@param y         number  The y-coordinate the soul should spawn at.
+---@param color?    table   A custom color for the soul, that should override its default.
+---@return Soul
+function Encounter:createSoul(x, y, color)
+    return Soul(x, y, color)
+end
+```
+
+As you can see, this function **creates and returns** the soul type that will be used - or atleast the one that spawns at the start of the wave.
+
+If we want to use a soul type for the whole battle, we can simply swap that soul's id/global name into our statement, and change the arguments passed into it if necessary.
+
+For example, if our soul was called `MySoul`, it would be `return MySoul(x, y, color)`.
+
+If you're not sure what your soul's id/global name is, it defaults to the case-sensitive name of the file. This means that in our example above, the object created would be from the file `scripts/objects/MySoul.lua`
+
+In libraries, you will need to consult the information provided by the library author, as they should have the id of the soul specified in either attached documentation or the description of their library.
+
+If we wanted to use *multiple* souls in the battle, we could add some conditions to determine what soul gets returned.
+
+Let's say we want our default soul on turn one, and then on other turns we either have a custom soul, `MySoul`, or if a variable `funky_soul` is `true` on our encounter, another custom soul, `FunkySoul`:
+```lua
+function Encounter:createSoul(x, y, color)
+    -- On turn one, return the default soul...
+    if self.turn == 1 then
+        return Soul(x, y, color)
+    end
+    -- If we set this variable to true, and it isn't turn one, return this FunkySoul.
+    if self.funky_soul then
+        -- Most custom soul types will be defining their own colors, so we don't really need to pass in `color` and can just pass `x` and `y`
+        return FunkySoul(x, y)
+    end
+    -- On any other turn, return our custom soul.
+    return MySoul(x, y, color)
+end
+```
+
+Let's look a bit closer into our `FunkySoul`/`MySoul` choice here - if you want to be able to change between soul types from any range of different triggers, using variables like this can be very handy.
+
+Since this is in our encounter file, we have a way to globally access and change this variable, through `Game.battle.encounter`.
+
+This means that if we want an ACT to trigger our FunkySoul, we can simply add `Game.battle.encounter.funky_soul = true` to our ACTs code, and it will trigger the FunkySoul.
+
+If we wanted FunkySoul to be triggered by a spell, an item, or something similar, the same works too. We can actually set this practically anywhere that the battle is active.
+
+With all this in mind - remember that `createSoul()` is an **encounter** function - so changes to the variable will only have an effect if the specific encounter with this code is added.
+
+If we wanted to make this apply to all battles, we would have to **hook `Encounter` itself** with either a hook script or by using `Utils.hook()` to make it the new default implementation.
+
+#### The `Battle:swapSoul()` function
+
+That's everything for the `createSoul()` function. Let's now look at the other important function for using custom souls - `Battle:swapSoul()`.
+
+The `Encounter:createSoul(x, y, color)` function was responsible for deciding the soul used at the start of each wave - `Battle:swapSoul(object)` enables us to further change the active Soul object within the wave itself.
+
+We can call `Battle:swapSoul(object)` at any point and it will remove the current soul and replace it with the Soul passed into it as `object`.
+
+If we wanted to activate a custom soul called `FunkySoul` when we get hit by an enemy bullet, we can use a function such as it's `onCollide()` code to accomplish that:
+```lua
+-- Create our FunkySoul. 
+local soul = FunkySoul()
+Game.battle:swapSoul(soul)
+```
+
+This would immediately activate our FunkySoul - you'll notice that we gave it no `x` or `y` argument compared to `createSoul()` - this is because `swapSoul()` handles the soul position for us.
+
+That's all there is to it! Changing soul modes within a wave is actually very straightforward - `Game.battle` is accessible globally in battles, which also means we can swap souls from pretty much anywhere too.
+
+### Additional Notes
+
+We could combine the two methods we've used for swapping soul modes - if a bullet activates FunkySoul, we could make it stay for the battle by setting the `funky_soul` variable from the prior example to true at the same time:
+```lua
+-- In an imaginary "FunkyBullet" that triggers the FunkySoul
+function FunkyBullet:onCollide(soul)
+    super.onCollide(self, soul)
+
+    local soul = FunkySoul()
+    Game.battle:swapSoul(soul)
+    Game.battle.encounter.funky_soul = true
+end
+```
+This would make it so that the FunkySoul remains until we somehow un-Funkify the soul by setting the value back to `false`.
+
+---
+
+If you want to access the soul in battle, it exists under `Game.battle.soul`. However, keep in mind that **the soul is destroyed between waves**, so code that tries to access it outside the defending phase will cause a crash.
+
+Likewise, **any custom variables set on the soul get reset**, so if you have any data that should persist between waves, **it must be stored elsewhere**.
+</Box>
