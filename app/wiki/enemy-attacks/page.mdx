@@ -2,7 +2,7 @@ import Box from 'components/Box'
 
 export const metadata = {
     title: 'Enemy Attacks (Waves)',
-    description: '',
+    description: 'Learn the fundamentals of enemy attacks.',
 }
 
 # Enemy Attacks
@@ -421,7 +421,7 @@ We can get to the action faster by making this run once instantly as well - this
 
 `Timer:everyInstant()` is another timer function that is identical to `every` in every way other than running our function once right away.
 
-If you try the wave again using `everyInstant()`, you'll see the first wave of bullets spwaning instantly.
+If you try the wave again using `everyInstant()`, you'll see the first wave of bullets spawning instantly.
 
 ---
 ### The Timer:after() function [timer-after-function]
@@ -492,7 +492,7 @@ But before we do that, let's establish the code for the new timer - as well as w
 -- Every 1/15th of a second...
 self.timer:every(1/15, function()
     -- Cancel timer if the bullet is removed
-    if not bullet then
+    if bullet:isRemoved() then
         return false
     end
 
@@ -501,13 +501,13 @@ self.timer:every(1/15, function()
     bullet:addChild(after_image)
 end)
 ```
-The first part of this timer is new - this checks for the existence of `bullet` (which will be our big bullet).
+The first part of this timer is new - this checks that `bullet` (which will be our big bullet) has not been removed.
 
-If the bullet is not found by this condition, the timer function will return `false` - this cancels the timer function fully.
+If the condition succeeds (the bullet has been removed), the timer function will return `false` - this cancels the timer function fully.
 
 #### But why?
 
-As we said before, we need this timer inside our `after` function partly to **reference the big bullet** - cancelling the timer accounts for the other end our timeline, when the bullet no longer exists.
+As we said before, we need this timer inside our `after` function partly to **reference the big bullet** - cancelling the timer accounts for the other end of the timeline, when the bullet no longer exists.
 
 This happens because all bullets are **automatically removed once they go offscreen**, UNLESS their `remove_offscreen` field is set to `false`.
 
@@ -910,7 +910,7 @@ We can put **whatever we want** as parameters to our `init()`, and the `...` in 
 
 We'll go more in depth on this later, for now all we need to know is that we're still going to use `x` and `y`.
 
-As for our bullet texture, i've set that in `super.init` as `bullets/donut`. naturally, we need to have a sprite there to go with it:
+As for our bullet texture, I've set that in `super.init` as `bullets/donut`. Naturally, we need to have a sprite there to go with it:
 
 ![](/wiki/donut.png) \<--- (It's very small again)
 

@@ -2,7 +2,7 @@ import Box from 'components/Box'
 
 export const metadata = {
     title: 'Wavemaking Tricks and References',
-    description: '',
+    description: 'A collection of resources to help you work with waves!',
 }
 
 # Wavemaking Tricks and References [tips-and-references]
@@ -23,7 +23,7 @@ This page is focused on tips and tricks for things that are commonly relevant to
 - [Selecting Waves](#selecting-waves)
 - [Blue/Orange Bullets](#blue-orange-bullets)
 - [Green Bullets](#green-bullets)
-- [Cricles](#circles)
+- [Circles](#circles)
 - [Afterimages](#afterimages)
 - [Attack Telegraphing](#attack-telegraphing)
 - [Masking Bullets to the arena](#bullet-masking)
@@ -1018,7 +1018,7 @@ function Circle:onStart()
             bullet.remove_offscreen = false
         end
 
-        self.timer:doWhile(function() return circle end, function ()
+        self.timer:doWhile(function() return not circle:isRemoved() end, function ()
             circle.radius = circle.radius - 50 * DT -- Decrease radius by 50 per second
             circle.angle = circle.angle + math.rad(90 * DT) -- Turn clockwise at 90 degrees per second
 
@@ -1156,7 +1156,7 @@ function Circle:onStart()
             bullet.remove_offscreen = false
         end
 
-        self.timer:doWhile(function() return circle end, function ()
+        self.timer:doWhile(function() return not circle:isRemoved() end, function ()
             circle.radius = circle.radius - 50 * DT -- Decrease radius by 20 per second
             circle.angle = circle.angle + math.rad(90 * DT) -- Turn at 90 degrees per second
             
