@@ -28,6 +28,7 @@ export default function Sidebar(props) {
             <li><Link href="/wiki/party-members">Party Members</Link></li>
             <li><Link href="/wiki/keybinds">Custom Keybinds</Link></li>
             <li><Link href="/wiki/ui">The UI System</Link></li>
+            <li><Link href="/wiki/hooks">Hooks</Link></li>
         </ul>
         <br/>
         <h3><Link href="/wiki/mod-creation">The Overworld</Link></h3>
