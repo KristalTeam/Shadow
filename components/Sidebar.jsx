@@ -27,8 +27,6 @@ export default function Sidebar(props) {
             <li><Link href="/wiki/actors">Actors</Link></li>
             <li><Link href="/wiki/party-members">Party Members</Link></li>
             <li><Link href="/wiki/keybinds">Custom Keybinds</Link></li>
-            <li><Link href="/wiki/ui">The UI System</Link></li>
-            <li><Link href="/wiki/hooks">Hooks</Link></li>
         </ul>
         <br/>
         <h3><Link href="/wiki/mod-creation">The Overworld</Link></h3>
@@ -47,6 +45,14 @@ export default function Sidebar(props) {
             <li><Link href="/wiki/encounters">Encounters</Link></li>
             <li><Link href="/wiki/enemy-attacks">Enemy Attacks (Waves)</Link></li>
             <li><Link href="/wiki/wavemaking-reference">Wavemaking Tricks and References</Link></li>
+        </ul>
+        <br/>
+        <h3><Link href="/wiki/mod-creation#advanced-mod-creation">Advanced</Link></h3>
+        <hr/>
+        <p>These pages teach you more complex but powerful parts of the engine.</p>
+        <ul>
+            <li><Link href="/wiki/hooks">Hooks</Link></li>
+            <li><Link href="/wiki/ui">The UI System</Link></li>
         </ul>
         <br/>
         <h3><Link href="/wiki/api">API Reference</Link></h3>
