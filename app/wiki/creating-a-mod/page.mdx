@@ -54,17 +54,185 @@ The left-hand side of the screen has the **file explorer**. These are the files 
 
 (A preview tab has an *italics* name, and will get replaced by other files you try to open. Most of the time, if you want to edit a file, you should open it normally instead of previewing it.)
 
+</Box>
+
+<Box>
+## Mod Structure
+---
+
+Now you can see your mod files, let's talk folders! It's important to have an idea what folders contain which files.
+
+---
+
+### The Root Folder
+
+The "root" folder refers to the topmost folder of your mod, the one that contains everything else! It's the same one you just opened with Visual Studio Code. 
+
+You might hear it referred to as "the root of your mod", or just "your mod folder" as you've seen here.
+
+As well as all the folders we're about to mention, there are two key files stored in here: `mod.lua` and `mod.json`.
+
+`mod.lua` is where you can modfiy your `Mod` object. The `Mod` object can define code to be run for a variety of engine-determined event calls.
+
+(The wiki doesn't have a list of event calls... but the `KRISTAL_EVENT` enum in the source code does! Here's a [quick link](https://github.com/KristalTeam/Kristal/blob/main/src/engine/vars.lua#L179) if you can't find it.)
+
+`mod.json` is your mod's configuration file. Here you can change the chapter configurations you selected during mod creation, and also additional behaviours like the **initial save state** of your mod.
+
+Many keys in `mod.json` **only apply to new save files**, so make sure to create fresh saves when testing changes to it!
+
 ---
 
 ### The Assets Folder
 
 The assets folder stores, well, assets. It's where sprites, sounds, fonts, music and speech bubbles get stored, to be loaded by the engine.
 
+Each type of asset is stored in it's own sub-folder.
+
+#### Sprites - `assets/sprites` 
+
+Stores all the textures/images for your mod. Accepted file types are `.png` or `.jpg`.
+
+For animations, each frame should be saved seperately, with the frame number being attached to the end of the name like `_1`, `_2`, etc.
+
+#### Sounds - `assets/sounds`
+
+Stores all the sound files for your mod. Accepted file tyes are `.wav` and `.ogg`.
+
+#### Music `assets/music`
+
+Stores all the music files for your mod. Accepted file types are `.wav`, `.ogg`, and `.mp4` (`.ogg` is recommended).
+
+You can modify the global in-game volume and pitch of any track in `mod.lua` with the `MUSIC_VOLUMES` and `MUSIC_PITCHES` tables:
+```lua
+function Mod:init()
+    -- Example: How you would make WELCOME TO THE CITY (`cybercity.ogg`) detuned the same way it is in DELTARUNE
+    MUSIC_VOLUMES["cybercity"] = 0.8
+    MUSIC_PITCHES["cybercity"] = 0.97
+end
+```
+#### Fonts - `assets/fonts`
+
+Stores all the custom fonts (and any supporting information about them) for your mod. Accepted fonts are `.ttf`, `.fnt`, or `.png`.
+
+#### Speech Bubbles - `assets/bubbles`
+
+Stores speech bubble data in `.json` files. The actual sprites used to construct bubbles are stored in `assets/sprites/bubbles`. Sorry to burst your bubble...
+
+(You can check out the [source code](https://github.com/KristalTeam/Kristal/tree/main/assets/bubbles) to see how the default bubbles are constructed.)
+
+#### Shaders - `assets/shaders`
+
+Stores shadercode for your mod. All shaders are `.glsl` files.
+
+#### Videos - `assets/videos`
+
+Stores video files for your mod. They must be encoded in the Ogg theora format (`.ogv`, `.ogg`) to play correctly.
+
+#### Asset Paths
+
+When referencing any type of Asset in your mod, the code will eventually call into `Assets` - you might even be doing so directly!
+
+The file paths you use for assets should begin **inside the type's sub-folder** and **exclude the file extension**. 
+
+For example, a sprite stored at `assets/sprites/world/events/sign.png` is just `world/events/sign` whenever you need to reference it in your code.
+
+Note that some functions and features of the engine may look for assets from more specific locations. For example, `Game:setBorder()` searches starting from `assets/sprites/borders`.
+
+#### Replacing Engine Assets
+
+Assets used directly by the engine aren't visible inside your mod folder, but they're still loaded and accessed in the same way.
+
+You can view the engine's assets from the `assets` folder of the [source code](https://github.com/KristalTeam/Kristal/tree/main). If you want to **replace** these assets (e.g. to reskin the UI) you can do so by placing your replacement texture at the **same file path in your mod's assets**!
+
 ---
 
 ### The Scripts Folder
 
 Scripts are the code of your mod. This folder contains all of them, whether it's cutscenes, enemies, or even data, like items.
+
+All scripts are `.lua` files, and each type of script must be inside a specific folder to be loaded.
+
+Your mod will include empty folders for most types of script by default. Let's briefly introduce them all.
+
+#### Battle - `scripts/battle`
+
+This folder contains everything associated with battles in Kristal. There are several sub-folders of battle for each script type:
+
+- `bullets` - for `Bullet` scripts.
+- `cutscenes` - for `BattleCutscene`s or groups of `BattleCutscene`.
+- `encounters` - for `Encounter` scripts.
+- `enemies` - for `EnemyBattler` scripts.
+- `waves` - for `Wave` scripts.
+
+#### Borders - `scripts/borders`
+
+The scripts in this folder define custom `Border` objects that support animations.
+
+#### Data - `scripts/data`
+
+This folder contains the scripts of everything data-based, like items. There are several sub-folders for each data type:
+
+- `actors` - Scripts that define the data of your mod's characters.
+- `items` - Scripts for all your mod's items.
+- `party` - Scripts for your mod's custom party members.
+- `recruits` - Scripts for all your enemies RECRUIT data.
+- `spells` - Scripts for your mod's spells.
+
+#### Hooks - `scripts/hooks`
+
+This folder contains hook scripts - they're an advanced engine tool for modfiying engine code.
+
+#### Legends - `scripts/legends`
+
+This folder contains `LegendCutscene` scripts for... legend-styled cutscenes!
+
+#### Objects - `scripts/objects`
+
+This folder contains custom object types for your mod. You might use this folder for things like advanced spell effects and custom souls, as well as many other things.
+
+#### World - `scripts/world`
+
+This folder contains everything associated with maps and the world in Kristal. There are several sub-folders of world for each script type:
+
+- `bullets` - for `WorldBullet` scripts.
+- `cutscenes` - for `WorldCutscene`s of groups of `WorldCutscene`.
+- `events` - for `Event`s - the type of objects that appear in maps.
+- `maps` - for map files. 
+- `scripts` - for generic script types - these are mainly used with the `script` and `interactable` events.
+- `tilesets` - for all your tileset scripts.
+
+#### Script IDs
+
+Scripts load into a part of Kristal known as the `Registry`. When that happens, they are assigned an `id` you'll need to know to access them later.
+
+The `id` assigned to a script is determined in two simple steps - it's very important to know them!
+
+**Step 1.** The engine checks whether the script ID was defined explicitly as the second argument to `Class()` (in most scripts). If it is, that's the script's id.
+
+**Step 2.** If the script doesn't have an explicit ID, the engine uses it's file path. This starts from the **subfolder of the script type**, not the `scripts` folder. 
+For example, an item at `scripts/data/items/light/pencil.lua` would be assigned the id `light/pencil`.
+
+These are also **case-sensitive** - `Light/Pencil` and `light/pencil` are considered completely seperate IDs!
+
+#### Replacing Engine Scripts
+
+Just like Assets, the engine has some scripts that are not visible from your mod folder. The only applies to `data` scripts.
+
+The same procedure works for replacing data scripts as it does assets - look through the `data` folder of the [source code](https://github.com/KristalTeam/Kristal/tree/main), and create a file at the **same path** as the one in the engine to **replace** it.
+
+---
+
+### The Libraries Folder
+
+Libraries are externally sourced code and assets - the [Libraries page](/wiki/using-libraries) will tell you more about them.
+
+---
+
+### The Preview Folder
+
+The preview folder stores everything related to how your mod appears on the Kristal menu.
+
+... Huh? There's no preview guide on the wiki? Quickly, cut to the end of the article!
 
 </Box>
 
