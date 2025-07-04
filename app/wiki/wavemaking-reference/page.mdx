@@ -1434,6 +1434,22 @@ local warning_sprite = Sprite(texture, x, y)
 
 We store this sprite in the `warning_sprite` variable so that we can alter it as we please (including removing it later).
 
+We also **need to parent our sprite to another object** for it to appear on the screen:
+
+```lua
+Game.battle:addChild(warning_sprite)
+```
+
+This adds our sprite as a child of the battle, `Game.battle`. 
+
+Any object could be the parent, but `Game.battle` usually makes the most sense.
+
+An altenative we can use in `Wave` scripts is the `Wave:spawnSprite()` function, which handles parenting for us:
+
+```lua
+local warning_sprite = self:spawnSprite(texture, x, y)
+```
+
 If you want to make your sprite animate, you can start it here:
 
 ```lua
@@ -1444,7 +1460,7 @@ The third argument here is particularly useful if you have a non-looping animati
 
 As it's name suggests, that argument is a callback function that runs when the animation is finished.
 
-Let's say our sprite the animation of a wind up to an explosion - rather than trying to line up the animation with the explosion via a timer, we can just use the `on_finished` callback to spawn the explosion bullet and remove our sprite:
+Let's say our sprite is the animation of a wind up to an explosion - rather than trying to line up the animation with the explosion via a timer, we can just use the `on_finished` callback to spawn the explosion bullet and remove our sprite:
 
 ```lua
 -- Somewhere in the wave file...
