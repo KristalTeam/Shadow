@@ -43,14 +43,19 @@
 @media screen and (max-width: 768px) {
 
     .navbar {
-        height: 64px;
+        padding: 24px;
+        height: auto;
     }
 
     .navbar_inner {
+        height: auto;
         width: 100%;
+        gap: 16px;
+        flex-direction: column;
     }
 
     .item {
-        font-size: 16px;
+        height: auto;
+        width: 80%;
     }
 }

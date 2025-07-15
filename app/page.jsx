@@ -89,8 +89,12 @@ export default function Home() {
                                 <span className={styles.screenshot_author}>By <NewTab href={mod.author_link}>{mod.author}</NewTab></span>
                                 <p className={styles.screenshot_description}>{mod.description}</p>
                                 </div>;
-                            return (index % 2 == 0) ? [img, info] : [info, img];
-
+                            const result = <div>
+                                {img}
+                                {info}
+                            </div>
+                            //return (index % 2 == 0) ? [img, info] : [info, img];
+                            return result;
                         })
                     }
                     </div>

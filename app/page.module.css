@@ -26,12 +26,68 @@
   width: 320px;
   height: 240px;
   transition: 0.2s;
+  justify-self: center;
 }
 
 .screenshot:hover {
   transform: scale(1.1);
 }
 
+.screenshots {
+  display: grid;
+  grid-gap: 4rem;
+  grid-template-columns: 32fr;
+  align-items: center;
+  justify-items: center;
+}
+
+.screenshots > div {
+  display: grid;
+  grid-gap: 4rem;
+  grid-template-columns: 32fr 32fr;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .screenshots > :nth-child(odd) > .screenshot {
+    justify-self: end;
+  }
+
+  .screenshots > :nth-child(even) > .screenshot {
+    justify-self: start;
+  }
+  
+  .screenshots > :nth-child(odd) {
+    text-align: left;
+  }
+
+  .screenshots > :nth-child(even) {
+    text-align: right;
+  }
+
+  .screenshots > :nth-child(even) > :first-child {
+    order: 2;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .screenshot {
+    width: auto;
+    max-width: 100%;
+    height: auto
+  }
+
+  .screenshots > div {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+/*
 .screenshots {
   display: grid;
   grid-gap: 4rem;
@@ -50,7 +106,7 @@
 {
   justify-self: start;
   text-align: left;
-}
+}*/
 
 .screenshot_title {
   font-weight: normal;
