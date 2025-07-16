@@ -24,7 +24,7 @@
 
 .screenshot {
   width: 320px;
-  height: 240px;
+  height: auto;
   transition: 0.2s;
   justify-self: center;
 }
