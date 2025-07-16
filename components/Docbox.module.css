@@ -3,10 +3,10 @@
     border-image:url("/brokenborder.png") 8 repeat;
     border-image-outset: 4px;
     background-color: rgba(0, 0, 0, 0.8);
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-top: 1rem;
-    padding-bottom: 1.5rem;
+    padding-left: min(2rem, 5vw);
+    padding-right: min(2rem, 5vw);
+    padding-top: min(1rem, 2.5vw);
+    padding-bottom: min(1.5rem, 3.75vw);
     margin: 4px;
     /*margin-bottom: 0rem;*/
     /*white-space: pre-line;*/

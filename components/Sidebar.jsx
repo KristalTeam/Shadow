@@ -3,9 +3,9 @@ import styles from "./Sidebar.module.css";
 import Searchbar from 'components/Searchbar'
 
 export default function Sidebar(props) {
-    return <div className={styles.sidebar}>
-        <h2>Kristal Wiki</h2>
-        <Searchbar placeholder="Search Wiki" submit="Go"/>
+    let searchbar = <Searchbar placeholder="Search Wiki" submit="Go"/>
+    let toggleTitle = <h2>Kristal Wiki</h2>
+    let content = <>
         <hr/>
         <h3><Link href="/wiki/">Getting Started</Link></h3>
         <hr/>
@@ -59,5 +59,22 @@ export default function Sidebar(props) {
         <hr/>
         <p>An auto-generated API reference for Kristal.</p>
         <a href="#top" style={{textAlign: "right"}}>⮬Back to Top⮭</a>
-    </div>
+    </>
+
+    return <>
+        <div className={styles.sidebar}>
+            {toggleTitle}
+            {searchbar}
+            {content}
+        </div>
+        <div className={styles["mobile-sidebar"]}>
+            {searchbar}
+            <details>
+                <summary>
+                    {toggleTitle}
+                </summary>
+                {content}
+            </details>
+        </div>
+    </>
 }

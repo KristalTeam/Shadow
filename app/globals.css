@@ -38,6 +38,16 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "8bitOperatorPlus-Bold", monospace;
 }
 
+h1.markdown[level="1"] {
+  margin-left: min(0.6rem, 1.5vw);
+}
+
+#tree, #alphabetical {
+  a {
+    word-break: break-word;
+  }
+}
+
 a, a code {
   color: rgba(0, 200, 200, 1);
   text-decoration: none;

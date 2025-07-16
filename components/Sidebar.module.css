@@ -1,4 +1,4 @@
-.sidebar {
+.sidebar, .mobile-sidebar {
     padding-top: 1rem;
     padding-bottom: 1rem;
     padding-left: 0.5rem;
@@ -12,8 +12,28 @@
     overflow-y: scroll;
 }
 
-.sidebar::-webkit-scrollbar {
-    width: 4px;
+.mobile-sidebar summary {
+    all: unset;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: 1rem 0;
+}
+.mobile-sidebar summary::before {
+    content: '^';
+    font-size: 1.5rem;
+    display: inline-block;
+}
+.mobile-sidebar details[open] summary::before {
+    transform: rotate(180deg);
+}
+.mobile-sidebar summary::after {
+    content: '';
+}
+.mobile-sidebar details[open] summary::after {
+    content: '';
 }
 
 .sidebar::-webkit-scrollbar-track {
@@ -24,8 +44,16 @@
     background: rgba(255, 255, 255, 1);
 }
 
+@media screen and (min-width: 768px) {
+    .mobile-sidebar {
+        display: none;
+    }
+}
 @media screen and (max-width: 768px) {
     .sidebar {
+        display: none;
+    }
+    .mobile-sidebar {
         position: relative;
         top: 0;
         left: 0;
@@ -33,19 +61,18 @@
         width: 100%;
         margin-bottom: 1rem;
         overflow-y: scroll;
-        max-height: 25vh;
     }
 }
 
-.sidebar a {
+.sidebar a, .mobile-sidebar a {
     color: rgba(0, 200, 200, 1);
 }
 
-.sidebar a:hover {
+.sidebar a:hover, .mobile-sidebar a:hover {
     color: rgba(0, 255, 255, 1);
 }
 
-.sidebar p {
+.sidebar p, .mobile-sidebar p {
     color: lightgray;
     font-size: 16px;
 }

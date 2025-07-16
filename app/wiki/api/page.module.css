@@ -37,7 +37,7 @@ https://iamkate.com/code/tree-views/
     display      : block;
     position     : relative;
     padding-left : calc(2 * var(--spacing) - var(--radius) - 2px);
-    margin-left : var(--radius);
+    margin-left : min(var(--radius), 1vw);
   }
   
   .tree ul{

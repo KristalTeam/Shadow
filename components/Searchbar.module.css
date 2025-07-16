@@ -51,6 +51,7 @@
 
 .form {
     padding-top: 1rem;
+    margin-bottom: 0.5rem;
     display: flex;
     gap: 0.25rem;
 }
