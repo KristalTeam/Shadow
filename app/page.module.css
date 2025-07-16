@@ -9,7 +9,7 @@
 
 .section {
   margin-top: 64px;
-  max-width: 80%;
+  max-width: 90%;
   width: 64rem;
 }
 
@@ -34,6 +34,7 @@
 }
 
 .screenshots {
+  margin-top: 1rem;
   display: grid;
   grid-gap: 4rem;
   grid-template-columns: 32fr;
@@ -81,7 +82,7 @@
 
   .screenshots > div {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1rem;
     justify-items: center;
     text-align: center;
   }
