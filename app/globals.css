@@ -133,6 +133,11 @@ td, th {
   word-break: break-word;
 }
 
+code {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 thead {
   font-weight: normal;
   font-family: "8bitOperatorPlus-Bold", monospace;
