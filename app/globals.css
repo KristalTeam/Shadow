@@ -6,6 +6,8 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 body {
@@ -40,12 +42,6 @@ h1, h2, h3, h4, h5, h6 {
 
 h1.markdown[level="1"] {
   margin-left: min(0.6rem, 1.5vw);
-}
-
-#tree, #alphabetical {
-  a {
-    word-break: break-word;
-  }
 }
 
 a, a code {
@@ -97,11 +93,6 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
   color: white;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
 h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
   color: yellow;
 }
@@ -126,11 +117,6 @@ tbody tr:nth-child(odd) {
 
 table, th, td, tr {
   max-width: 100%;
-}
-
-td, th {
-  overflow-wrap: break-word;
-  word-break: break-word;
 }
 
 thead {

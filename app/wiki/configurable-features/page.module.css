@@ -6,10 +6,3 @@
   word-wrap: normal;
   word-break: normal;
 }
-
-@media screen and (max-width: 768px) {
-  .table td:first-child {
-    word-wrap: break-word;
-    word-break: break-word;
-  }
-}
