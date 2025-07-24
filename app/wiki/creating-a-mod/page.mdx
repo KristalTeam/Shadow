@@ -29,7 +29,7 @@ Visual Studio Code is the recommended code editor for Kristal mods. You can down
 (Please ignore all of the AI stuff on the website... you can easily turn it off.
 We've been using Visual Studio Code from before that happened...)
 
-Once it's installed, open the extensions tab on the left-hand side of the screen, and search for "Kristal". Install the extension. This is our official extension for Kristal support in Visual Studio Code, and it will make your life much easier.
+Once it's installed, open the extensions tab on the left-hand side of the screen, and search for "Kristal". Install the extension (ensure the ID is `kristal.kristal-vscode`, otherwise it's a phishing scam). [This is our official extension](https://marketplace.visualstudio.com/items?itemName=kristal.kristal-vscode) for Kristal support in Visual Studio Code, and it will make your life much easier.
 
 That's it, you're now ready!
 </Box>
@@ -69,7 +69,7 @@ Now you can see your mod files, let's talk folders! It's important to have an id
 
 ### The Root Folder
 
-The "root" folder refers to the topmost folder of your mod, the one that contains everything else! It's the same one you just opened with Visual Studio Code. 
+The "root" folder refers to the topmost folder of your mod, the one that contains everything else! It's the same one you just opened with Visual Studio Code.
 
 You might hear it referred to as "the root of your mod", or just "your mod folder" as you've seen here.
 
@@ -91,7 +91,7 @@ The assets folder stores, well, assets. It's where sprites, sounds, fonts, music
 
 Each type of asset is stored in it's own sub-folder.
 
-#### Sprites - `assets/sprites` 
+#### Sprites - `assets/sprites`
 
 Stores all the textures/images for your mod. Accepted file types are `.png` or `.jpg`.
 
@@ -135,7 +135,7 @@ Stores video files for your mod. They must be encoded in the Ogg theora format (
 
 When referencing any type of Asset in your mod, the code will eventually call into `Assets` - you might even be doing so directly!
 
-The file paths you use for assets should begin **inside the type's sub-folder** and **exclude the file extension**. 
+The file paths you use for assets should begin **inside the type's sub-folder** and **exclude the file extension**.
 
 For example, a sprite stored at `assets/sprites/world/events/sign.png` is just `world/events/sign` whenever you need to reference it in your code.
 
@@ -200,7 +200,7 @@ This folder contains everything associated with maps and the world in Kristal. T
 - `bullets` - for `WorldBullet` scripts.
 - `cutscenes` - for `WorldCutscene`s of groups of `WorldCutscene`.
 - `events` - for `Event`s - the type of objects that appear in maps.
-- `maps` - for map files. 
+- `maps` - for map files.
 - `scripts` - for generic script types - these are mainly used with the `script` and `interactable` events.
 - `tilesets` - for all your tileset scripts.
 
@@ -212,7 +212,7 @@ The `id` assigned to a script is determined in two simple steps - it's very impo
 
 **Step 1.** The engine checks whether the script ID was defined explicitly as the second argument to `Class()` (in most scripts). If it is, that's the script's id.
 
-**Step 2.** If the script doesn't have an explicit ID, the engine uses it's file path. This starts from the **subfolder of the script type**, not the `scripts` folder. 
+**Step 2.** If the script doesn't have an explicit ID, the engine uses it's file path. This starts from the **subfolder of the script type**, not the `scripts` folder.
 For example, an item at `scripts/data/items/light/pencil.lua` would be assigned the id `light/pencil`.
 
 These are also **case-sensitive** - `Light/Pencil` and `light/pencil` are considered completely seperate IDs!
