@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm run wiki-index && next dev",
-    "dev-no-wiki-index": "next dev",
-    "build": "npm run wiki-index && next build",
+    "dev": "next dev",
+    "build": "npm run docs-make && npm run wiki-index && next build",
     "build-no-wiki-index": "next build",
     "start": "next start",
     "lint": "next lint",
-    "wiki-index": "node scripts/wiki-index.mjs"
+    "wiki-index": "node scripts/wiki-index.mjs",
+    "docs-make": "bash scripts/docs-make.sh"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.0",
