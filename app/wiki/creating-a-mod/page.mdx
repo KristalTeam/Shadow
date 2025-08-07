@@ -67,13 +67,20 @@ Now you can see your mod files, let's talk folders! It's important to have an id
 
 ---
 
+
 ### The Root Folder
 
 The "root" folder refers to the topmost folder of your mod, the one that contains everything else! It's the same one you just opened with Visual Studio Code.
 
 You might hear it referred to as "the root of your mod", or just "your mod folder" as you've seen here.
 
-As well as all the folders we're about to mention, there are two key files stored in here: `mod.lua` and `mod.json`.
+<details> 
+
+<summary>
+#### Key Content (Click to expand)
+</summary>
+
+Two key files are stored in the root folder: `mod.lua` and `mod.json`.
 
 `mod.lua` is where you can modfiy your `Mod` object. The `Mod` object can define code to be run for a variety of engine-determined event calls.
 
@@ -83,6 +90,16 @@ As well as all the folders we're about to mention, there are two key files store
 
 Many keys in `mod.json` **only apply to new save files**, so make sure to create fresh saves when testing changes to it!
 
+The root also contains all of these folders:
+- assets
+- scripts
+- libraries
+- preview
+
+Each has a section below that covers it's contents in detail.
+
+</details>
+
 ---
 
 ### The Assets Folder
@@ -91,17 +108,39 @@ The assets folder stores, well, assets. It's where sprites, sounds, fonts, music
 
 Each type of asset is stored in it's own sub-folder.
 
+<details>
+
+<summary>
+#### Assets sub-folders (Click to expand)
+</summary>
+
+<details>
+
+<summary>
 #### Sprites - `assets/sprites`
+</summary>
 
 Stores all the textures/images for your mod. Accepted file types are `.png` or `.jpg`.
 
 For animations, each frame should be saved seperately, with the frame number being attached to the end of the name like `_1`, `_2`, etc.
 
+</details>
+
+<details>
+
+<summary>
 #### Sounds - `assets/sounds`
+</summary>
 
 Stores all the sound files for your mod. Accepted file tyes are `.wav` and `.ogg`.
 
+</details>
+
+<details>
+
+<summary>
 #### Music `assets/music`
+</summary>
 
 Stores all the music files for your mod. Accepted file types are `.wav`, `.ogg`, and `.mp4` (`.ogg` is recommended).
 
@@ -113,23 +152,60 @@ function Mod:init()
     MUSIC_PITCHES["cybercity"] = 0.97
 end
 ```
+
+</details>
+
+<details>
+
+<summary>
 #### Fonts - `assets/fonts`
+</summary>
 
 Stores all the custom fonts (and any supporting information about them) for your mod. Accepted fonts are `.ttf`, `.fnt`, or `.png`.
 
+</details>
+
+<details>
+
+<summary>
 #### Speech Bubbles - `assets/bubbles`
+</summary>
 
 Stores speech bubble data in `.json` files. The actual sprites used to construct bubbles are stored in `assets/sprites/bubbles`. Sorry to burst your bubble...
 
 (You can check out the [source code](https://github.com/KristalTeam/Kristal/tree/main/assets/bubbles) to see how the default bubbles are constructed.)
 
+</details>
+
+<details>
+
+<summary>
 #### Shaders - `assets/shaders`
+</summary>
 
 Stores shadercode for your mod. All shaders are `.glsl` files.
 
+</details>
+
+<details>
+
+<summary>
 #### Videos - `assets/videos`
+</summary>
 
 Stores video files for your mod. They must be encoded in the Ogg theora format (`.ogv`, `.ogg`) to play correctly.
+
+</details>
+
+</details>
+
+---
+
+<details>
+
+<summary>
+#### Additional Information (Click to expand)
+</summary>
 
 #### Asset Paths
 
@@ -147,6 +223,8 @@ Assets used directly by the engine aren't visible inside your mod folder, but th
 
 You can view the engine's assets from the `assets` folder of the [source code](https://github.com/KristalTeam/Kristal/tree/main). If you want to **replace** these assets (e.g. to reskin the UI) you can do so by placing your replacement texture at the **same file path in your mod's assets**!
 
+</details>
+
 ---
 
 ### The Scripts Folder
@@ -155,9 +233,19 @@ Scripts are the code of your mod. This folder contains all of them, whether it's
 
 All scripts are `.lua` files, and each type of script must be inside a specific folder to be loaded.
 
+<details>
+
+<summary>
+#### Key Content (Click to expand)
+</summary>
+
 Your mod will include empty folders for most types of script by default. Let's briefly introduce them all.
 
+<details>
+
+<summary>
 #### Battle - `scripts/battle`
+</summary>
 
 This folder contains everything associated with battles in Kristal. There are several sub-folders of battle for each script type:
 
@@ -167,11 +255,23 @@ This folder contains everything associated with battles in Kristal. There are se
 - `enemies` - for `EnemyBattler` scripts.
 - `waves` - for `Wave` scripts.
 
+</details>
+
+<details>
+
+<summary>
 #### Borders - `scripts/borders`
+</summary>
 
 The scripts in this folder define custom `Border` objects that support animations.
 
+</details>
+
+<details>
+
+<summary>
 #### Data - `scripts/data`
+</summary>
 
 This folder contains the scripts of everything data-based, like items. There are several sub-folders for each data type:
 
@@ -181,19 +281,43 @@ This folder contains the scripts of everything data-based, like items. There are
 - `recruits` - Scripts for all your enemies RECRUIT data.
 - `spells` - Scripts for your mod's spells.
 
+</details>
+
+<details>
+
+<summary>
 #### Hooks - `scripts/hooks`
+</summary>
 
 This folder contains hook scripts - they're an advanced engine tool for modfiying engine code.
 
+</details>
+
+<details>
+
+<summary>
 #### Legends - `scripts/legends`
+</summary>
 
 This folder contains `LegendCutscene` scripts for... legend-styled cutscenes!
 
+</details>
+
+<details>
+
+<summary>
 #### Objects - `scripts/objects`
+</summary>
 
 This folder contains custom object types for your mod. You might use this folder for things like advanced spell effects and custom souls, as well as many other things.
 
+</details>
+
+<details>
+
+<summary>
 #### World - `scripts/world`
+</summary>
 
 This folder contains everything associated with maps and the world in Kristal. There are several sub-folders of world for each script type:
 
@@ -203,6 +327,18 @@ This folder contains everything associated with maps and the world in Kristal. T
 - `maps` - for map files.
 - `scripts` - for generic script types - these are mainly used with the `script` and `interactable` events.
 - `tilesets` - for all your tileset scripts.
+
+</details>
+
+</details>
+
+---
+
+<details>
+
+<summary>
+#### Additional Information (Click to expand)
+</summary>
 
 #### Script IDs
 
@@ -222,6 +358,8 @@ These are also **case-sensitive** - `Light/Pencil` and `light/pencil` are consid
 Just like Assets, the engine has some scripts that are not visible from your mod folder. The only applies to `data` scripts.
 
 The same procedure works for replacing data scripts as it does assets - look through the `data` folder of the [source code](https://github.com/KristalTeam/Kristal/tree/main), and create a file at the **same path** as the one in the engine to **replace** it.
+
+</details>
 
 ---
 
