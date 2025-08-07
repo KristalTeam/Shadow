@@ -21,7 +21,7 @@ This page is focused on tips and tricks for things that are commonly relevant to
 - [The Physics Table](#physics-table)
 - [The Graphics Table](#graphics-table)
 - [Selecting Waves](#selecting-waves)
-- [Blue/Orange Bullets](#blue-orange-bullets)
+- [Movement-based (Blue/Orange) Bullets](#blue-orange-bullets)
 - [Green Bullets](#green-bullets)
 - [Circles](#circles)
 - [Afterimages](#afterimages)
@@ -395,9 +395,9 @@ Therefore, every turn in this encounter, the `snowstorm_hazard` wave is active a
 </Box>
 
 <Box>
-## Bullet Example: Blue/Orange Bullet [blue-orange-bullets]
+## Bullet Example: Movement-based Bullets [blue-orange-bullets]
 
-A common pair of bullet behaviours are the Blue/Orange movement bullets from UNDERTALE. 
+A common pair of bullet behaviours you might want to replicate are the Blue/Orange movement bullets from UNDERTALE. 
 
 Let's see how to give a Custom Bullet this behaviour.
 
@@ -451,19 +451,27 @@ We can use this to make damage logic only happen in specific conditions - we can
 
 `Bullet:onDamage(soul)` also returns a `table` value. We don't have to concern ourselves with this too much, but we should **return the value of the super call**, and add `return {}` to the end of our function.
 
-In practice, our `onDamage` hook will have one of the two chunks of code in the below function depending on which bullet type we are creating:
+In practice, our `onDamage` hook will feature one of the below functions depending on which bullet type we are creating:
 ```lua
+-- Blue bullet (deal damage when the soul IS moving)
 function BlueOrangeBullet:onDamage(soul)
-    -- Blue bullet (deal damage when the soul IS moving)
-    if soul:isMoving() then
-        return super.onDamage(self, soul)
-    end
-    -- Orange bullet (deal damage when the soul IS NOT moving)
-    if not soul:isMoving() then
-        return super.onDamage(self, soul)
+    if soul:isMoving() then -- If the soul is moving...
+        return super.onDamage(self, soul) -- Then run normal damage logic
     end
 
-    -- Return a blank table when we cancel damage (both bullet types)
+    -- Return a blank table when we cancel damage
+    return {}
+end
+```
+
+```lua
+-- Orange bullet (deal damage when the soul IS NOT moving)
+function BlueOrangeBullet:onDamage(soul)
+    if not soul:isMoving() then -- If the soul isn't moving...
+        return super.onDamage(self, soul) -- Then run normal damage logic
+    end
+
+    -- Return a blank table when we cancel damage
     return {}
 end
 ```
