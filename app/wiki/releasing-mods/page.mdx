@@ -1,0 +1,479 @@
+import Box from 'components/Box'
+
+export const metadata = {
+    title: 'Releasing Mods',
+    description: 'Learn about the options for releasing/distributing mods made with Kristal.',
+}
+
+# Releasing Mods
+
+<Box>
+
+When you've finished a mod, there's one last thing to do - release it!
+
+Kristal provides a few different options for sharing your mods with the world. Let's take a look.
+
+</Box>
+
+<Box>
+## Release types
+
+Mod releases can be divided into two categories:
+
+- [Mod-only releases](#mod-only-releases) are a quick means of distributing your mods without the engine. Users will need to download the engine separately.
+- [Standalone releases](#standalone-releases) allow you to package your mod into a custom engine build. This takes more setup, but is highly customisable and often easier for users to get playing.
+
+You can of course release your mod in more than one form as well, and it's recommended that you do so!
+
+</Box>
+
+<Box>
+## Before You Start
+
+When you've made a release, you can't modify it further without making a new one. You'll need to redo the process to change anything (including your mod).
+
+Therefore, **do all of your testing before packaging releases**.
+</Box>
+
+<Box>
+## Mod-only Releases
+
+Releasing a mod on it's own is quick and straightforward, but users will need to install Kristal separately.
+
+This option is best for lightweight mods. (You can also follow these steps to distribute a library!)
+
+#### Step 1
+**Create a safe copy of your mod and store it somewhere else.** Nothing should go wrong, but it's **not something you want to risk** either way!
+
+---
+#### Step 2
+Now, you need to compress your mod's folder into a **ZIP Archive**.
+
+<details>
+
+<summary>
+Windows:
+</summary>
+
+Windows has quick compression support built into File Explorer. 
+
+Open your mod, and **select everything in the root folder**, right click, and then select:
+- `Compress To... > ZIP Archive` (Windows 11)
+- `Send To > Compressed (zipped) Folder` (Windows 10)
+
+</details>
+
+<details>
+
+<summary>
+Mac:
+</summary>
+
+Mac has a built-in zip compression option.
+
+Open your mod, **select everything**, and then right click or ctrl+click and select `Compress n items`.
+
+Alternatively, open a terminal and navigate into your mod's folder, and run:
+
+```cmd
+zip -9 -r <YourModName>.zip .
+```
+
+</details>
+
+<details>
+
+<summary>
+Linux:
+</summary>
+
+Open the command line and navigate into your mod's folder. You can then use `zip` to create an archive:
+
+```cmd
+zip -9 -r <YourModName>.zip .
+```
+
+</details>
+
+That's it! The ZIP file you created contains your mod, ready for sharing!
+
+---
+### Steps for Players
+
+If you release your mod on it's own, you should give your players some additional information:
+
+- Link them to the [download guide](/wiki/downloading) and [playing guide](/wiki/playing-mods) for Kristal.
+- List the Kristal version you made the mod on.
+
+---
+### Compatibility
+
+Mods released on their own are compatible with all OSes that Kristal supports out of the box, which are in turn the desktop OSes supported by love2d 11.5:
+
+- Windows (Vista and above)
+- MacOS (10.11 El Capitan and above)
+- Linux
+
+---
+If you only want to release your mod in this format, skip ahead to [distributing your mod](#distributing) now.
+
+</Box>
+
+<Box>
+## Standalone Releases
+
+Standalone releases involve building a custom version of the engine dedicated to running your mod. Users will not need to install Kristal, but may require love2d for some platforms.
+
+Standalone releases are good for larger mods, and give a lot more freedom of presentation, including opening up the option of main menu customisation.
+
+---
+### Prerequisites
+
+You should already be using the source code, but if you aren't, you will need to [download a copy](/wiki/downloading) before creating a standalone release.
+
+You will also need your copy of LOVE version `11.5` (the same one used to run Kristal from sources).
+
+---
+### Preparing the Engine
+
+Once you have the source code of the engine, you'll want to appropriately prepare it. Let's go through all the steps and extra options for customisation.
+
+#### Step 1 - Backup
+**Back up your mod somewhere safe and separate from Kristal if you haven't already**. Nothing should go wrong, but **never risk it**!
+
+---
+#### Step 2 - Add your mods
+Open the `mods` folder in the root directory of the source code. It should contain these two mods, `_testmod` and `example`:
+
+![](/wiki/source_mods.png)
+
+Delete them both.
+
+Then, copy your mod(s) into this folder.
+
+---
+#### Step 3 - Engine configurations
+Open the file `src/engine/vendcust.lua`. The comments in the file should instruct you on what to change. When you're done, save and close the file.
+
+---
+#### Step 4 - LOVE configurations
+Open the file `conf.lua`. Modify the file as the comments instruct, then save and close the file.
+
+---
+<details>
+
+<summary>
+#### Step 5 - Custom Icons (optional)
+</summary>
+If you want to have custom application icons, replace `icon.png` and `bigicon.png` with your custom icons.
+
+If you wish to make a **Windows executable (fused) build** (see [Build Types](#build-types) for more info), you also need to do some additional things. 
+
+First, replace `icon.ico` with your custom icon. Then, you'll need to generate a new `icon.res` file.
+
+One way to do this is using `rc`, which is part of the Windows SDK and Visual Studio. 
+
+If you have **Visual Studio** (**Not** the very similarly named Visual Studio Code), you can use `rc` from the Visual Studio Developer Console.
+
+Navigate to the source code and run:
+
+```randomtextpleaseignore
+rc icon.res
+```
+
+This should recompile `icon.res` for your custom icon.
+
+Alternatively, check out [LOVEs guide on Windows Distributions](https://love2d.org/wiki/Game_Distribution#Creating_a_Windows_Executable) for other options in compiling `icon.res`.
+</details>
+
+---
+<details>
+
+<summary>
+#### Step 6 - Custom Main Menu (optional)
+</summary>
+If you want to customise the look of the main menu, you can do so now. (This has no effect if you have enabled `AUTO_MOD_START`)
+
+You can modify the source directly if you need to, but the main menu will already model itself based on your mod's (the one set as `TARGET_MOD` if you have multiple) preview information:
+- `preview.lua` will always see your mod as selected.
+- `preview.ogg` will play on the menu.
+- The Kristal logo will be replaced with `logo.png`, if it exists.
+- The Kristal background will be replaced with `bg.png`, if it exists.
+
+</details>
+---
+#### Step 7 - Check it works
+
+Lastly, check that everything works correctly by opening your customised source. When you run Kristal, it should act as if you've never loaded it before - default keybinds, configs, and no save files, with a "Start game" option on the menu (if enabled).
+
+Assuming it's all in working order, **make a copy of your custom prepared source**. You can then reuse this for any updates to your mod later without repeating everything.
+
+---
+That's everything for preparing the source code. Now we're ready to start **building it**.
+
+---
+### Build types
+
+Making a standalone release of your mod involves two stages - [packaging into a love archive](#love-package) and then (optionally) [fusing into executables](#fused-executables).
+
+Before you do anything else, you always need to make the `.love` archive of your prepared engine source. It can be used as a cross-platform release of your mod, but is **not directly executable** - it requires the user to download LOVE separately and run the archive through it.
+
+Ideally, standalone mods should actually be *standalone*, which is what **fusing** does - but must be done separately for each platform you release a fused application for. 
+
+It's generally best to provide the `.love` archive version of your mod as well as any fused executables, so as to not harm platform compatibility.
+
+From here, we'll mostly be following the standard process for distributing games made with LOVE. You can also check out the official LOVE guide, linked at the bottom of this page.
+
+---
+### Making a .love Archive [love-package]
+
+A `.love` archive is actually just a `.zip` archive (shocked face). That's great for us, because it means it's very simple to make.
+
+#### Step 1
+
+Compress your source code into a **ZIP Archive**:
+
+<details>
+
+<summary>
+Windows:
+</summary>
+
+Windows has quick compression support built into File Explorer. 
+
+Open your source code and **select everything**, right click, and then select:
+- `Compress To... > ZIP Archive` (Windows 11)
+- `Send To > Compressed (zipped) Folder` (Windows 10)
+
+</details>
+
+<details>
+
+<summary>
+Mac:
+</summary>
+
+Mac has a built-in zip compression option.
+
+Open your source code, **select everything**, and then right click or ctrl+click and select `Compress n items`.
+
+Alternatively, open a terminal and navigate into the source code folder, and run:
+
+```cmd
+zip -9 -r <YourModName>.zip .
+```
+
+</details>
+
+<details>
+
+<summary>
+Linux:
+</summary>
+
+Open the command line and navigate inside the source code folder. You can then use `zip` to create an archive:
+
+```cmd
+zip -9 -r <YourModName>.zip .
+```
+
+</details>
+
+When you've got your compressed archive, **change the extension from `.zip` to `.love`**.
+
+---
+#### Step 2
+
+Run your new `.love` archive with love 11.5 to check that it works.
+
+If you get an immediate error `"no code to run"`, then you have likely compressed the outer folder of the source code as well. Repeat step 1, making sure to **only copy the contents of the source, and not the containing folder**. 
+
+Otherwise, if everything has loaded correctly, your archive is ready!
+
+---
+#### Compatibility
+
+As previously mentioned, a `.love` archive is compatible with all OSes that are supported by love2d 11.5:
+
+- Windows (Vista and above)
+- MacOS (10.11 El Capitan and above)
+- Linux
+
+---
+#### Steps for Players
+
+Players will need to download a copy version of love2d 11.5 for their OS to run your mod from a `.love`:
+
+- Link them to [LOVE's main page](https://www.love2d.org/), and tell them to download and install version `11.5` for their OS.
+- Once love is installed, they should be able to open the `.love` archive directly, or by running `love <your-mod-name>.love` in the command line.
+
+---
+### Making Fused Executables [fused-executables]
+
+After making a `.love` archive, you can consider making fused executables for some platforms. These combine the `.love` and LOVE itself together, so the user only has to download your mod and run it like an application.
+
+When you distribute your game as a fused executable, **you must include the love2d license file, `license.txt` in your distribution.**
+
+Fused executables are platform specific.
+
+<details>
+
+<summary>
+Windows Executables:
+</summary>
+
+Building a windows executable will require the `love2d-11.5` package for windows.
+
+
+#### Step 1
+
+First, we'll need to create the executable itself. This is platform-specific.
+
+<details>
+
+<summary>
+On Windows:
+</summary>
+
+Start by opening a terminal inside your LOVE folder (if you used the installer, this is likely `C:\Program Files\LOVE\`).
+
+Then, if you use Command Prompt, run this command, appropriately **substituting** the values in the **\<\> angle brackets**:
+
+```cmd
+   copy /b love.exe+"<Path\To\YourLoveArchive>.love" <YourModName>.exe
+```
+
+Alternatively, if you use Windows PowerShell, run this with the **same substitutions**:
+
+```ps
+   Get-Content love.exe,"<Path\To\YourLoveArchive>.love" -Encoding Byte | Set-Content <YourModName>.exe -Encoding Byte
+```
+
+This will create a fused executable file for your mod.
+</details>
+
+<details>
+
+<summary>
+On MacOS/Linux:
+</summary>
+
+Open the `love2d-11.5` package for Windows in a terminal/command-line, **substitute in the \(\) bracket values**, and then run:
+
+```cmd
+   cat love.exe "(Path\To\YourLoveArchive).love" > (YourModName).exe
+```
+
+This will create a fused windows executable for your mod.
+</details>
+
+---
+#### Step 2
+
+Once you've obtained your executable, you'll need to package it into a new archive with additional files.
+
+Start by creating a new archive, something like `YourModName-1.0-win.zip`.
+
+Copy your executable, `license.txt` from the LOVE folder, and all the `.dll` files in the LOVE folder to this new archive.
+
+---
+
+Your windows fused release is ready! To share this build, you'll want to distribute the archive you just created.
+
+You should also check that it works if you're on Windows by trying to extract and run it yourself.
+</details>
+
+---
+
+<details>
+
+<summary>
+Mac Applications:
+</summary>
+
+Building a Mac application will require the `love2d-11.5` package for MacOS.
+
+#### Step 1
+
+Rename `love.app` to `YourModName.app`.
+
+---
+#### Step 2
+
+Copy your `.love` archive into `YourModName.app/Contents/Resources/`. (On MacOS, Right-click or ctrl-click and "Show Package Content" to enter the `.app` file).
+
+---
+#### Step 3
+
+Open `YourModName.app/Contents/Info.plist`.
+
+You will need to change the values of some of the XML tags in this file:
+
+- Find `CFBundleIdentifier`, and change the value between the below `<string>`s.
+- Find `CfBundleName`, and change the value between the below `<string>`s to the name of your mod.
+- Find `UTExportedTypeDeclarations` and remove that key, as well as the whole array directly below it (including the `<key>` and `<array>` tags around the values)
+
+Save and close the file.
+
+---
+#### Step 4
+
+Zip the folder containing your `.app` file back up into an archive. Call it something like `YourModName-1.0-osx.zip`.
+
+When zipping with the command line, use the `-y` flag to preserve the symlinks.
+
+---
+
+Your MacOS fused release is ready! To share this build, you'll want to distribute the archive you just created.
+
+You should also check that it works if you're on MacOS, by trying to extract and run it yourself.
+
+
+
+</details>
+
+---
+
+<details>
+
+<summary>
+Linux AppImages:
+</summary>
+
+AppImage is a format for packaging applications on Linux. LOVE has an official AppImage for Linux, which is capable of being fused with `.love` files.
+
+This is a more involved process than regular fusing, so it's best done by following the [official LOVE Distribution For Linux guide](https://love2d.org/wiki/Game_Distribution#Distribution_for_Linux). You should follow the "Official AppImage" subsection, with your "game" being the `.love` archive you created earlier.
+
+</details>
+---
+#### Compatibility
+
+Fused executables are only compatible with the platform they have been built for.
+
+#### Steps for Players
+
+Playing mods from a fused executable is very easy:
+- Extract the downloaded archive.
+- Run the executable/application.
+
+</Box>
+
+<Box>
+## Distributing
+
+With all your preferred releases for your mod ready, all that's left to do is release them!
+
+You can share your work anywhere, but if you're looking for Kristal-specific spaces, there is a [Kristal Gamebanana](https://gamebanana.com/games/16251), as well as the [Kristal Discord Server](https://discord.gg/8ZGuKXJE2C) which has it's own `mod-releases` forum.
+
+When you release your mod, don't forget to give appropriate **credits**! 
+
+An **acknowledgement of the engine itself** is also appreciated. The best place to link for Kristal is the front page of the website: https://kristal.cc/.
+</Box>
+
+<Box>
+## See also
+
+- [Game Distribution](https://love2d.org/wiki/Game_Distribution) on the LOVE2D wiki
+- [LOVE2D License](https://github.com/love2d/love/blob/main/license.txt) on GitHub
+- [Kristal License](https://github.com/KristalTeam/Kristal/blob/main/LICENSE) on GitHub
+</Box>
