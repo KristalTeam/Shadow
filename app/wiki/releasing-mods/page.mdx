@@ -111,7 +111,7 @@ If you release your mod on it's own, you should give your players some additiona
 Mods released on their own are compatible with all OSes that Kristal supports out of the box, which are in turn the desktop OSes supported by love2d 11.5:
 
 - Windows (Vista and above)
-- MacOS (10.11 El Capitan and above)
+- macOS (10.11 El Capitan and above)
 - Linux
 
 ---
@@ -156,7 +156,7 @@ Then, copy your mod(s) into this folder.
 Open the file `src/engine/vendcust.lua`. The comments in the file should instruct you on what to change. When you're done, save and close the file.
 
 ---
-#### Step 4 - LOVE configurations
+#### Step 4 - LÖVE configurations
 Open the file `conf.lua`. Modify the file as the comments instruct, then save and close the file.
 
 ---
@@ -284,9 +284,9 @@ When you've got your compressed archive, **change the extension from `.zip` to `
 ---
 #### Step 2
 
-Run your new `.love` archive with love 11.5 to check that it works.
+Run your new `.love` archive with LÖVE 11.5 to check that it works.
 
-If you get an immediate error `"no code to run"`, then you have likely compressed the outer folder of the source code as well. Repeat step 1, making sure to **only copy the contents of the source, and not the containing folder**. 
+If you get an immediate error saying `"no code to run"`, then you have likely compressed the outer folder of the source code as well. Repeat step 1, making sure to **only copy the contents of the source, and not the containing folder**. 
 
 Otherwise, if everything has loaded correctly, your archive is ready!
 
@@ -302,9 +302,9 @@ As previously mentioned, a `.love` archive is compatible with all OSes that are 
 ---
 #### Steps for Players
 
-Players will need to download a copy version of love2d 11.5 for their OS to run your mod from a `.love`:
+Players will need to install LÖVE 11.5 to their system in order to run your mod from the `.love` archive:
 
-- Link them to [LOVE's main page](https://www.love2d.org/), and tell them to download and install version `11.5` for their OS.
+- Link them to [LÖVE's main page](https://love2d.org/), and tell them to download and install version 11.5 for their OS.
 - Once love is installed, they should be able to open the `.love` archive directly, or by running `love <your-mod-name>.love` in the command line.
 
 ---
@@ -322,7 +322,7 @@ Fused executables are platform specific.
 Windows Executables:
 </summary>
 
-Building a windows executable will require the `love2d-11.5` package for windows.
+Building a windows executable will require the `love2d-11.5` package for Windows.
 
 
 #### Step 1
@@ -463,7 +463,7 @@ Playing mods from a fused executable is very easy:
 
 With all your preferred releases for your mod ready, all that's left to do is release them!
 
-You can share your work anywhere, but if you're looking for Kristal-specific spaces, there is a [Kristal Gamebanana](https://gamebanana.com/games/16251), as well as the [Kristal Discord Server](https://discord.gg/8ZGuKXJE2C) which has it's own `mod-releases` forum.
+You can share your work anywhere, but if you're looking for Kristal-specific spaces, there is a [Kristal GameBanana](https://gamebanana.com/games/16251), as well as the [Kristal Discord Server](https://discord.gg/8ZGuKXJE2C) which has it's own `mod-releases` forum.
 
 When you release your mod, don't forget to give appropriate **credits**! 
 
