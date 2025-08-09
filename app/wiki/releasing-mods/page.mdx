@@ -131,7 +131,7 @@ Standalone releases are good for larger mods, and give a lot more freedom of pre
 
 You should already be using the source code, but if you aren't, you will need to [download a copy](/wiki/downloading) before creating a standalone release.
 
-You will also need your copy of LOVE version `11.5` (the same one used to run Kristal from sources).
+You will also need your copy of LÖVE version 11.5 (the same one used to run Kristal from sources).
 
 ---
 ### Preparing the Engine
@@ -216,13 +216,13 @@ That's everything for preparing the source code. Now we're ready to start **buil
 
 Making a standalone release of your mod involves two stages - [packaging into a love archive](#love-package) and then (optionally) [fusing into executables](#fused-executables).
 
-Before you do anything else, you always need to make the `.love` archive of your prepared engine source. It can be used as a cross-platform release of your mod, but is **not directly executable** - it requires the user to download LOVE separately and run the archive through it.
+Before you do anything else, you always need to make the `.love` archive of your prepared engine source. It can be used as a cross-platform release of your mod, but is **not directly executable** - it requires the user to download LÖVE separately and run the archive through it.
 
 Ideally, standalone mods should actually be *standalone*, which is what **fusing** does - but must be done separately for each platform you release a fused application for. 
 
 It's generally best to provide the `.love` archive version of your mod as well as any fused executables, so as to not harm platform compatibility.
 
-From here, we'll mostly be following the standard process for distributing games made with LOVE. You can also check out the official LOVE guide, linked at the bottom of this page.
+From here, we'll mostly be following the standard process for distributing games made with LÖVE. You can also check out the official LÖVE guide, linked at the bottom of this page.
 
 ---
 ### Making a .love Archive [love-package]
@@ -296,7 +296,7 @@ Otherwise, if everything has loaded correctly, your archive is ready!
 As previously mentioned, a `.love` archive is compatible with all OSes that are supported by love2d 11.5:
 
 - Windows (Vista and above)
-- MacOS (10.11 El Capitan and above)
+- macOS (10.11 El Capitan and above)
 - Linux
 
 ---
@@ -310,7 +310,7 @@ Players will need to install LÖVE 11.5 to their system in order to run your mod
 ---
 ### Making Fused Executables [fused-executables]
 
-After making a `.love` archive, you can consider making fused executables for some platforms. These combine the `.love` and LOVE itself together, so the user only has to download your mod and run it like an application.
+After making a `.love` archive, you can consider making fused executables for some platforms. These combine the `.love` archive and LÖVE itself together, so the user only has to download your mod and run it like an application.
 
 When you distribute your game as a fused executable, **you must include the love2d license file, `license.txt` in your distribution.**
 
@@ -322,7 +322,7 @@ Fused executables are platform specific.
 Windows Executables:
 </summary>
 
-Building a windows executable will require the `love2d-11.5` package for Windows.
+Building a Windows executable will require the `love2d-11.5` package for Windows.
 
 
 #### Step 1
@@ -335,7 +335,7 @@ First, we'll need to create the executable itself. This is platform-specific.
 On Windows:
 </summary>
 
-Start by opening a terminal inside your LOVE folder (if you used the installer, this is likely `C:\Program Files\LOVE\`).
+Start by opening a terminal inside your LÖVE folder (if you used the installer, this is likely `C:\Program Files\LOVE\`).
 
 Then, if you use Command Prompt, run this command, appropriately **substituting** the values in the **\<\> angle brackets**:
 
@@ -355,7 +355,7 @@ This will create a fused executable file for your mod.
 <details>
 
 <summary>
-On MacOS/Linux:
+On macOS/Linux:
 </summary>
 
 Open the `love2d-11.5` package for Windows in a terminal/command-line, **substitute in the \(\) bracket values**, and then run:
@@ -364,7 +364,7 @@ Open the `love2d-11.5` package for Windows in a terminal/command-line, **substit
    cat love.exe "(Path\To\YourLoveArchive).love" > (YourModName).exe
 ```
 
-This will create a fused windows executable for your mod.
+This will create a fused Windows executable for your mod.
 </details>
 
 ---
@@ -374,11 +374,11 @@ Once you've obtained your executable, you'll need to package it into a new archi
 
 Start by creating a new archive, something like `YourModName-1.0-win.zip`.
 
-Copy your executable, `license.txt` from the LOVE folder, and all the `.dll` files in the LOVE folder to this new archive.
+Copy your executable, as well as `license.txt` from the LÖVE folder, and all the `.dll` files in the LÖVE folder to this new archive.
 
 ---
 
-Your windows fused release is ready! To share this build, you'll want to distribute the archive you just created.
+Your Windows fused release is ready! To share this build, you'll want to distribute the archive you just created.
 
 You should also check that it works if you're on Windows by trying to extract and run it yourself.
 </details>
@@ -391,7 +391,7 @@ You should also check that it works if you're on Windows by trying to extract an
 Mac Applications:
 </summary>
 
-Building a Mac application will require the `love2d-11.5` package for MacOS.
+Building a Mac application will require the `love2d-11.5` package for macOS.
 
 #### Step 1
 
@@ -400,7 +400,7 @@ Rename `love.app` to `YourModName.app`.
 ---
 #### Step 2
 
-Copy your `.love` archive into `YourModName.app/Contents/Resources/`. (On MacOS, Right-click or ctrl-click and "Show Package Content" to enter the `.app` file).
+Copy your `.love` archive into `YourModName.app/Contents/Resources/`. (On macOS, Right-click or ctrl-click and "Show Package Content" to enter the `.app` file).
 
 ---
 #### Step 3
@@ -424,11 +424,9 @@ When zipping with the command line, use the `-y` flag to preserve the symlinks.
 
 ---
 
-Your MacOS fused release is ready! To share this build, you'll want to distribute the archive you just created.
+Your macOS fused release is ready! To share this build, you'll want to distribute the archive you just created.
 
-You should also check that it works if you're on MacOS, by trying to extract and run it yourself.
-
-
+You should also check that it works if you're on macOS, by trying to extract and run it yourself.
 
 </details>
 
@@ -440,9 +438,9 @@ You should also check that it works if you're on MacOS, by trying to extract and
 Linux AppImages:
 </summary>
 
-AppImage is a format for packaging applications on Linux. LOVE has an official AppImage for Linux, which is capable of being fused with `.love` files.
+AppImage is a format for packaging applications on Linux. LÖVE has an official AppImage for Linux, which is capable of being fused with `.love` files.
 
-This is a more involved process than regular fusing, so it's best done by following the [official LOVE Distribution For Linux guide](https://love2d.org/wiki/Game_Distribution#Distribution_for_Linux). You should follow the "Official AppImage" subsection, with your "game" being the `.love` archive you created earlier.
+This is a more involved process than regular fusing, so it's best done by following the [official LÖVE Distribution For Linux guide](https://love2d.org/wiki/Game_Distribution#Distribution_for_Linux). You should follow the "Official AppImage" subsection, with your "game" being the `.love` archive you created earlier.
 
 </details>
 ---
@@ -473,7 +471,7 @@ An **acknowledgement of the engine itself** is also appreciated. The best place 
 <Box>
 ## See also
 
-- [Game Distribution](https://love2d.org/wiki/Game_Distribution) on the LOVE2D wiki
+- [Game Distribution](https://love2d.org/wiki/Game_Distribution) on the LÖVE2D wiki
 - [LOVE2D License](https://github.com/love2d/love/blob/main/license.txt) on GitHub
 - [Kristal License](https://github.com/KristalTeam/Kristal/blob/main/LICENSE) on GitHub
 </Box>
