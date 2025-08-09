@@ -77,26 +77,29 @@ You might hear it referred to as "the root of your mod", or just "your mod folde
 <details> 
 
 <summary>
-#### Key Content (Click to expand)
+*Key Content (Click to expand)*
 </summary>
 
-Two key files are stored in the root folder: `mod.lua` and `mod.json`.
+Two key files are stored in the root folder: `mod.lua` and `mod.json`. 
 
-`mod.lua` is where you can modfiy your `Mod` object. The `Mod` object can define code to be run for a variety of engine-determined event calls.
+On top of that, all of your mod content folders are stored here:
 
-(The wiki doesn't have a list of event calls... but the `KRISTAL_EVENT` enum in the source code does! Here's a [quick link](https://github.com/KristalTeam/Kristal/blob/main/src/engine/vars.lua#L179) if you can't find it.)
-
-`mod.json` is your mod's configuration file. Here you can change the chapter configurations you selected during mod creation, and also additional behaviours like the **initial save state** of your mod.
-
-Many keys in `mod.json` **only apply to new save files**, so make sure to create fresh saves when testing changes to it!
-
-The root also contains all of these folders:
 - assets
 - scripts
 - libraries
 - preview
 
-Each has a section below that covers it's contents in detail.
+*These are covered in detail later in this section.*
+
+Back to these `mod` files - what are they?
+
+Well, `mod.lua` is where you can modfiy your `Mod` object. The `Mod` object can define code to be run for a variety of engine-determined event calls.
+
+(The wiki doesn't have a list of event calls... but the `KRISTAL_EVENT` enum in the source code does! Here's a [quick link](https://github.com/KristalTeam/Kristal/blob/main/src/engine/vars.lua#L179) if you can't find it.)
+
+The other file, `mod.json`, is your mod's configuration file. Here you can change the chapter configs you selected during mod creation, and some other behaviour, like the **initial save state** of your mod.
+
+Many keys in `mod.json` **only apply to new save files**, so make sure to create fresh saves when testing changes to it!
 
 </details>
 
@@ -106,13 +109,13 @@ Each has a section below that covers it's contents in detail.
 
 The assets folder stores, well, assets. It's where sprites, sounds, fonts, music and speech bubbles get stored, to be loaded by the engine.
 
-Each type of asset is stored in it's own sub-folder.
-
 <details>
 
 <summary>
-#### Assets sub-folders (Click to expand)
+*Assets sub-folders (Click to expand)*
 </summary>
+
+Each type of asset is stored in it's own sub-folder.
 
 <details>
 
@@ -122,7 +125,7 @@ Each type of asset is stored in it's own sub-folder.
 
 Stores all the textures/images for your mod. Accepted file types are `.png` or `.jpg`.
 
-For animations, each frame should be saved seperately, with the frame number being attached to the end of the name like `_1`, `_2`, etc.
+For animated sprites, each frame should be saved as a seperate image, with the frame number being attached to the end of the name (e.g. `idle_1.png`, `idle_2.png`, ...). **Kristal does not support `.gif` for animations**.
 
 </details>
 
@@ -139,7 +142,7 @@ Stores all the sound files for your mod. Accepted file tyes are `.wav` and `.ogg
 <details>
 
 <summary>
-#### Music `assets/music`
+#### Music - `assets/music`
 </summary>
 
 Stores all the music files for your mod. Accepted file types are `.wav`, `.ogg`, and `.mp4` (`.ogg` is recommended).
@@ -204,7 +207,7 @@ Stores video files for your mod. They must be encoded in the Ogg theora format (
 <details>
 
 <summary>
-#### Additional Information (Click to expand)
+*Additional Information (Click to expand)*
 </summary>
 
 #### Asset Paths
@@ -236,7 +239,7 @@ All scripts are `.lua` files, and each type of script must be inside a specific 
 <details>
 
 <summary>
-#### Key Content (Click to expand)
+*Scripts sub-folders (Click to expand)*
 </summary>
 
 Your mod will include empty folders for most types of script by default. Let's briefly introduce them all.
@@ -311,6 +314,18 @@ This folder contains `LegendCutscene` scripts for... legend-styled cutscenes!
 
 This folder contains custom object types for your mod. You might use this folder for things like advanced spell effects and custom souls, as well as many other things.
 
+Each object in this folder is placed into a global variable **matching it's ID**. You can create instances of your new object through this global; If your object is `MyNewObject`, creating an instance would look like this:
+
+```lua
+-- This line creates a new instance of MyNewObject
+local object = MyNewObject()
+
+-- We also need to parent our object to something else after we've created it.
+Game.stage:addChild(object)
+```
+
+You can learn about how script IDs are determined [below](#script-ids).
+
 </details>
 
 <details>
@@ -337,7 +352,7 @@ This folder contains everything associated with maps and the world in Kristal. T
 <details>
 
 <summary>
-#### Additional Information (Click to expand)
+*Additional Information (Click to expand)*
 </summary>
 
 #### Script IDs

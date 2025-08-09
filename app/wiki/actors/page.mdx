@@ -218,7 +218,9 @@ You can consult the [API Reference for ActorSprite](/wiki/api/ActorSprite) for a
 ---
 If creating a new ActorSprite isn't your style, there's also some handy functions on `Actor` itself that allow us to operate on the basic `ActorSprite` instances created by objects using our actor.
 
-These functions can be distinguished by their `on` or `pre` prefixes and the `sprite` (type `ActorSprite`) argument they receive (except for Battle and World context functions, where they get `battler` and `chara` respectively instead). Rather than modifying `self`, we can modify `sprite` to create special effects!
+These functions can be distinguished by the **on** and **pre** prefixes as well as the `sprite` argument they receive (Battle and World context functions receive `battler` and `chara` respectively instead). 
+
+Rather than writing code that works with `self`, we use `sprite`, which is an **ActorSprite instance** instead!
 
 We could go through them all here, but they're conveniently available on the [API Reference for Actor](/wiki/api/Actor) already.
 </Box>
