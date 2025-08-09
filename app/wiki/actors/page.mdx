@@ -176,3 +176,49 @@ This, of course, being in `self.animations`. Let's also add some offsets:
 
 Perfect! We're battle-ready!
 </Box>
+
+<Box>
+
+## ActorSprites
+
+Actors are sometimes misunderstood as being *objects*, but they aren't. They're more like data templates for characters, which are then used by objects to make them appear as that character.
+
+This also means actors do not have positions, instances, children, or really any tangible form of their own. So, what if we want our actor to do something that relies on these?
+
+The answer is that we'll also need to create or modify something called an [ActorSprite](/wiki/api/ActorSprite). It's name is pretty much what it is - a `Sprite` instance linked up to an `Actor`.
+
+Every time an actor is used by another object, that object calls `createSprite()` on that actor to get a **new instance** of `ActorSprite`. It starts out looking like this:
+
+```lua
+function actor:createSprite()
+    return ActorSprite(self)
+end
+```
+
+You can create a **custom** ActorSprite to use by making a custom object (inside of `scripts/objects`) that **extends from ActorSprite**:
+
+```lua
+local MyNewActorSprite, super = Class(ActorSprite, "MyNewActorSprite")
+
+-- Override functions from ActorSprite in here to change your sprite's functionality
+
+return MyNewActorSprite
+```
+
+Then, to make your actor use it, you create and return an instance of that object in `createSprite()` instead of the standard `ActorSprite`:
+
+```lua
+function actor:createSprite()
+    return MyNewActorSprite(self)
+end
+```
+
+You can consult the [API Reference for ActorSprite](/wiki/api/ActorSprite) for a full list of `ActorSprite` functions.
+
+---
+If creating a new ActorSprite isn't your style, there's also some handy functions on `Actor` itself that allow us to operate on the basic `ActorSprite` instances created by objects using our actor.
+
+These functions can be distinguished by their `on` or `pre` prefixes and the `sprite` (type `ActorSprite`) argument they receive (except for Battle and World context functions, where they get `battler` and `chara` respectively instead). Rather than modifying `self`, we can modify `sprite` to create special effects!
+
+We could go through them all here, but they're conveniently available on the [API Reference for Actor](/wiki/api/Actor) already.
+</Box>
