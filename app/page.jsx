@@ -42,9 +42,9 @@ export default function Home() {
             title: "Deltamon",
             description: "Explore the vast region that Kris calls home as you aid them in becoming champion! Your rivals Susie, Noelle and Berdly join alongside you to see and catch over 200+ pokémon from Kanto to Paldea!",
             image: "/screenshots/deltamon.png",
-            page: null,
+            page: "https://gamejolt.com/games/Deltamon/946082",
             author: "Riverstar",
-            author_link: "https://twitter.com/NoahLuc60171586"
+            author_link: null
         }
     ]
 
@@ -83,18 +83,16 @@ export default function Home() {
                     <div className={styles.screenshots}>
                     {
                         mods.map((mod, index) => {
-                            const img = <img className={styles.screenshot} src={mod.image}/>;
-                            const info = <div className={styles.screenshot_info}>
-                                <NewTab href={mod.page} className={styles.screenshot_title}>{mod.title}</NewTab>
-                                <span className={styles.screenshot_author}>By <NewTab href={mod.author_link}>{mod.author}</NewTab></span>
-                                <p className={styles.screenshot_description}>{mod.description}</p>
-                                </div>;
-                            const result = <div>
-                                {img}
-                                {info}
+                            return <div key={mod.title}>
+                                <img className={styles.screenshot} src={mod.image}/>
+                                <div className={styles.screenshot_info}>
+                                    <NewTab href={mod.page} className={styles.screenshot_title}>{mod.title}</NewTab>
+                                    <span className={styles.screenshot_author}>By {
+                                        (mod.author_link !== null) ? <NewTab href={mod.author_link}>{mod.author}</NewTab> : mod.author
+                                    }</span>
+                                    <p className={styles.screenshot_description}>{mod.description}</p>
+                                </div>
                             </div>
-                            //return (index % 2 == 0) ? [img, info] : [info, img];
-                            return result;
                         })
                     }
                     </div>
