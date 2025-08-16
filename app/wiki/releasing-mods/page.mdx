@@ -42,11 +42,11 @@ Releasing a mod on it's own is quick and straightforward, but users will need to
 
 This option is best for lightweight mods. (You can also follow these steps to distribute a library!)
 
-#### Step 1
+#### Step 1 - Backup [mod-only-backup]
 **Create a safe copy of your mod and store it somewhere else.** Nothing should go wrong, but it's **not something you want to risk** either way!
 
 ---
-#### Step 2
+#### Step 2 - Making a ZIP archive [mod-only-zip]
 Now, you need to compress your mod's folder into a **ZIP Archive**.
 
 <details>
@@ -98,7 +98,7 @@ zip -9 -r <YourModName>.zip .
 That's it! The ZIP file you created contains your mod, ready for sharing!
 
 ---
-### Steps for Players
+### Steps for Players [mod-only-steps-for-players]
 
 If you release your mod on it's own, you should give your players some additional information:
 
@@ -106,7 +106,7 @@ If you release your mod on it's own, you should give your players some additiona
 - List the Kristal version you made the mod on.
 
 ---
-### Compatibility
+### Compatibility [mod-only-compatibility]
 
 Mods released on their own are compatible with all OSes that Kristal supports out of the box, which are in turn the desktop OSes supported by love2d 11.5:
 
@@ -127,22 +127,22 @@ Standalone releases involve building a custom version of the engine dedicated to
 Standalone releases are good for larger mods, and give a lot more freedom of presentation, including opening up the option of main menu customisation.
 
 ---
-### Prerequisites
+### Prerequisites [standalone-prerequisites]
 
 You should already be using the source code, but if you aren't, you will need to [download a copy](/wiki/downloading) before creating a standalone release.
 
 You will also need your copy of LÖVE version 11.5 (the same one used to run Kristal from sources).
 
 ---
-### Preparing the Engine
+### Preparing the Engine [standalone-engine-prep]
 
 Once you have the source code of the engine, you'll want to appropriately prepare it. Let's go through all the steps and extra options for customisation.
 
-#### Step 1 - Backup
+#### Step 1 - Backup [engine-prep-backup]
 **Back up your mod somewhere safe and separate from Kristal if you haven't already**. Nothing should go wrong, but **never risk it**!
 
 ---
-#### Step 2 - Add your mods
+#### Step 2 - Add your mods [engine-prep-mods]
 Open the `mods` folder in the root directory of the source code. It should contain these two mods, `_testmod` and `example`:
 
 ![](/wiki/source_mods.png)
@@ -152,18 +152,18 @@ Delete them both.
 Then, copy your mod(s) into this folder.
 
 ---
-#### Step 3 - Engine configurations
+#### Step 3 - Engine configurations [engine-prep-engine-config]
 Open the file `src/engine/vendcust.lua`. The comments in the file should instruct you on what to change. When you're done, save and close the file.
 
 ---
-#### Step 4 - LÖVE configurations
+#### Step 4 - LÖVE configurations [engine-prep-love-config]
 Open the file `conf.lua`. Modify the file as the comments instruct, then save and close the file.
 
 ---
 <details>
 
 <summary>
-#### Step 5 - Custom Icons (optional)
+#### Step 5 - Custom Icons (optional) [engine-prep-config-icons]
 </summary>
 If you want to have custom application icons, replace `icon.png` and `bigicon.png` with your custom icons.
 
@@ -190,7 +190,7 @@ Alternatively, check out [LOVEs guide on Windows Distributions](https://love2d.o
 <details>
 
 <summary>
-#### Step 6 - Custom Main Menu (optional)
+#### Step 6 - Custom Main Menu (optional) [engine-prep-custom-menu]
 </summary>
 If you want to customise the look of the main menu, you can do so now. (This has no effect if you have enabled `AUTO_MOD_START`)
 
@@ -202,7 +202,7 @@ You can modify the source directly if you need to, but the main menu will alread
 
 </details>
 ---
-#### Step 7 - Check it works
+#### Step 7 - Check it works [engine-prep-test]
 
 Lastly, check that everything works correctly by opening your customised source. When you run Kristal, it should act as if you've never loaded it before - default keybinds, configs, and no save files, with a "Start game" option on the menu (if enabled).
 
@@ -212,9 +212,9 @@ Assuming it's all in working order, **make a copy of your custom prepared source
 That's everything for preparing the source code. Now we're ready to start **building it**.
 
 ---
-### Build types
+### Build types [standalone-build-types]
 
-Making a standalone release of your mod involves two stages - [packaging into a love archive](#love-package) and then (optionally) [fusing into executables](#fused-executables).
+Making a standalone release of your mod involves two stages - [packaging into a love archive](#love-archive) and then (optionally) [fusing into executables](#fused-executables).
 
 Before you do anything else, you always need to make the `.love` archive of your prepared engine source. It can be used as a cross-platform release of your mod, but is **not directly executable** - it requires the user to download LÖVE separately and run the archive through it.
 
@@ -225,11 +225,11 @@ It's generally best to provide the `.love` archive version of your mod as well a
 From here, we'll mostly be following the standard process for distributing games made with LÖVE. You can also check out the official LÖVE guide, linked at the bottom of this page.
 
 ---
-### Making a .love Archive [love-package]
+### Making a .love Archive [love-archive]
 
 A `.love` archive is actually just a `.zip` archive (shocked face). That's great for us, because it means it's very simple to make.
 
-#### Step 1
+#### Step 1 - Making a ZIP archive [love-archive-zip]
 
 Compress your source code into a **ZIP Archive**:
 
@@ -279,10 +279,13 @@ zip -9 -r <YourModName>.zip .
 
 </details>
 
+---
+#### Step 2 - Rename your archive [love-archive-rename]
+
 When you've got your compressed archive, **change the extension from `.zip` to `.love`**.
 
 ---
-#### Step 2
+#### Step 3 - Check it works! [love-archive-test]
 
 Run your new `.love` archive with LÖVE 11.5 to check that it works.
 
@@ -291,7 +294,7 @@ If you get an immediate error saying `"no code to run"`, then you have likely co
 Otherwise, if everything has loaded correctly, your archive is ready!
 
 ---
-#### Compatibility
+#### Compatibility [love-archive-compatibility]
 
 As previously mentioned, a `.love` archive is compatible with all OSes that are supported by love2d 11.5:
 
@@ -300,7 +303,7 @@ As previously mentioned, a `.love` archive is compatible with all OSes that are 
 - Linux
 
 ---
-#### Steps for Players
+#### Steps for Players [love-archive-steps-for-players]
 
 Players will need to install LÖVE 11.5 to their system in order to run your mod from the `.love` archive:
 
@@ -325,7 +328,7 @@ Windows Executables:
 Building a Windows executable will require the `love2d-11.5` package for Windows.
 
 
-#### Step 1
+#### Step 1 - Fusing [windows-fusing]
 
 First, we'll need to create the executable itself. This is platform-specific.
 
@@ -368,7 +371,7 @@ This will create a fused Windows executable for your mod.
 </details>
 
 ---
-#### Step 2
+#### Step 2 - Packaging [windows-packaging]
 
 Once you've obtained your executable, you'll need to package it into a new archive with additional files.
 
@@ -393,17 +396,17 @@ Mac Applications:
 
 Building a Mac application will require the `love2d-11.5` package for macOS.
 
-#### Step 1
+#### Step 1 [mac-step-1]
 
 Rename `love.app` to `YourModName.app`.
 
 ---
-#### Step 2
+#### Step 2 [mac-step-2]
 
 Copy your `.love` archive into `YourModName.app/Contents/Resources/`. (On macOS, Right-click or ctrl-click and "Show Package Content" to enter the `.app` file).
 
 ---
-#### Step 3
+#### Step 3 [mac-step-3]
 
 Open `YourModName.app/Contents/Info.plist`.
 
@@ -416,7 +419,7 @@ You will need to change the values of some of the XML tags in this file:
 Save and close the file.
 
 ---
-#### Step 4
+#### Step 4 [mac-step-4]
 
 Zip the folder containing your `.app` file back up into an archive. Call it something like `YourModName-1.0-osx.zip`.
 
@@ -444,11 +447,12 @@ This is a more involved process than regular fusing, so it's best done by follow
 
 </details>
 ---
-#### Compatibility
+#### Compatibility [fused-compatibility]
 
 Fused executables are only compatible with the platform they have been built for.
 
-#### Steps for Players
+---
+#### Steps for Players [fused-steps-for-players]
 
 Playing mods from a fused executable is very easy:
 - Extract the downloaded archive.
