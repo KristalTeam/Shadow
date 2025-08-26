@@ -42,9 +42,9 @@ With that out of the way, let's make some hooks!
 
 ---
 
-In Kristal, hooks are performed in files located in `scripts/hooks/` with the `Utils.hookScript(target)` function.
+In Kristal, all hook files should be placed into `scripts/hooks/`. (Well, mostly. There's a small exception to this explained [later](#registry-hooks).)
 
-Each hook targets exactly one class at a time, so to create a new hook, we start by creating a file named after the target.
+Each hook targets exactly one class at a time with the `Utils.hookScript(target)` function. To create a new hook, we start by creating a file in the hooks folder named after the target.
 
 Say you wanted to hook the `EnemyBattler` class. You would create `EnemyBattler.lua` inside `scripts/hooks/`. Then, you would insert the following:
 
@@ -280,6 +280,39 @@ end
 </Box>
 
 <Box>
+## Registry Hooks
+
+Remember when we said all hooks go into `scripts/hooks/`? Well, that was actually a **Lie**.
+
+As the section title very likely gave away, content managed by the Registry has to be hooked differently. That's any file in the `data/` folder of the engine source e.g. actors, party members, items.
+
+Hook files for the registry must go into their **respective data sub-folders** inside of `scripts/data/`, rather than the hooks folder.
+
+Let's run through hooking the Dark (or Darker) Candy item as an example.
+
+---
+Dark Candy is an item, so the folder you want to be in is `scripts/data/items`. Inside, create a new file named **the same as the original** - in this case, that's `dark_candy.lua`.
+
+The contents of the file are nearly the same as any other hook. Here's a basic one that changes the dark candy to heal 400 HP:
+
+```lua
+local item, super = Utils.hookScript("dark_candy")
+
+function item:init()
+    super.init(self)
+
+    self.heal_amount = 400
+end
+
+return item
+```
+
+The only difference here is that we're now using a string with the ID we want to hook in `Utils.hookScript()`. (See how the engine determines Script IDs [here](/wiki/creating-a-mod#script-ids).)
+
+That's our registry hook set up and good to go!
+</Box>
+
+<Box>
 ## Hook Annotations
 
 With hooks, you are able to change function parameters or add new functions to classes.
@@ -295,7 +328,7 @@ We don't want that to happen! We need to annotate any changes in our hooks to cl
 The main thing you can always do is add the following annotation line at the very top of your hook file, above even the hookScript call:
 
 ```lua
----@class ClassName : ClassName
+---@class ClassName
 ```
 
 Change `ClassName` to the name of the class you're hooking.
