@@ -42,7 +42,9 @@ With that out of the way, let's make some hooks!
 
 ---
 
-In Kristal, all hook files should be placed into `scripts/hooks/`. (Well, mostly. There's a small exception to this explained [later](#registry-hooks).)
+In Kristal, all hook files should be placed into `scripts/hooks/`. 
+
+*(Well, mostly. If you want to hook anything from the engine's `data/` folder, the steps are slightly different. This is explained [later](#registry-hooks).)*
 
 Each hook targets exactly one class at a time with the `Utils.hookScript(target)` function. To create a new hook, we start by creating a file in the hooks folder named after the target.
 
