@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { TYPES } from 'src/docparser.mjs';
-import { parse } from 'src/markdown.js';
+import { parse as parseMarkdown } from 'src/markdown.js';
 import Docbox from 'components/Docbox';
 import styles from './page.module.css';
 import { Fragment } from 'react';
@@ -20,6 +20,23 @@ export async function generateMetadata({ params }){
         title: String(params.path),
         description: "Kristal API Reference"
     }
+}
+
+async function parse(input) {
+    if (!input) return null;
+
+    // warning, this sucks
+    // try to convert lua://Thing.something to /wiki/api/Thing#something
+    // however... apparently its also inconsistent whether lua:// stays normal or turns into file://
+    // cause like... `Battle:setState` has this doc comment:
+    // --- Changes the state of the battle and calls [onStateChange()](lua://Battle.onStateChange)
+    // which turned into
+    // Changes the state of the battle and calls [onStateChange()](file:///home/ally/Shadow/tmp/kristal/src/engine/game/battle.lua#386)
+    input = input.replace(/\(lua:\/\/([a-zA-Z0-9_.:]+)\)/g, (match, p1) => {
+        return `(/wiki/api/${p1.replace(/\./g, '#').replace(/:/g, '#')})`;
+    });
+
+    return await parseMarkdown(input);
 }
 
 function getClassHeirarchy(type, arr) {
@@ -96,7 +113,9 @@ async function Api_type(type, { params }) {
 
     var init_index = methods.findIndex( (method) => method.name == "init")
     const initializer = init_index > -1 ? methods.splice(methods.findIndex( (method) => method.name == "init"), 1)[0] : null
-    
+
+    const desc = await parse(type?.defines?.[0].rawdesc ?? type?.defines?.[0].desc);
+
     return <div>
         <Docbox className = {styles.wikiNoShadow}>
         
@@ -113,7 +132,8 @@ async function Api_type(type, { params }) {
                     </span>
             )}
             </h4>
-            <p>{type.rawdesc || type.desc}</p>
+            <br/>
+            <p style={{color: "lightgray"}}>{desc}</p>
 
         </div>
         <br/>
@@ -150,7 +170,7 @@ async function Api_type(type, { params }) {
                     }
                     <span className = {styles.syntax}>)</span>
                     </h3>
-                    <div style={{color: "lightgray"}} dangerouslySetInnerHTML={{__html: await parse(initializer.rawdesc || initializer.desc)}}></div>
+                    <div style={{color: "lightgray"}}>{await parse(initializer.rawdesc || initializer.desc)}</div>
                     { initializer.extends.args.length > 0 && !(initializer.extends.args[0].name == "self" && initializer.extends.args.length == 1) &&
                         <>
                             <p>Arguments:</p>
@@ -159,11 +179,11 @@ async function Api_type(type, { params }) {
                                 {
                                     await Promise.all(initializer.extends.args.map(async (arg, index) => {
                                         if (index == 0 && arg.name == "self") {
-                                            // imagine this is a continue
                                             return <Fragment key={initializer.name + arg.name}></Fragment>
                                         }
                                         else
                                         {
+                                            const desc = await parse(arg.rawdesc || arg.desc);
                                             return <tr key={initializer.name + arg.name} >
                                                 <td>
                                                     <span className = {styles.syntaxSymbol}>{arg.name}</span>
@@ -173,7 +193,7 @@ async function Api_type(type, { params }) {
                                                     }
                                                 </td>
                                                 <td>
-                                                    <div style={{color: "lightgray"}} dangerouslySetInnerHTML={{__html: await parse(arg.rawdesc || arg.desc)}}></div>
+                                                    <div style={{color: "lightgray"}}>{desc}</div>
                                                 </td>
                                             </tr>
                                         }
@@ -197,6 +217,7 @@ async function Api_type(type, { params }) {
             <summary className = {styles.detailHeader}><h2 className = {styles.syntaxMethod}>Methods</h2></summary>
             {
                 methods.map(async (method) => {
+                    const desc = await parse(method.rawdesc || method.desc);
                     return <>
                     <hr/>
                     <div id={method.name} key={method.name}>
@@ -228,7 +249,7 @@ async function Api_type(type, { params }) {
                         }
                         <span className = {styles.syntax}>)</span>
                         </h3>
-                        <div style={{color: "lightgray"}} dangerouslySetInnerHTML={{__html: await parse(method.rawdesc || method.desc)}}></div>
+                        <div style={{color: "lightgray"}}>{desc}</div>
                         { method.extends.args.length > 0 && !(method.extends.args[0].name == "self" && method.extends.args.length == 1) &&
                             <>
                                 <p>Arguments:</p>
@@ -237,11 +258,11 @@ async function Api_type(type, { params }) {
                                     {
                                         await Promise.all(method.extends.args.map(async (arg, index) => {
                                             if (index == 0 && arg.name == "self") {
-                                                // imagine this is a continue
                                                 return <Fragment key={method.name + arg.name}></Fragment>
                                             }
                                             else
                                             {
+                                                const desc = await parse(arg.rawdesc || arg.desc);
                                                 return <tr key={method.name + arg.name}>
                                                     <td>
                                                         <span className = {styles.syntaxSymbol}>{arg.name}</span>
@@ -251,7 +272,7 @@ async function Api_type(type, { params }) {
                                                         }
                                                     </td>
                                                     <td>
-                                                        <div style={{color: "lightgray"}} dangerouslySetInnerHTML={{__html: await parse(arg.rawdesc || arg.desc)}}></div>
+                                                        <div style={{color: "lightgray"}}>{desc}</div>
                                                     </td>
                                                 </tr>
                                             }
@@ -268,6 +289,7 @@ async function Api_type(type, { params }) {
                                     <tbody>
                                     {
                                         await Promise.all(method.extends.returns.map(async (ret, index) => {
+                                            const desc = await parse(ret.rawdesc || ret.desc);
                                             return <tr key={method.name + index}>
                                                 <td>
                                                     <span className = {styles.syntaxSymbol}>{ret.name || index + 1}</span>
@@ -277,7 +299,7 @@ async function Api_type(type, { params }) {
                                                     }
                                                 </td>
                                                 <td>
-                                                    <div style={{color: "lightgray"}} dangerouslySetInnerHTML={{__html: await parse(ret.rawdesc || ret.desc)}}></div>
+                                                    <div style={{color: "lightgray"}}>{desc}</div>
                                                 </td>
                                             </tr>
                                         }))
@@ -299,6 +321,7 @@ async function Api_type(type, { params }) {
             <summary className = {styles.detailHeader}><h2 className = {styles.syntaxField}>Fields</h2></summary>
             {
                 fields.map(async (field) => {
+                    const desc = await parse(field.rawdesc || field.desc);
                     return <>
                     <hr/>
                     <div id={field.name} key={field.name}>
@@ -313,7 +336,7 @@ async function Api_type(type, { params }) {
                                 parseTypes(field.extends.view)
                             }
                         </h3>
-                        <div style={{color: "lightgray"}} dangerouslySetInnerHTML={{__html: await parse(field.rawdesc || field.desc)}}></div>
+                        <div style={{color: "lightgray"}}>{desc}</div>
                     </div>
                     </>
                 })
@@ -328,6 +351,7 @@ async function Api_type(type, { params }) {
             
             {
                 undocumented.map(async (field) => {
+                    const desc = await parse(field.rawdesc || field.desc);
                     return <>
                     <hr/>
                     <br/>
@@ -343,7 +367,7 @@ async function Api_type(type, { params }) {
                                 parseTypes(field.extends.view)
                             }
                         </h3>
-                        <div style={{color: "lightgray"}} dangerouslySetInnerHTML={{__html: await parse(field.rawdesc || field.desc)}}></div>
+                        <div style={{color: "lightgray"}}>{desc}</div>
                     </div>
                     </>
                 })
