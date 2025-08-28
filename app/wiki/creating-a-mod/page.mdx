@@ -357,23 +357,22 @@ This folder contains everything associated with maps and the world in Kristal. T
 
 #### Script IDs
 
-Scripts load into a part of Kristal known as the `Registry`. When that happens, they are assigned an `id` you'll need to know to access them later.
+Scripts load into a part of Kristal known as the `Registry`. When that happens, they are assigned an ID you'll need to know to access them later.
 
-The `id` assigned to a script is determined in two simple steps - it's very important to know them!
+The ID assigned to a script is determined in two simple steps - it's very important to know them!
 
-**Step 1.** The engine checks whether the script ID was defined explicitly as the second argument to `Class()` (in most scripts). If it is, that's the script's id.
+**Step 1.** The engine checks whether the script ID was defined explicitly as the second argument to `Class()` (in most scripts). If it is, that's the script's ID.
 
 **Step 2.** If the script doesn't have an explicit ID, the engine uses it's file path. This starts from the **subfolder of the script type**, not the `scripts` folder.
-For example, an item at `scripts/data/items/light/pencil.lua` would be assigned the id `light/pencil`.
+For example, an item at `scripts/data/items/light/pencil.lua` would be assigned the ID `light/pencil`.
 
 These are also **case-sensitive** - `Light/Pencil` and `light/pencil` are considered completely seperate IDs!
 
-#### Replacing Engine Scripts
+#### Changing Engine Scripts
 
-Just like Assets, the engine has some scripts that are not visible from your mod folder. The only applies to `data` scripts.
+The engine has some `data/` scripts that appear ingame but are not visible from your mod folder. If you want to modify them, you'll need to use hooks.
 
-The same procedure works for replacing data scripts as it does assets - look through the `data` folder of the [source code](https://github.com/KristalTeam/Kristal/tree/main), and create a file at the **same path** as the one in the engine to **replace** it.
-
+Hooks are a more advanced feature of the engine that aren't recommended if you're starting out. But when you need them, you can read about them [here](/wiki/hooks).
 </details>
 
 ---
