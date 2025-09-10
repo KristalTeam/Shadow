@@ -3,22 +3,24 @@ import styles from "./Sidebar.module.css";
 import Searchbar from 'components/Searchbar'
 
 export default function Sidebar(props) {
-    let searchbar = <Searchbar placeholder="Search Wiki" submit="Go"/>
     let toggleTitle = <h2>Kristal Wiki</h2>
     let content = <>
         <hr/>
-        <h3><Link href="/wiki/">Getting Started</Link></h3>
+        <h3><Link href="/wiki/">General Information</Link></h3>
         <hr/>
         <p>These pages get you ready to use the engine.</p>
         <ul>
+            <li><Link href="/wiki/">Main Page</Link></li>
             <li><Link href="/wiki/downloading">Downloading Kristal</Link></li>
             <li><Link href="/wiki/playing-mods">Installing and Playing Mods</Link></li>
+            <li><Link href="/wiki/glossary">Glossary</Link></li>
         </ul>
         <br/>
         <h3><Link href="/wiki/mod-creation">General Mod Creation</Link></h3>
         <hr/>
         <p>These pages teach you about mod development.</p>
         <ul>
+            <li><Link href="/wiki/lua-tutorial">Lua Tutorial</Link></li>
             <li><Link href="/wiki/basics">Understanding the Basics</Link></li>
             <li><Link href="/wiki/creating-a-mod">Creating a Mod</Link></li>
             <li><Link href="/wiki/using-libraries">Using Libraries</Link></li>
@@ -65,11 +67,11 @@ export default function Sidebar(props) {
     return <>
         <div className={styles.sidebar}>
             {toggleTitle}
-            {searchbar}
+            <Searchbar id="header-search" placeholder="Search Wiki" submit="Go"/>
             {content}
         </div>
         <div className={styles["mobile-sidebar"]}>
-            {searchbar}
+            <Searchbar id="mobile-header-search" placeholder="Search Wiki" submit="Go"/>
             <details>
                 <summary>
                     {toggleTitle}

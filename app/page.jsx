@@ -50,9 +50,11 @@ export default function Home() {
 
     return (
         <>
-            <picture className={styles.logo}>
-                <img src="title_logo_shadow.png" alt="title logo" />
-            </picture>
+            <h1 className={styles.logo}>
+                <picture>
+                    <img src="title_logo_shadow.png" alt="Kristal" />
+                </picture>
+            </h1>
 
             <section className={styles.section}>
                 <Box>
@@ -66,7 +68,7 @@ export default function Home() {
                     <h2 className={styles.header}>How do I use it?</h2>
                     <p>
                         Check out our <Link href="/wiki/">wiki</Link> for more information on how to use Kristal.
-                        Please keep in mind that you <b>must know Lua, or be willing to learn it!</b> We have our own Lua tutorial <Link href="/wiki/lua-tutorial">here</Link> to help you get started.
+                        Please keep in mind that you <b>must know Lua, or be willing to learn it!</b> We have our own <Link href="/wiki/lua-tutorial">Lua tutorial</Link> to help you get started.
                     </p>
                 </Box>
 
@@ -84,7 +86,13 @@ export default function Home() {
                     {
                         mods.map((mod, index) => {
                             return <div key={mod.title}>
-                                <img className={styles.screenshot} src={mod.image}/>
+                                <img
+                                    className={styles.screenshot}
+                                    src={mod.image}
+                                    alt={`Screenshot of the fangame \"${mod.title}\"`}
+                                    width={640}
+                                    height={480}
+                                />
                                 <div className={styles.screenshot_info}>
                                     <NewTab href={mod.page} className={styles.screenshot_title}>{mod.title}</NewTab>
                                     <span className={styles.screenshot_author}>By {

@@ -10,9 +10,9 @@ export const metadata = {
 <Box>
 There are three methods of downloading and using Kristal.
 
-- Using a [beta release](#beta-releases) - Not recommended.
-- Using a [nightly release](#nightly-releases) - Recommended for <b>playing mods</b>.
-- Using [the source code](#source-code) - Perfect for <b>mod development</b>.
+- Using a [beta release](#beta-releases) - Not recommended at the moment.
+- Using a [nightly release](#nightly-releases) - Recommended for **playing mods**.
+- Using [the source code](#source-code) - Perfect for **mod development**.
 
 Beta releases are created every time we deem the engine stable enough to be used by the public.
 As Kristal is still in development, **we do not recommend beta releases.** This is because they don't update very often, so they're frequently outdated.
@@ -31,7 +31,7 @@ Using the source code is the most complicated method, but it also gives you the 
 ## Beta releases
 ---
 
-To download a beta release, go to the [releases page](https://github.com/KristalTeam/Kristal/releases).
+To download a beta release, go to the [Kristal releases](https://github.com/KristalTeam/Kristal/releases).
 
 ### WINDOWS
 Download the latest release as a `.zip` file. You can then extract the archive and run the executable.
@@ -45,7 +45,7 @@ Download the latest release as a `.love` file. You can then run the file with [L
 ## Nightly releases
 ---
 
-To download a nightly release, download the archive from [here](https://nightly.link/KristalTeam/Kristal/workflows/ci/main/output.zip).
+To download a nightly release, [download the latest archive here](https://nightly.link/KristalTeam/Kristal/workflows/ci/main/output.zip).
 
 ### WINDOWS
 You can then extract the archive, extract the archive which ends with `-win.zip`, and run the executable.
@@ -69,20 +69,15 @@ Once LÖVE is installed, you can either use [Git](https://git-scm.com/) or downl
 
 First, you need the following **prerequisites**:
 
-- [Git](https://git-scm.com/)
+- [Git](https://git-scm.com/downloads)
 - [LÖVE](https://love2d.org/)
 
-Now we need to **clone the repository**.
-First, you need to install **Git**.
-You can download it from [here](https://git-scm.com/downloads).
-Once Git is installed,
-you have to **open a terminal**. Make sure it's **in the folder where you want to download Kristal**.
+The instructions below should work on all platforms, but they have only mainly been tested on Windows.
 
-If you are on **Windows**, you can right-click in the folder. There should either be an option to **Open in Terminal**,
-or **Git Bash Here**.
-Otherwise, you can open a terminal and use the `cd` command to navigate to the folder.
-
-Next, you have to clone the repository. That can be done with the following command:
+1. Install the prerequisites listed above if you haven't already. Most settings can be left as default.
+2. Open a "terminal". If you're not sure what this is, see [the glossary](/wiki/glossary#terminal).
+3. Navigate to the folder where you want to download Kristal.
+4. Clone the repository. That can be done with the following command:
 
 ```bash
 git clone https://github.com/KristalTeam/Kristal

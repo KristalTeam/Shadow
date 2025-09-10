@@ -11,9 +11,11 @@ export default function Page({
 }) {
 
     return (<>
-    <picture className={styles.logo}>
-        <img src="title_logo_shadow.png" alt="title logo" />
-    </picture>
+    <h1 className={styles.logo}>
+        <picture className={styles.logo}>
+            <img src="title_logo_shadow.png" alt="Kristal" />
+        </picture>
+    </h1>
     
     {
         searchParams.search ?
@@ -41,7 +43,8 @@ export default function Page({
         <hr/>
 
         <p>
-            If you want to contribute to the wiki, you can do so by forking the repository and making a pull request. You can find the repository <Link href="https://github.com/KristalTeam/Shadow">here</Link>.
+            If you want to contribute <strong>wiki articles</strong>, you can do so by forking <Link href="https://github.com/KristalTeam/Shadow">the website&apos;s GitHub repository</Link> and making a pull request.
+            If you want to <strong>document the API</strong>, it is generated automatically from the annotations in <Link href="https://github.com/KristalTeam/Kristal">Kristal&apos;s source code</Link>.
         </p>
     </Box>
     </>

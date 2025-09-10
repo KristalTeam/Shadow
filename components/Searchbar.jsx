@@ -5,22 +5,23 @@ import styles from "./Searchbar.module.css";
 export default function Searchbar(props) {
     const placeholder = props.placeholder || "Search"
     const submit = props.submit || "Submit"
+    const id = props.id || "searchbar"
 
     return (
     <form action="/" method="get" className={styles.form}>
         {/* Header, for screen readers: */}
-        <label htmlFor="header-search">
+        <label htmlFor={id}>
             <span className={styles.hidden}>{placeholder}</span> 
         </label>
 
         <input
             type="text"
-            id="header-search"
+            id={id}
             placeholder={placeholder}
             name="search"
             className={styles.input}
         />
-        <button 
+        <button
             type="submit"
             formAction="/wiki"
             className={styles.button}

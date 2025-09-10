@@ -15,7 +15,7 @@ Lua is the programming language used by Kristal. In this tutorial, we'll go over
 ## Using Lua
 ---
 
-For this tutorial, we are going to be testing using the [official online Lua demo](https://www.lua.org/demo.html).
+For this tutorial, we are going to be testing using the [tutorialspoint Online Lua Interpreter](https://www.tutorialspoint.com/compilers/online-lua-compiler.htm).
 
 This is a great place to try the language out.
 
@@ -25,7 +25,7 @@ This is a great place to try the language out.
 ## PART 1: The Basics
 ---
 
-Lua is a very simple language. It is very easy to learn, and is very powerful.
+Lua is an easy language to learn, but difficult to master.
 
 ---
 
@@ -34,16 +34,17 @@ Lua is a very simple language. It is very easy to learn, and is very powerful.
 First, let's start with a very, very simple program:
 
 ```lua
-print("Hello, world!")
+print("Hello, World!")
 ```
 
-Type this in the box, and press the "run" button. You'll see the output in the box below. Congratulations, you've made your first Lua program!
+Type this in the box (if not already there), and press the green "Execute" button at the top. You'll see the output in the box to the right.
+Congratulations, you've made your first Lua program!
 
 So, what's happening here? Well, let's break it down in parts.
 
-- `print` - This is a function name. Functions are chunks of code which do something. In this case, the `print` function prints out whatever you give it.
-- `"Hello, world!"` - This is a string. Strings are a sequence of characters. In this case, it's the text we want to print. Strings are denoted by quotation marks.
-- `()` - These are parentheses. They are used to call functions, and to input data into one. In this case, we gave `print` a string, being `"Hello, world!"`.
+- `print` - This is a **function** name. Functions are chunks of code which "perform an action". In this case, the `print` function writes whatever you give it into the output area.
+- `"Hello, World!"` - This is called a **string**. Strings are a sequence of characters, like a sentence. In this case, it's the text we want to "print". Strings are denoted by quotation marks.
+- `()` - These are parentheses. They are used to "call" (run) functions, and to input data into one. In this case, we gave `print` a string, being `"Hello, world!"`.
 - `""` - These are quotation marks. They are used to denote strings.
 
 Strings are a very important part of Lua. They are used to store text. They can be used to store anything, from a single letter, to a whole book. They are very, very useful.
@@ -113,6 +114,37 @@ print(x) -- prints nil
 ```
 
 `nil` is the absence of a value.
+
+---
+
+### Local Variables
+
+You may have noticed the word "local" before we set a variable for the first time. That is because we are making a **local variable**.
+
+Local variables are only accessible in the "scope" they're in. A scope is just a chunk of code. For example:
+
+```lua
+if condition then
+    local hello = "Hello!"
+end
+
+print(hello)
+```
+
+This will print `nil`, because `hello` is a local variable.
+It's only accessible inside of that `if` statement, meaning that `hello` does not exist outside of it.
+
+In this example, we use `if`, which will be explained later.
+
+---
+
+### Global Variables
+
+Global variables are what you get when you don't use `local`. They are accessible from anywhere in the code, and are not limited to a scope.
+
+**Most of the time, you should NOT use these.** You should avoid them as much as possible, and only use them when you HAVE to.
+
+**Try to make all of your variables local if you can.** There are other places to store information (tables) which you will learn of later.
 
 ---
 
@@ -667,4 +699,7 @@ This is destructuring the return values of the function. We're getting the first
 ---
 
 Metatables, metamethods, coroutines
+
+This is a work in progress!
+
 </Box>
