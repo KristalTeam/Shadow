@@ -257,11 +257,11 @@ function MyEnemy:getNextWaves()
         return {wave}
     end
 
-    local waves = Utils.copy(self.waves) -- Create a copy of the original waves table
+    local waves = TableUtils.copy(self.waves) -- Create a copy of the original waves table
 
     -- Add or remove waves based on HP.
     if self.health <= self.max_health * 2/3 then -- with 2/3rds or less HP left
-        Utils.removeFromTable(waves, "high_health_wave")
+        TableUtils.removeValue(waves, "high_health_wave")
     end
     if self.health <= self.max_health * 1/3 then -- with 1/3rd or less HP left
         table.insert(waves, "low_health_wave")
@@ -288,7 +288,7 @@ Let's look again at the default implementation of this function to see what it d
 function EnemyBattler:selectWave()
     local waves = self:getNextWaves()
     if waves and #waves > 0 then
-        local wave = Utils.pick(waves)
+        local wave = TableUtils.pick(waves)
         self.selected_wave = wave
         return wave
     end
@@ -422,13 +422,13 @@ The colour codes used for blue/orange in UNDERTALE are `#14a9ff` and `#ffa040` r
 
 You can choose to either modify your bullet sprite directly to be the colour you want, OR if your bullet sprite is white, this can instead be done through code.
 
-We can use `Utils.hexToRgb()` and `setColor()` to set the colour we want onto our bullet within `Bullet:init()` like so:
+We can use `ColorUtils.hexToRGB()` and `setColor()` to set the colour we want onto our bullet within `Bullet:init()` like so:
 ```lua
 function BlueOrangeBullet:init(x, y)
     super.init(self, x, y, "bullets/smallbullet")
 
-    self:setColor(Utils.hexToRgb("#14a9ff")) -- Use this for blue
-    self:setColor(Utils.hexToRgb("#ffa040")) -- Use this for orange
+    self:setColor(ColorUtils.hexToRGB("#14a9ff")) -- Use this for blue
+    self:setColor(ColorUtils.hexToRGB("#ffa040")) -- Use this for orange
 end
 ```
 
@@ -532,12 +532,12 @@ function GreenBullet:onCollide(soul)
 end
 ```
 
-If we want to heal just one party member, then we can use [`Utils.pick(tbl)`](/wiki/api/Utils#pick) to select a random party member from `Game.battle.party`, and call `PartyBattler:heal(amount)` on them.
+If we want to heal just one party member, then we can use [`TableUtils.pick(tbl)`](/wiki/api/TableUtils#pick) to select a random party member from `Game.battle.party`, and call `PartyBattler:heal(amount)` on them.
 
 Afterwards, we call `remove()` on our bullet to make it disappear.
 ```lua
 function GreenBullet:onCollide(soul)
-    local target = Utils.pick(Game.battle.party)
+    local target = TableUtils.pick(Game.battle.party)
     target:heal(10) -- Change this number to change how much HP the bullet heals
     
     self:remove()
@@ -830,7 +830,7 @@ end
 function CircleController:removeChild(child)
     super.removeChild(self, child)
 
-    local i = Utils.getIndex(self.children_memory, child)
+    local i = TableUtils.getIndex(self.children_memory, child)
 
     self.children_memory[i] = false
 end
@@ -895,7 +895,7 @@ local Circle, super = Class(Wave)
 function Circle:onStart()
     self.timer:everyInstant(5/4, function()
         local x = SCREEN_WIDTH + 80
-        local y = Utils.random(Game.battle.arena:getTop(), Game.battle.arena:getBottom())
+        local y = MathUtils.random(Game.battle.arena:getTop(), Game.battle.arena:getBottom())
 
         local radius = 50
         local angle = 2*math.pi
@@ -957,7 +957,7 @@ local Circle, super = Class(Wave)
 function Circle:onStart()
     self.timer:everyInstant(5/4, function()
         local x = SCREEN_WIDTH + 80
-        local y = Utils.random(Game.battle.arena:getTop(), Game.battle.arena:getBottom())
+        local y = MathUtils.random(Game.battle.arena:getTop(), Game.battle.arena:getBottom())
 
         local radius = 50
         local angle = 2*math.pi
@@ -1016,7 +1016,7 @@ function Circle:onStart()
         local x, y = Game.battle.arena:getCenter()
 
         local radius = 90
-        local angle = Utils.random(0, 2*math.pi)
+        local angle = MathUtils.random(0, 2*math.pi)
 
         local circle = CircleController(x, y, radius, angle)
         self:addChild(circle)
@@ -1153,7 +1153,7 @@ function Circle:onStart()
         local x, y = Game.battle.arena:getCenter()
 
         local radius = 90
-        local angle = Utils.random(0, 2*math.pi)
+        local angle = MathUtils.random(0, 2*math.pi)
 
         local circle = CircleController(x, y, radius, angle)
         self:addChild(circle)
@@ -1391,7 +1391,7 @@ end
 
 -- Remove lines with expired timers. This is done seperately because you shouldn't remove things from a table while iterating through it.
 for _, line in ipairs(lines_to_remove) do
-    Utils.removeFromTable(line)
+    TableUtils.removeValue(lines_table, line)
 end
 ```
 
@@ -1672,7 +1672,7 @@ If we wanted FunkySoul to be triggered by a spell, an item, or something similar
 
 With all this in mind - remember that `createSoul()` is an **encounter** function - so changes to the variable will only have an effect if the specific encounter with this code is added.
 
-If we wanted to make this apply to all battles, we would have to **hook `Encounter` itself** with either a hook script or by using `Utils.hook()` to make it the new default implementation.
+If we wanted to make this apply to all battles, we would have to [hook `Encounter` itself](/wiki/hooks) to make it the new default implementation.
 
 #### The `Battle:swapSoul()` function
 
