@@ -46,12 +46,12 @@ In Kristal, all hook files should be placed into `scripts/hooks/`.
 
 *(Well, mostly. If you want to hook anything from the engine's `data/` folder, the steps are slightly different. This is explained [later](#registry-hooks).)*
 
-Each hook targets exactly one class at a time with the `Utils.hookScript(target)` function. To create a new hook, we start by creating a file in the hooks folder named after the target.
+Each hook targets exactly one class at a time with the `HookSystem.hookScript(target)` function. To create a new hook, we start by creating a file in the hooks folder named after the target.
 
 Say you wanted to hook the `EnemyBattler` class. You would create `EnemyBattler.lua` inside `scripts/hooks/`. Then, you would insert the following:
 
 ```lua
-local EnemyBattler, super = Utils.hookScript(EnemyBattler)
+local EnemyBattler, super = HookSystem.hookScript(EnemyBattler)
 
 return EnemyBattler
 ```
@@ -212,7 +212,7 @@ That's the last of the changes!
 Let's take a look at our whole hook before we give it a test run:
 
 ```lua
-local EnemyBattler, super = Utils.hookScript(EnemyBattler)
+local EnemyBattler, super = HookSystem.hookScript(EnemyBattler)
 
 function EnemyBattler:hurt(amount, battler, on_defeat, color, show_status, attacked)
     -- Code above the original function runs before it:
@@ -298,7 +298,7 @@ Dark Candy is an item, so the folder you want to be in is `scripts/data/items`. 
 The contents of the file are nearly the same as any other hook. Here's a basic one that changes the dark candy to heal 400 HP:
 
 ```lua
-local item, super = Utils.hookScript("dark_candy")
+local item, super = HookSystem.hookScript("dark_candy")
 
 function item:init()
     super.init(self)
@@ -309,7 +309,7 @@ end
 return item
 ```
 
-The only difference here is that we're now using a string with the ID we want to hook in `Utils.hookScript()`. (See how the engine determines Script IDs [here](/wiki/creating-a-mod#script-ids).)
+The only difference here is that we're now using a string with the ID we want to hook in `HookSystem.hookScript()`. (See how the engine determines Script IDs [here](/wiki/creating-a-mod#script-ids).)
 
 That's our registry hook set up and good to go!
 </Box>

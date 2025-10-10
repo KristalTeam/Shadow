@@ -257,8 +257,8 @@ end
 
 And finally, we're going to change the firing direction of our bullets to aim towards the player:
 ```lua
-local target_angle = Utils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
-bullet.rotation = target_angle + math.rad(Utils.random(-20, 20))
+local target_angle = MathUtils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
+bullet.rotation = target_angle + math.rad(MathUtils.random(-20, 20))
 ```
 
 ### "Woah! What's happening here?"
@@ -266,15 +266,15 @@ Right. Unlike our other changes, there are a few layers to what we did here:
 
 First, we made a new `target_angle` variable, which stores the angle from our dummy's position `(x, y)`, to the player soul's position, which is `(Game.battle.soul.x, Game.battle.soul.y)`. 
 
-The `Utils.angle()` function finds the angle between the two points for us. (As always, this angle is in **radians**)
+The `MathUtils.angle(x1, y1, x2, y2)` function finds the angle between the two points for us. (As always, this angle is in **radians**)
 
 We don't want to make all our bullets follow the exact same path though, so we add some **randomness** when setting our `rotation` (which would be `physics.direction` if we weren't using `physics.match_rotation`): 
 
 ```lua
-bullet.rotation = target_angle + math.rad(Utils.random(-20, 20))
+bullet.rotation = target_angle + math.rad(MathUtils.random(-20, 20))
 ```
 
-The `Utils.random()` function generates a random decimal number between the two we input, in this case `-20` and `20`. 
+The `MathUtils.random(lower, upper)` function generates a random decimal number between the two we input, in this case `-20` and `20`. 
 
 This gives our bullets a 40 degree spread from the target angle.
 
@@ -308,8 +308,8 @@ function ExampleWave:onStart()
     for i=1, 6 do
         local bullet = self:spawnBullet("bullets/example_bullet", x, y)
         bullet.physics.speed = 4
-        local target_angle = Utils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
-        bullet.rotation = target_angle + math.rad(Utils.random(-20, 20))
+        local target_angle = MathUtils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
+        bullet.rotation = target_angle + math.rad(MathUtils.random(-20, 20))
         bullet.physics.match_rotation = true
     end
 end
@@ -377,8 +377,8 @@ function ExampleWave:onStart()
     for i=1, 6 do
         local bullet = self:spawnBullet("bullets/example_bullet", x, y)
         bullet.physics.speed = 4
-        local target_angle = Utils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
-        bullet.rotation = target_angle + math.rad(Utils.random(-20, 20))
+        local target_angle = MathUtils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
+        bullet.rotation = target_angle + math.rad(MathUtils.random(-20, 20))
         bullet.physics.match_rotation = true
     end
 end
@@ -400,8 +400,8 @@ function ExampleWave:onStart()
         for i=1, 6 do
             local bullet = self:spawnBullet("bullets/example_bullet", x, y)
             bullet.physics.speed = 4
-            local target_angle = Utils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
-            bullet.rotation = target_angle + math.rad(Utils.random(-20, 20))
+            local target_angle = MathUtils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
+            bullet.rotation = target_angle + math.rad(MathUtils.random(-20, 20))
             bullet.physics.match_rotation = true
         end
     end)
@@ -447,7 +447,7 @@ self.timer:after(3, function()
     -- Make this bullet double the size of a regular bullet (Default scaling is 2x)
     bullet:setScale(4)
     bullet.physics.speed = 16
-    bullet.rotation = Utils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
+    bullet.rotation = MathUtils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
     bullet.physics.match_rotation = true
 end)
 ```
@@ -571,7 +571,7 @@ self.timer:script(function(wait)
     -- Make this bullet double the size of a regular bullet
     bullet:setScale(4)
     bullet.physics.speed = 16
-    bullet.rotation = Utils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
+    bullet.rotation = MathUtils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
     bullet.physics.match_rotation = true-- Every 1/15th of a second...
 
     self.timer:every(1/15, function()
@@ -746,8 +746,8 @@ function ExampleWave:onStart()
             for i=1, 6 do
                 local bullet = self:spawnBullet("bullets/example_bullet", x, y)
                 bullet.physics.speed = 4
-                local target_angle = Utils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
-                bullet.rotation = target_angle + math.rad(Utils.random(-20, 20))
+                local target_angle = MathUtils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
+                bullet.rotation = target_angle + math.rad(MathUtils.random(-20, 20))
                 bullet.physics.match_rotation = true
             end
         end)
@@ -766,7 +766,7 @@ function ExampleWave:onStart()
             -- Make this bullet double the size of a regular bullet
             bullet:setScale(4)
             bullet.physics.speed = 16
-            bullet.rotation = Utils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
+            bullet.rotation = MathUtils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
             bullet.physics.match_rotation = true-- Every 1/15th of a second...
 
             self.timer:every(1/15, function()
