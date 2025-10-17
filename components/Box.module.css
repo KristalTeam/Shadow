@@ -5,20 +5,18 @@
     background-color: rgba(0, 0, 0, 0.75);
     padding-left: min(2rem, 5vw);
     padding-right: min(2rem, 5vw);
-    padding-top: min(1rem, 2.5vw);
-    padding-bottom: min(1.5rem, 3.75vw);
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
     margin: 1rem;
     margin-bottom: 3rem;
     /*white-space: pre-line;*/
 
     display: flex;
     flex-direction: column;
+    gap: 1rem;
 }
 
-.box > p:first-of-type {
-    margin-top: 0.75rem;
-}
-
-.box > p:last-of-type {
-    margin-bottom: 0.75rem;
+.box > p {
+    margin-top: 0;
+    margin-bottom: 0;
 }

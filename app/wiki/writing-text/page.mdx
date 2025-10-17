@@ -1,0 +1,213 @@
+import Box from 'components/Box'
+import Anchor from 'components/Anchor'
+
+export const metadata = {
+    title: 'Writing Text',
+    description: 'Text has a few rules to follow.',
+}
+
+# Writing Text
+
+<Box>
+
+(Note: this page is a work-in-progress. It is public for the sake of having at least some documentation on text writing.)
+
+You'd think that writing text is just writing text, but in Kristal (and DELTARUNE), there are a few things to keep in mind.
+
+</Box>
+
+<Box>
+## Kristal's Text System [text-system]
+
+Kristal's text system is pretty simple. You can just write text, and the system will try to do what it can to make it look good.
+
+```lua
+local text = "* This is text!"
+```
+
+---
+
+### Line Breaks [line-breaks]
+
+If you want a line break, you can either let the engine wrap it automatically, or you can force a line break using `\n`.
+
+```lua
+local text = "* This is a really long line of text that will probably wrap around on its own."
+```
+
+```lua
+local text = "* This one is long too,\nbut we wrapped it manually!"
+```
+
+Line breaks are "indented" to work with DELTARUNE's prefix system. That means the above line will show as:
+
+```none
+* This one is long too,
+  but we wrapped it manually!
+```
+
+which may not be what you want if you want the next line to also use the asterisk prefix.
+
+Kristal's text system does work with this, however, and will unindent the line if it starts with the prefix:
+
+```lua
+local text = "* This is one line...\n* And this is another,\nwhich is cool."
+```
+
+```none
+* This is one line...
+* And this is another,
+  which is cool.
+```
+
+</Box>
+
+<Box>
+## Text Modifiers [text-modifiers]
+
+Text modifiers are pieces of text which change how the text is displayed, rather than being part of the text itself.
+
+Meaning, the following text will turn the word "yellow" into yellow text:
+
+```lua
+local text = "* This is [color:yellow]yellow[color:reset] text!"
+```
+
+Note that not all modifiers are available in all contexts. In any "instant" text which supports modifiers, `wait` is not available, for example.
+
+---
+
+### Available Modifiers [available-modifiers]
+
+This is a list of all available text modifiers in Kristal.
+
+#### Base Modifiers (usable anywhere) [base-modifiers]
+
+- <Anchor link="color-modifier">`[color:<color>]`</Anchor> - Changes the color of the text. Available colors are:
+    - `red` - <span style={{color: "#FF0000"}}>Red</span>
+    - `blue` - <span style={{color: "#0000FF"}}>Blue</span>
+    - `yellow` - <span style={{color: "#FFFF00"}}>Yellow</span>
+    - `green` - <span style={{color: "#00FF00"}}>Green</span>
+    - `white` - <span style={{color: "#FFFFFF"}}>White</span>
+    - `black` - <span style={{color: "#FFFFFF"}}>Black</span> (preview is white for readability)
+    - `purple` - <span style={{color: "#7F007F"}}>Purple</span>
+    - `maroon` - <span style={{color: "#7F0000"}}>Maroon</span>
+    - `pink` - <span style={{color: "#FF7FFF"}}>Pink</span>
+    - `lime` - <span style={{color: "#7FFF7F"}}>Lime</span>
+    - `<hex code>` - Any hex color code, like `#FF5733`.
+    - `reset` - Resets the color to the default text color.
+
+    Note that this list of colors is based on what DELTARUNE's writer used, therefore it is separate from the global COLORS table.
+- <Anchor link="font-modifier">`[font:<font>,<size>]`</Anchor> - Changes the font of the text. Can be any font loaded. `reset` resets to the default font. `size` is optional.
+- <Anchor link="style-modifier">`[style:<style>]`</Anchor> - Changes the style of the text. Default styles are:
+    - `none` - Normal text, without any effects.
+    - `dark` - The dark world's text style, which uses a drop shadow gradient, and colored text is also turned into gradients.
+    - `dark_menu` - Normal text, with a gray dropshadow.
+    - `GONER` - The "glowing" text used in the intro of DELTARUNE Chapter 1, some places in game overs, and at the end of Chapters 3 & 4.
+    - `reset` - Resets to the default text style.
+- <Anchor link="shake-modifier">`[shake:<intensity>]`</Anchor> - Makes the text shake. Intensity is optional, and defaults to 1. Higher numbers make it shake "further". `[shake:0]` to disable.
+- <Anchor link="wave-modifier">`[wave:<distance>,<offset>,<speed>]`</Anchor> - Makes each character move in a "wave" pattern, like from Undertale. All arguments are optional. `[wave:0]` to disable.
+- <Anchor link="image-modifier">`[image:<image>,<x_offset>,<y_offset>,<x_scale>,<y_scale>,<anim_speed>]`</Anchor> - Inserts an image into the text. All arguments except for the first are optional.
+
+    Note: in DialogueText, this will play the voice sound.
+- <Anchor link="bind-modifier">`[bind:<action>]`</Anchor> - Inserts a "bind" for the given keybind. This will either be a button icon (if using a gamepad), or the primary bind key's in brackets (if using keyboard).
+
+    Example: `"Press [bind:confirm]!"` will either show "Press [Z]!" or "Press <img src="/wiki/switch_btn_a.png" alt="A" style={{verticalAlign: "middle"}}/>!" depending on the input method.
+- <Anchor link="button-modifier">`[button:<button>]`</Anchor> - Inserts a gamepad button's icon in text. You should not need this in most cases. Used internally by `[bind]`, which you probably want instead.
+
+    Note: in DialogueText, this will play the voice sound.
+- <Anchor link="offset-modifier">`[offset:<x>,<y>]`</Anchor> - Offsets the text by a certain amount of pixels. To undo, enter the negative of the values you used, as it's additive.
+- <Anchor link="indent-modifier">`[indent:<string>]`</Anchor> - Changes the "indent string" to the specified string.
+- <Anchor link="spacing-modifier">`[spacing:<number>]`</Anchor> - Changes the spacing between characters. Default is 0.
+
+#### Dialogue Modifiers (usable in DialogueText) [dialogue-modifiers]
+
+- <Anchor link="wait-modifier">`[wait:<frames>]`</Anchor> - Waits for a certain number of frames before continuing. 30 frames is 1 second.
+
+    Normally, all punctuation is followed by a 5 frame wait, so please insert those when appropriate. See [Punctuation](#punctuation) for more info.
+
+    To wait in seconds, append `s` to the number, like `[wait:1s]` to wait 1 second.
+- <Anchor link="voice-modifier">`[voice:<voice>]`</Anchor> - Sets the text sound ("voice") of the current text, relative to the `voice` folder.
+
+    `reset` resets it to the default, and `none` disables the sound.
+- <Anchor link="noskip-modifier">`[noskip:<bool>]`</Anchor> - `bool` is optional, most of the time you just write `[noskip]`.
+
+    If `bool` is falsy, the text can be skipped as normal, useful to re-enable skipping after disabling it.
+- <Anchor link="func-modifier">`[func:<name>,<arg1>,<arg2>,...]`</Anchor> - Calls a defined function for this text.
+
+    This should never be used to modify state, as this does NOT run during auto-wrap calculations or width/height calculations.
+
+    When the function with argument `name` is called, it'll pass in the rest of the arguments as strings.
+- <Anchor link="talk-modifier">`[talk:<bool>]`</Anchor> - With this, you can disable the "talking" animation of the current NPC, if applicable.
+- <Anchor link="sound-modifier">`[sound:<sound>]`</Anchor> - Plays a sound effect.
+- <Anchor link="next-modifier">`[next]`</Anchor> - Immediately marks the text as advanceable (not waiting for input), even if it isn't finished yet.
+- <Anchor link="instant-modifier">`[instant]`</Anchor> - Makes the text appear instantly, rather than being "typed out".
+- <Anchor link="stopinstant-modifier">`[stopinstant]`</Anchor> - Stops the instant text effect, and resumes normal text.
+- <Anchor link="speed-modifier">`[speed:<speed>]`</Anchor> - Changes the speed of the text, using a multiplier. Default is `1`, `0.5` is half speed, `0` never advances, `2` is double speed, etc.
+
+#### Textbox Modifiers (usable in textboxes) [overworld-modifiers]
+
+Textboxes only appear in the overworld and in battles. They're normally accompanied by a character portrait.
+
+- <Anchor link="face-modifier">`[face:<face>,<offset_x>,<offset_y>]`</Anchor> - Changes the current portrait to the specified one. `offset_x` and `offset_y` are optional.
+
+    Uses the current speaker.
+- <Anchor link="facec-modifier">`[facec:<face>,<offset_x>,<offset_y>]`</Anchor> - A "custom" variant, used to change the portrait to any portrait, rather than one of the speaker's portraits.
+
+    Can be useful in niche scenarios, but you shouldn't need this very often.
+- <Anchor link="react-modifier">`[react:<reaction>]` OR `[react:<text>,<x>,<y>,<face>,<actor>]`</Anchor> - Shows a "reaction", which is the smaller text which slides in.
+
+    The first variant is an index to the reaction table, which should hold all of the necessary information.
+
+    The second variant has all of the information in-line.
+- <Anchor link="miniface-modifier">`[miniface:<face>,<offset_x>,<offset_y>,<x_scale>,<y_scale>,<anim_speed>]`</Anchor> - Displays a miniface, which is a replacement for the asterisk.
+
+#### Speech Bubble Modifiers (usable in speech bubbles) [speech-bubble-modifiers]
+
+Speech bubbles are when battlers talk.
+
+- <Anchor link="noautoskip-modifier">`[noautoskip]`</Anchor> - This modifier prevents the bubble from being automatically advanced after 3 seconds.
+
+#### Shop Modifiers (usable in shops) [shop-modifiers]
+
+- <Anchor link="emote-modifier">`[emote:<emotion>]`</Anchor> - Calls `Shop:onEmote(emotion)`, which can be used to change the shopkeeper's expression.
+
+</Box>
+
+<Box>
+## Following Standards [following-standards]
+
+DELTARUNE's text has a few standards to follow. While you don't HAVE to follow them, it can feel out of place or weird if you don't.
+
+---
+
+### Punctuation [punctuation]
+
+Generally, any punctuation is followed by a `[wait:5]`, as punctuation is a pause in speech.
+You can wait for longer of course, but DELTARUNE rarely does this.
+
+Example:
+```lua
+local text = {
+    "* Hi...[wait:5] Kris,[wait:5] was it?",
+    "* You...[wait:5] don't remember me?",
+    "* I understand...[wait:5] I wouldn't remember me,[wait:5] either."
+}
+```
+
+I sort of went overboard with the elipses, but you get the idea. Anything that would naturally cause a pause in speech should be a pause in text.
+
+---
+
+### Emphasis [emphasis]
+
+Emphasis uses capital letters. Even Sans uses them in Undertale to emphasise certain things.
+
+![Sans using capital letters, saying "it's ALWAYS funny."](/wiki/sans_capital_letters.png)
+
+Sometimes, important things are **highlighted in yellow**, like what our website does. Don't overuse this!
+
+Yellow is what's used most of the time,
+but if a different color is needed (for lore reasons, a strong warning, or explaining a mechanic with a color), you can use other colors.
+
+</Box>
