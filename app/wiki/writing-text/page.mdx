@@ -199,6 +199,32 @@ I sort of went overboard with the elipses, but you get the idea. Anything that w
 
 ---
 
+### Pauses [pauses]
+
+As mentioned in the Punctuation section, pauses are important in text to make it feel natural.
+This normally means using `[wait:5]` after punctuation.
+
+However, something I've seen often in fanworks is putting pauses outside of punctuation, which can end up feeling awkward and unnatural.
+
+For example, this:
+
+```lua
+local text = "* I thought that you might've[wait:10] gotten hurt."
+```
+
+The lack of immediate punctuation makes the player feel uncomfortable, as if the text wasn't properly finished.
+On top of this, the pause only is only visible during typing, losing all effect once the text is fully displayed.
+
+It's very easy to fix this by adding punctuation, the same way you would in any other writing:
+
+```lua
+local text = "* I thought that you might've...[wait:5] gotten hurt."
+```
+
+Of course, once again, it's up to you how you want to write your text. There are no "hard rules".
+
+---
+
 ### Emphasis [emphasis]
 
 Emphasis uses capital letters. Even Sans uses them in Undertale to emphasise certain things.
@@ -208,6 +234,7 @@ Emphasis uses capital letters. Even Sans uses them in Undertale to emphasise cer
 Sometimes, important things are **highlighted in yellow**, like what our website does. Don't overuse this!
 
 Yellow is what's used most of the time,
-but if a different color is needed (for lore reasons, a strong warning, or explaining a mechanic with a color), you can use other colors.
+but if a different color is needed (for lore reasons, a strong warning, or explaining a mechanic with a color),
+you can (and should!) use other colors.
 
 </Box>
