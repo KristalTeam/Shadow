@@ -213,7 +213,7 @@ local text = "* I thought that you might've[wait:10] gotten hurt."
 ```
 
 The lack of immediate punctuation makes the player feel uncomfortable, as if the text wasn't properly finished.
-On top of this, the pause only is only visible during typing, losing all effect once the text is fully displayed.
+On top of this, the pause is only visible during typing, losing all effect once the text is fully displayed.
 
 It's very easy to fix this by adding punctuation, the same way you would in any other writing:
 
@@ -222,6 +222,11 @@ local text = "* I thought that you might've...[wait:5] gotten hurt."
 ```
 
 Of course, once again, it's up to you how you want to write your text. There are no "hard rules".
+For example, DELTARUNE itself does a couple "unnatural pauses" for effect.
+
+```lua
+local text = "* (One[wait:15] had a pine tree beside it.)"
+```
 
 ---
 
