@@ -1,5 +1,6 @@
 import MarkdownLink from "components/MarkdownLink"
 import Header from "components/Header"
+import MarkdownImage from "components/MarkdownImage"
 
 export function useMDXComponents(components) {
     return {
@@ -23,6 +24,9 @@ export function useMDXComponents(components) {
         ),
         h6: (props) => (
             <Header className="markdown" level={6} {...props} />
+        ),
+        img: (props) => (
+            <MarkdownImage {...props} />
         ),
         ...components,
     }

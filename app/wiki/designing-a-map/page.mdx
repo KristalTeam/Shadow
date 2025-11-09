@@ -26,7 +26,7 @@ Tiled is available for all major platforms. You can download it from [here](http
 
 Once you've installed Tiled, you can open your project. You can do this by clicking on `File`, and then `Open File or Project`.
 
-![](/wiki/tiled_open.png)
+<>![](/wiki/tiled_open.png)</>
 
 Now, navigate to your mod's folder. You should find a file called `<your-mod>.tiled-project`. Open it.
 
@@ -40,29 +40,29 @@ The project window on the left should now show a folder tree. This is your proje
 
 Let's delete everything.
 
-![](/wiki/delete_maps.png)
+<>![](/wiki/delete_maps.png)</>
 
 Now, we have nothing! Perfect state to start from.
 
 First, we need to create a tileset. A tileset is, as the name suggests, a set of tiles. Every map is made up of tiles! Let's use this one:
 
-![](/wiki/example_tileset.png)
+<>![](/wiki/example_tileset.png)</>
 
 It's... not the greatest, but it'll get the job done. Let's save this in the folder `assets/sprites/tilesets`, as `example_tileset.png`. **It's very important that you use this directory for your tileset images.**
 
 Now, let's create the tileset.
 
-![](/wiki/new_tileset.png)
+<>![](/wiki/new_tileset.png)</>
 
 Let's name it `example_tileset`. The tile width and height should be `20`, and the margin and spacing should be `0`. Click browse, and locate the tileset image we just saved. You should have the following settings:
 
-![](/wiki/new_tileset_filled.png)
+<>![](/wiki/new_tileset_filled.png)</>
 
 Click **Save As...** and save it to `scripts/world/tilesets` as `example_tileset.tsx`. **It's also very important that you use this directory for your tilesets.**
 
 Now that the tileset is created, we need to do one last step. Open the tileset properties.
 
-![](/wiki/tileset_properties.png)
+<>![](/wiki/tileset_properties.png)</>
 
 Change **Tile Render Size** to `Map Grid Size`. This will make the tiles render at the size we want them to. Now, click **Save**.
 
@@ -72,7 +72,7 @@ Make sure to export it as a `.lua` file in the same directory as the `.tsx` file
 
 If you get tired of having to export after every save, you can enable this in the preferences:
 
-![](/wiki/preferences.png)
+<>![](/wiki/preferences.png)</>
 
 But anyway, we have a tileset now! So why don't we create a map now?
 </Box>
@@ -94,7 +94,7 @@ After clicking OK, this should take you to an empty map. First thing we'll want 
 
 Now, you can place down tiles! Make anything you'd like, and don't forget to keep saving! Here's what I made:
 
-![](/wiki/example_map.png)
+<>![](/wiki/example_map.png)</>
 
 It's... a huge bone? I don't know. It's not important. What is important is that you save your map, and that you're happy with it.
 
@@ -108,31 +108,31 @@ Markers are a very important part of maps. They're used to mark things like spaw
 
 First, we'll have to make a new layer, named `markers`.
 
-![](/wiki/new_object_layer.png)
+<>![](/wiki/new_object_layer.png)</>
 
 Us Kristal devs really like when they're purple (it helps us know the layer at a glance), but you can make them any color you want.
 
-![](/wiki/purple_color.png)
+<>![](/wiki/purple_color.png)</>
 
 To place down a point, use the Insert Point tool, which you can find in the toolbar at the top, or by pressing `I`.
 
-![](/wiki/insert_point.png)
+<>![](/wiki/insert_point.png)</>
 
 Now, click anywhere on the map. A point should appear. This is a marker! We're trying to make the player's spawn point right now, so name it `spawn`.
 
-![](/wiki/example_map_with_spawn_marker.png)
+<>![](/wiki/example_map_with_spawn_marker.png)</>
 
 Now, let's test in-game! Save your map, and then press `CTRL+E` to export it. Yep, you have to export maps as well. Make sure it's a `.lua` file!
 
 Now, open your mod in Kristal. If you get the following error, don't worry! We just need to change something we forgot to.
 
-![](/wiki/room1_error.png)
+<>![](/wiki/room1_error.png)</>
 
 This means that Kristal is trying to load a map, called `room1`, that **doesn't exist**. That makes sense, because we deleted `room1` earlier. Let's tell Kristal to load our map instead.
 
 In `mod.json`, change `"map": "room1"` to `"map": "example_map"`. Now, save the file, and try again. It should work! And look at that, our spawnpoint is working, too!
 
-![](/wiki/working_spawnpoint.png)
+<>![](/wiki/working_spawnpoint.png)</>
 
 </Box>
 
@@ -142,21 +142,21 @@ In `mod.json`, change `"map": "room1"` to `"map": "example_map"`. Now, save the 
 
 Our test map is perfect, right? Well...
 
-![](/wiki/outside_map.png)
+<>![](/wiki/outside_map.png)</>
 
 ...that isn't right. We didn't add any collision! Let's fix that.
 
 First, you'll have to create another object layer. Name this one `collision`. We prefer to make these layers blue!
 
-![](/wiki/blue_color.png)
+<>![](/wiki/blue_color.png)</>
 
 Now, select the **Insert Rectangle** tool, which you can find in the toolbar at the top, or by pressing `R`.
 
-![](/wiki/insert_rectangle.png)
+<>![](/wiki/insert_rectangle.png)</>
 
 This is one of the tools you'll be using to draw collision. It's pretty simple, just click and drag to make a rectangle. **Make sure to hold `CTRL` to make it snap to the grid!**
 
-![](/wiki/added_collision.png)
+<>![](/wiki/added_collision.png)</>
 
 Now that we've drawn out where collision should be, let's export and test! And look at that, it works!
 
@@ -182,7 +182,7 @@ Events are a very important part of maps. They're special [objects](/wiki/basics
 
 To use an event, we need to first make a layer for them. Make a new object layer, and name it `objects`. We make these layers pink!
 
-![](/wiki/pink_color.png)
+<>![](/wiki/pink_color.png)</>
 
 Now, you can select the **Insert Point** tool which we talked about earlier. Click anywhere on the map, and a point should appear. This is an event! Or, well, it *will* be.
 
@@ -190,7 +190,7 @@ Let's name it `chest`. This'll tell the engine which event to use -- in this cas
 
 Let's now add the `money` custom property (making sure it's an `int`) and set it to `999`. This'll give us a lot of money when we open the chest!
 
-![](/wiki/chest_properties.png)
+<>![](/wiki/chest_properties.png)</>
 
 If we save, export, then open up our mod in Kristal, we should see the chest! And interacting with it should give us **999 Dark Dollars**! Wow!
 
@@ -202,11 +202,11 @@ Okay, we can add a chest. But what if we want to add something that needs a bit 
 
 Let's make an interactable box. We'll name it `interactable`, and give it the `text` string property, with the contents `* Hello, World!`
 
-![](/wiki/map_with_interactable.png)
+<>![](/wiki/map_with_interactable.png)</>
 
 And if we check it out in-game, then...
 
-![](/wiki/hello_world_interactable.png)
+<>![](/wiki/hello_world_interactable.png)</>
 
 Perfect!
 
@@ -236,8 +236,8 @@ Events are just [objects](/wiki/basics#objects) which extend the [Event](/wiki/a
 
 Here's the sprites I made, although they're not very good:
 
-![](/wiki/pinwheel.png)
-![](/wiki/pinwheel_base.png)
+<>![](/wiki/pinwheel.png)</>
+<>![](/wiki/pinwheel_base.png)</>
 
 And here's the code I ended up making:
 
@@ -301,11 +301,11 @@ return PinwheelEvent
 
 Then we just have to place it somewhere, using the ID we supplied in the code, `pinwheel`!
 
-![](/wiki/pinwheel_placed.png)
+<>![](/wiki/pinwheel_placed.png)</>
 
 After all this, we have our own event!
 
-![](/wiki/pinwheel_spin.gif)
+<>![](/wiki/pinwheel_spin.gif)</>
 
 ---
 

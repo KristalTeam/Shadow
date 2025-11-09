@@ -53,7 +53,7 @@ Margins and paddings can be different for each side, as well.
 In the following image, both the margins and the paddings are 20 pixels on each side.
 The cyan area represents the margins, and the pink area represents the paddings. The white box is the component itself.
 
-![](/wiki/margins_and_paddings.png)
+<>![](/wiki/margins_and_paddings.png)</>
 
 In Kristal, turning on **debug rendering** will show you the margins and paddings of each component.
 
@@ -83,7 +83,7 @@ An example of using both `FillSizing` and `FitSizing` is a menu item.
 
 You'd want the menu item to stretch horizontally to fit the menu, but you'd want the height to be the same as whatever's inside the menu item, such as text.
 
-![](/wiki/menu_option_example.png)
+<>![](/wiki/menu_option_example.png)</>
 
 ---
 
@@ -108,32 +108,32 @@ That's a bit confusing, so here's visual examples:
 
 <div>
 #### `"start"`
-![](/wiki/alignment_start.png)
+<>![](/wiki/alignment_start.png)</>
 </div>
 
 <div>
 #### `"center"`
-![](/wiki/alignment_center.png)
+<>![](/wiki/alignment_center.png)</>
 </div>
 
 <div>
 #### `"end"`
-![](/wiki/alignment_end.png)
+<>![](/wiki/alignment_end.png)</>
 </div>
 
 <div>
 #### `"space-between"`
-![](/wiki/alignment_space_between.png)
+<>![](/wiki/alignment_space_between.png)</>
 </div>
 
 <div>
 #### `"space-around"`
-![](/wiki/alignment_space_around.png)
+<>![](/wiki/alignment_space_around.png)</>
 </div>
 
 <div>
 #### `"space-evenly"`
-![](/wiki/alignment_space_evenly.png)
+<>![](/wiki/alignment_space_evenly.png)</>
 </div>
 
 </div>
@@ -164,13 +164,13 @@ Game.stage:addChild(root) -- Add it to the stage!
 
 Assuming you run this in a black void, you should see the following result:
 
-![](/wiki/hello_world.png)
+<>![](/wiki/hello_world.png)</>
 
 Perfect! Our component is 640x480, and the child is centered vertically!
 
 Turning on debug rendering will help a little in understanding what's going on:
 
-![](/wiki/hello_world_debug.png)
+<>![](/wiki/hello_world_debug.png)</>
 
 ### "What do you mean centered? It's at the left!" [vertically-centered]
 
@@ -192,11 +192,11 @@ Game.stage:addChild(outer) -- Add it to the stage!
 
 This should result in the following:
 
-![](/wiki/hello_world_2.png)
+<>![](/wiki/hello_world_2.png)</>
 
 And with debug rendering:
 
-![](/wiki/hello_world_2_debug.png)
+<>![](/wiki/hello_world_2_debug.png)</>
 
 ### "Wait, hold on, I'm confused. What's going on?" [centering-explanation]
 
@@ -234,7 +234,7 @@ Sure, we could make a million different layout types, but how would that interac
 ### Wrapping, where are you? [no-wrapping]
 If you try to cram too many components into another component, it'll start to wrap. Ideally. In reality, it'll just overflow.
 
-![](/wiki/overflow.png)
+<>![](/wiki/overflow.png)</>
 
 This component is 320x240. We're adding 8 children to it, 32 pixels tall each, with a gap of 8 pixels between elements.
 

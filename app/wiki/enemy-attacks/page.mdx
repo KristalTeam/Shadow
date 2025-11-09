@@ -104,7 +104,7 @@ In our case, we've put `bullets/example_bullet` - as we haven't created any cust
 
 Except... we don't have a sprite for our example bullet yet. Let's solve that by creating one!
 
-![](/wiki/example_bullet.png) \<-- Example bullet sprite! (It's very small)
+<>![](/wiki/example_bullet.png)</> \<-- Example bullet sprite! (It's very small)
 
 Save this image into `assets/sprites/bullets` as `example_bullet`. This will serve as our sprite! It's path should match what we put earlier - `bullets/example_bullet`.
 
@@ -912,7 +912,7 @@ We'll go more in depth on this later, for now all we need to know is that we're 
 
 As for our bullet texture, I've set that in `super.init` as `bullets/donut`. Naturally, we need to have a sprite there to go with it:
 
-![](/wiki/donut.png) \<--- (It's very small again)
+<>![](/wiki/donut.png)</> \<--- (It's very small again)
 
 This one should be saved into `assets/sprites/bullets/donut.png`.
 
@@ -1069,7 +1069,7 @@ The **soul and bullet collisions**, on the other hand, are relevant.
 
 Let's start with how the soul looks in Debug Rendering:
 
-![](/wiki/soul_collision.png)
+<>![](/wiki/soul_collision.png)</>
 
 As you can see, the circle has **two** circles drawn around it when we turn on debug rendering. 
 
@@ -1085,7 +1085,7 @@ The part that we really care about is bullet collision!
 
 If we run our wave with debug rendering, we'll be able to see how our hitboxes look:
 
-![](/wiki/wiggly_collision.png)
+<>![](/wiki/wiggly_collision.png)</>
 
 The collision objects used for our bullets here are [`Hitbox`](/wiki/api/Hitbox)es.
 
@@ -1132,7 +1132,7 @@ This is for the same reason bullet hitboxes are half the object size - collision
 
 Anyway, let's take another look at our bullets in Debug Rendering with their new collision!
 
-![](/wiki/wiggly_collision_2.png)
+<>![](/wiki/wiggly_collision_2.png)</>
 
 If you ever find that the default collision isn't working for your bullet, try out some colliders to make something more fitting!
 
@@ -1172,7 +1172,7 @@ self:setArenaOffset(-60, 40) -- Move it 60 pixels left and 40 pixels down from i
 ```
 
 These three together will look like this in your wave:
-![](/wiki/arena_transformations_basic.png)
+<>![](/wiki/arena_transformations_basic.png)</>
 
 Try putting in some values of your own!
 
@@ -1188,7 +1188,7 @@ The co-ordinates are relative to the position the arena is set at.
 
 If you put this function in your wave...
 
-![](/wiki/house_like_arena.png)
+<>![](/wiki/house_like_arena.png)</>
 
 Check it out!
 
