@@ -1,4 +1,5 @@
 import Box from 'components/Box'
+import ScaledSprite from 'components/ScaledSprite'
 
 export const metadata = {
     title: 'Designing a Map',
@@ -46,7 +47,7 @@ Now, we have nothing! Perfect state to start from.
 
 First, we need to create a tileset. A tileset is, as the name suggests, a set of tiles. Every map is made up of tiles! Let's use this one:
 
-<>![](/wiki/example_tileset.png)</>
+<ScaledSprite src="/wiki/example_tileset.png" name="example_tileset.png" width={120} height={80} scale={2}/>
 
 It's... not the greatest, but it'll get the job done. Let's save this in the folder `assets/sprites/tilesets`, as `example_tileset.png`. **It's very important that you use this directory for your tileset images.**
 
@@ -236,8 +237,8 @@ Events are just [objects](/wiki/basics#objects) which extend the [Event](/wiki/a
 
 Here's the sprites I made, although they're not very good:
 
-<>![](/wiki/pinwheel.png)</>
-<>![](/wiki/pinwheel_base.png)</>
+<ScaledSprite src="/wiki/pinwheel.png" name="pinwheel.png" width={12} height={12}/>
+<ScaledSprite src="/wiki/pinwheel_base.png" name="pinwheel_base.png" width={20} height={20}/>
 
 And here's the code I ended up making:
 

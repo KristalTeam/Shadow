@@ -1,4 +1,5 @@
 import Box from 'components/Box'
+import ScaledSprite from 'components/ScaledSprite'
 
 export const metadata = {
     title: 'Enemy Attacks (Waves)',
@@ -104,9 +105,9 @@ In our case, we've put `bullets/example_bullet` - as we haven't created any cust
 
 Except... we don't have a sprite for our example bullet yet. Let's solve that by creating one!
 
-<>![](/wiki/example_bullet.png)</> \<-- Example bullet sprite! (It's very small)
+<ScaledSprite src="/wiki/example_bullet.png" name="example_bullet.png" width={11} height={7} scale={4}/>
 
-Save this image into `assets/sprites/bullets` as `example_bullet`. This will serve as our sprite! It's path should match what we put earlier - `bullets/example_bullet`.
+Save this image into `assets/sprites/bullets` as `example_bullet.png`. This will serve as our sprite! It's path should match what we put earlier - `bullets/example_bullet`.
 
 This all means that we created a "basic bullet" - that just means it's a standard [`Bullet`](/wiki/api/Bullet) object.
 
@@ -247,7 +248,7 @@ A more sensible approach would be to loop over the code we already have.
 Using a `for` loop, we can make our bullet spawning code from earlier run multiple times. Six bullets seems like a nice number, so we'll go for that:
 ```lua
 -- Loop this code six times, with `i` increasing by 1 each time (we don't use `i` for anything here)
-for i=1, 6 do
+for i = 1, 6 do
     local bullet = self:spawnBullet("bullets/example_bullet", x, y)
     bullet.physics.speed = 4
     bullet.rotation = math.rad(180)
@@ -305,7 +306,7 @@ function ExampleWave:onStart()
 
     -- create a bullet at the center of the dummy
     local x, y = dummy:getRelativePos(dummy.width/2, dummy.height/2)
-    for i=1, 6 do
+    for i = 1, 6 do
         local bullet = self:spawnBullet("bullets/example_bullet", x, y)
         bullet.physics.speed = 4
         local target_angle = MathUtils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
@@ -374,7 +375,7 @@ function ExampleWave:onStart()
 
     -- create a bullet at the center of the dummy
     local x, y = dummy:getRelativePos(dummy.width/2, dummy.height/2)
-    for i=1, 6 do
+    for i = 1, 6 do
         local bullet = self:spawnBullet("bullets/example_bullet", x, y)
         bullet.physics.speed = 4
         local target_angle = MathUtils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
@@ -397,7 +398,7 @@ function ExampleWave:onStart()
     self.timer:every(1, function()
         -- create a bullet at the center of the dummy
         local x, y = dummy:getRelativePos(dummy.width/2, dummy.height/2)
-        for i=1, 6 do
+        for i = 1, 6 do
             local bullet = self:spawnBullet("bullets/example_bullet", x, y)
             bullet.physics.speed = 4
             local target_angle = MathUtils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
@@ -594,7 +595,7 @@ We won't use this effect in our wave, but it might be helpful to know when using
 ```lua
 self.timer:script(function(wait)
     wait(1)
-    for i=1, 3 do
+    for i = 1, 3 do
         self:spawnBullet("bullets/example_bullet", 240 + 80*(i-1), 280)
 
         wait(6/30)
@@ -743,7 +744,7 @@ function ExampleWave:onStart()
         self.timer:everyInstant(1, function()
             -- create a bullet at the center of the dummy
             local x, y = dummy:getRelativePos(dummy.width/2, dummy.height/2)
-            for i=1, 6 do
+            for i = 1, 6 do
                 local bullet = self:spawnBullet("bullets/example_bullet", x, y)
                 bullet.physics.speed = 4
                 local target_angle = MathUtils.angle(x, y, Game.battle.soul.x, Game.battle.soul.y)
@@ -912,7 +913,7 @@ We'll go more in depth on this later, for now all we need to know is that we're 
 
 As for our bullet texture, I've set that in `super.init` as `bullets/donut`. Naturally, we need to have a sprite there to go with it:
 
-<>![](/wiki/donut.png)</> \<--- (It's very small again)
+<ScaledSprite src="/wiki/donut.png" name="example_donut.png" width={8} height={8} scale={4}/>
 
 This one should be saved into `assets/sprites/bullets/donut.png`.
 
