@@ -55,6 +55,7 @@ export default function Sidebar(props) {
         <hr/>
         <p>These pages teach you more complex but powerful parts of the engine.</p>
         <ul>
+            <li><Link href="/wiki/debugging">Debugging</Link></li>
             <li><Link href="/wiki/hooks">Hooks</Link></li>
             <li><Link href="/wiki/ui">The UI System</Link></li>
         </ul>
