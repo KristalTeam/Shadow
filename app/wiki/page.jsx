@@ -20,7 +20,7 @@ export default function Page({
     {
         searchParams.search ?
         <Box>
-            <h2>{"Search Reults for: \""+searchParams.search+"\""}</h2>
+            <h2>{"Search Results for: \""+searchParams.search+"\""}</h2>
             <SearchResultsPaginate itemsPerPage = {10} items = {searchQuery(searchParams.search)}/>
         </Box>
         : <>
