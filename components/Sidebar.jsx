@@ -12,17 +12,17 @@ export default function Sidebar(props) {
         <ul>
             <li><Link href="/wiki/">Main Page</Link></li>
             <li><Link href="/wiki/downloading">Downloading Kristal</Link></li>
-            <li><Link href="/wiki/playing-mods">Installing and Playing Mods</Link></li>
+            <li><Link href="/wiki/playing-mods">Installing and Playing Projects</Link></li>
             <li><Link href="/wiki/glossary">Glossary</Link></li>
         </ul>
         <br/>
-        <h3><Link href="/wiki/mod-creation">General Mod Creation</Link></h3>
+        <h3><Link href="/wiki/mod-creation">General Project Creation</Link></h3>
         <hr/>
-        <p>These pages teach you about mod development.</p>
+        <p>These pages teach you about project development.</p>
         <ul>
             <li><Link href="/wiki/lua-tutorial">Lua Tutorial</Link></li>
             <li><Link href="/wiki/basics">Understanding the Basics</Link></li>
-            <li><Link href="/wiki/creating-a-mod">Creating a Mod</Link></li>
+            <li><Link href="/wiki/creating-a-mod">Creating a Project</Link></li>
             <li><Link href="/wiki/writing-text">Writing Text</Link></li>
             <li><Link href="/wiki/using-libraries">Using Libraries</Link></li>
             <li><Link href="/wiki/creating-an-item">Creating an Item</Link></li>
@@ -30,7 +30,7 @@ export default function Sidebar(props) {
             <li><Link href="/wiki/actors">Actors</Link></li>
             <li><Link href="/wiki/party-members">Party Members</Link></li>
             <li><Link href="/wiki/keybinds">Custom Keybinds</Link></li>
-            <li><Link href="/wiki/releasing-mods">Releasing Mods</Link></li>
+            <li><Link href="/wiki/releasing-mods">Releasing Projects</Link></li>
         </ul>
         <br/>
         <h3><Link href="/wiki/mod-creation">The Overworld</Link></h3>

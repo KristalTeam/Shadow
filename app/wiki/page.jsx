@@ -34,7 +34,7 @@ export default function Page({
                 <h2>Getting Started</h2>
                 <hr/>
                 <p>
-                    No matter whether you&apos;re making a mod, or playing one, the first step is <b>downloading the engine.</b> Read the <Link href="/wiki/downloading">download guide</Link> for more information!
+                    No matter whether you&apos;re making a fangame, or playing one, the first step is <b>downloading the engine.</b> Read the <Link href="/wiki/downloading">download guide</Link> for more information!
                 </p>
             </Box>
 

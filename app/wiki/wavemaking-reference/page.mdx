@@ -172,7 +172,7 @@ Okay, thats a lot of information at once - let's break that down into something 
 
 The most straightforward and arguably the "standard" method of wave selection is to define the `waves` table in your `EnemyBattler`. You're probably familiar with this already.
 
-For example, you can see the mod template's dummy file sets this up to select the three waves also included in the mod template:
+For example, you can see the project template's dummy file sets this up to select the three waves also included in the project template:
 
 ```lua
 -- In scripts/battle/enemies/dummy.lua
@@ -1548,7 +1548,7 @@ What we need in these situations is a custom soul mode! Let's look at how a cust
 
 To start with creating a custom soul mode, we want to **create a new object** and make sure that object **extends the original `Soul`**.
 
-This means creating a new file inside of your mod's `scripts/objects` folder, and inserting the following code:
+This means creating a new file inside of your project's `scripts/objects` folder, and inserting the following code:
 
 ```lua
 local MySoul, super = Class(Soul)

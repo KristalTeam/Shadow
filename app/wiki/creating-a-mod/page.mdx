@@ -1,19 +1,19 @@
 import Box from 'components/Box'
 
 export const metadata = {
-    title: 'Creating a Mod',
-    description: 'A simple guide on how to create a mod for Kristal.',
+    title: 'Creating a Project',
+    description: 'A simple guide on how to create a project for Kristal.',
 }
 
-# Creating a Mod
+# Creating a Project
 
 <Box>
 
-In the Kristal mod list, there's a button at the bottom which says "Create a new mod".
+In the Kristal project list, there's a button at the bottom which says "Create a new project".
 
-<>![](/wiki/create_new_mod.png)</>
+<>![](/wiki/create_new_project.png)</>
 
-In here, you can configure things like the name of your mod,
+In here, you can configure things like the name of your project,
 the description, what chapter of DELTARUNE it's based on,
 and you can configure each feature changed between chapters.
 
@@ -24,26 +24,27 @@ You can view the full list of configurable features [here](/wiki/configurable-fe
 ## Installing Visual Studio Code
 ---
 
-Visual Studio Code is the recommended code editor for Kristal mods. You can download it [here](https://code.visualstudio.com/).
+Visual Studio Code is the recommended code editor for Kristal projects. You can download it [here](https://code.visualstudio.com/).
 
 (Please ignore all of the AI stuff on the website... you can easily turn it off.
 We've been using Visual Studio Code from before that happened...)
 
-Once VSCode is installed, install the official Kristal extension [from here](https://marketplace.visualstudio.com/items?itemName=kristal.kristal-vscode). It will make your life much easier.
+Once VSCode is installed, install the official Kristal extension [from here](https://marketplace.visualstudio.com/items?itemName=kristal.kristal-vscode).
+It will make your life much easier.
 
 That's it, you're now ready!
 </Box>
 
 <Box>
-## Opening your mod in Visual Studio Code
+## Opening your project in Visual Studio Code
 ---
 
-With your mod folder open, either right click inside of it, or right click the folder itself, and click "**Open with Code**".
+With your project folder open, either right click inside of it, or right click the folder itself, and click "**Open with Code**".
 In the screenshot below, I'm using Visual Studio Code Insiders, but it's the same no matter what version you use.
 
 <>![](/wiki/open_with_code.png)</>
 
-Make sure to click "**Yes, I trust the authors**" when prompted -- you're the author, because this is your mod!
+Make sure to click "**Yes, I trust the authors**" when prompted -- you're the author, because this is your project!
 
 <>![](/wiki/trust_authors.png)</>
 
@@ -53,26 +54,30 @@ Make sure to click "**Yes, I trust the authors**" when prompted -- you're the au
 ## Using Visual Studio Code
 ---
 
-The left-hand side of the screen has the **file explorer**. These are the files in your mod! You can click on them once to preview them, or double click to open them.
+The left-hand side of the screen has the **file explorer**. These are the files in your project!
+You can click on them once to preview them, or double click to open them.
 
-(A preview tab has an *italics* name, and will get replaced by other files you try to open. Most of the time, if you want to edit a file, you should open it normally instead of previewing it.)
+(A preview tab has an *italics* name, and will get replaced by other files you try to open.
+Most of the time, if you want to edit a file, you should open it normally instead of previewing it.)
 
 </Box>
 
 <Box>
-## Mod Structure
+## Project Structure
 ---
 
-Now you can see your mod files, let's talk folders! It's important to have an idea what folders contain which files.
+Now you can see your project files, let's talk folders! It's important to have an idea what folders contain which files.
 
 ---
 
 
 ### The Root Folder
 
-The "root" folder refers to the topmost folder of your mod, the one that contains everything else! It's the same one you just opened with Visual Studio Code.
+The "root" folder refers to the topmost folder of your project,
+the one that contains everything else! It's the same one you just opened with Visual Studio Code.
 
-You might hear it referred to as "the root of your mod", or just "your mod folder" as you've seen here.
+You might hear it referred to as "the root of your project",
+or just "your project folder" as you've seen here.
 
 <details> 
 
@@ -82,7 +87,7 @@ You might hear it referred to as "the root of your mod", or just "your mod folde
 
 Two key files are stored in the root folder: `mod.lua` and `mod.json`. 
 
-On top of that, all of your mod content folders are stored here:
+On top of that, all of your project content folders are stored here:
 
 - assets
 - scripts
@@ -93,11 +98,17 @@ On top of that, all of your mod content folders are stored here:
 
 Back to these `mod` files - what are they?
 
-Well, `mod.lua` is where you can modfiy your `Mod` object. The `Mod` object can define code to be run for a variety of engine-determined event calls.
+(In the past, Kristal projects were called "mods", but too much confusion was caused by the name.
+To make sure old projects are still compatible, we kept the name of these files the same.)
 
-(The wiki doesn't have a list of event calls... but the `KRISTAL_EVENT` enum in the source code does! Here's a [quick link](https://github.com/KristalTeam/Kristal/blob/main/src/engine/vars.lua#L179) if you can't find it.)
+Well, `mod.lua` is where you can modfiy your `Mod` object.
+The `Mod` object can define code to be run for a variety of engine-determined event calls.
 
-The other file, `mod.json`, is your mod's configuration file. Here you can change the chapter configs you selected during mod creation, and some other behaviour, like the **initial save state** of your mod.
+(The wiki doesn't have a list of event calls... but the `KRISTAL_EVENT` enum in the source code does!
+Here's a [quick link](https://github.com/KristalTeam/Kristal/blob/main/src/engine/vars.lua#L179) if you can't find it.)
+
+The other file, `mod.json`, is your project's configuration file.
+Here you can change the chapter configs you selected during project creation, and some other behaviour, like the **initial save state** of your project.
 
 Many keys in `mod.json` **only apply to new save files**, so make sure to create fresh saves when testing changes to it!
 
@@ -123,7 +134,7 @@ Each type of asset is stored in it's own sub-folder.
 #### Sprites - `assets/sprites`
 </summary>
 
-Stores all the textures/images for your mod. Accepted file types are `.png` or `.jpg`.
+Stores all the textures/images for your project. Accepted file types are `.png` or `.jpg`.
 
 For animated sprites, each frame should be saved as a seperate image, with the frame number being attached to the end of the name (e.g. `idle_1.png`, `idle_2.png`, ...). **Kristal does not support `.gif` files or spritesheets for animations**.
 
@@ -135,7 +146,7 @@ For animated sprites, each frame should be saved as a seperate image, with the f
 #### Sounds - `assets/sounds`
 </summary>
 
-Stores all the sound files for your mod. Accepted file tyes are `.wav` and `.ogg`.
+Stores all the sound files for your project. Accepted file tyes are `.wav` and `.ogg`.
 
 </details>
 
@@ -145,7 +156,7 @@ Stores all the sound files for your mod. Accepted file tyes are `.wav` and `.ogg
 #### Music - `assets/music`
 </summary>
 
-Stores all the music files for your mod. Accepted file types are `.wav`, `.ogg`, and `.mp4` (`.ogg` is recommended).
+Stores all the music files for your project. Accepted file types are `.wav`, `.ogg`, and `.mp4` (`.ogg` is recommended).
 
 You can modify the global in-game volume and pitch of any track in `mod.lua` with the `MUSIC_VOLUMES` and `MUSIC_PITCHES` tables:
 ```lua
@@ -164,7 +175,7 @@ end
 #### Fonts - `assets/fonts`
 </summary>
 
-Stores all the custom fonts (and any supporting information about them) for your mod. Accepted fonts are `.ttf`, `.fnt`, or `.png`.
+Stores all the custom fonts (and any supporting information about them) for your project. Accepted fonts are `.ttf`, `.fnt`, or `.png`.
 
 </details>
 
@@ -186,7 +197,7 @@ Stores speech bubble data in `.json` files. The actual sprites used to construct
 #### Shaders - `assets/shaders`
 </summary>
 
-Stores shadercode for your mod. All shaders are `.glsl` files.
+Stores shadercode for your project. All shaders are `.glsl` files.
 
 </details>
 
@@ -196,7 +207,7 @@ Stores shadercode for your mod. All shaders are `.glsl` files.
 #### Videos - `assets/videos`
 </summary>
 
-Stores video files for your mod. They must be encoded in the Ogg theora format (`.ogv`, `.ogg`) to play correctly.
+Stores video files for your project. They must be encoded in the Ogg theora format (`.ogv`, `.ogg`) to play correctly.
 
 </details>
 
@@ -212,7 +223,7 @@ Stores video files for your mod. They must be encoded in the Ogg theora format (
 
 #### Asset Paths
 
-When referencing any type of Asset in your mod, the code will eventually call into `Assets` - you might even be doing so directly!
+When referencing any type of Asset in your project, the code will eventually call into `Assets` - you might even be doing so directly!
 
 The file paths you use for assets should begin **inside the type's sub-folder** and **exclude the file extension**.
 
@@ -222,9 +233,9 @@ Note that some functions and features of the engine may look for assets from mor
 
 #### Replacing Engine Assets
 
-Assets used directly by the engine aren't visible inside your mod folder, but they're still loaded and accessed in the same way.
+Assets used directly by the engine aren't visible inside your project folder, but they're still loaded and accessed in the same way.
 
-You can view the engine's assets from the `assets` folder of the [source code](https://github.com/KristalTeam/Kristal/tree/main). If you want to **replace** these assets (e.g. to reskin the UI) you can do so by placing your replacement texture at the **same file path in your mod's assets**!
+You can view the engine's assets from the `assets` folder of the [source code](https://github.com/KristalTeam/Kristal/tree/main). If you want to **replace** these assets (e.g. to reskin the UI) you can do so by placing your replacement texture at the **same file path in your project's assets**!
 
 </details>
 
@@ -232,7 +243,7 @@ You can view the engine's assets from the `assets` folder of the [source code](h
 
 ### The Scripts Folder
 
-Scripts are the code of your mod. This folder contains all of them, whether it's cutscenes, enemies, or even data, like items.
+Scripts are the code of your project. This folder contains all of them, whether it's cutscenes, enemies, or even data, like items.
 
 All scripts are `.lua` files, and each type of script must be inside a specific folder to be loaded.
 
@@ -242,7 +253,7 @@ All scripts are `.lua` files, and each type of script must be inside a specific 
 *Scripts sub-folders (Click to expand)*
 </summary>
 
-Your mod will include empty folders for most types of script by default. Let's briefly introduce them all.
+Your project will include empty folders for most types of script by default. Let's briefly introduce them all.
 
 <details>
 
@@ -278,11 +289,11 @@ The scripts in this folder define custom `Border` objects that support animation
 
 This folder contains the scripts of everything data-based, like items. There are several sub-folders for each data type:
 
-- `actors` - Scripts that define the data of your mod's characters.
-- `items` - Scripts for all your mod's items.
-- `party` - Scripts for your mod's custom party members.
+- `actors` - Scripts that define the data of your project's characters.
+- `items` - Scripts for all your project's items.
+- `party` - Scripts for your project's custom party members.
 - `recruits` - Scripts for all your enemies RECRUIT data.
-- `spells` - Scripts for your mod's spells.
+- `spells` - Scripts for your project's spells.
 
 </details>
 
@@ -312,7 +323,7 @@ This folder contains `LegendCutscene` scripts for... legend-styled cutscenes!
 #### Objects - `scripts/objects`
 </summary>
 
-This folder contains custom object types for your mod. You might use this folder for things like advanced spell effects and custom souls, as well as many other things.
+This folder contains custom object types for your project. You might use this folder for things like advanced spell effects and custom souls, as well as many other things.
 
 Each object in this folder is placed into a global variable **matching it's ID**. You can create instances of your new object through this global; If your object is `MyNewObject`, creating an instance would look like this:
 
@@ -370,7 +381,7 @@ These are also **case-sensitive** - `Light/Pencil` and `light/pencil` are consid
 
 #### Changing Engine Scripts
 
-The engine has some `data/` scripts that appear ingame but are not visible from your mod folder. If you want to modify them, you'll need to use hooks.
+The engine has some `data/` scripts that appear ingame but are not visible from your project folder. If you want to modify them, you'll need to use hooks.
 
 Hooks are a more advanced feature of the engine that aren't recommended if you're starting out. But when you need them, you can read about them [here](/wiki/hooks).
 </details>
@@ -385,7 +396,7 @@ Libraries are externally sourced code and assets - the [Libraries page](/wiki/us
 
 ### The Preview Folder
 
-The preview folder stores everything related to how your mod appears on the Kristal menu.
+The preview folder stores everything related to how your project appears on the Kristal menu.
 
 ... Huh? There's no preview guide on the wiki? Quickly, cut to the end of the article!
 
@@ -395,5 +406,5 @@ The preview folder stores everything related to how your mod appears on the Kris
 ## Now what?
 ---
 
-Now that you know how to use Visual Studio Code, it's time to start making your mod! You can learn more about mod creation [here](/wiki/mod-creation).
+Now that you know how to use Visual Studio Code, it's time to start making your project! You can learn more about project creation [here](/wiki/mod-creation).
 </Box>
