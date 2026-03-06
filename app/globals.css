@@ -9,20 +9,23 @@
 }
 
 body {
-  width: 100%;
   margin: auto;
+
+  width: 100%;
   height: 100%;
-  background-color: black;
-  background-image: url(/animated_bg_long.gif);
-  background-repeat: no-repeat;
+
+  background: no-repeat center / auto 100% url("/background.apng"), linear-gradient(to bottom, black 94.2%, #00328e 94.2%);
   background-attachment: fixed;
-  background-position: bottom;
-  background-size: cover;
+
   image-rendering: pixelated;
   font-family: "8bitOperatorPlus-Regular", monospace;
+
   text-shadow: 2px 2px #000000;
+
   font-size: 20px;
+
   color: white;
+
   font-smooth: never;
   -webkit-font-smoothing: none;
 }
