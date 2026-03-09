@@ -5,10 +5,8 @@ import { searchQuery } from 'src/wikisearch.js'
 import SearchResultsPaginate from 'components/SearchResultsPaginate'
 import NewTab from "components/NewTab"
 
-export default function Page({
-    params,
-    searchParams,
-}) {
+export default async function Page(props) {
+    const searchParams = await props.searchParams;
 
     return (<>
     <h1 className={styles.logo}>

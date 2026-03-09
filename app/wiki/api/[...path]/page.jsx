@@ -15,7 +15,8 @@ export async function generateStaticParams() {
     });
 }
 
-export async function generateMetadata({ params }){
+export async function generateMetadata(props) {
+    const params = await props.params;
     return {
         title: String(params.path),
         description: "Kristal API Reference"
@@ -399,8 +400,9 @@ function Api_variable(type, { params }) {
     </div>
 }
 
-export default async function Api({ params }) {
-        
+export default async function Api(props) {
+    const params = await props.params;
+
     // read the types from TYPES 
 
     let type = null;
