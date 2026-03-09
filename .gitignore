@@ -2,6 +2,7 @@
 
 doc.md
 app/data
+.idea
 
 # dependencies
 /node_modules
