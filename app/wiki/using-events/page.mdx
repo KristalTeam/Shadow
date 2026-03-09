@@ -24,6 +24,7 @@ export const metadata = {
     - [Treasure Chest](#treasure-chest)
     - [Savepoint](#savepoint)
     - [Transitions](#transitions)
+    - [Outline](#outline)
 
 </Box>
 
@@ -420,5 +421,27 @@ export const metadata = {
     Now, let's try out our new transition.
     
     [Insert the video here]
+
+</Box>
+
+<Box>
+    ## Outline
+    ---
+    Outline is a region of the map that draws a collored stencil outline for all the character that are inside of that area. 
+    The color of this outline is defined by the `Actor` of the character in the `self.color` field.
+
+    This event is an area, and naming an object `outline` on an `objects` layer in a map creates this object.
+
+    This event doesn't have any custom properties.
+
+    ### Example
+    ---
+    First, lets create an area on the `objects` layer and name it `outline`.
+
+    <>![](/wiki/outline_tutorial_1.png)</>
+
+    That's it! Now just step into the area with you party like in the image bellow.
+
+    <>![](/wiki/outline_tutorial_2.png)</>
 
 </Box>
