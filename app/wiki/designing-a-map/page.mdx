@@ -10,130 +10,134 @@ export const metadata = {
 
 <Box>
 
-Maps are complex, filled with many different things. Therefore, it needs a powerful tool to design them. That's why we use [Tiled](https://www.mapeditor.org/).
+    Maps are complex, filled with many different things. Therefore, it needs a powerful tool to design them. That's why we use [Tiled](https://www.mapeditor.org/).
 
 </Box>
 
 <Box>
-## Installing Tiled
----
 
-Tiled is available for all major platforms. You can download it from [here](https://www.mapeditor.org/). There's no Kristal extension for Tiled yet, so that's all you need to do.
-</Box>
+    ## Installing Tiled
+    ---
 
-<Box>
-## Opening Your Project
----
-
-Once you've installed Tiled, you can open your project. You can do this by clicking on `File`, and then `Open File or Project`.
-
-<>![](/wiki/tiled_open.png)</>
-
-Now, navigate to your project's folder. You should find a file called `<your-project>.tiled-project`. Open it.
-
-The project window on the left should now show a folder tree. This is your project. You can open any map by double-clicking on it! Feel free to mess around with them, because in the next section, **we're deleting them.**
+    Tiled is available for all major platforms. You can download it from [here](https://www.mapeditor.org/). There's no Kristal extension for Tiled yet, so that's all you need to do.
 
 </Box>
 
 <Box>
-## Creating Tilesets
----
 
-Let's delete everything.
+    ## Opening Your Project
+    ---
 
-<>![](/wiki/delete_maps.png)</>
+    Once you've installed Tiled, you can open your project. You can do this by clicking on `File`, and then `Open File or Project`.
 
-Now, we have nothing! Perfect state to start from.
+    <>![](/wiki/tiled_open.png)</>
 
-First, we need to create a tileset. A tileset is, as the name suggests, a set of tiles. Every map is made up of tiles! Let's use this one:
+    Now, navigate to your project's folder. You should find a file called `<your-project>.tiled-project`. Open it.
 
-<ScaledSprite src="/wiki/example_tileset.png" name="example_tileset.png" width={120} height={80} scale={2}/>
-
-It's... not the greatest, but it'll get the job done. Let's save this in the folder `assets/sprites/tilesets`, as `example_tileset.png`. **It's very important that you use this directory for your tileset images.**
-
-Now, let's create the tileset.
-
-<>![](/wiki/new_tileset.png)</>
-
-Let's name it `example_tileset`. The tile width and height should be `20`, and the margin and spacing should be `0`. Click browse, and locate the tileset image we just saved. You should have the following settings:
-
-<>![](/wiki/new_tileset_filled.png)</>
-
-Click **Save As...** and save it to `scripts/world/tilesets` as `example_tileset.tsx`. **It's also very important that you use this directory for your tilesets.**
-
-Now that the tileset is created, we need to do one last step. Open the tileset properties.
-
-<>![](/wiki/tileset_properties.png)</>
-
-Change **Tile Render Size** to `Map Grid Size`. This will make the tiles render at the size we want them to. Now, click **Save**.
-
-Once everything's saved, press `CTRL+E` to **export** the tileset. You have to export it every time you make a change to it, otherwise the changes won't be applied.
-
-Make sure to export it as a `.lua` file in the same directory as the `.tsx` file. So, in this case, `scripts/world/tilesets/example_tileset.lua`.
-
-If you get tired of having to export after every save, you can enable this in the preferences:
-
-<>![](/wiki/preferences.png)</>
-
-But anyway, we have a tileset now! So why don't we create a map now?
-</Box>
-
-<Box>
-## Creating a Map
----
-
-Here's where the fun begins.
-
-Create a new map by going to `File`, then `New`, then `New Map...`. Make sure the orientation is `Orthogonal`,
-tile layer format is `CSV`, and tile render order is `Right Down`.
-
-Also make the tile size `40x40`. You'll notice this is twice the size of the tiles in our tileset. This is because Deltarune actually upscales tiles by 2x! Since we don't want to do that manually, we'll just let Tiled make them bigger for us!
-
-Map size should be Fixed, with a width of `16`, and a height of `12`. Those are the minimum dimensions for a map, since that's the size of the screen. It can be bigger, if you wish, but for this tutorial, let's just stay with 16x12.
-
-After clicking OK, this should take you to an empty map. First thing we'll want to do is save it into our project. Go to `File`, then `Save As...`. Save it to `scripts/world/maps` as `example_map.tmx`. **It's very important that you use this directory for your maps.** You probably get that by now.
-
-Now, you can place down tiles! Make anything you'd like, and don't forget to keep saving! Here's what I made:
-
-<>![](/wiki/example_map.png)</>
-
-It's... a huge bone? I don't know. It's not important. What is important is that you save your map, and that you're happy with it.
+    The project window on the left should now show a folder tree. This is your project. You can open any map by double-clicking on it! Feel free to mess around with them, because in the next section, **we're deleting them.**
 
 </Box>
 
 <Box>
-## Markers
----
+    ## Creating Tilesets
+    ---
 
-Markers are a very important part of maps. They're used to mark things like spawn points, and just general points of interest. Let's add a marker to our map.
+    Let's delete everything.
 
-First, we'll have to make a new layer, named `markers`.
+    <>![](/wiki/delete_maps.png)</>
 
-<>![](/wiki/new_object_layer.png)</>
+    Now, we have nothing! Perfect state to start from.
 
-Us Kristal devs really like when they're purple (it helps us know the layer at a glance), but you can make them any color you want.
+    First, we need to create a tileset. A tileset is, as the name suggests, a set of tiles. Every map is made up of tiles! Let's use this one:
 
-<>![](/wiki/purple_color.png)</>
+    <ScaledSprite src="/wiki/example_tileset.png" name="example_tileset.png" width={120} height={80} scale={2}/>
 
-To place down a point, use the Insert Point tool, which you can find in the toolbar at the top, or by pressing `I`.
+    It's... not the greatest, but it'll get the job done. Let's save this in the folder `assets/sprites/tilesets`, as `example_tileset.png`. **It's very important that you use this directory for your tileset images.**
 
-<>![](/wiki/insert_point.png)</>
+    Now, let's create the tileset.
 
-Now, click anywhere on the map. A point should appear. This is a marker! We're trying to make the player's spawn point right now, so name it `spawn`.
+    <>![](/wiki/new_tileset.png)</>
 
-<>![](/wiki/example_map_with_spawn_marker.png)</>
+    Let's name it `example_tileset`. The tile width and height should be `20`, and the margin and spacing should be `0`. Click browse, and locate the tileset image we just saved. You should have the following settings:
 
-Now, let's test in-game! Save your map, and then press `CTRL+E` to export it. Yep, you have to export maps as well. Make sure it's a `.lua` file!
+    <>![](/wiki/new_tileset_filled.png)</>
 
-Now, open your project in Kristal. If you get the following error, don't worry! We just need to change something we forgot to.
+    Click **Save As...** and save it to `scripts/world/tilesets` as `example_tileset.tsx`. **It's also very important that you use this directory for your tilesets.**
 
-<>![](/wiki/room1_error.png)</>
+    Now that the tileset is created, we need to do one last step. Open the tileset properties.
 
-This means that Kristal is trying to load a map, called `room1`, that **doesn't exist**. That makes sense, because we deleted `room1` earlier. Let's tell Kristal to load our map instead.
+    <>![](/wiki/tileset_properties.png)</>
 
-In `mod.json`, change `"map": "room1"` to `"map": "example_map"`. Now, save the file, and try again. It should work! And look at that, our spawnpoint is working, too!
+    Change **Tile Render Size** to `Map Grid Size`. This will make the tiles render at the size we want them to. Now, click **Save**.
 
-<>![](/wiki/working_spawnpoint.png)</>
+    Once everything's saved, press `CTRL+E` to **export** the tileset. You have to export it every time you make a change to it, otherwise the changes won't be applied.
+
+    Make sure to export it as a `.lua` file in the same directory as the `.tsx` file. So, in this case, `scripts/world/tilesets/example_tileset.lua`.
+
+    If you get tired of having to export after every save, you can enable this in the preferences:
+
+    <>![](/wiki/preferences.png)</>
+
+    But anyway, we have a tileset now! So why don't we create a map now?
+</Box>
+
+<Box>
+    ## Creating a Map
+    ---
+
+    Here's where the fun begins.
+
+    Create a new map by going to `File`, then `New`, then `New Map...`. Make sure the orientation is `Orthogonal`,
+    tile layer format is `CSV`, and tile render order is `Right Down`.
+
+    Also make the tile size `40x40`. You'll notice this is twice the size of the tiles in our tileset. This is because Deltarune actually upscales tiles by 2x! Since we don't want to do that manually, we'll just let Tiled make them bigger for us!
+
+    Map size should be Fixed, with a width of `16`, and a height of `12`. Those are the minimum dimensions for a map, since that's the size of the screen. It can be bigger, if you wish, but for this tutorial, let's just stay with 16x12.
+
+    After clicking OK, this should take you to an empty map. First thing we'll want to do is save it into our project. Go to `File`, then `Save As...`. Save it to `scripts/world/maps` as `example_map.tmx`. **It's very important that you use this directory for your maps.** You probably get that by now.
+
+    Now, you can place down tiles! Make anything you'd like, and don't forget to keep saving! Here's what I made:
+
+    <>![](/wiki/example_map.png)</>
+
+    It's... a huge bone? I don't know. It's not important. What is important is that you save your map, and that you're happy with it.
+
+</Box>
+
+<Box>
+
+    ## Markers
+    ---
+
+    Markers are a very important part of maps. They're used to mark things like spawn points, and just general points of interest. Let's add a marker to our map.
+
+    First, we'll have to make a new layer, named `markers`.
+
+    <>![](/wiki/new_object_layer.png)</>
+
+    Us Kristal devs really like when they're purple (it helps us know the layer at a glance), but you can make them any color you want.
+
+    <>![](/wiki/purple_color.png)</>
+
+    To place down a point, use the Insert Point tool, which you can find in the toolbar at the top, or by pressing `I`.
+
+    <>![](/wiki/insert_point.png)</>
+
+    Now, click anywhere on the map. A point should appear. This is a marker! We're trying to make the player's spawn point right now, so name it `spawn`.
+
+    <>![](/wiki/example_map_with_spawn_marker.png)</>
+
+    Now, let's test in-game! Save your map, and then press `CTRL+E` to export it. Yep, you have to export maps as well. Make sure it's a `.lua` file!
+
+    Now, open your project in Kristal. If you get the following error, don't worry! We just need to change something we forgot to.
+
+    <>![](/wiki/room1_error.png)</>
+
+    This means that Kristal is trying to load a map, called `room1`, that **doesn't exist**. That makes sense, because we deleted `room1` earlier. Let's tell Kristal to load our map instead.
+
+    In `mod.json`, change `"map": "room1"` to `"map": "example_map"`. Now, save the file, and try again. It should work! And look at that, our spawnpoint is working, too!
+
+    <>![](/wiki/working_spawnpoint.png)</>
 
 </Box>
 
@@ -141,33 +145,33 @@ In `mod.json`, change `"map": "room1"` to `"map": "example_map"`. Now, save the 
 ## Collision
 ---
 
-Our test map is perfect, right? Well...
+    Our test map is perfect, right? Well...
 
-<>![](/wiki/outside_map.png)</>
+    <>![](/wiki/outside_map.png)</>
 
-...that isn't right. We didn't add any collision! Let's fix that.
+    ...that isn't right. We didn't add any collision! Let's fix that.
 
-First, you'll have to create another object layer. Name this one `collision`. We prefer to make these layers blue!
+    First, you'll have to create another object layer. Name this one `collision`. We prefer to make these layers blue!
 
-<>![](/wiki/blue_color.png)</>
+    <>![](/wiki/blue_color.png)</>
 
-Now, select the **Insert Rectangle** tool, which you can find in the toolbar at the top, or by pressing `R`.
+    Now, select the **Insert Rectangle** tool, which you can find in the toolbar at the top, or by pressing `R`.
 
-<>![](/wiki/insert_rectangle.png)</>
+    <>![](/wiki/insert_rectangle.png)</>
 
-This is one of the tools you'll be using to draw collision. It's pretty simple, just click and drag to make a rectangle. **Make sure to hold `CTRL` to make it snap to the grid!**
+    This is one of the tools you'll be using to draw collision. It's pretty simple, just click and drag to make a rectangle. **Make sure to hold `CTRL` to make it snap to the grid!**
 
-<>![](/wiki/added_collision.png)</>
+    <>![](/wiki/added_collision.png)</>
 
-Now that we've drawn out where collision should be, let's export and test! And look at that, it works!
+    Now that we've drawn out where collision should be, let's export and test! And look at that, it works!
 
----
+    ---
 
-### Slopes, Polygons, and More
+    ### Slopes, Polygons, and More
 
-Using the **Insert Polygon** tool, which you can find in the toolbar at the top, or by pressing `P`, you can make any polygon you want! Whether it's a triangle, a trapazoid, or even a pentagon, you can make it!
+    Using the **Insert Polygon** tool, which you can find in the toolbar at the top, or by pressing `P`, you can make any polygon you want! Whether it's a triangle, a trapazoid, or even a pentagon, you can make it!
 
-Holding down `CTRL` makes it snap to the grid, as well, so you can make perfect shapes!
+    Holding down `CTRL` makes it snap to the grid, as well, so you can make perfect shapes!
 
 </Box>
 
@@ -175,145 +179,214 @@ Holding down `CTRL` makes it snap to the grid, as well, so you can make perfect 
 ## Events
 ---
 
-Events are a very important part of maps. They're special [objects](/wiki/basics#objects) which can be placed down directly in maps.
+    Events are a very important part of maps. They're special [objects](/wiki/basics#objects) which can be placed down directly in maps.
 
----
+    ---
 
-### Using Events
+    ### Using Events
 
-To use an event, we need to first make a layer for them. Make a new object layer, and name it `objects`. We make these layers pink!
+    To use an event, we need to first make a layer for them. Make a new object layer, and name it `objects`. We make these layers pink!
 
-<>![](/wiki/pink_color.png)</>
+    <>![](/wiki/pink_color.png)</>
 
-Now, you can select the **Insert Point** tool which we talked about earlier. Click anywhere on the map, and a point should appear. This is an event! Or, well, it *will* be.
+    Now, you can select the **Insert Point** tool which we talked about earlier. Click anywhere on the map, and a point should appear. This is an event! Or, well, it *will* be.
 
-Let's name it `chest`. This'll tell the engine which event to use -- in this case, the [TreasureChest](/wiki/api/TreasureChest) event. Now, let's add some properties to it.
+    Let's name it `chest`. This'll tell the engine which event to use -- in this case, the [TreasureChest](/wiki/api/TreasureChest) event. Now, let's add some properties to it.
 
-Let's now add the `money` custom property (making sure it's an `int`) and set it to `999`. This'll give us a lot of money when we open the chest!
+    Let's now add the `money` custom property (making sure it's an `int`) and set it to `999`. This'll give us a lot of money when we open the chest!
 
-<>![](/wiki/chest_properties.png)</>
+    <>![](/wiki/chest_properties.png)</>
 
-If we save, export, then open up our project in Kristal, we should see the chest! And interacting with it should give us **999 Dark Dollars**! Wow!
+    If we save, export, then open up our project in Kristal, we should see the chest! And interacting with it should give us **999 Dark Dollars**! Wow!
 
----
+    ---
 
-### Using Events (Continued)
+    ### Using Events (Continued)
 
-Okay, we can add a chest. But what if we want to add something that needs a bit more than just a point? Well, we can use the **Insert Rectangle** tool to make a rectangle instead!
+    Okay, we can add a chest. But what if we want to add something that needs a bit more than just a point? Well, we can use the **Insert Rectangle** tool to make a rectangle instead!
 
-Let's make an interactable box. We'll name it `interactable`, and give it the `text` string property, with the contents `* Hello, World!`
+    Let's make an interactable box. We'll name it `interactable`, and give it the `text` string property, with the contents `* Hello, World!`
 
-<>![](/wiki/map_with_interactable.png)</>
+    <>![](/wiki/map_with_interactable.png)</>
 
-And if we check it out in-game, then...
+    And if we check it out in-game, then...
 
-<>![](/wiki/hello_world_interactable.png)</>
+    <>![](/wiki/hello_world_interactable.png)</>
 
-Perfect!
+    Perfect!
 
----
+    ---
 
-### Room Transitions
+    ### Room Transitions
 
-Room transitions are events, so the last section applies to them as well.
+    Room transitions are events, so the last section applies to them as well.
 
-They're called `transition`, and can take the following properties, which are all optional:
+    They're called `transition`, and can take the following properties, which are all optional:
 
-- `map` -> The map to transition to
-- `shop` -> The shop to transition to
-- `x` -> The X position to spawn at
-- `y` -> The Y position to spawn at
-- `marker` -> The marker to spawn at
-- `facing` -> The direction to face when spawning in a map
-- `stairs` -> Whether to play the stairs sound or not
+    - `map` -> The map to transition to
+    - `shop` -> The shop to transition to
+    - `x` -> The X position to spawn at
+    - `y` -> The Y position to spawn at
+    - `marker` -> The marker to spawn at
+    - `facing` -> The direction to face when spawning in a map
+    - `stairs` -> Whether to play the stairs sound or not
 
-Most of the time, you should probably use the `marker` property instead of specifying `x` and `y`.
+    Most of the time, you should probably use the `marker` property instead of specifying `x` and `y`.
 
----
+    ---
 
-### Creating Events
+    ### Creating Events
 
-Events are just [objects](/wiki/basics#objects) which extend the [Event](/wiki/api/Event) class. You can make your own events by creating a new file in `scripts/world/events`, and extending the `Event` class. Let's make an event which is... a pinwheel! And let's make it spin when you interact with it!
+    Events are just [objects](/wiki/basics#objects) which extend the [Event](/wiki/api/Event) class. You can make your own events by creating a new file in `scripts/world/events`, and extending the `Event` class. Let's make an event which is... a pinwheel! And let's make it spin when you interact with it!
 
-Here's the sprites I made, although they're not very good:
+    Here's the sprites I made, although they're not very good:
 
-<ScaledSprite src="/wiki/pinwheel.png" name="pinwheel.png" width={12} height={12}/>
-<ScaledSprite src="/wiki/pinwheel_base.png" name="pinwheel_base.png" width={20} height={20}/>
+    <ScaledSprite src="/wiki/pinwheel.png" name="pinwheel.png" width={12} height={12}/>
+    <ScaledSprite src="/wiki/pinwheel_base.png" name="pinwheel_base.png" width={20} height={20}/>
 
-And here's the code I ended up making:
+    And here's the code I ended up making:
 
-```lua
--- Extend the Event class, and set the ID to "pinwheel"
--- This is what you'll use to refer to the event in Tiled
-local PinwheelEvent, super = Class(Event, "pinwheel")
+    ```lua
+    -- Extend the Event class, and set the ID to "pinwheel"
+    -- This is what you'll use to refer to the event in Tiled
+    local PinwheelEvent, super = Class(Event, "pinwheel")
 
--- `data` is the data directly from Tiled
-function PinwheelEvent:init(data)
-    -- Place the event at the correct position, and make the size 20x20
-    super.init(self, data.x, data.y, 20, 20, data)
+    -- `data` is the data directly from Tiled
+    function PinwheelEvent:init(data)
+        -- Place the event at the correct position, and make the size 20x20
+        super.init(self, data.x, data.y, 20, 20, data)
 
-    -- Any custom properties are stored in `data.properties`, but we don't use any.
+        -- Any custom properties are stored in `data.properties`, but we don't use any.
 
-    -- Just some variables for the pinwheel
-    self.min_speed = 2
-    self.speed_slowdown = 0.5
-    self.speed = self.min_speed
-    self.pinwheel_rotation = 0
+        -- Just some variables for the pinwheel
+        self.min_speed = 2
+        self.speed_slowdown = 0.5
+        self.speed = self.min_speed
+        self.pinwheel_rotation = 0
 
-    -- Most events in DELTARUNE are 2x sized
-    self:setScale(2)
+        -- Most events in DELTARUNE are 2x sized
+        self:setScale(2)
 
-    -- We placed a single point in Tiled, which we want to be the bottom center of the pinwheel
-    self:setOrigin(0.5, 1)
-end
-
--- Update gets called every frame
-function PinwheelEvent:update()
-    super.update(self)
-
-    -- Make it rotate using the speed
-    self.pinwheel_rotation = self.pinwheel_rotation + (self.speed * DTMULT)
-
-    -- If it's going too fast, slow it down
-    if self.speed > self.min_speed then
-        self.speed = self.speed - self.speed_slowdown * DTMULT
+        -- We placed a single point in Tiled, which we want to be the bottom center of the pinwheel
+        self:setOrigin(0.5, 1)
     end
 
-    -- Make sure it doesn't go below the minimum speed
-    self.speed = math.max(self.speed, self.min_speed)
-end
+    -- Update gets called every frame
+    function PinwheelEvent:update()
+        super.update(self)
 
-function PinwheelEvent:draw()
-    super.draw(self)
+        -- Make it rotate using the speed
+        self.pinwheel_rotation = self.pinwheel_rotation + (self.speed * DTMULT)
 
-    -- First, draw the base
-    love.graphics.draw(Assets.getTexture("pinwheel_base"), 0, 0, 0, 1, 1)
-    -- Then draw the pinwheel, spinning
-    love.graphics.draw(Assets.getTexture("pinwheel"), 10, 10, math.rad(self.pinwheel_rotation), 1, 1, 6, 6)
-end
+        -- If it's going too fast, slow it down
+        if self.speed > self.min_speed then
+            self.speed = self.speed - self.speed_slowdown * DTMULT
+        end
 
--- When we interact with the pinwheel, make it spin faster!
-function PinwheelEvent:onInteract()
-    self.speed = 60
-end
+        -- Make sure it doesn't go below the minimum speed
+        self.speed = math.max(self.speed, self.min_speed)
+    end
 
-return PinwheelEvent
-```
+    function PinwheelEvent:draw()
+        super.draw(self)
 
-Then we just have to place it somewhere, using the ID we supplied in the code, `pinwheel`!
+        -- First, draw the base
+        love.graphics.draw(Assets.getTexture("pinwheel_base"), 0, 0, 0, 1, 1)
+        -- Then draw the pinwheel, spinning
+        love.graphics.draw(Assets.getTexture("pinwheel"), 10, 10, math.rad(self.pinwheel_rotation), 1, 1, 6, 6)
+    end
 
-<>![](/wiki/pinwheel_placed.png)</>
+    -- When we interact with the pinwheel, make it spin faster!
+    function PinwheelEvent:onInteract()
+        self.speed = 60
+    end
 
-After all this, we have our own event!
+    return PinwheelEvent
+    ```
 
-<>![](/wiki/pinwheel_spin.gif)</>
+    Then we just have to place it somewhere, using the ID we supplied in the code, `pinwheel`!
 
----
+    <>![](/wiki/pinwheel_placed.png)</>
 
-### Other Engine Events
+    After all this, we have our own event!
 
-Kristal provides quite a few other events baked directly into the engine. 
+    <>![](/wiki/pinwheel_spin.gif)</>
 
-They're all extensions of either the [Event](/wiki/api/Event) class, or the [Character](/wiki/api/Character) class. Using Tree View on the [API Reference](/wiki/api) and looking for `Character` and `Event` will allow you to see all of them.
+    ---
+
+    ### Other Engine Events
+
+    Kristal provides quite a few other events baked directly into the engine.
+
+    Go to [Events](/wiki/using-events) to know about all of the Events that Kristal has.
+
+    They're all extensions of either the [Event](/wiki/api/Event) class, or the [Character](/wiki/api/Character) class. Using Tree View on the [API Reference](/wiki/api) and looking for `Character` and `Event` will allow you to see all of them.
+
+</Box>
+
+<Box>
+
+    ## More layers
+    ---
+
+    We've already created an objects, markers and collision layer. But if we look into the code that creates a new
+    map we can see this code:
+    ```lua
+    function Map:loadLayer(layer, depth)
+    if layer.type == "tilelayer" then
+        self:loadTiles(layer, depth)
+    elseif layer.type == "imagelayer" then
+        self:loadImage(layer, depth)
+    elseif layer.type == "objectgroup" then
+        if StringUtils.startsWith(layer.name:lower(), "objects") then
+            self:loadObjects(layer, depth, "events")
+        elseif StringUtils.startsWith(layer.name:lower(), "controllers") then
+            self:loadObjects(layer, depth, "controllers")
+        elseif StringUtils.startsWith(layer.name:lower(), "markers") then
+            self:loadMarkers(layer)
+        elseif StringUtils.startsWith(layer.name:lower(), "collision") then
+            self:loadCollision(layer)
+        elseif StringUtils.startsWith(layer.name:lower(), "enemycollision") then
+            self:loadEnemyCollision(layer)
+        elseif StringUtils.startsWith(layer.name:lower(), "blockcollision") then
+            self:loadBlockCollision(layer)
+        elseif StringUtils.startsWith(layer.name:lower(), "paths") then
+            self:loadPaths(layer)
+        elseif StringUtils.startsWith(layer.name:lower(), "battleareas") then
+            self:loadBattleAreas(layer)
+        end
+        self:loadShapes(layer)
+    end
+    end
+
+    function Map:loadTiles(layer, depth)
+        local tilelayer = TileLayer(self, layer)
+        tilelayer:setPosition(layer.offsetx or 0, layer.offsety or 0)
+        tilelayer.layer = depth
+        self.world:addChild(tilelayer)
+        table.insert(self.tile_layers, tilelayer)
+        if StringUtils.startsWith(layer.name:lower(), "battleborder") then
+            table.insert(self.battle_borders, tilelayer)
+        end
+    end
+    ```
+    This code says that you can create multiples of each layer with different names.
+
+    For example if you want yo create an object layer that only has the cutscenes scripts and other with the slideareas,
+    you can create a layer called `objects_cutscenes` and another called `objects_slideareas`. Both of them will
+    behave as a normal objects layer.
+
+    As we can see, Kristal defines these layers:
+    - `objects`: The layer when most events get created.
+    - `controllers`: Used to create two special events, see the [Event tutorial](/wiki/using-events) to know more.
+    - `markers`: The layer where markers on a map are created, can be used in many ways instead of defining
+    fixed x and y positions. See the [markers tutorial](#markers)
+    - `collision`: The layer where the collision of the map is defined, see the [collision tutorial](#collision)
+    - `enemycollision`: I don't know yet. XD
+    - `blockcollision`: I don't know yet. XD
+    - `paths`: Where the paths for wandering enemies and other mechanics are defined. Explained in a future Path System tutorial.
+    - `battleareas`: Defines areas in the map where an overworld battle gets triggered. Explained in a future WorldBattles tutorial.
+    - `battleborder` is a Tile layer, not an Object layer. And it defines the outlines of the walkable area in an
+    Overworld battle section. Explained in a future WorldBattles tutorial.
 
 </Box>
