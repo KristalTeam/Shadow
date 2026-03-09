@@ -377,8 +377,48 @@ export const metadata = {
     - `exit_sound: string` -> An optional sound to play when entering the new map.
     - `exit_pitch: number` -> The pitch the exit sound should play at.
 
-    Example
+    ### Example
     ---
-    Create an example
+    This example focuses on a map transition since there isn't a shop creation tutorial yet.
+
+    To test this, you first need to create a new map to make the transition to. Follow the 
+    [creating a map](/wiki/designing-a-map#creating-a-map) tutorial again, but make the map bigger this time. 50x25 should work.
+    Name the map as you prefer, but for the example I'll call it example_map_2.
+
+    Make the map that you want, I made this for the example.
+
+    <>![](/wiki/transition_tutorial_1.png)</>
+
+    Now, lets go back to the example_map and add the transition and the exit point.
+
+    For the example, we'll make a transition to the new map and make it play a sound.
+
+    Create a `transition` object and add these custom properties:
+    - `map`: example_map_2
+    - `sound`: splat
+    - `facing`: right
+    As you can see, we didn't specify where the player will spawn, so the game will use the `spawn` marker instead.
+    
+    If you don't define this marker, it will use the midle of the map instead, so always make sure to have this marker.
+
+    Usually transition are bidirectional, so let's also add a new point for the other transition to spawn us at. 
+    The name doesn't matter, so use whatever name you want!
+
+    This is what I ended up making:
+
+    <>![](/wiki/transition_tutorial_2.png)</>
+
+    Now, lets go to the new map and add the other `transition`. This time, with this properties.
+    - `map`: example_map
+    - `marker`: exit
+    - `sound`: splat
+    - `pitch`: 2
+    - `facing`: left
+
+    <>![](/wiki/transition_tutorial_3.png)</>
+
+    Now, let's try out our new transition.
+    
+    [Insert the video here]
 
 </Box>
