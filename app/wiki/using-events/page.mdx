@@ -26,6 +26,7 @@ export const metadata = {
     - [Transitions](#transitions)
     - [Outline](#outline)
     - [Slide area](#slide-area)
+    - [Silhouette](#silhouette)
 
 </Box>
 
@@ -465,5 +466,28 @@ export const metadata = {
     and step on this area to test it yourself!
 
     <>![](/wiki/slidearea_tutorial.png)</>
+
+</Box>
+
+<Box>
+
+    ## Silhouette
+    ---
+    Silhouette is an area event that draws silhouette on top of the characters that are inside of the event. 
+    In practice, this dims the color of the characters.
+
+    This event is an `area` and naming an object `silhouette` on an `objects` layer in a map creates this object.
+
+    This event doesn't have any configurable properties.
+
+    ### Example
+    ---
+    First, create the `area` that you want in an `objects` layer and then name it `silhouette`. Like in the example bellow.
+
+    <>![](/wiki/silhouette_tutorial_1.png)</>
+
+    Then this is what happens when you step inside the area of this event.
+
+    <>![](/wiki/silhouette_tutorial_2.png)</>
 
 </Box>
