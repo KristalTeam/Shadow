@@ -79,6 +79,8 @@ export const metadata = {
 
 <Box>
     ## Text tutorial
+    ---
+
     The text properties that the events have are normally defined as string[]. This means that you can make the event
     create a textbox to display text, create multiple textboxes to display more text, or make it so the text changes
     every time the player interacts with it.
@@ -90,7 +92,7 @@ export const metadata = {
     ### One textbox
 
     If you only want to display a bit of text that fits in one textbox, you can create a custom property called
-    `text:string` and give it the text you want.
+    `text: string` and give it the text you want.
 
     ### Multiple textboxes
 
@@ -295,7 +297,7 @@ export const metadata = {
     Add a point in your map and call it `chest`, then create a custom property named `item` and give it the type of `string`.
 
     Then set the value to the name of the item. If you want to use the items that Kristal has by default, go to the folder
-    where you have cloned the Kristal source code and go to the folder `data/items/items` and select the one you want
+    where you have cloned the Kristal source code and go to the folder `data/items` and select the one you want
     to use.
 
     Every item has a header with the id of that item, like in the example below. Take that id and paste it on the value
