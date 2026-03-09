@@ -39,6 +39,7 @@ export default function Sidebar(props) {
         <ul>
             <li><Link href="/wiki/designing-a-map">Designing a Map</Link></li>
             <li><Link href="/wiki/cutscenes">Cutscenes</Link></li>
+            <li><Link href="/wiki/using-events">Events</Link></li>
         </ul>
         <br/>
         <h3><Link href="/wiki/mod-creation">Battles</Link></h3>
