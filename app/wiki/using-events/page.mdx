@@ -1,0 +1,382 @@
+import Box from 'components/Box'
+import styles from './page.module.css'
+
+export const metadata = {
+    title: 'Using events in custom maps',
+    description: 'Learn how to use all the events that Kristal has!',
+}
+
+# Using overworld events
+
+<Box>
+
+    ## Table of contents
+
+    ### General tutorials
+
+    - [Using text](#text-tutorial)
+    - [Making an script](#making-scripts)
+
+    ### Events tutorial
+
+    - [Interactable](#interactable)
+    - [Script](#script)
+    - [Treasure Chest](#treasure-chest)
+    - [Savepoint](#savepoint)
+    - [Transitions](#transitions)
+
+</Box>
+
+<Box>
+
+    Make sure to read [Designing a map](/wiki/designing-a-map) first, because this guide will help you understand
+    all of the events that Kristal has.
+
+</Box>
+
+<Box className={styles.table}>
+
+    ## The Basics
+    ---
+    In this tutorial, you'll understand everything about the events in Kristal, how to configure them from Tiled and
+    a few examples on how to use them.
+
+    This tutorial is more complex and uses references from Kristal's code. So there are some things that you need to
+    understand first.
+
+    ### Tiled properties
+    ---
+    When you want to create a new event, you can modify how it behaves using the properties of the event.
+
+    When adding a custom property to an object, you have to make sure that the type you use in Tiled is the same as the type
+    defined in the code.
+
+    This table defines the conversion between Kristal and Tiled types:
+    | Kristal (lua) | Tiled |
+    |---|---|
+    |number|int|
+    |boolean|bool|
+    |string|string|
+    |array []||
+    |any|int \| bool \| string|
+
+    As you can see, an array can't be directly defined on Tiled, but we can use another system to define these fields.
+    [Link to the tutorial](#text-tutorial)
+
+    The `any` type means that you can use either int, bool or string as the Tiled type of this property.
+
+    In this tutorial, the properties of the events uses this definition: **name: type = default**.
+
+    `name` is the name of the custom property.
+
+    `type` is the Tiled type of that property.
+
+    `default` is the value that the property will have if you don't define it in Tiled.
+    If a property doesn't have this parameter, it means that the property doesn't have a default value.
+
+</Box>
+
+
+<Box>
+    ## Text tutorial
+    The text properties that the events have are normally defined as string[]. This means that you can make the event
+    create a textbox to display text, create multiple textboxes to display more text, or make it so the text changes
+    every time the player interacts with it.
+
+    Use the [writting text tutorial](/wiki/writing-text) to know what value to give to these fields.
+
+    The syntax of these properties are different depending on the use you want.
+
+    ### One textbox
+
+    If you only want to display a bit of text that fits in one textbox, you can create a custom property called
+    `text:string` and give it the text you want.
+
+    ### Multiple textboxes
+
+    If the text you want to display doesn't fit in just one textbox, you can just use multiple textboxes to display
+    all the text that you want.
+
+    Making these uses multiple custom properties, one for each textbox, follow this syntax: **textX**.
+    X is the number of the textbox.
+
+    For example, we want to create an [Interactable](#interactable) that says this text.
+    - Textbox1: * It seems like this is just a hole.
+    - Textbox2: * But looking closer, it's a hole filled with salsa.
+    - Textbox3: * You decided that you don't want to step in this hole.
+
+    To create this interaction. We have to create an interactable object and give it these properties:
+    - `text1`: * It seems like this is just a hole.
+    - `text2`: * But looking closer,[wait:5] it's a hole filled with salsa.
+    - `text3`: * You decided that you don't want to step in this hole.
+
+    <>![](/wiki/event_text_tutorial.png)</>
+
+    <video controls preload="none">
+        <source src="/wiki/event_text_tutorial1.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    ### Different text in multiples interactions
+
+    If you want to display a different text depending on the times you've interacted with an object,
+    you can do that easily using this syntax: **textX_Y**. X is the number of the interaction and Y is the number of the
+    textbox in that interaction.
+
+    For example, we'll modify the previously created [Interactable](#interactable) to
+    add more interactions.
+
+    #### Interaction 1
+
+    - Textbox1: * It seems like this is just a hole.
+    - Textbox2: * But looking closer, it's a hole filled with salsa.
+    - Textbox3: * You decided that you don't want to step in this hole.
+
+    #### Interaction 2
+
+    - Textbox1: * You check the hole again.
+    - Textbox2: * It's still filled with salsa.
+
+    #### Interaction 3
+
+    - Textbox1: * You check the hole again.
+    - Textbox2: * It seems like the salsa is gone.
+    - Textbox3: * Sorry Kris, but you were too slow. (Susie dialog)
+
+    #### Interaction 4
+
+    - Textbox1: * Just a hole.
+
+    To create this interaction, delete the old properties and add these new ones:
+    - `text1_1`: * It seems like this is just a hole.
+    - `text1_2`: * But looking closer,[wait:5] it's a hole filled with salsa.
+    - `text1_3`: * You decided that you don't want to step in this hole.
+    - `text2_1`: * You check the hole again.
+    - `text2_2`: * It's still filled with salsa.
+    - `text3_1`: * You check the hole again.
+    - `text3_2`: * It seems like the salsa is gone.
+    - `text3_3`: [voice:susie][face:susie/closed_grin]* Sorry Kris,[wait:5] but you were\n too slow.
+    - `text4_1`: * Just a hole.
+
+    <>![](/wiki/event_text_tutorial_multiple.png)</>
+
+    <video controls preload="none">
+        <source src="/wiki/event_text_tutorial2.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+</Box>
+
+<Box>
+
+    ## Making scripts
+    ---
+    Scripts are just a function that you can execute on some events. Like a cutscene, but with different parameters.
+
+    To make a script, create a `"file".lua` in `/scripts/world/scripts`. file is the name of the script, and the
+    name you'll use to call that script.
+
+    For this example, let's create a test_script.lua and store it in that directory. Then we'll need to create
+    the code that will be executed.
+
+    You can use this as a placeholder for your own scripts.
+    ```lua
+    ---The function that will be executed
+    ---@param event Event The event that executes this script
+    ---@param player Player The player that executes this script
+    ---@param facing string The direction the player is facing. Only set if the script is executed in a interactable event
+    return function(event, player, facing)
+        -- Code to be executed
+    end
+    ```
+    `facing` will be set to `"left"`, `"up"`, `"down"` or `"right"` if you execute this script in an [Interactable](#interactable)
+    and `nil` if you use an [Script](#script).
+
+    Let's create something silly for this example, like making Kris t-pose and play a funny sound.
+
+    ```lua
+    ---The function that will be executed
+    ---@param event Event The event that executes this script
+    ---@param player Player The player that executes this script
+    ---@param facing string The direction the player is facing. Only set if the script is executed in a interactable event
+    return function(event, player, facing)
+        --Changes the player sprite (Kris in this example) to the t_pose sprite
+        player:setSprite("t_pose")
+        --Play the Lancer splat sound
+        Assets.playSound("splat")
+    end
+    ```
+
+    You can execute this if you create an [Interactable](#interactable) and add a custom field called `script` with the value: test_script
+    or create an [Script](#script) and give it the same property.
+
+</Box>
+
+<Box>
+
+    ## Interactable
+    ---
+    An interactable is an object that activates scripts, cutscenes or text when the player interacts with it, when the
+    player presses the action button (normally the "Z" key).
+
+    This event should be an area, so create it using a rectangle or polygon and name it `interactable`
+    on an object layer.
+
+    This is what you can use to add flavor text to an overworld object.
+
+    These are the properties of the event:
+    - `solid: boolean = false` -> If **true**, the player will collide with this object as if it was a collider.
+    If **false**, the player will go through the object.
+    - `cutscene: string` -> The name of a cutscene to start when interacting with this object.
+    Remember to name it **group.name**.
+    - `script: string` -> The name of a script file to execute when interacting with this object.
+    - `text: string[]` -> The text that will be displayed on a textbox when the player interacts. [Tutorial to this property](#text-tutorial)
+    - `setflag: string` -> The name of the flag that will be set to `setvalue` when the player interacts.
+    You must define `setvalue` if you use this property.
+    - `setvalue: any = true` -> The value to set the flag specified by `set_flag` to.
+    - `once: boolean = false` -> If **true**, this event can only be interacted with once per save file.
+    If **false**, you can interact with this event as many times as you want.
+
+    `cutscene`, `script` and `text` are mutually exclusive, so only one of them should be used in an Interactable.
+
+    ### Examples
+    ---
+    #### Using an script
+    Follow the [script creation tutorial](#making-scripts) and add the `test_script` to the `script` custom property.
+    <>![](/wiki/interactable_script_tutorial.png)</>
+
+    #### Using a cutscene
+    It's the same process as using an script, we can even use the same test cutscenes as in the
+    [cutscenes tutorial](/wiki/cutscenes). Just add a `cutscene` property and give it the value: `examples.center`
+    <>![](/wiki/interactable_cutscene_tutorial.png)</>
+
+    #### Flavor text
+    Follow the [tutorial to the property](#text-tutorial) because it creates an event for the example.
+
+</Box>
+
+<Box>
+
+    ## Script
+
+    Scripts are Overworld events that trigger immediately when the player steps into them.
+
+    Naming an object `script` on an `objects` layer in a map creates this object.
+
+    These are the properties of this event:
+    - `cutscene: string` -> The name of a cutscene to start when this script event is triggered
+    - `script: string` -> The name of a script file to run when this script event is triggered
+    - `setflag: string` -> The name of the flag that will be set to `setvalue` when the player interacts.
+    You must define `setvalue` if you use this property.
+    - `setvalue: any = true` -> The value to set the flag specified by `set_flag` to.
+    - `once: boolean = true` -> If **true**, this event will destroy itself when it gets triggered.
+    If **false**, you can trigger this event as many times as you want.
+    - `temp: boolean = false` -> Whether the script is temporarily persistent - appears even if `once` is true,
+    and it has been triggered.
+
+</Box>
+
+<Box>
+
+    ## Treasure Chest
+    ---
+    To create this event, place a point on an object layer and call it `chest`.
+
+    These are the properties of the event:
+    - `item: string` -> The name of the item contained in this treasure chest - cannot be used in conjunction with `money`
+    - `money: int` ->   The amount of money contained in this treasure chest - cannot be used in conjunction with `item`
+    - `set_flag: string` -> An optional flag to set when the treasure chest is opened
+    - `set_value: any = true` -> The value to set on the flag specified by `setflag`
+
+    ### Examples
+    ---
+    We already created a chest that gives money, so lets instead create a chest that gives you an item.
+
+    Add a point in your map and call it `chest`, then create a custom property named `item` and give it the type of `string`.
+
+    Then set the value to the name of the item. If you want to use the items that Kristal has by default, go to the folder
+    where you have cloned the Kristal source code and go to the folder `data/items/items` and select the one you want
+    to use.
+
+    Every item has a header with the id of that item, like in the example below. Take that id and paste it on the value
+    of the item property.
+
+    ```lua
+    local item, super = Class(HealItem, "butjuice") -- butjuice is the id
+                                                    -- of this item
+    ```
+    <>![](/wiki/treasure_chest_item_tutorial.png)</>
+    <>![](/wiki/treasure_chest_item_tutorial_2.png)</>
+
+</Box>
+
+<Box>
+
+    ## Savepoint
+    ---
+
+    These are the stars that allow the Player to SAVE the game.
+
+    To create this event, define a point in an `objects` layer and name it `savepoint`
+
+    Savepoint is a child of `Interactable`, so it inherits all of its custom properties.
+
+    These are the properties of this event.
+    - `marker: string` -> The name of the marker the player will spawn at when respawning to this savepoint. After reloading
+    the game or a Game Over. You should always define this.
+    - `simple_menu: boolean = Mod configuration` -> If **true**, the Savepoint will use its simple version.
+    Without recruits and storage, like in Chapter 1.
+    if **false**, the Savepoint will use the menu with these two options.
+    By default, it uses the value configured in mod.json file.
+    - `text_once: boolean = false` -> If **true**, the Savepoint will only display the interactable text on the first Interaction.
+    if **false**, the Savepoint always display the interaction text.
+    - `heals: boolean = true` -> If **true**, the party will get healed when interacting with the Savepoint.
+    if **false**, the Savepoint won't heal the party.
+
+    These are the properties that Savepoint inherits and modifies from Interactable.
+    - `solid: boolean = true` -> Savepoint always sets this to true, and you can't change this behavior.
+    - `text: string[]` -> The text that will be displayed on a textbox when the player interacts with the savepoint. [Tutorial to this property](#text-tutorial)
+    - `cutscene: string` -> Savepoint doesn't use this property, so don't try to define it.
+    - `script: string` -> Savepoint doesn't use this property, so don't try to define it.
+    - `setflag: string` -> Savepoint doesn't use this property, so don't try to define it.
+    - `setvalue: any = true` -> Savepoint doesn't use this property, so don't try to define it.
+    - `once: boolean = false` -> Savepoint doesn't use this property, so don't try to define it.
+
+    ### Example
+    ---
+    Create an example
+
+</Box>
+
+<Box>
+
+    ## Transitions
+    ---
+    Transitions are objects that allow the player to load other maps or shops.
+
+    This object is an area, so you have to create it using
+    the `rectangle tool` on a `objects` layer and name it `transition`.
+
+    These are the properties that this event has:
+    - `map: string` -> The name of the map to send the player to.
+    - `shop: string` -> The name of the shop to send the player to.
+
+    You can choose to transition to a map or a shop, so only define one in the custom properties.
+    - `x: number` -> The x position of the map where the player will spawn at.
+    - `y: number` -> The y position of the map where the player will spawn at.
+    - `marker: string = spawn` -> The name of the marker the player will spawn at.
+
+    You can either define the x and y position or define a marker where the player will spawn. This last one is
+    the best option. If you don't define any, the player will spawn at the "spawn" marker if defined on the new map.
+    - `facing: string` -> The direction the player will face when spawning in the new map. Can be `left`, `right`, `up` or `down`.
+    - `sound: string` -> An optional sound to play when the player activates this transition.
+    - `pitch: number` -> The pitch the entry sound should play at.
+    - `exit_delay: number` -> Additional delay after entering the new map before playing the exit sound, in seconds.
+    - `exit_sound: string` -> An optional sound to play when entering the new map.
+    - `exit_pitch: number` -> The pitch the exit sound should play at.
+
+    Example
+    ---
+    Create an example
+
+</Box>

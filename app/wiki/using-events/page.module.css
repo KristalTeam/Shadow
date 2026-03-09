@@ -1,0 +1,8 @@
+.table td {
+    text-align: center;
+}
+
+.table td:first-child {
+    word-wrap: normal;
+    word-break: normal;
+}
