@@ -25,6 +25,7 @@ export const metadata = {
     - [Savepoint](#savepoint)
     - [Transitions](#transitions)
     - [Outline](#outline)
+    - [Slide area](#slide-area)
 
 </Box>
 
@@ -443,5 +444,26 @@ export const metadata = {
     That's it! Now just step into the area with you party like in the image bellow.
 
     <>![](/wiki/outline_tutorial_2.png)</>
+
+</Box>
+
+<Box>
+    ## Slide area
+    ---
+    A slide area is an area of the map that makes the player slide down when entered.
+    
+    To create this event, create an area on a `objects` layer and name it `slidearea`.
+
+    List of configurable properties for this event:
+    - `lock: boolean = false` -> If **true**, the player can't move when sliding down. 
+    If **false**, the player can move left and right when sliding down.
+
+    ### Example
+    ---
+    To test this event, modify the current map to add a slide zone, you can use the darker 
+    bones to mark these sections, then add the `slidearea` like in the example image 
+    and step on this area to test it yourself!
+
+    <>![](/wiki/slidearea_tutorial.png)</>
 
 </Box>
