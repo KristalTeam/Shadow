@@ -28,6 +28,7 @@ export const metadata = {
     - [Slide area](#slide-area)
     - [Silhouette](#silhouette)
     - [Camera target](#camera-target)
+    - [Hide Party](#hide-party)
 
 </Box>
 
@@ -533,4 +534,28 @@ export const metadata = {
     ---
     TBA
 
+</Box>
+
+<Box>
+
+    ## Hide Party
+    ---
+    
+    This event is a region in the Overworld which hides the followers of the player when the player steps into the event.
+
+    This event is an `area` and naming an object `hideparty` on an `objects` layer creates this event.
+
+    List of configurable properties for this event:
+    -`alpha: number = 0` -> The target alpha of followers in this region, how transparent they will end up being.
+
+    ### Example
+    ---
+    Create an `area` where you want in the map and name it `hideparty`, like in this example.
+
+    <>![](/wiki/hideparty_tutorial.png)</>
+
+    That is it, now just try it!
+    
+    [Insert video]
+    
 </Box>
