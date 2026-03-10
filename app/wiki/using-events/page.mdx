@@ -29,6 +29,7 @@ export const metadata = {
     - [Silhouette](#silhouette)
     - [Camera target](#camera-target)
     - [Hide Party](#hide-party)
+    - [Set flag event](#set-flag-event)
 
 </Box>
 
@@ -557,5 +558,33 @@ export const metadata = {
     That is it, now just try it!
     
     [Insert video]
+
+</Box>
+<Box>
+
+    ## Set flag event
+    ---
+    
+    This event is an Overworld region that sets a flag when the player steps into it.
+
+    This event is an `area` and naming an object `setflag` on an `objects` layer creates this event.
+
+    List of configurable properties for this event:
+    - `flag: string` -> The name of the flag that will be set to `value` once the player enters the area.
+    - `mapflag: string` -> The name of the flag that will be set to `value` once the player enters the area,
+    but only affecting the current map.
+    - `value: any` -> The value to set on the flag.
+    - `once: boolean = false` -> If **true** the event will destoy itself after seting the flag and will not load anymore in the save.
+    If **false** the player can step on this event, setting the flag, as many times as it wants.
+
+    If you define `mapflag`, that flag will be stored in the Game flag under the current map uid, 
+    and if you define `flag` it will be stored as a global flag in the Game flags.
+
+    Only set `mapflag` or `flag` not both, because the map flag has the priority.
+
+
+    ### Example
+    ---
+    TBA
     
 </Box>
