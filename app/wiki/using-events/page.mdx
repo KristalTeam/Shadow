@@ -60,7 +60,7 @@ export const metadata = {
     This table defines the conversion between Kristal and Tiled types:
     | Kristal (lua) | Tiled |
     |---|---|
-    |number|int|
+    |number|int \| float|
     |boolean|bool|
     |string|string|
     |array []||
@@ -71,11 +71,14 @@ export const metadata = {
 
     The `any` type means that you can use either int, bool or string as the Tiled type of this property.
 
+    A number is usually an int (an Integer, a number without any decimals). But sometimes it can be a float 
+    (a number with decimals). Unless specified, always use the int type.
+
     In this tutorial, the properties of the events uses this definition: **name: type = default**.
 
-    `name` is the name of the custom property.
+    `name` is the **name** of the custom property.
 
-    `type` is the Tiled type of that property.
+    `type` is the **lua type** of that property.
 
     `default` is the value that the property will have if you don't define it in Tiled.
     If a property doesn't have this parameter, it means that the property doesn't have a default value.
@@ -87,9 +90,11 @@ export const metadata = {
     ## Text tutorial
     ---
 
-    The text properties that the events have are normally defined as string[]. This means that you can make the event
-    create a textbox to display text, create multiple textboxes to display more text, or make it so the text changes
-    every time the player interacts with it.
+    The text properties that the events have are normally defined as string[], an array of strings, since you can't 
+    directy create arrays in Tiled, you have to use a custom definition that Krital implements.
+
+    With this system, you can create a single textbox to display text, create multiple textboxes to display more text, 
+    or make it so the text changes every time the player interacts with it.
 
     Use the [writting text tutorial](/wiki/writing-text) to know what value to give to these fields.
 
@@ -206,7 +211,7 @@ export const metadata = {
     ---The function that will be executed
     ---@param event Event The event that executes this script
     ---@param player Player The player that executes this script
-    ---@param facing string The direction the player is facing. Only set if the script is executed in a interactable event
+    ---@param facing string The direction the player is facing. Only set if the script is executed in a interactable event. Can be "up", "down", "left" or "right"
     return function(event, player, facing)
         --Changes the player sprite (Kris in this example) to the t_pose sprite
         player:setSprite("t_pose")
@@ -240,7 +245,7 @@ export const metadata = {
     - `script: string` -> The name of a script file to execute when interacting with this object.
     - `text: string[]` -> The text that will be displayed on a textbox when the player interacts. [Tutorial to this property](#text-tutorial)
     - `setflag: string` -> The name of the flag that will be set to `setvalue` when the player interacts.
-    You must define `setvalue` if you use this property.
+    You can define `setvalue` if you use this property.
     - `setvalue: any = true` -> The value to set the flag specified by `set_flag` to.
     - `once: boolean = false` -> If **true**, this event can only be interacted with once per save file.
     If **false**, you can interact with this event as many times as you want.
