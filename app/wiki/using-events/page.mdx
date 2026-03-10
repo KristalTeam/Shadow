@@ -32,6 +32,9 @@ export const metadata = {
     - [Hide Party](#hide-party)
     - [Set flag event](#set-flag-event)
 
+    ### Characters tutorial
+    - [NPC](#npc)
+
 </Box>
 
 <Box>
@@ -623,4 +626,163 @@ export const metadata = {
     ---
     TBA
     
+</Box>
+
+<Box>
+
+    ## NPC
+    ---
+    NPC are an extension of [Character](/wiki/api/Character) that can be placed on a map as if they were an event.
+
+    Naming an object `npc` on an `objects` layer in a map creates an NPC.
+
+    List of configurable properties for this event:
+    - `actor: string` -> The id of the actor that this NPC uses.
+    - `sprite: string` -> The name of the sprite this NPC should use when Idle.
+    - `animation: string` -> The name of the animation this NPC should use when Idle.
+
+    If you use an actor, the idle sprite and idle animation is defined in the actor properties. 
+    The idle sprite is `self.default_sprite` and the idle animation is `default_anim`.
+    If an actor defines both, the `self.default_sprite` takes priority.
+
+    If you don't define an actor for an NPC, you have to define either `sprite` or `animation`,
+    not both because the `sprite` takes priority.
+
+    - `facing: string = "down"` -> The direction the NPC should be facing by default. Can be `up`, `down`, `right` or `left`.
+    - `turn: boolean = false` -> If **true**, the NPC should turn towards the player when interacted with.
+    If **false**, the NPC always looks as defined in `facing`.
+
+    If you enable turn, make sure that your actor has the sprites it needs, explained in further detail in the examples.
+
+    - `talk: boolean = true` -> If **true**, the NPC does a talking animation when interacted and typing in the dialogue.
+    If **false**, the NPC doesn't do this animation. This is explained in the examples.
+    - `talksprite: string` -> The name of a talk sprite to use for the NPC when talking. If you have an actor,
+    you don't need this.
+    - `solid: boolean = true` -> If **true**, the NPC is a solid object and the player can't walk through it.
+    If **false**, the player can walk through the NPC.
+    - `cutscene: string` -> The name of a cutscene to start when interacting with this NPC.
+    Remember to use the **group.cutscene** notation.
+    - `script: string` -> The name of a script file to run when interacting with this NPC.
+    - `text: string[]` -> The text to be displayed when interacting with this NPC. Works the same way as in the 
+    [text tutorial](#text-tutorial).
+
+    Don't use `script`, `cutscene` and `text` in the same NPC because it could cause unpredicted behaviour.
+
+    - `setflag: string` -> The name of the flag that will be set to `setvalue` when the player interacts.
+    You can define `setvalue` if you use this property.
+    - `setvalue: any = true` -> The value to set the flag specified by `set_flag` to.
+    - `path: string` -> The name of the path shape that the NPC will follow. Use the [Path system tutorial](#path-system-tutorial) as a reference.
+    - `speed: number` -> The speed that the NPC will move along the path specified in `path`, if defined. This can be a float.
+    - `progress: number` -> The initial progress of the NPC along their `path`, if defined, as a decimal value between 0 and 1. 
+    0 beign the start of the path and 1 the end of the path. This must be a float.
+
+    ### Examples
+    ---
+    First, we need to create a new actor to use as an npc or use one that is already defined. 
+    You can create the actor for the new npcs in `scripts/data/actors` and store the assets in `assets/sprites/npcs`.
+
+    Since a new project already comes with `starwalker` as an NPC, we can use it for this example.
+
+    To create this simple NPC, make a new object named `npc` in an `objects` layer and define these properties.
+    - `actor`: starwalker
+    - `text1`: * This example...[wait:10] \n    is [color:yellow]pissing me off[color:reset].
+    - `text2`: * I'm the ORIGINAL[wait:10]\n    [color:yellow]STARWALKER[color:reset].
+
+    We've added some text to create an interaction with this NPC (don't forget to add the spaces),
+    and defined the actor that it uses as `starwalker`.
+
+    ![](/wiki/npc_tutorial_1.png)
+
+    <video controls preload="none">
+    <source src="/wiki/npc_example_1.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    As you can see, this creates a `starwalker` npc with the text as an interaction. But what if we want starwalker to turn
+    towards the player when you talk to them from the side?
+
+    Doing that is easy, but we need to organize our npc first, to do that, make a new folder inside of `assets/sprites/npcs` 
+    and call it `starwalker`. Then, inside the folder, we're going to add new sprites for stalwalker directional talk.
+
+    These are the sprites that I made, just copy them into the folder you just made with the name of the headers.
+
+    |idle_down|idle_up|idle_left|idle_right|
+    |---|---|---|---|
+    |![](/wiki/starwalker_idle_down.png)|![](/wiki/starwalker_idle_up.png)|![](/wiki/starwalker_idle_left.png)|![](/wiki/starwalker_idle_right.png)|
+
+    You should have something like this in the folder `assets/sprites/npcs/starwalker`
+
+    ![](/wiki/npc_tutorial_2.png)
+
+    Now we need to modify the actor data of starwalker and place the idle sprites as the default sprites it uses.
+
+    ```lua
+    -- In the file "scripts/data/actors/starwalker"
+    local actor, super = Class(Actor, "starwalker")
+    function actor:init()
+    ...
+        -- Path to this actor's sprites
+        self.path = "npcs/starwalker"
+        -- This actor's default sprite or animation, relative to the path.
+        self.default = "idle" -- You just need to modify this
+    ...
+    end
+    return actor
+    ```
+
+    You'll need to add the custom property `turn` to the npc, so it knows to use the directional sprites.
+
+    ![](/wiki/npc_tutorial_3.png)
+
+    And this is the result!
+
+    <video controls preload="none">
+    <source src="/wiki/npc_tutorial_2.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    Now... let's add a talk sprite to starwalker, doing this is very simple, you just need to add a few extra fames
+    of animation and name it a certain way, Kristal will do the rest.
+
+    |idle_down1|idle_down2|idle_up1|idle_up2|
+    |---|---|---|---|
+    |![](/wiki/starwalker_idle_down.png)|![](/wiki/starwalker_idle_down2.png)|![](/wiki/starwalker_idle_up.png)|![](/wiki/starwalker_idle_up2.png)|
+
+    |idle_left1|idle_left2|idle_right1|idle_right2|
+    |---|---|---|---|
+    |![](/wiki/starwalker_idle_left.png)|![](/wiki/starwalker_idle_left2.png)|![](/wiki/starwalker_idle_right.png)|![](/wiki/starwalker_idle_right2.png)|
+
+    This is what your npc folder should look like.
+
+    ![](/wiki/npc_tutorial_4.png)
+
+    Since the `talk` property is set to true by default, we just need to modify the actor data and let the engine
+    know the speeds at which it should do the talking animations.
+    
+    ```lua
+    -- In the file "scripts/data/actors/starwalker"
+    local actor, super = Class(Actor, "starwalker")
+    function actor:init()
+    ...
+    -- Table of talk sprites and their talk speeds (default 0.25)
+    self.talk_sprites = {
+        ["idle_down"] = .25,
+        ["idle_left"] = .25,
+        ["idle_right"] = .25,
+        ["idle_up"] = .25,
+    }
+    ...
+    end
+    return actor
+    ```
+
+    This is what your npc should look like.
+
+    <video controls preload="none">
+    <source src="/wiki/npc_tutorial_3.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    This tutorial should give you a good example on how to create an NPC in your map, so I hope it was helpfull!
+
 </Box>
