@@ -16,6 +16,7 @@ export const metadata = {
 
     - [Using text](#text-tutorial)
     - [Making an script](#making-scripts)
+    - [Path system tutorial](#path-system-tutorial)
 
     ### Events tutorials
 
@@ -222,6 +223,36 @@ export const metadata = {
 
     You can execute this if you create an [Interactable](#interactable) and add a custom field called `script` with the value: test_script
     or create an [Script](#script) and give it the same property.
+
+</Box>
+
+<Box>
+    ## Path system tutorial
+    ---
+    Still a WIP
+
+    Paths are a way of defining how some objects move in the overworld, esentially, they are a list of points that the object moves between.
+
+    You can use them when defining an NPC or a ChaserEnemy, and also for cutscenes.
+
+    To create a path, make a new object layer that starts with the name `paths`. Then use the `insert pollygon tool (P)` utility from Tilted
+    and create a polygon, the perimeter of the pollygon is the path that the object will follow, don't forget to add a `name` to the pollygon
+    because that is how you will reference it.
+
+    If you want to make a circular path, use the `Insert Ellipse (C)` tool and create the circular shape that you want your path to be.
+    The path is the circunference of your ellipse. Don't forget to name it because that is who you'll reference this path.
+
+    That all for the creations of paths, now let's go over some examples on how to use this system.
+
+    ### Examples
+    ---
+    #### Using paths on an NPC
+
+
+    #### Using paths on a Chaser Enemy
+
+
+    #### Using paths in cutscenes
 
 </Box>
 
