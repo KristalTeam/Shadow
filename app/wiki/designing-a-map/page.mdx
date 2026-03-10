@@ -382,9 +382,11 @@ export const metadata = {
     - `markers`: The layer where markers on a map are created, can be used in many ways instead of defining
     fixed x and y positions. See the [markers tutorial](#markers)
     - `collision`: The layer where the collision of the map is defined, see the [collision tutorial](#collision)
-    - `enemycollision`: I don't know yet. XD
-    - `blockcollision`: I don't know yet. XD
-    - `paths`: Where the paths for wandering enemies and other mechanics are defined. Explained in a future Path System tutorial.
+    - `enemycollision`: A special kind of collision that doesn't affect the player, but affects the ChaserEnemy.
+    A more in-depth tutorial will be created about this
+    - `blockcollision`: The collision that only affects the pushblocks. TODO.
+    - `paths`: Where the paths for wandering enemies and other mechanics are defined. Explained in the 
+    [Path System tutorial](/wiki/using-events#path-system-tutorial).
     - `battleareas`: Defines areas in the map where an overworld battle gets triggered. Explained in a future WorldBattles tutorial.
     - `battleborder` is a Tile layer, not an Object layer. And it defines the outlines of the walkable area in an
     Overworld battle section. Explained in a future WorldBattles tutorial.
