@@ -17,7 +17,7 @@ export const metadata = {
     - [Using text](#text-tutorial)
     - [Making an script](#making-scripts)
 
-    ### Events tutorial
+    ### Events tutorials
 
     - [Interactable](#interactable)
     - [Script](#script)
@@ -27,6 +27,7 @@ export const metadata = {
     - [Outline](#outline)
     - [Slide area](#slide-area)
     - [Silhouette](#silhouette)
+    - [Camera target](#camera-target)
 
 </Box>
 
@@ -489,5 +490,47 @@ export const metadata = {
     Then this is what happens when you step inside the area of this event.
 
     <>![](/wiki/silhouette_tutorial_2.png)</>
+
+</Box>
+
+<Box>
+
+    ## Camera target
+    ---
+
+    This event is a region in the Overworld that causes the camera to target a specific position while the player is inside.
+    Usefull when you want to make the player focus on a specific object.
+
+    This event is an `area` and naming an object `cameratarget` on an `objects` layer creates this event.
+
+    List of configurable properties of this event:
+    - `x: number` -> The x position where the camera needs to focus on.
+    - `y: number` -> The y position where the camera needs to focus on.
+    - `marker: string` -> The name of the marker that dictates the position of where the camera needs to focus on.
+
+    It's recomended to use a marker instead of raw x and y values because it's simpler. To place a target
+    you have to define the x and y position or add the marker, don't use both systems at tha same time because
+    the marker has priority.
+
+    - `lockx: boolean = true` -> If **true**, the x position of the camera will be locked to the target possition.
+    If **false**, the camera will freely move along the x axis.
+    - `locky: boolean = true` -> If **true**, the y position of the camera will be locked to the target possition.
+    If **false**, the camera will freely move along the y axis.
+
+    These properties are usefull if you want to offset the camera instead of just locking it.
+
+    - `speed: number = 16` -> The speed at which the camera will move to the target position.
+    - `returnspeed: number = 16` -> The speed at which the camera will return to its original target (normally the player).
+    - `time: number = 0.25` -> The time, in seconds, that the camera will take to move to its target position.
+    - `returntime: number = 0.25` -> The time, in seconds, that the camera will take to return to its original target (normally the player).
+
+    You can use speed of time to determine how the camera pans to the target possitions, don't try to use both at the same time,
+    because `time` takes priority over `speed`.
+    
+    If none are given, the camera defaults will be used intead. 16 for speed and 0.25 for time.
+
+    ### Examples
+    ---
+    TBA
 
 </Box>
