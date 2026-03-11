@@ -23,6 +23,7 @@ export const metadata = {
     - [Interactable](#interactable)
     - [Script](#script)
     - [Treasure Chest](#treasure-chest)
+    - [Cyber trash can](#cyber-trash-can)
     - [Savepoint](#savepoint)
     - [Transitions](#transitions)
     - [Outline](#outline)
@@ -349,10 +350,10 @@ export const metadata = {
     To create this event, place a point on an object layer and call it `chest`.
 
     These are the properties of the event:
-    - `item: string` -> The name of the item contained in this treasure chest - cannot be used in conjunction with `money`
-    - `money: int` ->   The amount of money contained in this treasure chest - cannot be used in conjunction with `item`
-    - `set_flag: string` -> An optional flag to set when the treasure chest is opened
-    - `set_value: any = true` -> The value to set on the flag specified by `setflag`
+    - `item: string` -> The name of the item contained in this treasure chest - cannot be used in conjunction with `money`.
+    - `money: number` ->   The amount of money contained in this treasure chest - cannot be used in conjunction with `item`.
+    - `set_flag: string` -> An optional flag to set when the treasure chest is opened.
+    - `set_value: any = true` -> The value to set on the flag specified by `setflag`.
 
     ### Examples
     ---
@@ -374,6 +375,24 @@ export const metadata = {
     <>![](/wiki/treasure_chest_item_tutorial.png)</>
 
     <>![](/wiki/treasure_chest_item_tutorial_2.png)</>
+
+</Box>
+
+<Box>
+
+    ## Cyber trash can
+    ---
+
+    A cyber trash can works the same way as a [Treasure Chest](#treasure-chest), it's an event that
+    either gives you an item or money when you interact with it.
+
+    `CyberTrashCan` is an [`Event`](/wiki/api/Event) and naming an object `cybertrash` on an `objects` layer in a map creates this object.
+
+    These are the properties of the event:
+    - `item: string` -> The name of the item contained in this treasure chest - cannot be used in conjunction with `money`.
+    - `money: number` ->   The amount of money contained in this treasure chest - cannot be used in conjunction with `item`.
+    - `set_flag: string` -> An optional flag to set when the treasure chest is opened.
+    - `set_value: any = true` -> The value to set on the flag specified by `setflag`.
 
 </Box>
 
