@@ -372,6 +372,7 @@ export const metadata = {
                                                     -- of this item
     ```
     <>![](/wiki/treasure_chest_item_tutorial.png)</>
+
     <>![](/wiki/treasure_chest_item_tutorial_2.png)</>
 
 </Box>
@@ -383,21 +384,21 @@ export const metadata = {
 
     These are the stars that allow the Player to SAVE the game.
 
-    To create this event, define a point in an `objects` layer and name it `savepoint`
+    To create this event, define a point in an `objects` layer and name it `savepoint`.
 
     Savepoint is a child of `Interactable`, so it inherits all of its custom properties.
 
     These are the properties of this event.
     - `marker: string` -> The name of the marker the player will spawn at when respawning to this savepoint. After reloading
     the game or a Game Over. You should always define this.
-    - `simple_menu: boolean = Mod configuration` -> If **true**, the Savepoint will use its simple version.
+    - `simple: boolean = Mod configuration` -> If **true**, the Savepoint will use its simple version.
     Without recruits and storage, like in Chapter 1.
-    if **false**, the Savepoint will use the menu with these two options.
+    If **false**, the Savepoint will use the menu with these two options.
     By default, it uses the value configured in mod.json file.
     - `text_once: boolean = false` -> If **true**, the Savepoint will only display the interactable text on the first Interaction.
-    if **false**, the Savepoint always display the interaction text.
+    If **false**, the Savepoint always display the interaction text.
     - `heals: boolean = true` -> If **true**, the party will get healed when interacting with the Savepoint.
-    if **false**, the Savepoint won't heal the party.
+    If **false**, the Savepoint won't heal the party.
 
     These are the properties that Savepoint inherits and modifies from Interactable.
     - `solid: boolean = true` -> Savepoint always sets this to true, and you can't change this behavior.
@@ -410,7 +411,25 @@ export const metadata = {
 
     ### Example
     ---
-    Create an example
+    For this example, we have to create the `savepoint` on an `objects` layer and the marker that the savepoint will use to respawn as at.
+
+    Something like this should work.
+
+    <>![](/wiki/savepoint_tutorial_1.png)</>
+    
+    Then add these custom properties:
+    - `marker`: respawn
+    - `simple`: false
+    - `text1`: * Looking around,[wait:5] you only see a huge bone.
+    - `text2`: * You can feel the power of calcium inside you..
+
+    This is how it finally looks.
+
+    <>![](/wiki/savepoint_tutorial_2.png)</>
+
+    When you save the game, exit the project and enter again to see if you respawn in the marker. If you have 
+    [Debug hotkeys](/wiki/debugging#debug-hotkeys) enabled. Use `Ctrl+Shift+R` to simulate a save reload and 
+    `Ctrl+B` to test a gameover.
 
 </Box>
 
