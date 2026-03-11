@@ -32,6 +32,7 @@ export const metadata = {
     - [Camera target](#camera-target)
     - [Hide Party](#hide-party)
     - [Set flag event](#set-flag-event)
+    - [Forcefield](#forcefield)
 
     ### Characters tutorial
     - [NPC](#npc)
@@ -690,6 +691,63 @@ export const metadata = {
     ---
     TBA
     
+</Box>
+
+<Box>
+
+    ## Forcefield
+    ---
+
+    Forcefields are an electrical barrier that stops the player's progresion until a certain condition is met.
+    Mainly used to stop the player until they complete a puzzle or reach a certain point on the project.
+
+    `Forcefield` is an [`Event`](/wiki/api/Event) and naming an object `forcefield` on an `objects` layer in a map creates this object.
+
+    List of configurable properties:
+    - `solid: boolean = true` -> If **true**, the forcefield is solid and the player can't walk through it. If **false**, the player
+    will be able to walk through the forcefield.
+    - `visible: boolean = false` -> If **true**, the forcefield will always be visible to the player.
+    If **false**, the player will only be able to see the forcefield when they are close to the object.    
+    - `flag: string` -> The name of the flag to check for whether this forcefield is active. If `!` is at the start of the flag, the check will be inverted.
+    - `inverted: boolean` -> If **true**, the flagcheck is inverted, so if `flag == value`, the forcefield is **inactive**.
+    If **false**, when `flag == value`, the forcefield is **active**.
+    - `value: boolean` -> The value that `flag` should be for the forcefield to be active.
+
+    ### Example
+    ---
+    Since we're not making a puzzle yet, we can use the [Set flag event](#set-flag-event) or the debug flag editor
+    to test the forcefield functionality.
+
+    First, let's create the forcefield and add the flag check, we can name the flag "puzzle_solved" for example.
+    Since we want to logic to be `if flag == true`, we need to invert the flagcheck.
+
+    To do that, we can either use the `inverted` property or add `!` at the start of the name of the flag, something like this:
+    - `flag` -> !puzzle_solved
+
+    OR
+
+    - `inverted` -> true
+
+    Don't use both, because that's a double negation and it's the same as not putting anything.
+
+    You should have created something like this.
+
+    <>![](/wiki/forcefield_tutorial_1.png)</>
+
+    Then, let's create the [Set flag event](#set-flag-event) to test this:
+
+    <>![](/wiki/forcefield_tutorial_2.png)</>
+
+    Now, let's test it and see if it works!
+
+    <video controls preload="none">
+    <source src="/wiki/forcefield_tutorial_1.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    At the start, the flag didn't exist, that's why it wasn't showing in the debug menu. After stepping on the set flag,
+    that event created the flag and we could start to modify it in the editor. 
+
 </Box>
 
 <Box>
