@@ -105,11 +105,29 @@ export const metadata = {
     The syntax of these properties are different depending on the use you want.
 
     ### One textbox
+    ---
 
     If you only want to display a bit of text that fits in one textbox, you can create a custom property called
     `text: string` and give it the text you want.
 
+    For this example, let's add a hole to the map and add a bit of flavor text that says "* This is just a hole."
+
+    First, create a new Tile layer to add detail to the base map and add a hole where you want.
+
+    <>![](/wiki/text_tutorial_1.png)</>
+
+    Now... let's add the flavor text, for the example, let's create an [Interactable](#interactable) and add the
+    custom property `text` with the value: * This is just a hole.
+
+    <>![](/wiki/text_tutorial_2.png)</>
+
+    This is what should happen when you interact with the hole.
+
+    <>![](/wiki/text_tutorial_3.png)</>
+
+
     ### Multiple textboxes
+    ---
 
     If the text you want to display doesn't fit in just one textbox, you can just use multiple textboxes to display
     all the text that you want.
@@ -135,6 +153,7 @@ export const metadata = {
     </video>
 
     ### Different text in multiples interactions
+    ---
 
     If you want to display a different text depending on the times you've interacted with an object,
     you can do that easily using this syntax: **textX_Y**. X is the number of the interaction and Y is the number of the
@@ -267,7 +286,7 @@ export const metadata = {
     player presses the action button (normally the "Z" key).
 
     This event should be an area, so create it using a rectangle or polygon and name it `interactable`
-    on an object layer.
+    on an `objects` layer.
 
     This is what you can use to add flavor text to an overworld object.
 
@@ -298,7 +317,7 @@ export const metadata = {
     <>![](/wiki/interactable_cutscene_tutorial.png)</>
 
     #### Flavor text
-    Follow the [tutorial to the property](#text-tutorial) because it creates an event for the example.
+    Follow the [text tutorial](#text-tutorial) because it creates an Interactable with flavor text as an example.
 
 </Box>
 
