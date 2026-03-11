@@ -547,6 +547,7 @@ export const metadata = {
     That's it! Now just step into the area with you party like in the image bellow.
 
     <>![](/wiki/outline_tutorial_2.png)</>
+    [Replace with a video]
 
 </Box>
 
@@ -568,6 +569,7 @@ export const metadata = {
     and step on this area to test it yourself!
 
     <>![](/wiki/slidearea_tutorial.png)</>
+    [Insert a video]
 
 </Box>
 
@@ -591,6 +593,8 @@ export const metadata = {
     Then this is what happens when you step inside the area of this event.
 
     <>![](/wiki/silhouette_tutorial_2.png)</>
+    [Replace with a video]
+
 
 </Box>
 
@@ -703,7 +707,8 @@ export const metadata = {
 
     If you use an actor, the idle sprite and idle animation is defined in the actor properties. 
     The idle sprite is `self.default_sprite` and the idle animation is `default_anim`.
-    If an actor defines both, the `self.default_sprite` takes priority.
+    or use `self.default` instead. But you still can define `sprite` if
+    you want the NPC to use another animation that is not the default one.
 
     If you don't define an actor for an NPC, you have to define either `sprite` or `animation`,
     not both because the `sprite` takes priority.
@@ -717,7 +722,7 @@ export const metadata = {
     - `talk: boolean = true` -> If **true**, the NPC does a talking animation when interacted and typing in the dialogue.
     If **false**, the NPC doesn't do this animation. This is explained in the examples.
     - `talksprite: string` -> The name of a talk sprite to use for the NPC when talking. If you have an actor,
-    you don't need this.
+    set this to the name of the sprite you want to use for talking instead of the default one.
     - `solid: boolean = true` -> If **true**, the NPC is a solid object and the player can't walk through it.
     If **false**, the player can walk through the NPC.
     - `cutscene: string` -> The name of a cutscene to start when interacting with this NPC.
