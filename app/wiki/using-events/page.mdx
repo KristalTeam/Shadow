@@ -34,6 +34,7 @@ export const metadata = {
     - [Set flag event](#set-flag-event)
     - [Forcefield](#forcefield)
     - [Magic Glass](#magicglass)
+    - [Tile Object](#tileobject)
 
     ### Character tutorial
     - [NPC](#npc)
@@ -674,6 +675,7 @@ export const metadata = {
     [Insert video]
 
 </Box>
+
 <Box>
 
     ## Set flag event
@@ -807,6 +809,66 @@ export const metadata = {
 
     <video controls preload="none">
     <source src="/wiki/magicglass_titorial_2.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+</Box>
+
+<Box>
+
+    ## TileObject
+    ---
+
+    Tile objects are a combination between a tile from a tileset and an [Event](/wiki/api/Event),
+    its main use case is to make a tile that has the properties of an [Object](/wiki/api/Object).
+
+    TileObject is not a normal Event, it has no properties, and you create them using the `Insert Tile (T)` feature from Tiled
+    inside of a `objects` layer. Then select the tile that you want to place from your tileset and place it in the map.
+
+    Since the tiles are 20x20px and a tile from the map is 40x40px, you'll need to use the transform controls and scale it
+    to the size that you want.
+
+    ## Example
+    ---
+    For this example, let's place a tileobject and create a script to do something with it. 
+
+    Follow the tutorial bellow if you still don't get how to make them.
+
+    ![](/wiki/tileobject_tutorial_1.png)
+
+    Then let's create an script to do something with this tileobject, we'll just modify the script from the
+    [script making tutorial](#making-scripts) to do something like this instead.
+
+    ```lua
+    ---The function that will be executed
+    ---@param event Event The event that executes this script
+    ---@param player Player The player that executes this script
+    return function(event, player)
+        --Play an alert sound
+        Assets.playSound("alert")
+        -- Get the tile from it's id
+        ---@type Event
+        local tile = Game.world:getEvent(75) -- Replace with the id of your tileobject.
+        --- Shake the object and make it fall upwards
+        tile:shake()
+        tile.physics.gravity = -1
+    end
+    ```
+
+    Since the tileobject is created as an event, you can get acess to it using the Game.world:getEvent(id) function. 
+    This will give you the object in the map that has that id. If you don't know what the id is, you can
+    look at it in the object properties.
+
+    ![](/wiki/tileobject_tutorial_2.png)
+
+    To execute this script, let's just create a [`script` event](#script) and set the `script` property to `test_script`.
+
+    ![](/wiki/tileobject_tutorial_3.png)
+
+    This is how it looks!
+
+    <video controls preload="none">
+    <source src="/wiki/tileobject_tutorial.mp4" type="video/mp4" />
         Your browser does not support this video. Sorry!
     </video>
 
