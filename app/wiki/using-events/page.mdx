@@ -35,7 +35,7 @@ export const metadata = {
     - [Forcefield](#forcefield)
     - [Magic Glass](#magicglass)
 
-    ### Characters tutorial
+    ### Character tutorial
     - [NPC](#npc)
 
 </Box>
@@ -333,8 +333,9 @@ export const metadata = {
     Naming an object `script` on an `objects` layer in a map creates this object.
 
     These are the properties of this event:
-    - `cutscene: string` -> The name of a cutscene to start when this script event is triggered
-    - `script: string` -> The name of a script file to run when this script event is triggered
+    - `cutscene: string` -> The name of a cutscene to start when this script event is triggered. 
+    Remember to use the **group.cutscene** notation.
+    - `script: string` -> The name of a script file to run when this script event is triggered.
     - `setflag: string` -> The name of the flag that will be set to `setvalue` when the player interacts.
     You must define `setvalue` if you use this property.
     - `setvalue: any = true` -> The value to set the flag specified by `set_flag` to.
@@ -349,7 +350,7 @@ export const metadata = {
 
     ## Treasure Chest
     ---
-    To create this event, place a point on an object layer and call it `chest`.
+    To create this event, place a point on an `objects` layer and call it `chest`.
 
     These are the properties of the event:
     - `item: string` -> The name of the item contained in this treasure chest - cannot be used in conjunction with `money`.
@@ -549,7 +550,10 @@ export const metadata = {
     That's it! Now just step into the area with you party like in the image bellow.
 
     <>![](/wiki/outline_tutorial_2.png)</>
-    [Replace with a video]
+    <video controls preload="none">
+    <source src="/wiki/outline_tutorial.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
 
 </Box>
 
@@ -571,7 +575,10 @@ export const metadata = {
     and step on this area to test it yourself!
 
     <>![](/wiki/slidearea_tutorial.png)</>
-    [Insert a video]
+    <video controls preload="none">
+    <source src="/wiki/slidearea_tutorial.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
 
 </Box>
 
@@ -595,8 +602,10 @@ export const metadata = {
     Then this is what happens when you step inside the area of this event.
 
     <>![](/wiki/silhouette_tutorial_2.png)</>
-    [Replace with a video]
-
+    <video controls preload="none">
+    <source src="/wiki/silhouette_tutorial.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
 
 </Box>
 
