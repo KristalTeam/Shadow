@@ -14,6 +14,7 @@ export const metadata = {
 
     ### General tutorials
 
+    - [Map properties](#map-properties)
     - [Using text](#text-tutorial)
     - [Making an script](#making-scripts)
     - [Path system tutorial](#path-system-tutorial)
@@ -93,8 +94,38 @@ export const metadata = {
 
 </Box>
 
+<Box>
+
+    ## Map properties
+    ---
+    Like events, a map also defines some custom properties that define some aspects,
+    like what is the background music or what is the name of the map.
+
+    To access them, go to Map -> Map properties... and add the custom properties that you want.
+
+    <>![](/wiki/map_properties_tutorial_1.png)</>
+
+
+    This is the list of the custom properties of a map:
+    - `name: string` -> The name of the map. Mainly used to display the map you're on when saving and loading the game.
+    - `music: string` -> The name of the background music that plays inside of this map. 
+    If the name of the music is the same as in the previous map the player was in, the music
+    will continue instead of starting over.
+    - `keepmusic: boolean = false` -> If **true**, Kristal will not change the music from the previous map, even if
+    the music track is diferrent. If **false**, Kristal will transition the music from the previous map to the music of
+    this map, only if that music track is different.
+    - `light: boolean = false` -> If **true**, the map will be in the `light world` and
+    Kristal will use the inventory, textboxes and Game Over from Undertale. If any member of the party has a lightworld variant
+    it'll be used intead of the normal dark world version.
+    If **false**, the map will be set in the `dark world` and Kristal will use the systems from Deltarune.
+    - `border: string` -> The name of the border to use when the player changes the `Border` option from Kristal to `Dynamic`.
+    Kristal already defines some borders you can use, which are `castle`, `city`, `cyber`, `leaves`, `mansion` and `simple` and 
+    are stored in `sprites/borders` in the Kristal source code.
+
+</Box>
 
 <Box>
+
     ## Text tutorial
     ---
 
@@ -871,6 +902,13 @@ export const metadata = {
     <source src="/wiki/tileobject_tutorial.mp4" type="video/mp4" />
         Your browser does not support this video. Sorry!
     </video>
+
+</Box>
+
+<Box>
+
+    ## Warp Door
+    Warp doors are objects that allow to **fast travel** between Overworld locations.
 
 </Box>
 
