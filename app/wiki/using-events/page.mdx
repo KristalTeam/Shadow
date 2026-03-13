@@ -33,6 +33,7 @@ export const metadata = {
     - [Hide Party](#hide-party)
     - [Set flag event](#set-flag-event)
     - [Forcefield](#forcefield)
+    - [Magic Glass](#magicglass)
 
     ### Characters tutorial
     - [NPC](#npc)
@@ -747,6 +748,58 @@ export const metadata = {
 
     At the start, the flag didn't exist, that's why it wasn't showing in the debug menu. After stepping on the set flag,
     that event created the flag and we could start to modify it in the editor. 
+
+</Box>
+
+<Box>
+
+    ## Magicglass
+    ---
+
+    Magicglass are glass tiles that only apear when a character (such as the player or its followers) steps on them.
+
+    This Event is an `area`, and every tile of that area gets transformed to a glass tile. To create this object, create an area in an
+    `objects` layer and name it `magicglass`.
+
+    List of configurable properties:
+    - `new_sprite: string` -> Name of a sprite you want to use instead of the default one that the event already defines.
+    That new sprite should be 20x20px to make them snap to the map.
+
+    ### Example
+    ---
+    Since `magicglass` is normally hidden, we can use it to make a secret pathway towards an inaccessible chest.
+
+    Modify the second map to make something like this.
+
+    ![magicglass_titorial_1](/wiki/magicglass_titorial_1.png)
+    
+    And this should be your result!
+
+    <video controls preload="none">
+    <source src="/wiki/magicglass_titorial_1.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    Wait... that doesn't look right! Why does the glass tiles show in front of the player?
+
+    That is because both the player an the glass tiles are beign drawn on the same layer, 
+    so the object that is lower gets drawn first.
+
+    To stop this from happening, we're going to make another `objects` layer behind our normal objects layer.
+    Name it something like `objects_under` and change the `magicglass` from `objects` to `objects_under`.
+    
+    ![magicglass_titorial_2](/wiki/magicglass_titorial_2.png)
+
+
+    If you don't know in witch layer is located an object, use the `Select Objects (S)` tool in Tiled and 
+    select your object, the layer the object is on, is highlighted in blue.
+
+    This should be how everything looks after those changes!
+
+    <video controls preload="none">
+    <source src="/wiki/magicglass_titorial_2.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
 
 </Box>
 
