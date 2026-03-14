@@ -36,6 +36,7 @@ export const metadata = {
     - [Forcefield](#forcefield)
     - [Magic Glass](#magicglass)
     - [Tile Object](#tileobject)
+    - [Warp door](#warp-door)
 
     ### Character tutorial
     - [NPC](#npc)
@@ -908,7 +909,75 @@ export const metadata = {
 <Box>
 
     ## Warp Door
+    ---
+
     Warp doors are objects that allow to **fast travel** between Overworld locations.
+
+    To create this event, place a point on a `objects` layer and call it `warpdoor`.
+
+    These are the custom properties of this event:
+    - `open: boolean = true` -> If **true**, the door is open and the player can interact with it to fast travel.
+    If **false**, only the door frame apears and the player can't fast travel.
+    - `openflag: string` -> The name of the flag to check if the door is open or not. The flag has to be boolean.
+    If the flag is **true** the door is open, and if the flag is **false** or just doen't exist (nil), the door is closed.
+
+    - `map: string[]` -> The list of the names of the maps where the player can fast travel to.
+    - `name: string[]` -> The list of the names the warp choice will display for each avaliable map.
+    - `marker: string[]` -> The names of the markers the door will teleport the player to.
+    - `flag: string[]` -> A list of flags to check for to decide whether a map can be warped to or not. This is usefull if you
+    want to allow the player to fast travel in the midle of you project, but not to a latter location.
+
+    ### Examples
+    ---
+
+    Create a `warpdoor` in both maps, for this example the door will be open from the start, so the properties are the same for both.
+    You'll also need to define the markers where the player will be teleported to, I'll name them `door_warp` to make it simple. 
+
+    These are the properties, since `map`, `name` and `marker` are arrays, we have to define them as in the 
+    [multiple texboxes from the text tutorial](#multiple-textboxes).
+    - `map1` -> example_map -- This is the name of the first map you want to fast travel to
+    - `map2` -> example_map_2 -- This is the name of the second map you want to fast travel to
+    - `name1` -> Start -- The name the door will use for the selection of map1
+    - `name2` -> End -- The name the door will use for the selection of map2
+    - `marker1` -> door_warp -- The marker the door will teleport the player when they select map1 as the destiny
+    - `marker2` -> door_warp -- The marker the door will teleport the player when they select map2 as the destiny
+
+    You can define up to four maps, but you'll also need to define `map3`, `map4`, `name3`, `name4`, `marker3` and `marker4`.
+
+    This is how it should look like:
+
+    |example_map|
+    |---|
+    |![](/wiki/warpdoor_tutorial_1.png)|
+
+    |example_map_2|
+    |---|
+    |![](/wiki/warpdoor_tutorial_2.png)|
+
+    And this is how it works!
+    <video controls preload="none">
+    <source src="/wiki/warpdoor_tutorial_1.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    Now... let's try something more complex. Instead of having the doors opened from the start, they'll only open when the
+    player reaches the end.
+
+    Modify the door on the example_map and add `openflag` -> `reached_end` to its custom properties.
+    Move the door of example_map_2 to the end and add a [set flag event](#set-flag-event) to set the reached_end flag to true.
+    |example_map|
+    |---|
+    |![](/wiki/warpdoor_tutorial_4.png)|
+
+    |example_map_2|
+    |---|
+    |![](/wiki/warpdoor_tutorial_3.png)|
+
+    And this is how it works!
+    <video controls preload="none">
+    <source src="/wiki/warpdoor_tutorial_2.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
 
 </Box>
 
