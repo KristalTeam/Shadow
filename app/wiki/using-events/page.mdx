@@ -37,6 +37,7 @@ export const metadata = {
     - [Magic Glass](#magicglass)
     - [Tile Object](#tileobject)
     - [Warp door](#warp-door)
+    - [Quick Save Event](#quick-save-event)
 
     ### Character tutorial
     - [NPC](#npc)
@@ -976,6 +977,42 @@ export const metadata = {
     And this is how it works!
     <video controls preload="none">
     <source src="/wiki/warpdoor_tutorial_2.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+</Box>
+
+<Box>
+
+    ## Quick Save Event
+    ---
+
+    An overworld object that triggers a [Quicksave](/wiki/api/Game#saveQuick) when entered. 
+    You can use this if you want to save flags values after the player game overs.
+    Usable to skip the starting cutscene of a boss if the players dies to that boss, like when you fight
+    Sphamton NEO.
+
+    `QuicksaveEvent` is an area [`Event`](/wiki/api/Event) and naming an object `quicksave` on an `objects` layer in a map creates this objects.
+
+    This is the custom parameter of this event:
+    - `marker: string` -> The name of the marker to use for to spawn the party after loading the quicksave. Like in a gameover.
+
+    ### Example
+    ---
+
+    For this example, I'll just create a `quicksave` and a [`setflag`](#set-flag-event) to see how this works.
+
+    |quicksave|
+    |---|
+    |![](/wiki/quicksave_tutorial_1.png)|
+
+    |setflag|
+    |---|
+    |![](/wiki/quicksave_tutorial_2.png)|
+
+    This video uses the [Debug features](/wiki/debugging) to show what this event does!
+    <video controls preload="none">
+    <source src="/wiki/quicksave_tutorial.mp4" type="video/mp4" />
         Your browser does not support this video. Sorry!
     </video>
 
