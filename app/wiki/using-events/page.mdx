@@ -34,8 +34,8 @@ export const metadata = {
     - [Hide Party](#hide-party)
     - [Set flag event](#set-flag-event)
     - [Forcefield](#forcefield)
-    - [Magic Glass](#magicglass)
-    - [Tile Object](#tileobject)
+    - [Magic Glass](#magic-glass)
+    - [Tile Object](#tile-object)
     - [Warp door](#warp-door)
     - [Quick Save Event](#quick-save-event)
 
@@ -681,7 +681,31 @@ export const metadata = {
 
     ### Examples
     ---
-    TBA
+    First, let's make an example in which we lock the camera to the center of the room. 
+    To do that, just create the `cameratarget` and the `marker` the camera will focus on, then add the target to the
+    custom properties of the `cameratarget`.
+
+    <>![](/wiki/cameratarget_tutorial_1.png)</>
+
+    And this is how it looks!
+
+    <video controls preload="none">
+    <source src="/wiki/cameratarget_tutorial_1.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    Now let's try to make an offset using this event, to do this just move the `cameratarget` and the marker, 
+    and put either `lockx` or `locky` to false.
+
+    This example offsets the y position of the camera a bit. I also changed the name of the marker
+    because that name didn't actually make a lot of sense.
+
+    <>![](/wiki/cameratarget_tutorial_2.png)</>
+    
+    <video controls preload="none">
+    <source src="/wiki/cameratarget_tutorial_2.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
 
 </Box>
 
@@ -797,7 +821,7 @@ export const metadata = {
 
 <Box>
 
-    ## Magicglass
+    ## Magic Glass
     ---
 
     Magicglass are glass tiles that only apear when a character (such as the player or its followers) steps on them.
@@ -849,7 +873,7 @@ export const metadata = {
 
 <Box>
 
-    ## TileObject
+    ## Tile Object
     ---
 
     Tile objects are a combination between a tile from a tileset and an [Event](/wiki/api/Event),
