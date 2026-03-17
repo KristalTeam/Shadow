@@ -1,4 +1,5 @@
 import Box from 'components/Box'
+import CollapseBox from 'components/CollapseBox'
 
 export const metadata = {
     title: 'Releasing Projects',
@@ -439,17 +440,12 @@ You should also check that it works if you're on macOS, by trying to extract and
 
 ---
 
-<details>
-
-<summary>
-Linux AppImages:
-</summary>
-
+<CollapseBox title="Linux AppImages">
 AppImage is a format for packaging applications on Linux. LÖVE has an official AppImage for Linux, which is capable of being fused with `.love` files.
 
 This is a more involved process than regular fusing, so it's best done by following the [official LÖVE Distribution For Linux guide](https://love2d.org/wiki/Game_Distribution#Distribution_for_Linux). You should follow the "Official AppImage" subsection, with your "game" being the `.love` archive you created earlier.
+</CollapseBox>
 
-</details>
 ---
 #### Compatibility [fused-compatibility]
 
