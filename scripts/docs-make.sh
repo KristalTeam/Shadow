@@ -3,8 +3,8 @@ set -eufo pipefail
 
 pushd .
 
-mkdir tmp
-mkdir app/data
+mkdir tmp || true
+mkdir app/data || true
 cd tmp
 export PATH=$PWD:$PATH
 
