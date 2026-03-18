@@ -62,10 +62,10 @@ with chdir("tmp"):
         exit(1)
 
     print("Downloading from " + url)
-    r = urllib.request.urlopen(url)
+    req = urllib.request.Request(url, headers={"User-Agent": "python"})
 
-    with open("lua-language-server.zip", "wb") as f:
-        f.write(r.read())
+    with urllib.request.urlopen(req) as r, open("lua-language-server.zip", "wb") as f:
+        shutil.copyfileobj(r, f)
 
     print("Unzipping lua-language-server...")
     # unzip the file
