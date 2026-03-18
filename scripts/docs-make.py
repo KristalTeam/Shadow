@@ -10,6 +10,7 @@ import os
 import stat
 import urllib.request
 import json
+import gzip
 
 current_os = platform.system()
 
@@ -64,13 +65,20 @@ with chdir("tmp"):
     print("Downloading from " + url)
     req = urllib.request.Request(url, headers={"User-Agent": "python"})
 
-    with urllib.request.urlopen(req) as r, open("lua-language-server.zip", "wb") as f:
+    with urllib.request.urlopen(req) as r, open("lua-language-server-archive", "wb") as f:
         shutil.copyfileobj(r, f)
 
     print("Unzipping lua-language-server...")
-    # unzip the file
-    with zipfile.ZipFile("lua-language-server.zip", "r") as zip_ref:
-        zip_ref.extractall("lua-language-server")
+
+    # if it ends with .gz:
+    if url.endswith(".gz"):
+        with gzip.open("lua-language-server-archive", "rb") as f_in:
+            with open("lua-language-server-archive", "wb") as f_out:
+                shutil.copyfileobj(f_in, f_out)
+    else:
+        # unzip the file
+        with zipfile.ZipFile("lua-language-server-archive", "r") as zip_ref:
+            zip_ref.extractall("lua-language-server")
 
     # if we're on linux, we need to make the binary executable
     if current_os == "Linux":
