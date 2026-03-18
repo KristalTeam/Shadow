@@ -36,7 +36,7 @@ export default function RootLayout({children}) {
         <footer className={styles.footer}>
             DELTARUNE by Toby Fox.
             Website designed by NyakoFox.
-            © 2025 Kristal Team. All rights reserved.
+            © 2026 Kristal Team. All rights reserved.
           </footer>
       </body>
     </html>
