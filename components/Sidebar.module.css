@@ -1,12 +1,9 @@
 .sidebar, .mobile-sidebar {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding: 1rem;
     position: sticky;
     top: 0;
     left: 0;
-    height: 100vh;
+    height: 100dvh;
     background-color: rgba(0, 0, 0, 0.5);
     align-self: start;
     overflow-y: scroll;

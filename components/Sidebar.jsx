@@ -5,7 +5,7 @@ import Searchbar from 'components/Searchbar'
 export default function Sidebar(props) {
     let toggleTitle = <h2>Kristal Wiki</h2>
     let content = <>
-        <hr/>
+        <br/>
         <h3><Link href="/wiki/">General Information</Link></h3>
         <hr/>
         <p>These pages get you ready to use the engine.</p>
@@ -63,7 +63,7 @@ export default function Sidebar(props) {
         <h3><Link href="/wiki/api">API Reference</Link></h3>
         <hr/>
         <p>An auto-generated API reference for Kristal.</p>
-        <a href="#top" style={{textAlign: "right"}}>⮬Back to Top⮭</a>
+        <Link href="#top" style={{textAlign: "right"}}>⮬ Back to Top ⮭</Link>
     </>
 
     return <>

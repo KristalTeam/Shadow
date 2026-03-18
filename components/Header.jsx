@@ -21,12 +21,12 @@ export default function Header(props) {
         // return a link with the transformed text as the id
 
         switch (props.level) {
-            case 1: return <h1 {...props}><a href={`#${transformed}`} id={transformed}>{original}</a></h1>
-            case 2: return <h2 {...props}><a href={`#${transformed}`} id={transformed}>{original}</a></h2>
-            case 3: return <h3 {...props}><a href={`#${transformed}`} id={transformed}>{original}</a></h3>
-            case 4: return <h4 {...props}><a href={`#${transformed}`} id={transformed}>{original}</a></h4>
-            case 5: return <h5 {...props}><a href={`#${transformed}`} id={transformed}>{original}</a></h5>
-            case 6: return <h6 {...props}><a href={`#${transformed}`} id={transformed}>{original}</a></h6>
+            case 1: return <h1 {...props}><Link href={`#${transformed}`} id={transformed}>{original}</Link></h1>
+            case 2: return <h2 {...props}><Link href={`#${transformed}`} id={transformed}>{original}</Link></h2>
+            case 3: return <h3 {...props}><Link href={`#${transformed}`} id={transformed}>{original}</Link></h3>
+            case 4: return <h4 {...props}><Link href={`#${transformed}`} id={transformed}>{original}</Link></h4>
+            case 5: return <h5 {...props}><Link href={`#${transformed}`} id={transformed}>{original}</Link></h5>
+            case 6: return <h6 {...props}><Link href={`#${transformed}`} id={transformed}>{original}</Link></h6>
         }
         return <h1 {...props}/>
     }

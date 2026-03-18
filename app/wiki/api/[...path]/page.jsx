@@ -87,7 +87,7 @@ function parseTypes(view){
         (hoverText[str])
         ? <span key={str} className = {styles.syntaxTypeMod} title = {hoverText[str]}>{str}</span>
         //check outgoing links v 
-        : <a key={str} className = {styles.syntaxType} href = { outgoingLinks[str] ||tryGetLoveWiki(str) ||("/wiki/api/" + str) }><span>{str}</span></a>
+        : <a key={str} className = {styles.syntaxType} href = { outgoingLinks[str] ||tryGetLoveWiki(str) || ("/wiki/api/" + str) }><span>{str}</span></a>
     )
 }
 async function Api_type(type, { params }) {
