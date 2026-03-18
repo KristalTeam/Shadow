@@ -33,16 +33,4 @@ exit /b 1
 
 echo Python executable found -- %PYTHON%
 
-REM check if pip
-%PYTHON% -m pip --version >nul 2>&1
-if %errorlevel% == 0 (
-    GOTO pipfound
-)
-
-echo pip is required to run this script. Please install pip for Python 3.
-exit /b 1
-
-:pipfound
-
-%PYTHON% -m pip install requests
 %PYTHON% scripts/docs-make.py
