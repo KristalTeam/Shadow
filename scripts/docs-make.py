@@ -5,12 +5,12 @@ import subprocess
 from contextlib import chdir
 import platform
 import zipfile
+import tarfile
 import shutil
 import os
 import stat
 import urllib.request
 import json
-import gzip
 
 current_os = platform.system()
 
@@ -72,9 +72,8 @@ with chdir("tmp"):
 
     # if it ends with .gz:
     if url.endswith(".gz"):
-        with gzip.open("lua-language-server-archive", "rb") as f_in:
-            with open("lua-language-server-archive", "wb") as f_out:
-                shutil.copyfileobj(f_in, f_out)
+        with tarfile.open("lua-language-server-archive", "r:gz") as tar:
+            tar.extractall("lua-language-server")
     else:
         # unzip the file
         with zipfile.ZipFile("lua-language-server-archive", "r") as zip_ref:
