@@ -82,12 +82,12 @@ function parseTypes(view){
         strs.pop()
     }
     //remove <T> from string. not quite sure why this happens to some and not others
-    strs = strs.map( (str) => str.split(/:|>/)[1] || str )
+    strs = strs.map( (str) => str.split(/:|>/)[1] ?? str )
     return strs.map( (str, i) => 
         (hoverText[str])
         ? <span key={str} className = {styles.syntaxTypeMod} title = {hoverText[str]}>{str}</span>
         //check outgoing links v 
-        : <a key={str} className = {styles.syntaxType} href = { outgoingLinks[str] ||tryGetLoveWiki(str) || ("/wiki/api/" + str) }><span>{str}</span></a>
+        : <a key={str} className = {styles.syntaxType} href = { outgoingLinks[str] ?? tryGetLoveWiki(str) ?? ("/wiki/api/" + str) }><span>{str}</span></a>
     )
 }
 async function Api_type(type, { params }) {
@@ -170,7 +170,7 @@ async function Api_type(type, { params }) {
                     }
                     <span className = {styles.syntax}>)</span>
                     </h3>
-                    <div style={{color: "lightgray"}}>{await parse(initializer.rawdesc || initializer.desc)}</div>
+                    <div style={{color: "lightgray"}}>{await parse(initializer.rawdesc ?? initializer.desc)}</div>
                     { initializer.extends.args.length > 0 && !(initializer.extends.args[0].name == "self" && initializer.extends.args.length == 1) &&
                         <>
                             <p>Arguments:</p>
@@ -183,7 +183,7 @@ async function Api_type(type, { params }) {
                                         }
                                         else
                                         {
-                                            const desc = await parse(arg.rawdesc || arg.desc);
+                                            const desc = await parse(arg.rawdesc ?? arg.desc);
                                             return <tr key={initializer.name + arg.name} >
                                                 <td>
                                                     <span className = {styles.syntaxSymbol}>{arg.name}</span>
@@ -217,7 +217,7 @@ async function Api_type(type, { params }) {
             <summary className = {styles.detailHeader}><h2 className = {styles.syntaxMethod}>Methods</h2></summary>
             {
                 methods.map(async (method) => {
-                    const desc = await parse(method.rawdesc || method.desc);
+                    const desc = await parse(method.rawdesc ?? method.desc);
                     return <>
                     <hr/>
                     <div id={method.name} key={method.name}>
@@ -262,7 +262,7 @@ async function Api_type(type, { params }) {
                                             }
                                             else
                                             {
-                                                const desc = await parse(arg.rawdesc || arg.desc);
+                                                const desc = await parse(arg.rawdesc ?? arg.desc);
                                                 return <tr key={method.name + arg.name}>
                                                     <td>
                                                         <span className = {styles.syntaxSymbol}>{arg.name}</span>
@@ -289,10 +289,10 @@ async function Api_type(type, { params }) {
                                     <tbody>
                                     {
                                         await Promise.all(method.extends.returns.map(async (ret, index) => {
-                                            const desc = await parse(ret.rawdesc || ret.desc);
+                                            const desc = await parse(ret.rawdesc ?? ret.desc);
                                             return <tr key={method.name + index}>
                                                 <td>
-                                                    <span className = {styles.syntaxSymbol}>{ret.name || index + 1}</span>
+                                                    <span className = {styles.syntaxSymbol}>{ret.name ?? index + 1}</span>
                                                     <span className = {styles.syntax}>: </span>
                                                     {
                                                         parseTypes(ret.view)
@@ -321,7 +321,7 @@ async function Api_type(type, { params }) {
             <summary className = {styles.detailHeader}><h2 className = {styles.syntaxField}>Fields</h2></summary>
             {
                 fields.map(async (field) => {
-                    const desc = await parse(field.rawdesc || field.desc);
+                    const desc = await parse(field.rawdesc ?? field.desc);
                     return <>
                     <hr/>
                     <div id={field.name} key={field.name}>
@@ -351,7 +351,7 @@ async function Api_type(type, { params }) {
             
             {
                 undocumented.map(async (field) => {
-                    const desc = await parse(field.rawdesc || field.desc);
+                    const desc = await parse(field.rawdesc ?? field.desc);
                     return <>
                     <hr/>
                     <br/>
@@ -380,6 +380,7 @@ async function Api_type(type, { params }) {
 }
 
 function Api_variable(type, { params }) {
+    console.log(type)
     return <div>
         <Docbox className = {styles.wikiNoShadow}>
         
@@ -391,7 +392,7 @@ function Api_variable(type, { params }) {
             <h4>
             
             </h4>
-            <p>{type.rawdesc || type.desc}</p>
+            <p>{type.rawdesc ?? type.desc}</p>
 
         </div>
 

@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 set -eufo pipefail
 
-pushd .
+# make sure we're in <sourcedir>/..
+cd "$(dirname "$0")/.."
 
-mkdir tmp || true
-mkdir app/data || true
-cd tmp
-export PATH=$PWD:$PATH
+# check for python3
+if ! command -v python3 >/dev/null 2>&1; then
+    echo "python3 could not be found, please install it to run this script"
+    exit 1
+fi
 
-git clone --depth=1 -b main https://github.com/KristalTeam/Kristal.git kristal
-#git clone --depth=1 -b ldoc-test https://github.com/skarph/Kristal.git kristal
+# check for pip
+if ! python3 -m pip --version >/dev/null 2>&1; then
+    echo "pip could not be found, please install it to run this script"
+    exit 1
+fi
 
-git clone --depth=1 -b doc-builder https://github.com/skarph/luacats-docgen lua-language-server
-
-popd
-chmod +x tmp/lua-language-server/21-07-24-ubuntu-binary/lua-language-server
-tmp/lua-language-server/21-07-24-ubuntu-binary/lua-language-server --doc=tmp/kristal --doc_out_path=app/data
-
-rm -rf tmp
+python3 -m pip install requests
+python3 scripts/docs-make.py

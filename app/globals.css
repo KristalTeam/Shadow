@@ -172,7 +172,7 @@ summary {
 
 summary::after {
   margin-right: 1em;
-  display: inline-block;
+  display: block;
   content: '+';
   float: right;
 }
