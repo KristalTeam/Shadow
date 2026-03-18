@@ -85,9 +85,9 @@ function parseTypes(view){
     strs = strs.map( (str) => str.split(/:|>/)[1] ?? str )
     return strs.map( (str, i) => 
         (hoverText[str])
-        ? <span key={str} className = {styles.syntaxTypeMod} title = {hoverText[str]}>{str}</span>
+        ? <span key={str + "_" + i} className = {styles.syntaxTypeMod} title = {hoverText[str]}>{str}</span>
         //check outgoing links v 
-        : <a key={str} className = {styles.syntaxType} href = { outgoingLinks[str] ?? tryGetLoveWiki(str) ?? ("/wiki/api/" + str) }><span>{str}</span></a>
+        : <a key={str + "_" + i} className = {styles.syntaxType} href = { outgoingLinks[str] ?? tryGetLoveWiki(str) ?? ("/wiki/api/" + str) }><span>{str}</span></a>
     )
 }
 async function Api_type(type, { params }) {
@@ -98,15 +98,56 @@ async function Api_type(type, { params }) {
     for (const field of type.fields) {
         if (field.extends.type == "function")
         {
+            // loop through all methods, if something with the same name already exists, ignore
+            let found = false;
+            for (const method of methods)
+            {
+                if (method.name == field.name) {
+                    found = true;
+                    break
+                }
+            }
+
+            if (found)
+            {
+                continue;
+            }
+
             methods.push(field);
         }
         //this filters out field names not yet documented with --@field (they're probably not ment to be accessed anyways)
         else if(field.extends.type == "doc.type") 
         {
+            let found = false;
+            for (const field2 of fields)
+            {
+                if (field2.name == field.name) {
+                    found = true;
+                    break
+                }
+            }
+
+            if (found)
+            {
+                continue;
+            }
             fields.push(field);
         }
         else
         {
+            let found = false;
+            for (const field2 of undocumented)
+            {
+                if (field2.name == field.name) {
+                    found = true;
+                    break
+                }
+            }
+
+            if (found)
+            {
+                continue;
+            }
             undocumented.push(field)
         }
     }
@@ -133,7 +174,7 @@ async function Api_type(type, { params }) {
             )}
             </h4>
             <br/>
-            <p style={{color: "lightgray"}}>{desc}</p>
+            <span style={{color: "lightgray"}}>{desc}</span>
 
         </div>
         <br/>
@@ -212,169 +253,176 @@ async function Api_type(type, { params }) {
         </>
         : <div></div>
         }
-        <details id="Methods" open>
-            
-            <summary className = {styles.detailHeader}><h2 className = {styles.syntaxMethod}>Methods</h2></summary>
-            {
-                methods.map(async (method) => {
-                    const desc = await parse(method.rawdesc ?? method.desc);
-                    return <>
-                    <hr/>
-                    <div id={method.name} key={method.name}>
-                        <h3>
-                        <a href={"#"+method.name}>
-                            <span className = {styles.syntaxObject}>{type.name}</span>
-                            <span className = {styles.syntax}>{ method.extends.args[0] && method.extends.args[0].name=="self" ? ":" : "."}</span>
-                            <span className = {styles.syntaxMethod}>{method.name}</span>
-                        </a>
-                        <span className = {styles.syntax}>(</span>
-                        {
-                            method.extends.args.map((arg, index) => {
-                                if (index == 0 && arg.name == "self") {
-                                    // imagine this is a continue
-                                }
-                                else
-                                {
-                                    return <span key={`${arg.name}_${index}`} style={{color: "lightgray"}}>
-                                        <span className = {styles.syntaxSymbol}>{arg.name}</span>
-                                        <span className = {styles.syntax}>: </span>
-                                        {
-                                            parseTypes(arg.view)
-                                        }
-                                        {index < method.extends.args.length-1 ? <span className = {styles.syntax}>, </span> : null}
-                                    </span>
-                                }
-
-                            })
-                        }
-                        <span className = {styles.syntax}>)</span>
-                        </h3>
-                        <div style={{color: "lightgray"}}>{desc}</div>
-                        { method.extends.args.length > 0 && !(method.extends.args[0].name == "self" && method.extends.args.length == 1) &&
-                            <>
-                                <p>Arguments:</p>
-                                <table>
-                                    <tbody>
+        {
+            methods.length > 0 && <>
+                <details id="Methods" open>
+                <summary className={styles.detailHeader}><h2 className = {styles.syntaxMethod}>Methods</h2></summary>
+                {
+                    methods.map(async (method) => {
+                        const desc = await parse(method.rawdesc ?? method.desc);
+                        return <Fragment key={method.name}>
+                        <hr/>
+                        <div id={method.name}>
+                            <h3>
+                            <a href={"#"+method.name}>
+                                <span className = {styles.syntaxObject}>{type.name}</span>
+                                <span className = {styles.syntax}>{ method.extends.args[0] && method.extends.args[0].name=="self" ? ":" : "."}</span>
+                                <span className = {styles.syntaxMethod}>{method.name}</span>
+                            </a>
+                            <span className = {styles.syntax}>(</span>
+                            {
+                                method.extends.args.map((arg, index) => {
+                                    if (index == 0 && arg.name == "self") {
+                                        // imagine this is a continue
+                                    }
+                                    else
                                     {
-                                        await Promise.all(method.extends.args.map(async (arg, index) => {
-                                            if (index == 0 && arg.name == "self") {
-                                                return <Fragment key={method.name + arg.name}></Fragment>
-                                            }
-                                            else
+                                        return <span key={`${arg.name}_${index}`} style={{color: "lightgray"}}>
+                                            <span className = {styles.syntaxSymbol}>{arg.name}</span>
+                                            <span className = {styles.syntax}>: </span>
                                             {
-                                                const desc = await parse(arg.rawdesc ?? arg.desc);
-                                                return <tr key={method.name + arg.name}>
+                                                parseTypes(arg.view)
+                                            }
+                                            {index < method.extends.args.length-1 ? <span className = {styles.syntax}>, </span> : null}
+                                        </span>
+                                    }
+
+                                })
+                            }
+                            <span className = {styles.syntax}>)</span>
+                            </h3>
+                            <div style={{color: "lightgray"}}>{desc}</div>
+                            { method.extends.args.length > 0 && !(method.extends.args[0].name == "self" && method.extends.args.length == 1) &&
+                                <>
+                                    <p>Arguments:</p>
+                                    <table>
+                                        <tbody>
+                                        {
+                                            await Promise.all(method.extends.args.map(async (arg, index) => {
+                                                if (index == 0 && arg.name == "self") {
+                                                    return <Fragment key={method.name + arg.name}></Fragment>
+                                                }
+                                                else
+                                                {
+                                                    const desc = await parse(arg.rawdesc ?? arg.desc);
+                                                    return <tr key={method.name + arg.name}>
+                                                        <td>
+                                                            <span className = {styles.syntaxSymbol}>{arg.name}</span>
+                                                            <span className = {styles.syntax}>: </span>
+                                                            {
+                                                                parseTypes(arg.view)
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            <div style={{color: "lightgray"}}>{desc}</div>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }))
+                                        }
+                                        </tbody>
+                                    </table>
+                                </>
+                            }
+                            {
+                                method.extends.returns && method.extends.returns.length > 0 && <>
+                                    <p>Returns: </p>
+                                    <table>
+                                        <tbody>
+                                        {
+                                            await Promise.all(method.extends.returns.map(async (ret, index) => {
+                                                const desc = await parse(ret.rawdesc ?? ret.desc);
+                                                return <tr key={method.name + index}>
                                                     <td>
-                                                        <span className = {styles.syntaxSymbol}>{arg.name}</span>
+                                                        <span className = {styles.syntaxSymbol}>{ret.name ?? index + 1}</span>
                                                         <span className = {styles.syntax}>: </span>
                                                         {
-                                                            parseTypes(arg.view)
+                                                            parseTypes(ret.view)
                                                         }
                                                     </td>
                                                     <td>
                                                         <div style={{color: "lightgray"}}>{desc}</div>
                                                     </td>
                                                 </tr>
-                                            }
-                                        }))
-                                    }
-                                    </tbody>
-                                </table>
-                            </>
-                        }
-                        {
-                            method.extends.returns && method.extends.returns.length > 0 && <>
-                                <p>Returns: </p>
-                                <table>
-                                    <tbody>
+                                            }))
+                                        }
+                                        </tbody>
+                                    </table>
+                                </>
+                            }
+                        </div>
+                        <br/>
+                    </Fragment>
+                })
+            }
+        </details>
+        <hr/>
+        <br/>
+        </>
+        }
+        {
+            fields.length > 0 && <>
+                <details id="Fields" open>
+                    <summary className = {styles.detailHeader}><h2 className = {styles.syntaxField}>Fields</h2></summary>
+                    {
+                        fields.map(async (field) => {
+                            const desc = await parse(field.rawdesc ?? field.desc);
+                            return <Fragment key={field.name}>
+                            <hr/>
+                            <div id={field.name}>
+                                <h3>
+                                    <a href={"#"+field.name}>
+                                        <span className = {styles.syntaxObject}>{type.name}</span>
+                                        <span className = {styles.syntax}>.</span>
+                                        <span className = {styles.syntaxField}>{field.name}</span>
+                                    </a>
+                                    <span style={{color: "gray"}}>: </span>
                                     {
-                                        await Promise.all(method.extends.returns.map(async (ret, index) => {
-                                            const desc = await parse(ret.rawdesc ?? ret.desc);
-                                            return <tr key={method.name + index}>
-                                                <td>
-                                                    <span className = {styles.syntaxSymbol}>{ret.name ?? index + 1}</span>
-                                                    <span className = {styles.syntax}>: </span>
-                                                    {
-                                                        parseTypes(ret.view)
-                                                    }
-                                                </td>
-                                                <td>
-                                                    <div style={{color: "lightgray"}}>{desc}</div>
-                                                </td>
-                                            </tr>
-                                        }))
+                                        parseTypes(field.extends.view)
                                     }
-                                    </tbody>
-                                </table>
-                            </>
-                        }
-                    </div>
-                    <br/>
-                    </>
-                })
-            }
-
-        </details>
-        <hr/>
-        <br/>
-        <details id="Fields" open>
-            <summary className = {styles.detailHeader}><h2 className = {styles.syntaxField}>Fields</h2></summary>
-            {
-                fields.map(async (field) => {
-                    const desc = await parse(field.rawdesc ?? field.desc);
-                    return <>
-                    <hr/>
-                    <div id={field.name} key={field.name}>
-                        <h3>
-                            <a href={"#"+field.name}>
-                                <span className = {styles.syntaxObject}>{type.name}</span>
-                                <span className = {styles.syntax}>.</span>
-                                <span className = {styles.syntaxField}>{field.name}</span>
-                            </a>
-                            <span style={{color: "gray"}}>: </span>
-                            {
-                                parseTypes(field.extends.view)
-                            }
-                        </h3>
-                        <div style={{color: "lightgray"}}>{desc}</div>
-                    </div>
-                    </>
-                })
-            }
-
-        </details>
-        <hr/>
-        <br/>
-        <details id="Undocumented" open>
-
-            <summary className = {styles.detailHeader}><h2 className = {styles.syntaxUndocumented}>Undocumented</h2></summary>
-            
-            {
-                undocumented.map(async (field) => {
-                    const desc = await parse(field.rawdesc ?? field.desc);
-                    return <>
-                    <hr/>
-                    <br/>
-                    <div id={field.name} key={field.name}>
-                        <h3>
-                            <a href={"#"+field.name}>
-                                <span className = {styles.syntaxObject}>{type.name}</span>
-                                <span className = {styles.syntax}>.</span>
-                                <span className = {styles.syntaxUndocumented}>{field.name}</span>
-                            </a>
-                            <span style={{color: "gray"}}>: </span>
-                            {
-                                parseTypes(field.extends.view)
-                            }
-                        </h3>
-                        <div style={{color: "lightgray"}}>{desc}</div>
-                    </div>
-                    </>
-                })
-            }
-            
-        </details>
-        <hr/>
+                                </h3>
+                                <div style={{color: "lightgray"}}>{desc}</div>
+                            </div>
+                            </Fragment>
+                        })
+                    }
+                </details>
+                <hr/>
+                <br/>
+            </>
+        }
+        {
+            undocumented.length > 0 &&
+            <>
+                <details id="Undocumented" open>
+                    <summary className={styles.detailHeader}><h2 className = {styles.syntaxUndocumented}>Undocumented</h2></summary>
+                    {
+                        undocumented.map(async (field) => {
+                            const desc = await parse(field.rawdesc ?? field.desc);
+                            return <Fragment key={field.name}>
+                            <hr/>
+                            <br/>
+                            <div id={field.name} key={field.name}>
+                                <h3>
+                                    <a href={"#"+field.name}>
+                                        <span className={styles.syntaxObject}>{type.name}</span>
+                                        <span className={styles.syntax}>.</span>
+                                        <span className={styles.syntaxUndocumented}>{field.name}</span>
+                                    </a>
+                                    <span style={{color: "gray"}}>: </span>
+                                    {
+                                        parseTypes(field.extends.view)
+                                    }
+                                </h3>
+                                <div style={{color: "lightgray"}}>{desc}</div>
+                            </div>
+                            </Fragment>
+                        })
+                    }
+                </details>
+                <hr/>
+            </>
+        }
         </Docbox>
     </div>
 }
@@ -392,7 +440,7 @@ function Api_variable(type, { params }) {
             <h4>
             
             </h4>
-            <p>{type.rawdesc ?? type.desc}</p>
+            {type.rawdesc ?? type.desc}
 
         </div>
 
