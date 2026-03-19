@@ -38,6 +38,9 @@ export const metadata = {
     - [Tile Object](#tile-object)
     - [Warp door](#warp-door)
     - [Quick Save Event](#quick-save-event)
+    - [Mirror area](#mirror-area)
+
+    ### Controllers tutorial
 
     ### Character tutorial
     - [NPC](#npc)
@@ -1053,8 +1056,62 @@ export const metadata = {
     |![](/wiki/quicksave_tutorial_2.png)|
 
     This video uses the [Debug features](/wiki/debugging) to show what this event does!
+
     <video controls preload="none">
     <source src="/wiki/quicksave_tutorial.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+</Box>
+
+<Box>
+
+    ## Mirror area
+    ---
+
+    A mirror area is a region in the Overworld that reflects the characters bellow it, like a mirror.
+
+    `MirrorArea` is an [`Event`](/wiki/api/Event) and naming an object `mirror` on an `objects` layer in a map creates this object.
+
+    You can customize the sprites that get reflected in the mirror in the [`Actor`](/wiki/api/Actor) and 
+    their [`mirror_sprites`](/wiki/api/Actor#mirror_sprites) table and 
+    functions: [`getMirrorSprites`](/wiki/api/Actor#getMirrorSprites), [`getMirrorSprite`](/wiki/api/Actor#getMirrorSprite)
+
+    This is the list of the customizable properties of this event:
+    - `offset: int = 0` -> The y-offset for reflections drawn in this mirror.
+    - `opacity: int = 1` -> The opacity of reflections drawn in the mirror.
+
+    ### Example
+    ---
+
+    For the first example, I'll just create a mirror to show how the event works.
+
+    This event is simple to use, just create an area where you want to place your mirror at, like in the image bellow.
+
+    ![](/wiki/mirror_tutorial_1.png)
+
+    That's it! You can see how it works in this video.
+
+    <video controls preload="none">
+    <source src="/wiki/mirror_tutorial_1.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    For the second example, let's modify the actor data of Kris and modify what are the sprites that are shown in the mirror.
+
+    ```lua
+    -- Tables of sprites to change into in mirrors
+    self.mirror_sprites = {
+        ["walk/down"] = "walk/down",
+        ["walk/up"] = "walk/up",
+        ["walk/left"] = "walk/right",
+        ["walk/right"] = "walk/left",
+    }
+    ```
+    This is how this looks now, I've increased the size of the mirror a bit to make it easier to see.
+
+    <video controls preload="none">
+    <source src="/wiki/mirror_tutorial_2.mp4" type="video/mp4" />
         Your browser does not support this video. Sorry!
     </video>
 
