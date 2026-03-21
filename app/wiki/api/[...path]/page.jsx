@@ -90,6 +90,13 @@ function parseTypes(view){
         : <a key={str + "_" + i} className = {styles.syntaxType} href = { outgoingLinks[str] ?? tryGetLoveWiki(str) ?? ("/wiki/api/" + str) }><span>{str}</span></a>
     )
 }
+
+function pushUniqueByName(arr, item) {
+    if (!arr.some((existing) => existing.name == item.name)) {
+        arr.push(item);
+    }
+}
+
 async function Api_type(type, { params }) {
     const classHeirarchy = getClassHeirarchy(type, [])
     const methods = []
@@ -99,61 +106,21 @@ async function Api_type(type, { params }) {
         if (field.extends.type == "function")
         {
             // loop through all methods, if something with the same name already exists, ignore
-            let found = false;
-            for (const method of methods)
-            {
-                if (method.name == field.name) {
-                    found = true;
-                    break
-                }
-            }
-
-            if (found)
-            {
-                continue;
-            }
-
-            methods.push(field);
+            pushUniqueByName(methods, field);
         }
         //this filters out field names not yet documented with --@field (they're probably not ment to be accessed anyways)
         else if(field.extends.type == "doc.type") 
         {
-            let found = false;
-            for (const field2 of fields)
-            {
-                if (field2.name == field.name) {
-                    found = true;
-                    break
-                }
-            }
-
-            if (found)
-            {
-                continue;
-            }
-            fields.push(field);
+            pushUniqueByName(fields, field);
         }
         else
         {
-            let found = false;
-            for (const field2 of undocumented)
-            {
-                if (field2.name == field.name) {
-                    found = true;
-                    break
-                }
-            }
-
-            if (found)
-            {
-                continue;
-            }
-            undocumented.push(field)
+            pushUniqueByName(undocumented, field);
         }
     }
 
-    var init_index = methods.findIndex( (method) => method.name == "init")
-    const initializer = init_index > -1 ? methods.splice(methods.findIndex( (method) => method.name == "init"), 1)[0] : null
+    const initIndex = methods.findIndex((method) => method.name == "init")
+    const initializer = initIndex > -1 ? methods.splice(initIndex, 1)[0] : null
 
     const desc = await parse(type?.defines?.[0].rawdesc ?? type?.defines?.[0].desc);
 
@@ -451,15 +418,7 @@ export default async function Api({ params }) {
         
     // read the types from TYPES 
 
-    let type = null;
-
-    for (const current of TYPES)
-    {
-        if (current.name == params.path[0]) {
-            type = current;
-            break
-        }
-    }
+    const type = TYPES.find((current) => current.name == params.path[0]);
 
     if (!type) {
         return notFound();
