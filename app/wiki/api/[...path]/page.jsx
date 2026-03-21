@@ -97,6 +97,78 @@ function pushUniqueByName(arr, item) {
     }
 }
 
+function getArgName(arg) {
+    return arg.type === "..." ? "..." : arg.name;
+}
+
+function getArgText(arg) {
+    return arg.type === "..."
+        ? "vararg, accepts any amount of arguments of this type"
+        : (arg.rawdesc ?? arg.desc) ?? "";
+}
+
+function getRenderableArgs(args) {
+    return args.filter((arg, index) => !(index == 0 && arg.name == "self"));
+}
+
+function hasVisibleArgs(args) {
+    return args.length > 0 && !(args[0].name == "self" && args.length == 1);
+}
+
+function renderArgsInline(args) {
+    const renderableArgs = getRenderableArgs(args);
+    return renderableArgs.map((arg, index) => {
+        const name = getArgName(arg);
+        const text = getArgText(arg);
+        return <span key={`${name}_${index}`} style={{color: "lightgray"}}>
+            <span className={styles.syntaxSymbol} title={text}>{name}</span>
+            <span className={styles.syntax}>: </span>
+            {
+                parseTypes(arg.view)
+            }
+            {index < renderableArgs.length - 1 ? <span className = {styles.syntax}>, </span> : null}
+        </span>
+    });
+}
+
+async function renderArgumentRows(ownerName, args) {
+    return Promise.all(getRenderableArgs(args).map(async (arg) => {
+        const desc = await parse(arg.rawdesc ?? arg.desc);
+        const name = getArgName(arg);
+        const text = getArgText(arg);
+        return <tr key={ownerName + name}>
+            <td>
+                <span className={styles.syntaxSymbol} title={text}>{name}</span>
+                <span className={styles.syntax}>: </span>
+                {
+                    parseTypes(arg.view)
+                }
+            </td>
+            <td>
+                <div style={{color: "lightgray"}}>{desc}</div>
+            </td>
+        </tr>
+    }));
+}
+
+async function renderReturnRows(ownerName, returnsList) {
+    return Promise.all(returnsList.map(async (ret, index) => {
+        const desc = await parse(ret.rawdesc ?? ret.desc);
+        return <tr key={ownerName + index}>
+            <td>
+                <span className = {styles.syntaxSymbol}>{ret.name ?? index + 1}</span>
+                <span className = {styles.syntax}>: </span>
+                {
+                    parseTypes(ret.view)
+                }
+            </td>
+            <td>
+                <div style={{color: "lightgray"}}>{desc}</div>
+            </td>
+        </tr>
+    }));
+}
+
 async function Api_type(type, { params }) {
     const classHeirarchy = getClassHeirarchy(type, [])
     const methods = []
@@ -157,59 +229,17 @@ async function Api_type(type, { params }) {
                         <span>{type.name}</span>
                     </a>
                     <span className = {styles.syntax}>(</span>
-                    {
-                        initializer.extends.args.map((arg, index) => {
-                            if (index == 0 && arg.name == "self") {
-                                // imagine this is a continue
-                            }
-                            else
-                            {
-                                const name = arg.type === "..." ? "..." : arg.name
-                                const text = arg.type === "..." ? "vararg, accepts any amount of arguments of this type" : (arg.rawdesc ?? arg.desc) ?? ""
-                                return <span key={`${name}_${index}`} style={{color: "lightgray"}}>
-                                    <span className={styles.syntaxSymbol} title={text}>{name}</span>
-                                    <span className={styles.syntax}>: </span>
-                                    {
-                                        parseTypes(arg.view)
-                                    }
-                                    {index < initializer.extends.args.length-1 ? <span className = {styles.syntax}>, </span> : null}
-                                </span>
-                            }
-
-                        })
-                    }
+                    {renderArgsInline(initializer.extends.args)}
                     <span className = {styles.syntax}>)</span>
                     </h3>
                     <div style={{color: "lightgray"}}>{await parse(initializer.rawdesc ?? initializer.desc)}</div>
-                    { initializer.extends.args.length > 0 && !(initializer.extends.args[0].name == "self" && initializer.extends.args.length == 1) &&
+                    { hasVisibleArgs(initializer.extends.args) &&
                         <>
                             <p>Arguments:</p>
                             <table>
                                 <tbody>
                                 {
-                                    await Promise.all(initializer.extends.args.map(async (arg, index) => {
-                                        if (index == 0 && arg.name == "self") {
-                                            return <Fragment key={initializer.name + arg.name}></Fragment>
-                                        }
-                                        else
-                                        {
-                                            const desc = await parse(arg.rawdesc ?? arg.desc);
-                                            const name = arg.type === "..." ? "..." : arg.name
-                                            const text = arg.type === "..." ? "vararg, accepts any amount of arguments of this type" : (arg.rawdesc ?? arg.desc) ?? ""
-                                            return <tr key={initializer.name + name} >
-                                                <td>
-                                                    <span className={styles.syntaxSymbol} title={text}>{name}</span>
-                                                    <span className={styles.syntax}>: </span>
-                                                    {
-                                                        parseTypes(arg.view)
-                                                    }
-                                                </td>
-                                                <td>
-                                                    <div style={{color: "lightgray"}}>{desc}</div>
-                                                </td>
-                                            </tr>
-                                        }
-                                    }))
+                                    await renderArgumentRows(initializer.name, initializer.extends.args)
                                 }
                                 </tbody>
                             </table>
@@ -241,57 +271,17 @@ async function Api_type(type, { params }) {
                                 <span className = {styles.syntaxMethod}>{method.name}</span>
                             </a>
                             <span className = {styles.syntax}>(</span>
-                            {
-                                method.extends.args.map((arg, index) => {
-                                    if (index == 0 && arg.name == "self") {
-                                        // imagine this is a continue
-                                    }
-                                    else
-                                    {
-                                        const name = arg.type === "..." ? "..." : arg.name
-                                        const text = arg.type === "..." ? "vararg, accepts any amount of arguments of this type" : (arg.rawdesc ?? arg.desc) ?? ""
-                                        return <span key={`${name}_${index}`} style={{color: "lightgray"}}>
-                                            <span className={styles.syntaxSymbol} title={text}>{name}</span>
-                                            <span className={styles.syntax}>: </span>
-                                            {
-                                                parseTypes(arg.view)
-                                            }
-                                            {index < method.extends.args.length-1 ? <span className = {styles.syntax}>, </span> : null}
-                                        </span>
-                                    }
-
-                                })
-                            }
+                            {renderArgsInline(method.extends.args)}
                             <span className = {styles.syntax}>)</span>
                             </h3>
                             <div style={{color: "lightgray"}}>{desc}</div>
-                            { method.extends.args.length > 0 && !(method.extends.args[0].name == "self" && method.extends.args.length == 1) &&
+                            { hasVisibleArgs(method.extends.args) &&
                                 <>
                                     <p>Arguments:</p>
                                     <table>
                                         <tbody>
                                         {
-                                            await Promise.all(method.extends.args.map(async (arg, index) => {
-                                                if (index == 0 && arg.name == "self") {
-                                                    return <Fragment key={method.name + arg.name}></Fragment>
-                                                }
-                                                else
-                                                {
-                                                    const desc = await parse(arg.rawdesc ?? arg.desc);
-                                                    return <tr key={method.name + arg.name}>
-                                                        <td>
-                                                            <span className = {styles.syntaxSymbol}>{arg.name}</span>
-                                                            <span className = {styles.syntax}>: </span>
-                                                            {
-                                                                parseTypes(arg.view)
-                                                            }
-                                                        </td>
-                                                        <td>
-                                                            <div style={{color: "lightgray"}}>{desc}</div>
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            }))
+                                            await renderArgumentRows(method.name, method.extends.args)
                                         }
                                         </tbody>
                                     </table>
@@ -303,21 +293,7 @@ async function Api_type(type, { params }) {
                                     <table>
                                         <tbody>
                                         {
-                                            await Promise.all(method.extends.returns.map(async (ret, index) => {
-                                                const desc = await parse(ret.rawdesc ?? ret.desc);
-                                                return <tr key={method.name + index}>
-                                                    <td>
-                                                        <span className = {styles.syntaxSymbol}>{ret.name ?? index + 1}</span>
-                                                        <span className = {styles.syntax}>: </span>
-                                                        {
-                                                            parseTypes(ret.view)
-                                                        }
-                                                    </td>
-                                                    <td>
-                                                        <div style={{color: "lightgray"}}>{desc}</div>
-                                                    </td>
-                                                </tr>
-                                            }))
+                                            await renderReturnRows(method.name, method.extends.returns)
                                         }
                                         </tbody>
                                     </table>
