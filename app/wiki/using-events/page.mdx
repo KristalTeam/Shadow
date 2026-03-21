@@ -750,17 +750,14 @@ export const metadata = {
 
     List of configurable properties for this event:
     - `flag: string` -> The name of the flag that will be set to `value` once the player enters the area.
-    - `mapflag: string` -> The name of the flag that will be set to `value` once the player enters the area,
-    but only affecting the current map.
     - `value: any` -> The value to set on the flag.
     - `once: boolean = false` -> If **true** the event will destoy itself after seting the flag and will not load anymore in the save.
     If **false** the player can step on this event, setting the flag, as many times as it wants.
+    - `mapflag: boolean = false` -> If **true**, the `flag` will be saved under the current map instead of a global flag. 
+    If **false**, the flag will be saved as a global flag.
 
-    If you define `mapflag`, that flag will be stored in the Game flag under the current map uid, 
-    and if you define `flag` it will be stored as a global flag in the Game flags.
-
-    Only set `mapflag` or `flag` not both, because the map flag has the priority.
-
+    If you set `mapflag` to true, the flag will be stored in the [Game flags](/wiki/api/Game#flags) under the current map uid, 
+    if not, the flag will be stored as a global flag.
 
     ### Example
     ---
@@ -777,7 +774,7 @@ export const metadata = {
     This video show how the event works.
 
     <video controls preload="none">
-    <source src="/wiki/setflag_tutorial.mp4" type="video/mp4" />
+    <source src="/wiki/setflag_tutorial_1.mp4" type="video/mp4" />
         Your browser does not support this video. Sorry!
     </video>
 
