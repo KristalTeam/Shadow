@@ -163,7 +163,7 @@ async function Api_type(type, { params }) {
         <div id={type.name}>
 
             <h1>
-                <a href={"#"+type.name}>{type.name}</a> 
+                <a href={"#"+type.name}>{type.name}</a>
             </h1>
             <h4>
             {classHeirarchy.map( (cls, index) => 
@@ -197,9 +197,11 @@ async function Api_type(type, { params }) {
                             }
                             else
                             {
-                                return <span key={`${arg.name}_${index}`} style={{color: "lightgray"}}>
-                                    <span className = {styles.syntaxSymbol}>{arg.name}</span>
-                                    <span className = {styles.syntax}>: </span>
+                                const name = arg.type === "..." ? "..." : arg.name
+                                const text = arg.type === "..." ? "vararg, accepts any amount of arguments of this type" : (arg.rawdesc ?? arg.desc) ?? ""
+                                return <span key={`${name}_${index}`} style={{color: "lightgray"}}>
+                                    <span className={styles.syntaxSymbol} title={text}>{name}</span>
+                                    <span className={styles.syntax}>: </span>
                                     {
                                         parseTypes(arg.view)
                                     }
@@ -225,10 +227,12 @@ async function Api_type(type, { params }) {
                                         else
                                         {
                                             const desc = await parse(arg.rawdesc ?? arg.desc);
-                                            return <tr key={initializer.name + arg.name} >
+                                            const name = arg.type === "..." ? "..." : arg.name
+                                            const text = arg.type === "..." ? "vararg, accepts any amount of arguments of this type" : (arg.rawdesc ?? arg.desc) ?? ""
+                                            return <tr key={initializer.name + name} >
                                                 <td>
-                                                    <span className = {styles.syntaxSymbol}>{arg.name}</span>
-                                                    <span className = {styles.syntax}>: </span>
+                                                    <span className={styles.syntaxSymbol} title={text}>{name}</span>
+                                                    <span className={styles.syntax}>: </span>
                                                     {
                                                         parseTypes(arg.view)
                                                     }
@@ -277,9 +281,11 @@ async function Api_type(type, { params }) {
                                     }
                                     else
                                     {
-                                        return <span key={`${arg.name}_${index}`} style={{color: "lightgray"}}>
-                                            <span className = {styles.syntaxSymbol}>{arg.name}</span>
-                                            <span className = {styles.syntax}>: </span>
+                                        const name = arg.type === "..." ? "..." : arg.name
+                                        const text = arg.type === "..." ? "vararg, accepts any amount of arguments of this type" : (arg.rawdesc ?? arg.desc) ?? ""
+                                        return <span key={`${name}_${index}`} style={{color: "lightgray"}}>
+                                            <span className={styles.syntaxSymbol} title={text}>{name}</span>
+                                            <span className={styles.syntax}>: </span>
                                             {
                                                 parseTypes(arg.view)
                                             }
@@ -428,20 +434,13 @@ async function Api_type(type, { params }) {
 }
 
 function Api_variable(type, { params }) {
-    console.log(type)
     return <div>
-        <Docbox className = {styles.wikiNoShadow}>
-        
+        <Docbox className={styles.wikiNoShadow}>
         <div id={type.name}>
-
             <h1>
-                <a href={"#"+type.name}>{type.name}</a> 
+                <a href={"#" + type.name}>{type.name}</a>
             </h1>
-            <h4>
-            
-            </h4>
             {type.rawdesc ?? type.desc}
-
         </div>
 
         </Docbox>
