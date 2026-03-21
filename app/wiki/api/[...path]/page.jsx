@@ -73,22 +73,31 @@ function tryGetLoveWiki(str){
         return "https://love2d.org/wiki/" + loveRef
     }
 }
-//parses type tree and assigns appropriate refrences
+// parses type tree and assigns appropriate refrences
 function parseTypes(view){
-    //split by ? and |
+    // split by ? and |
     var strs = view.split(/(\?|\||\(|\))/)
-    //remove trailing nullstring if it exists (? at end probably) 
-    if(strs[strs.length - 1] == "") {
+    // remove trailing nullstring if it exists (? at end)
+    if (strs[strs.length - 1] == "") {
         strs.pop()
     }
-    //remove <T> from string. not quite sure why this happens to some and not others
+
+    // remove <T> from string. not quite sure why this happens to some and not others
     strs = strs.map( (str) => str.split(/:|>/)[1] ?? str )
-    return strs.map( (str, i) => 
-        (hoverText[str])
-        ? <span key={str + "_" + i} className = {styles.syntaxTypeMod} title = {hoverText[str]}>{str}</span>
-        //check outgoing links v 
-        : <a key={str + "_" + i} className = {styles.syntaxType} href = { outgoingLinks[str] ?? tryGetLoveWiki(str) ?? ("/wiki/api/" + str) }><span>{str}</span></a>
-    )
+
+    return strs.map( (str, i) => {
+        if (str.startsWith("\"")) {
+            // this is a literal string, wrap in span with different color
+            return <span key={str + "_" + i} className={styles.syntaxString} title="Literal value; exactly as shown">{str}</span>
+        }
+        else if (hoverText[str]) {
+            // wrap in span with hovertext
+            return <span key={str + "_" + i} className={styles.syntaxTypeMod} title={hoverText[str]}>{str}</span>
+        } else {
+            const link = outgoingLinks[str] ?? tryGetLoveWiki(str) ?? ("/wiki/api/" + str)
+            return <a key={str + "_" + i} className={styles.syntaxType} href={link}><span>{str}</span></a>
+        }
+    })
 }
 
 function pushUniqueByName(arr, item) {
