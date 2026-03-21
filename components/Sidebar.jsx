@@ -41,6 +41,7 @@ export default function Sidebar(props) {
             <li><Link href="/wiki/cutscenes">Cutscenes</Link></li>
             <li><Link href="/wiki/map-properties-and-layers">Map Properties and Layers</Link></li>
             <li><Link href="/wiki/battle-areas">Battle Areas</Link></li>
+            <li><Link href="/wiki/world-tool">The World Tool</Link></li>
         </ul>
         <br/>
         <h3><Link href="/wiki/mod-creation">Battles</Link></h3>
