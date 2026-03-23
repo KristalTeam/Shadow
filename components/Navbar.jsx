@@ -3,7 +3,7 @@ import Link from 'next/link';
 import NewTab from 'components/NewTab';
 
 export default function Navbar() {
-    return <div className={styles.navbar}>
+    return <div id="wiki-navbar" className={styles.navbar}>
         <div className={styles.navbar_inner}>
             <Link href="/" className={styles.item}>Home</Link>
             <Link href="/wiki" className={styles.item}>Wiki</Link>

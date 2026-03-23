@@ -1,8 +1,53 @@
+"use client"
+
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import styles from "./Sidebar.module.css";
 import Searchbar from 'components/Searchbar'
 
 export default function Sidebar(props) {
+    const sidebarRef = useRef(null);
+
+    /* Handle dynamic sidebar height */
+    useEffect(() => {
+        const sidebarEl = sidebarRef.current;
+        if (!sidebarEl) return;
+
+        const navbarEl = document.getElementById("wiki-navbar");
+
+        const updateSidebarOffset = () => {
+            if (!navbarEl) {
+                sidebarEl.style.setProperty("--sidebar-offset", "0px");
+                return;
+            }
+
+            const navbarRect = navbarEl.getBoundingClientRect();
+            const offset = Math.max(0, navbarRect.bottom);
+            sidebarEl.style.setProperty("--sidebar-offset", `${offset}px`);
+        };
+
+        let raf = null;
+        const scheduleUpdate = () => {
+            if (raf !== null) return;
+            raf = requestAnimationFrame(() => {
+                raf = null;
+                updateSidebarOffset();
+            });
+        };
+
+        updateSidebarOffset();
+        window.addEventListener("scroll", scheduleUpdate, { passive: true });
+        window.addEventListener("resize", scheduleUpdate);
+
+        return () => {
+            if (raf !== null) cancelAnimationFrame(raf);
+            window.removeEventListener("scroll", scheduleUpdate);
+            window.removeEventListener("resize", scheduleUpdate);
+        };
+    }, []);
+
+    /* Content */
+
     let toggleTitle = <h2>Kristal Wiki</h2>
     let content = <>
         <br/>
@@ -70,7 +115,7 @@ export default function Sidebar(props) {
     </>
 
     return <>
-        <div className={styles.sidebar}>
+        <div ref={sidebarRef} className={styles.sidebar}>
             {toggleTitle}
             <Searchbar id="header-search" placeholder="Search Wiki" submit="Go"/>
             {content}

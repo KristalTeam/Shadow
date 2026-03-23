@@ -1,12 +1,22 @@
 .sidebar, .mobile-sidebar {
+    box-sizing: border-box;
     padding: 1rem;
-    position: sticky;
-    top: 0;
-    left: 0;
-    height: 100dvh;
     background-color: rgba(0, 0, 0, 0.5);
-    align-self: start;
-    overflow-y: scroll;
+}
+
+.sidebar {
+    position: fixed;
+    top: var(--sidebar-offset, 0px);
+    left: 0;
+    width: 20rem;
+    height: max(0px, calc(100dvh - var(--sidebar-offset, 0px)));
+    overflow-y: auto;
+}
+
+@media screen and (max-width: 1024px) {
+    .sidebar {
+        width: 16rem;
+    }
 }
 
 .mobile-sidebar summary {
@@ -57,7 +67,7 @@
         height: auto;
         width: 100%;
         margin-bottom: 1rem;
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 }
 
