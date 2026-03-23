@@ -39,7 +39,7 @@ export const metadata = {
     - [Warp door](#warp-door)
     - [Quick Save Event](#quick-save-event)
     - [Mirror area](#mirror-area)
-    - PushBlock
+    - [Push Block](#push-block)
     - TileButton
     - [DarkFountain](#making-dark-fountains)
     - [FountainFloor](#making-dark-fountains)
@@ -1118,6 +1118,138 @@ export const metadata = {
     <source src="/wiki/mirror_tutorial_2.mp4" type="video/mp4" />
         Your browser does not support this video. Sorry!
     </video>
+
+</Box>
+
+<Box>
+
+    ## Push Block
+    ---
+    A pushable block that is usually used to make puzzles, to create this event, place an `area` that covers only one tile
+    in a `objects` layer and name it `pushblock`.
+
+    To create the boundaries of where the push block can and cannot move, you need to create a new `blockcollision` layer, 
+    in this layer you define the collision of the pushables blocks, the player is not affected by this collision.
+    See the example for more information.
+
+    You also should use a different kind of floor to let the player know what are the boundaries of the block.
+
+    This is the list of the configurable properties of this event.
+    - `sprite: string` ->  An option custom sprite that the block will use instead of the normal one. <br></br> 
+    If you want to use the normal sprite, you don't need this.
+    - `solvedsprite: string` -> An optional custom sprite that the block will use when it's on a solved state. <br></br> 
+    Updated automaticatly when the block is on top of a [Tile Button](#tile-button)
+    - `pushdist: number = 40` -> The number of pixels the block moves per push. 40 is one tile, but this depends in the 
+    tile width and tile height of your map.
+    - `pushtime: number = 0.2` -> The time the block takes to move when you push it, in seconds.
+    - `pushsound: string = "noise"` -> The name of the sound effect to play when you push the block.
+    - `pressbuttons: boolean = true` -> This property is **unused**.
+    - `lock: boolean = false` -> If **true**, the block will be locked in place when it reaches a solved state 
+    (when the block is on top of a [Tile Button](#tile-button))
+    <br></br> If **false**, the block can be moved even when on top of a [Tile Button](#tile-button), depending on the
+    complexity of your puzzle, you might prefer this behaviour.
+    - `inputlock: boolean` -> If **true**, the player will be locked in place while the block is getting pushed.
+    <br></br> If **false**, the player can move even if you push the blocks.
+    <br></br> If you plan on making a complex puzzle, set this to false to avoid unnecesary pauses.
+    <br></br> The default value is defined in the config file of your mod, in the `pushBlockInputLock` property.
+
+    ### Example
+    ---
+    For this example, I'll make the base of the puzzle and finish it in the [Tile Button](#tile-button) tutorial, since I need
+    to use both to create a puzzle.
+
+    First, I'll create a `blockcollision` layer in my map and give it the color <span style={{color: "#00ffff"}}>Aqua.  #00ffff (0, 255, 255) </span>
+
+    ![](/wiki/pushblock_tutorial_1.png)
+
+    Then, I'll add a `pushblock`, and define the path that the pushblock can move throught. To do that, I'll modify
+    the map to place the ground where the block can be moved and add the collisions.
+
+    I'll also add the `inputlock` property to the pushable blocks with false as the value.
+
+    This is what I've created.
+
+    ![](/wiki/pushblock_tutorial_2.png)
+
+    Why don't we try moving our boxes?
+
+    <video controls preload="none">
+    <source src="/wiki/pushblock_tutorial_1.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    Well... that was embarasing. What do we do now?
+
+    We can walk out off the room to reset the puzzle, but why don't we create a button to reset the puzzle?
+    
+    I'll create a custom event to make this, but we can actually just use a [Tile Button](#tile-button) instead!
+    (I'll even replace my custom event with a Tile Button later)
+
+    This is the event that I've created.
+    ```lua
+    --- A custom event that resets a pushblock puzzle when steped on by the player
+    ---@class ResetButton : Event
+    local ResetButton, super = Class(Event)
+
+    ---Creates a reset button event
+    ---@param x number The x position of the button
+    ---@param y number The y position of the button
+    ---@overload fun(x : number, y: number) : ResetButton
+    function ResetButton:init(x, y)
+        
+        super.init(self, x, y, 40, 40)
+
+        self.idle_sprite = "world/events/glowtile/idle"
+        self.pressed_sprite = "world/events/glowtile/pressed"
+
+        self:setSprite(self.idle_sprite, 1/8)
+    end
+
+    ---Called whenever the player enters this event
+    ---@param player Player The character that enters the event
+    function ResetButton:onEnter(player)
+        --- This makes sure that the event only reacts to the Player (Kris)
+        if ClassUtils.getClassName(player) == "Player" then
+            self:setSprite(self.pressed_sprite)
+            Assets.playSound("noise")
+            Assets.playSound("him_quick")
+
+            -- Get every PushBlock in the current scene and reset it
+            for _, pushblock in ipairs(Game.stage:getObjects(PushBlock)) do
+                pushblock:reset()
+            end
+            -- Prevets the player for moving while the block are resseting, 
+            -- if you don't do this, the player
+            -- can step where the block are supossed to go and get stuck 
+            -- in the collision.
+            Game.lock_movement = true
+            Game.world.timer:after(.4, function ()
+                Game.lock_movement = false
+            end)
+
+        end
+    end
+
+    ---Called whenever the player leaves this event
+    ---@param player Player The character that leaves the event
+    function ResetButton:onExit(player)
+        --- This makes sure that the event only reacts to the Player (Kris)
+        if ClassUtils.getClassName(player) == "Player" then
+            self:setSprite(self.idle_sprite, 1/8)
+        end
+    end
+    ```
+
+    Now I only need to add it to the map and test if it works!
+    
+    ![](/wiki/pushblock_tutorial_3.png)
+
+    <video controls preload="none">
+    <source src="/wiki/pushblock_tutorial_2.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    Now we have a way of resseting the puzzle, continue with the [Tile Button](#tile-button) to finish the puzzle.
 
 </Box>
 
