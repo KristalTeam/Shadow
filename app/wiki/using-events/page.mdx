@@ -39,11 +39,18 @@ export const metadata = {
     - [Warp door](#warp-door)
     - [Quick Save Event](#quick-save-event)
     - [Mirror area](#mirror-area)
+    - PushBlock
+    - TileButton
+    - DarkFountain
+    - FountainFloor
 
     ### Controllers tutorial
+    - ToggleController
+    - FountainShadowController
 
     ### Character tutorial
     - [NPC](#npc)
+    - ChaserEnemy
 
 </Box>
 
@@ -1075,8 +1082,8 @@ export const metadata = {
     functions: [`getMirrorSprites`](/wiki/api/Actor#getMirrorSprites), [`getMirrorSprite`](/wiki/api/Actor#getMirrorSprite)
 
     This is the list of the customizable properties of this event:
-    - `offset: int = 0` -> The y-offset for reflections drawn in this mirror.
-    - `opacity: int = 1` -> The opacity of reflections drawn in the mirror.
+    - `offset: number = 0` -> The y-offset for reflections drawn in this mirror.
+    - `opacity: number = 1` -> The opacity of reflections drawn in the mirror.
 
     ### Example
     ---
@@ -1111,6 +1118,12 @@ export const metadata = {
     <source src="/wiki/mirror_tutorial_2.mp4" type="video/mp4" />
         Your browser does not support this video. Sorry!
     </video>
+
+</Box>
+
+<Box>
+
+    ##
 
 </Box>
 
@@ -1161,7 +1174,7 @@ export const metadata = {
     - `path: string` -> The name of the path shape that the NPC will follow. Use the [Path system tutorial](#path-system-tutorial) as a reference.
     - `speed: number` -> The speed that the NPC will move along the path specified in `path`, if defined. This can be a float.
     - `progress: number` -> The initial progress of the NPC along their `path`, if defined, as a decimal value between 0 and 1. 
-    0 beign the start of the path and 1 the end of the path. This must be a float.
+    0 beign the start of the path and 1 the end of the path. This can be a float.
 
     ### Examples
     ---
