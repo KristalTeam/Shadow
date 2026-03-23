@@ -1,6 +1,6 @@
 "use client"
 import styles from "./SearchResultsPaginate.module.css";
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import Link from 'next/link';
 //https://www.npmjs.com/package/react-paginate
@@ -10,11 +10,11 @@ function Items({ currentItems }) {
         <>
             {currentItems &&
                 currentItems.map((item) => (
-                    <li key = {item.route} className = {styles.items} >
-                        <Link href = {item.route}>
+                    <li key={item.route} className = {styles.items} >
+                        <Link href={item.route}>
                             <h3 style={{display: "inline"}}>{item.title}</h3>
                         </Link>
-                        <div className = {styles.description} ><i>{item.description}</i></div>
+                        <div className={styles.description} ><i>{item.description}</i></div>
                     </li>
                 ))}
         </>
@@ -63,7 +63,6 @@ export default function SearchResultsPaginate({ itemsPerPage, items }) {
                 previousLinkClassName = {styles.ppreviouslink}
                 disabledClassName = {styles.pdisabled}
                 disabledLinkClassName = {styles.pdisabledlink}
-
             />
         </>
     );

@@ -73,7 +73,7 @@ const articles = paths.map(rpath => {
         function(err, file) {
             body = sanitizeHtml(String(file.value), {allowedTags: []});
             if (err){
-                console.warn("Couldn't parse "+name+", is it .mdx?");
+                console.warn("Couldn't parse " + name + ", is it .mdx?");
                 //throw err;
             }     
     });
@@ -104,11 +104,11 @@ TYPES.forEach( (type) => {
                 id: JSON.stringify({
                     route: "/wiki/api/" + type.name + "#" + field.name,
                     title: type.name + "." + field.name,
-                    description: "(API: " + field.type.replace("set", "").replace("doc.", "") + ")" + ((field.desc ?? field.rawdesc) ?? "")
+                    description: "(API: " + field.type.replace("set", "").replace("doc.", "") + ") " + ((field.desc ?? field.rawdesc) ?? "")
                 }),
 
                 title: type.name + "." + field.name,
-                description: "(API: " + field.type.replace("set", "").replace("doc.", "") + ")" + ((field.desc ?? field.rawdesc) ?? ""),
+                description: "(API: " + field.type.replace("set", "").replace("doc.", "") + ") " + ((field.desc ?? field.rawdesc) ?? ""),
                 content: type.name + "." + field.name,
                 boost: BOOST.API_FIELD
             });
@@ -119,11 +119,11 @@ TYPES.forEach( (type) => {
         id: JSON.stringify({
             route: "/wiki/api/" + type.name,
             title: type.name,
-            description: "(API: " + type.type.replace("set", "") + ")" + ((type.desc ?? type.rawdesc) ?? "")
+            description: "(API: " + type.type.replace("set", "") + ") " + ((type.desc ?? type.rawdesc) ?? "")
         }),
 
         title: type.name,
-        description: "(API: " + type.type.replace("set", "") + ")" + ((type.desc ?? type.rawdesc) ?? ""),
+        description: "(API: " + type.type.replace("set", "") + ") " + ((type.desc ?? type.rawdesc) ?? ""),
         content: text,
         boost: BOOST.API_TYPE
     })

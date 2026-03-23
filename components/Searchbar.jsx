@@ -6,6 +6,7 @@ export default function Searchbar(props) {
     const placeholder = props.placeholder || "Search"
     const submit = props.submit || "Submit"
     const id = props.id || "searchbar"
+    const defaultValue = props.defaultValue || ""
 
     return (
         <form action="/" method="get" className={styles.form}>
@@ -18,12 +19,13 @@ export default function Searchbar(props) {
                 type="text"
                 id={id}
                 placeholder={placeholder}
-                name="search"
+                name="query"
                 className={styles.input}
+                defaultValue={defaultValue}
             />
             <button
                 type="submit"
-                formAction="/wiki"
+                formAction="/wiki/search"
                 className={styles.button}
             >
                 {submit}
