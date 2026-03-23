@@ -2,7 +2,7 @@ import Box from 'components/Box'
 
 export const metadata = {
     title: 'Legacy Hooking (Not recommended)',
-    description: 'Hooking with the Utils.hook() function.',
+    description: 'Hooking with the HookSystem.hook() function.',
 }
 
 <Box>
@@ -14,13 +14,13 @@ This method of hooking is superseded by [Script Hooks](/wiki/hooks). It is highl
 </Box>
 
 <Box>
-### Function Hooking (with `Utils.hook()`)
+### Function Hooking (with `HookSystem.hook()`)
 
-A function hook changes just one function at a time using the `Utils.hook()` function.
+A function hook changes just one function at a time using the `HookSystem.hook()` function.
 
-When using `Utils.hook()`, we should always be inside `Mod:init()`, which is inside the `mod.lua` file.
+When using `HookSystem.hook()`, we should always be inside `Mod:init()`, which is inside the `mod.lua` file.
 
-The full signature of the function is `Utils.hook(target, name, hook)`. `target` is the name of the target class, `name` is the function we want to replace, and `hook` is our new function.
+The full signature of the function is `HookSystem.hook(target, name, hook)`. `target` is the name of the target class, `name` is the function we want to replace, and `hook` is our new function.
 
 `hook` is a function receiving `orig` (the **original function**), `self`, and then all of the hooked function's arguments.
 
@@ -31,7 +31,7 @@ function Mod:init()
     print("Loaded "..self.info.name.."!")
 
     -- This would hook over "MyClass:myFunction(...)", replacing it's code with our own.
-    Utils.hook(MyClass, "myFunction", function (orig, self, ...)
+    HookSystem.hook(MyClass, "myFunction", function (orig, self, ...)
         orig(self, ...) -- Call the original "MyClass:myFunction(...)"
     end)
 end
@@ -51,7 +51,7 @@ Our target for this example will be the `EnemyBattler:hurt()` function.
 Let's swap in some names to our above template to hook EnemyBattler:
 
 ```lua
-Utils.hook(EnemyBattler, "hurt", function (orig, self, ...)
+HookSystem.hook(EnemyBattler, "hurt", function (orig, self, ...)
     orig(self, ...)
 end)
 ```
@@ -69,7 +69,7 @@ What we want to do is swap `...` for the arguments listed there.
 If you've done it correctly, the hook should now look like this:
 
 ```lua
-Utils.hook(EnemyBattler, "hurt", function (orig, self, amount, battler, on_defeat, color, show_status, attacked)
+HookSystem.hook(EnemyBattler, "hurt", function (orig, self, amount, battler, on_defeat, color, show_status, attacked)
     orig(self, amount, battler, on_defeat, color, show_status, attacked)
 end)
 ```
@@ -77,7 +77,7 @@ end)
 Now we can make a few changes - let's log some information to the Kristal console before and after the EnemyBattler is hurt.
 
 ```lua
-Utils.hook(EnemyBattler, "hurt", function (orig, self, amount, battler, on_defeat, color, show_status, attacked)
+HookSystem.hook(EnemyBattler, "hurt", function (orig, self, amount, battler, on_defeat, color, show_status, attacked)
     -- Code above the original function runs before it:
     Kristal.Console:log("Enemy " .. self.name .. " has " .. self.health .. " HP.")
 
@@ -116,7 +116,7 @@ From there, you can safely modify it however you like.
 <Box>
 ## Hook Annotations
 
-The Lua language server can't properly understand changes to functions made through `Utils.hook()`, even with annotations.
+The Lua language server can't properly understand changes to functions made through `HookSystem.hook()`, even with annotations.
 
-For hook annotations and language server support, you must use the recommended [`Utils.hookScript()`](/wiki/hooks) method of hooking.
+For hook annotations and language server support, you must use the recommended [`HookSystem.hookScript()`](/wiki/hooks) method of hooking.
 </Box>
