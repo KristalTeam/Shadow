@@ -25,12 +25,13 @@ console.log("[wiki-index] Generating search index...");
 const dirRelativeToPublicFolder = './wiki/'
 const dir = path.resolve('./app/', dirRelativeToPublicFolder);
 const paths = fs.readdirSync(dir, {recursive: true})
-    .filter( (rpath) => 
+    .filter((rpath) => rpath.includes("page") && rpath.endsWith(".mdx"));
             //only text content; handle API pages seperately
-            rpath.includes("page") &&
-            !rpath.includes(".module") &&
-            !rpath.includes("api") &&
-            !rpath.match(/^page\..../)); 
+//            rpath.includes("page") &&
+//            !rpath.includes(".module") &&
+//            !rpath.includes("api") &&
+//            !rpath.includes("search") &&
+//            !rpath.match(/^page\..../));
     //.map( (rpath) => dir + path.sep + rpath )
 
 const articles = paths.map(rpath => {
