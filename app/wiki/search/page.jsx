@@ -11,7 +11,7 @@ export default function Page({params, searchParams}) {
         <Box>
         {
             searchParams.query ? <div className={styles.searchbox}>
-                <Searchbar placeholder="Enter a term to search for..." defaultValue={searchParams.query}/>
+                <Searchbar placeholder="Enter a term to search for..." defaultValue={searchParams.query} submit="Search" />
                 <h2>{"Search Results for: \"" + searchParams.query + "\""}</h2>
                 <SearchResultsPaginate itemsPerPage={10} items = {searchQuery(searchParams.query)}/>
             </div> : <>
