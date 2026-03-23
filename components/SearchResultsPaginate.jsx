@@ -10,7 +10,7 @@ function Items({ currentItems }) {
         <>
             {currentItems &&
                 currentItems.map((item) => (
-                    <li key={item.route} className = {styles.items} >
+                    <li key={item.route} className={styles.items} >
                         <Link href={item.route}>
                             <h3 style={{display: "inline"}}>{item.title}</h3>
                         </Link>
@@ -51,18 +51,18 @@ export default function SearchResultsPaginate({ itemsPerPage, items }) {
                 pageCount={pageCount}
                 renderOnZeroPageCount={null}
 
-                breakClassName = {styles.pbreak}
-                breakLinkClassName = {styles.pbreaklink}
-                containerClassName = {styles.pcontainer}
-                pageClassName = {styles.ppage}
-                activeClassName = {styles.pactive}
-                activeLinkName = {styles.pactivelink}
-                nextClassName = {styles.pnext}
-                nextLinkClassName = {styles.pnextlink}
-                previousClassName = {styles.pprevious}
-                previousLinkClassName = {styles.ppreviouslink}
-                disabledClassName = {styles.pdisabled}
-                disabledLinkClassName = {styles.pdisabledlink}
+                breakClassName={styles.pbreak}
+                breakLinkClassName={styles.pbreaklink}
+                containerClassName={styles.pcontainer}
+                pageClassName={styles.ppage}
+                activeClassName={styles.pactive}
+                activeLinkName={styles.pactivelink}
+                nextClassName={styles.pnext}
+                nextLinkClassName={styles.pnextlink}
+                previousClassName={styles.pprevious}
+                previousLinkClassName={styles.ppreviouslink}
+                disabledClassName={styles.pdisabled}
+                disabledLinkClassName={styles.pdisabledlink}
             />
         </>
     );

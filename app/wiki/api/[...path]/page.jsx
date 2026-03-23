@@ -135,7 +135,7 @@ function renderArgsInline(args) {
             {
                 parseTypes(arg.view)
             }
-            {index < renderableArgs.length - 1 ? <span className = {styles.syntax}>, </span> : null}
+            {index < renderableArgs.length - 1 ? <span className={styles.syntax}>, </span> : null}
         </span>
     });
 }
@@ -165,8 +165,8 @@ async function renderReturnRows(ownerName, returnsList) {
         const desc = await parse(ret.rawdesc ?? ret.desc);
         return <tr key={ownerName + index}>
             <td>
-                <span className = {styles.syntaxSymbol}>{ret.name ?? index + 1}</span>
-                <span className = {styles.syntax}>: </span>
+                <span className={styles.syntaxSymbol}>{ret.name ?? index + 1}</span>
+                <span className={styles.syntax}>: </span>
                 {
                     parseTypes(ret.view)
                 }
@@ -206,7 +206,7 @@ async function Api_type(type, { params }) {
     const desc = await parse(type?.defines?.[0].rawdesc ?? type?.defines?.[0].desc);
 
     return <div>
-        <Docbox className = {styles.wikiNoShadow}>
+        <Docbox className={styles.wikiNoShadow}>
         
         <div id={type.name}>
 
@@ -230,16 +230,16 @@ async function Api_type(type, { params }) {
         initializer ?
         <>
         <details id="Constructor" open>
-            <summary className = {styles.detailHeader}><h2 className = {styles.syntaxObject}>Constructor</h2></summary>
+            <summary className={styles.detailHeader}><h2 className={styles.syntaxObject}>Constructor</h2></summary>
                 <hr/>
                 <div id={initializer.name} key={initializer.name}>
                     <h3>
-                    <a className = {styles.syntaxObject} href={"#"+initializer.name}>
+                    <a className={styles.syntaxObject} href={"#"+initializer.name}>
                         <span>{type.name}</span>
                     </a>
-                    <span className = {styles.syntax}>(</span>
+                    <span className={styles.syntax}>(</span>
                     {renderArgsInline(initializer.extends.args)}
-                    <span className = {styles.syntax}>)</span>
+                    <span className={styles.syntax}>)</span>
                     </h3>
                     <div style={{color: "lightgray"}}>{await parse(initializer.rawdesc ?? initializer.desc)}</div>
                     { hasVisibleArgs(initializer.extends.args) &&
@@ -266,7 +266,7 @@ async function Api_type(type, { params }) {
         {
             methods.length > 0 && <>
                 <details id="Methods" open>
-                <summary className={styles.detailHeader}><h2 className = {styles.syntaxMethod}>Methods</h2></summary>
+                <summary className={styles.detailHeader}><h2 className={styles.syntaxMethod}>Methods</h2></summary>
                 {
                     methods.map(async (method) => {
                         const desc = await parse(method.rawdesc ?? method.desc);
@@ -275,13 +275,13 @@ async function Api_type(type, { params }) {
                         <div id={method.name}>
                             <h3>
                             <a href={"#"+method.name}>
-                                <span className = {styles.syntaxObject}>{type.name}</span>
-                                <span className = {styles.syntax}>{ method.extends.args[0] && method.extends.args[0].name=="self" ? ":" : "."}</span>
-                                <span className = {styles.syntaxMethod}>{method.name}</span>
+                                <span className={styles.syntaxObject}>{type.name}</span>
+                                <span className={styles.syntax}>{ method.extends.args[0] && method.extends.args[0].name=="self" ? ":" : "."}</span>
+                                <span className={styles.syntaxMethod}>{method.name}</span>
                             </a>
-                            <span className = {styles.syntax}>(</span>
+                            <span className={styles.syntax}>(</span>
                             {renderArgsInline(method.extends.args)}
-                            <span className = {styles.syntax}>)</span>
+                            <span className={styles.syntax}>)</span>
                             </h3>
                             <div style={{color: "lightgray"}}>{desc}</div>
                             { hasVisibleArgs(method.extends.args) &&
@@ -321,7 +321,7 @@ async function Api_type(type, { params }) {
         {
             fields.length > 0 && <>
                 <details id="Fields" open>
-                    <summary className = {styles.detailHeader}><h2 className = {styles.syntaxField}>Fields</h2></summary>
+                    <summary className={styles.detailHeader}><h2 className={styles.syntaxField}>Fields</h2></summary>
                     {
                         fields.map(async (field) => {
                             const desc = await parse(field.rawdesc ?? field.desc);
@@ -330,9 +330,9 @@ async function Api_type(type, { params }) {
                             <div id={field.name}>
                                 <h3>
                                     <a href={"#"+field.name}>
-                                        <span className = {styles.syntaxObject}>{type.name}</span>
-                                        <span className = {styles.syntax}>.</span>
-                                        <span className = {styles.syntaxField}>{field.name}</span>
+                                        <span className={styles.syntaxObject}>{type.name}</span>
+                                        <span className={styles.syntax}>.</span>
+                                        <span className={styles.syntaxField}>{field.name}</span>
                                     </a>
                                     <span style={{color: "gray"}}>: </span>
                                     {
@@ -353,7 +353,7 @@ async function Api_type(type, { params }) {
             undocumented.length > 0 &&
             <>
                 <details id="Undocumented" open>
-                    <summary className={styles.detailHeader}><h2 className = {styles.syntaxUndocumented}>Undocumented</h2></summary>
+                    <summary className={styles.detailHeader}><h2 className={styles.syntaxUndocumented}>Undocumented</h2></summary>
                     {
                         undocumented.map(async (field) => {
                             const desc = await parse(field.rawdesc ?? field.desc);

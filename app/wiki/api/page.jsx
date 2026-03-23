@@ -96,9 +96,9 @@ export default async function Api() {
     const tree = sortTree(types)
     return (
         <>
-        <h1 style = {{textAlign: "center"}}>API Reference</h1>
-        <SwapVisibilityButton componentA = "tree" componentB = "alphabetical">schmesting</SwapVisibilityButton>
-        <Docbox id = "tree" className = {styles.wikiNoShadow} style={{display: "none"}}>
+        <h1 style={{textAlign: "center"}}>API Reference</h1>
+        <SwapVisibilityButton componentA="tree" componentB = "alphabetical">schmesting</SwapVisibilityButton>
+        <Docbox id = "tree" className={styles.wikiNoShadow} style={{display: "none"}}>
             <ul className={styles.tree}>
                 {tree.map(i => (
                     <ListTreeItem item={i} key={i.data.name} />
@@ -106,7 +106,7 @@ export default async function Api() {
             </ul>
         </Docbox>
         
-        <Docbox id = "alphabetical" className = {styles.wikiNoShadow}>
+        <Docbox id = "alphabetical" className={styles.wikiNoShadow}>
         {
             alphabetical.map( (section, letter) => {
                 return <Fragment key={letter}>
