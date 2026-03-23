@@ -41,12 +41,12 @@ export const metadata = {
     - [Mirror area](#mirror-area)
     - PushBlock
     - TileButton
-    - DarkFountain
-    - FountainFloor
+    - [DarkFountain](#making-dark-fountains)
+    - [FountainFloor](#making-dark-fountains)
 
     ### Controllers tutorial
     - ToggleController
-    - FountainShadowController
+    - [FountainShadowController](#making-dark-fountains)
 
     ### Character tutorial
     - [NPC](#npc)
@@ -1123,7 +1123,70 @@ export const metadata = {
 
 <Box>
 
-    ##
+    ## Making Dark fountains
+    ---
+    Creating a dark fountain in Kristal is very easy and you only need three parts.
+
+    ### Dark fountain
+    ---
+    First we have the **dark fountain** itself, this is an event, an to create it, place a `point` in an `objects` layer and name it `darkfountain`.
+
+    This is the configurable property of this event.
+    - `narrow: boolean = false` -> This is used if you want to create a narrow dark fountain (like the dark fountain in the first sanctuary of chapter 4) intead of the normal one.
+    <br></br>If **true**, you'll create a narrow dark fountain. <br></br>If **false**, a normal dark fountain will be created instead.
+
+    #### Example
+    ---
+    I've created a new map to create the dark fountain, but you can place it in the maps you've already created.
+
+    This is what I have so far.
+
+    ![](/wiki/darkfountain_tutorial_1.png)
+
+    You might think "why doesn't it have a floor?" To answer that, we need to go to the next step in creating a dark fountain.
+
+    ### Fountain floor
+    ---
+    This is the floor that changes color overtime, following the color of the fountain. You don't need to have a dark fountain in the room to
+    use this object, but if you define one, the color of the floor will sync with the color of the fountain.
+
+    To create this event, place an `area` where you want your floor to be drawn in an `objects` layer and name it `fountainfloor`
+
+    This event doesn't have any custom properties.
+
+    #### Example
+    ---
+    I've modified the room a bit to place this new event, since `fountainfloor` is an object, make sure that you create it in an 
+    `objects` layer that's **bellow the one the player is drawn at** or you might find that the floor gets drawn above the player. 
+    
+    Go to the [Magic Glass](#magic-glass) tutorial if you don't know what I'm talking about.
+
+    ![](/wiki/darkfountain_tutorial_2.png)
+
+    <video controls preload="none">
+    <source src="/wiki/darkfountain_tutorial_1.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    That looks good, but we are still mising an important part of the dark fountain room, the shadow effect of the characters.
+
+    ### Fountain Shadow Controller
+    ---
+    Creating this is very simple, insert a `point` in a `controllers` layer and name it `fountainshadow`.
+
+    This will add the shadow effect to every character present in the map.
+
+    #### Example
+    ---
+    I've added created a `controllers` layer in my map, to make this, create a new object layer and name it `controllers`. 
+    Use the color that you want, but I'll use a <span style={{color: "#ffc800"}}>Golden Color. </span>#ffc800 (255, 200, 0)  ![](/wiki/controllers_layer_color.png)
+
+    ![](/wiki/darkfountain_tutorial_3.png)
+
+    <video controls preload="none">
+    <source src="/wiki/darkfountain_tutorial_2.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
 
 </Box>
 
