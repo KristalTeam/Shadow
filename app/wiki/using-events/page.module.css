@@ -1,8 +1,8 @@
-.table td {
+.center_table td {
     text-align: center;
 }
 
-.table td:first-child {
+.center_table td:first-child {
     word-wrap: normal;
     word-break: normal;
 }

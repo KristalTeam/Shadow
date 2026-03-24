@@ -14,7 +14,6 @@ export const metadata = {
 
     ### General tutorials
 
-    - [Map properties](#map-properties)
     - [Using text](#text-tutorial)
     - [Making an script](#making-scripts)
     - [Path system tutorial](#path-system-tutorial)
@@ -61,7 +60,7 @@ export const metadata = {
 
 </Box>
 
-<Box className={styles.table}>
+<Box className={styles.center_table}>
 
     ## The Basics
     ---
@@ -104,36 +103,30 @@ export const metadata = {
     `default` is the value that the property will have if you don't define it in Tiled.
     If a property doesn't have this parameter, it means that the property doesn't have a default value.
 
-</Box>
-
-<Box>
-
-    ## Map properties
+    ### Map layer colors
     ---
-    Like events, a map also defines some custom properties that define the background music 
-    or what is the name of the map.
+    As seen in the [Map layers page](/wiki/map-properties-and-layers#map-layers), Kristal defines a few layers, and in this wiki page,
+    you'll use most of them with tutorials and captures. For this reason, I first need to explain what colors I'm giving to each layer,
+    so you can undertand what I'm doing in Tiled.
 
-    To access them, go to **Map -> Map properties...** and add the custom properties that you want.
+    You must understand that these colors are the ones that I like, you can use the colors that you want for your layers. But make them
+    **consistent across your whole proyect**. These are the color I'll use in my examples.
 
-    <>![](/wiki/map_properties_tutorial_1.png)</>
+    <div>
 
+    |Layer|Color|
+    |---|---|
+    |`objects`|<span style={{color: "#ff00ff"}}> Pink. </span> #ff00ff <br></br> (255, 0, 255) ![](/wiki/pink_color.png)|
+    |`controllers`|<span style={{color: "#ffc800"}}>Golden. </span>#ffc800<br></br> (255, 200, 0)  ![](/wiki/controllers_layer_color.png)|
+    |`markers`|<span style={{color: "#7f00ff"}}> Purple. </span>#7f00ff<br></br> (127, 0, 255)![](/wiki/markers_layer_color.png)|
+    |`collision`|<span style={{color: "#0000ff"}}>Blue. </span> #0000ff <br></br> (0, 0, 255) ![](/wiki/collision_layer_color.png)|
+    |`enemycollision`|<span style={{color: "#00ffff"}}>Aqua. </span> #00ffff<br></br> (0, 255, 255)![](/wiki/enemycollision_layer_color.png)|
+    |`blockcollision`|<span style={{color: "#00ffff"}}>Aqua. </span> #00ffff<br></br> (0, 255, 255)![](/wiki/enemycollision_layer_color.png)|
+    |`paths`|<span style={{color: "#00ff00"}}>Green. </span> #00ff00 (0, 255, 0)![](/wiki/paths_layer_color.png)|
+    |`battleareas`|<span style={{color: "#ff0000"}}>Red.</span> #ff0000 (255, 0, 0)![](/wiki/battleareas_layer_color.png)|
+    |`battleborder`|None, because it's a **Tile layer**|
 
-    This is the list of the custom properties of a map:
-    - `name: string` -> The name of the map. Mainly used to display the map you're on when saving and loading the game.
-    - `music: string` -> The name of the background music that plays inside of this map. 
-    If the name of the music is the same as in the previous map the player was in, the music
-    will continue instead of starting over.
-    - `keepmusic: boolean = false` -> If **true**, Kristal will not change the music from the previous map, even if
-    the music track is diferrent. 
-    <br></br>If **false**, Kristal will transition the music from the previous map to the music of
-    this map, only if that music track is different.
-    - `light: boolean = false` -> If **true**, the map will be in the `light world` and
-    Kristal will use the inventory, textboxes and Game Over from Undertale. If any member of the party has a lightworld variant
-    it'll be used intead of the normal dark world version.
-    <br></br>If **false**, the map will be set in the `dark world` and Kristal will use the systems from Deltarune.
-    - `border: string` -> The name of the border to use when the player changes the `Border` option from Kristal to `Dynamic`.
-    Kristal already defines some borders you can use, which are `castle`, `city`, `cyber`, `leaves`, `mansion` and `simple` and 
-    are stored in `assets/sprites/borders` in the Kristal source code.
+    </div>
 
 </Box>
 
