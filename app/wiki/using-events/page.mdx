@@ -77,7 +77,11 @@ export const metadata = {
     You must understand that these colors are the ones that I like, you can use the colors that you want for your layers. But make them
     **consistent across your whole project**. These are the color I'll use in my examples.
 
-    <div>
+    <div style={{ 
+        display: 'flex',
+        justifyContent: 'center', 
+        alignItems: 'center', 
+    }}>
 
     |Layer|Color|
     |---|---|
@@ -257,30 +261,160 @@ export const metadata = {
 <Box>
     ## Path system tutorial
     ---
-    Still a WIP
 
-    Paths are a way of defining how some objects move in the overworld, essentially, they are a list of points that the object moves between.
+    Paths are a way of defining how some objects move in the overworld, essentially, they are a list of points that the object moves in between.
 
-    You can use them when defining an NPC or a ChaserEnemy, and also for cutscenes.
-
-    To create a path, make a new object layer that starts with the name `paths`. Then use the `insert polygon tool (P)` utility from Tilted
-    and create a polygon, the perimeter of the polygon is the path that the object will follow, don't forget to add a `name` to the polygon
+    To create a path, make a new object layer that starts with the name `paths`. Then use the `insert polygon tool (P)` utility from Tiled
+    and create a polygon, the **perimeter** of the polygon is the path that the object will follow, don't forget to add a **name** to the polygon
     because that is how you will reference it.
 
     If you want to make a circular path, use the `Insert Ellipse (C)` tool and create the circular shape that you want your path to be.
-    The path is the circumference of your ellipse. Don't forget to name it because that is who you'll reference this path.
+    The path is the **circumference** of your ellipse. Don't forget to **name** it because that is how you'll reference this path.
+    This type of paths **can't be used in cutcenes**.
 
-    That all for the creations of paths, now let's go over some examples on how to use this system.
+    That's all for the creations of paths, now let's go over some examples on how to use this system.
 
     ### Examples
     ---
     #### Using paths on an NPC
+    ---
 
+    First, head over the [NPCs tutorial](#npc) to make an NPC. Then we're going to make it actually move.
+
+    Now that you have your NPC, let's make a path for it to move.
+
+    Use the **insert polygon tool (P)** to create a polygon that defines the path the NPC will move through, then **name** your path.
+    I'll name mine `test_path1`. You should **close** this polygon since the npc will loop through it.
+
+    ![](/wiki/path_tutorial_1.png)
+
+    If we look through the custom properties that an NPC has over a path, we see these:
+    - `path: string` -> The name of the path shape that the NPC will follow.
+    - `speed: number = 6` -> The speed that the NPC will move along the path specified in `path`, if defined.
+    - `progress: number = 0` -> The initial progress of the NPC along their `path`, if defined, as a decimal value between 0 and 1. 
+    0 being the start of the path and 1 the end of the path.
+
+    So... let's add these to our npc. Since the name of the path I created is `test_path1` this is how I ended up configuring my npc.
+
+    ![](/wiki/path_tutorial_2.png)
+
+    And this is how it looks in game!
+
+    <video controls preload="none">
+    <source src="/wiki/path_tutorial_1.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
 
     #### Using paths on a Chaser Enemy
+    ---
 
+    Needs the chaser enemy tutorial first.
 
     #### Using paths in cutscenes
+    ---
+
+    You **can't use an ellipse** as a path in a cutscene. **Only a polygon**.
+
+    Paths are used in `WorldCutscenes` to make characters walk or slide along a defined path. 
+    
+    You can use your paths in a cutscene using these functions:
+    - [WorldCutscene:walkPath(chara, path, options)](/wiki/api/WorldCutscene#walkPath)
+    - [WorldCutscene:slidePath(obj, path, options)](/wiki/api/WorldCutscene#slidePath)
+
+    The main difference between `walkPath` and `slidePath` is that `walkPath` makes a character do its walking animation, 
+    while `slidePath` just moves an object.
+    
+    Prety simple right? Well... not so much when you consider how many options these functions have. 
+    Since the options are already defined in the API, I'll just use them in the examples.
+
+    First, I'll create a new cutscene in my **room1** group and name it **testing_paths**.
+
+    In the file `scripts/world/cutcenes/room1.lua`
+
+    ```lua
+    ---@param cutscene WorldCutscene The cutcene object
+    ---@param event TileButton The event that executes this cutcene
+    testing_paths = function (cutscene, event)
+    end
+    ```
+
+    We have our placeholder cutcene, now... let's create the paths that the characters will use. 
+    I don't want my paths to loop, so I won't close the polygons.
+
+    This is what I've created.
+
+    ![](/wiki/path_tutorial_3.png)
+
+    As you can see, I've created some pretty odd looking paths, just for fun, I've also created an 
+    [script event](#script) to execute the cutcene, this is the custom property I've given it.
+
+    ![](/wiki/path_tutorial_4.png)
+
+    Now we can actually write the cutcene that uses these paths. This is what I ended up making.
+
+    ```lua
+    --- A testing cutcene to see how paths in cutscenes work
+    ---@param cutscene WorldCutscene The cutcene object
+    ---@param event TileButton The event that executes this cutcene
+    testing_paths = function (cutscene, event)
+
+        -- Get the fun gang, since we're going to move them
+        local kris = cutscene:getCharacter("kris")
+        local susie = cutscene:getCharacter("susie")
+        local ralsei = cutscene:getCharacter("ralsei")
+
+        -- nil checking is always useful
+        if kris and susie and ralsei then
+
+            -- Since we're moving susie and ralsei, we've to make them stop following kris
+            cutscene:detachFollowers()
+
+            -- See the options in walkPath to understand this table
+            local options = {
+                facing = "right",
+                speed = 4,
+                snap = false
+            }
+            cutscene:walkPath(kris, "path_kris", options)
+            cutscene:walkPath(ralsei, "path_ralsei", options)
+
+            -- See the options in slidePath to understand this table
+            options = {
+                facing = "right",
+                time = 2,
+                ease = "in-out-sine",
+                snap = false
+            }
+            cutscene:slidePath(susie, "path_susie", options)
+
+            -- Wait for them to complete the path
+            -- If we use time for everyone, we can know exactly how long they'll take
+            cutscene:wait(5)
+
+            -- Just some text for fun
+            cutscene:text("* What was that?", "concern_smile", ralsei)
+            cutscene:text("* I don't know,[wait:5] I just wanted to do something fun.", "small_smile", susie)
+            cutscene:text("* And...[wait:5] was it fun?", "concern_smile", ralsei)
+            cutscene:text("* Not really...[wait:5] just nauseating.", "nervous_side", susie)
+            cutscene:text("* .[wait:5].[wait:5].[wait:5]", "neutral", susie)
+            cutscene:text("* .[wait:5].[wait:5].[wait:5]", "neutral_side", susie)
+            cutscene:text("* Lets just go already.", "nervous_side", susie)
+        
+            -- Attack the followers back to kris
+            cutscene:attachFollowers()
+            
+            cutscene:wait(1)
+
+        end
+    end
+    ```
+
+    And this is how the cutcene looks in game.
+
+    <video controls preload="none">
+    <source src="/wiki/path_tutorial_2.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
 
 </Box>
 
@@ -1460,8 +1594,8 @@ export const metadata = {
     You can define `setvalue` if you use this property.
     - `setvalue: any = true` -> The value to set the flag specified by `set_flag` to.
     - `path: string` -> The name of the path shape that the NPC will follow. Use the [Path system tutorial](#path-system-tutorial) as a reference.
-    - `speed: number` -> The speed that the NPC will move along the path specified in `path`, if defined. This can be a float.
-    - `progress: number` -> The initial progress of the NPC along their `path`, if defined, as a decimal value between 0 and 1. 
+    - `speed: number = 6` -> The speed that the NPC will move along the path specified in `path`, if defined. This can be a float.
+    - `progress: number = 0` -> The initial progress of the NPC along their `path`, if defined, as a decimal value between 0 and 1. 
     0 being the start of the path and 1 the end of the path. This can be a float.
 
     ### Examples
