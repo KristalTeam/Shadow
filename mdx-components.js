@@ -1,6 +1,11 @@
 import MarkdownLink from "components/MarkdownLink"
 import Header from "components/Header"
 import MarkdownImage from "components/MarkdownImage"
+import Box from "components/Box"
+import Anchor from 'components/Anchor'
+import ScaledSprite from "components/ScaledSprite"
+import NewTab from "components/NewTab"
+import CollapseBox from 'components/CollapseBox'
 
 export function useMDXComponents(components) {
     return {
@@ -28,6 +33,11 @@ export function useMDXComponents(components) {
         img: (props) => (
             <MarkdownImage {...props} />
         ),
+        Box,
+        ScaledSprite,
+        Anchor,
+        NewTab,
+        CollapseBox,
         ...components,
     }
 }

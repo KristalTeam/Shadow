@@ -8,6 +8,10 @@
   margin: 0;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   margin: auto;
 
@@ -28,6 +32,9 @@ body {
 
   font-smooth: never;
   -webkit-font-smoothing: none;
+
+  display: flex;
+  flex-direction: column;
 }
 
 small {
