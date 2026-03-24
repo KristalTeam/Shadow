@@ -32,7 +32,7 @@ export const metadata = {
     - [Camera target](#camera-target)
     - [Hide Party](#hide-party)
     - [Set flag event](#set-flag-event)
-    - [Forcefield](#forcefield)
+    - [Force field](#forcefield)
     - [Magic Glass](#magic-glass)
     - [Tile Object](#tile-object)
     - [Warp door](#warp-door)
@@ -107,10 +107,10 @@ export const metadata = {
     ---
     As seen in the [Map layers page](/wiki/map-properties-and-layers#map-layers), Kristal defines a few layers, and in this wiki page,
     you'll use most of them with tutorials and captures. For this reason, I first need to explain what colors I'm giving to each layer,
-    so you can undertand what I'm doing in Tiled.
+    so you can understand what I'm doing in Tiled.
 
     You must understand that these colors are the ones that I like, you can use the colors that you want for your layers. But make them
-    **consistent across your whole proyect**. These are the color I'll use in my examples.
+    **consistent across your whole project**. These are the color I'll use in my examples.
 
     <div>
 
@@ -136,12 +136,12 @@ export const metadata = {
     ---
 
     The text properties that some events have, are normally defined as string[], an array of strings, since you can't 
-    directy create arrays in Tiled, you have to use a custom definition that Krital implements.
+    directly create arrays in Tiled, you have to use a custom definition that Kristal implements.
 
     With this system, you can create a single textbox to display text, create multiple textboxes to display more text, 
     or make it so the text changes every time the player interacts with it.
 
-    Use the [writting text tutorial](/wiki/writing-text) to know what value to give to these fields.
+    Use the [writing text tutorial](/wiki/writing-text) to know what value to give to these fields.
 
     The syntax of these properties are different depending on the use that you want.
 
@@ -294,16 +294,16 @@ export const metadata = {
     ---
     Still a WIP
 
-    Paths are a way of defining how some objects move in the overworld, esentially, they are a list of points that the object moves between.
+    Paths are a way of defining how some objects move in the overworld, essentially, they are a list of points that the object moves between.
 
     You can use them when defining an NPC or a ChaserEnemy, and also for cutscenes.
 
-    To create a path, make a new object layer that starts with the name `paths`. Then use the `insert pollygon tool (P)` utility from Tilted
-    and create a polygon, the perimeter of the pollygon is the path that the object will follow, don't forget to add a `name` to the pollygon
+    To create a path, make a new object layer that starts with the name `paths`. Then use the `insert polygon tool (P)` utility from Tilted
+    and create a polygon, the perimeter of the polygon is the path that the object will follow, don't forget to add a `name` to the polygon
     because that is how you will reference it.
 
     If you want to make a circular path, use the `Insert Ellipse (C)` tool and create the circular shape that you want your path to be.
-    The path is the circunference of your ellipse. Don't forget to name it because that is who you'll reference this path.
+    The path is the circumference of your ellipse. Don't forget to name it because that is who you'll reference this path.
 
     That all for the creations of paths, now let's go over some examples on how to use this system.
 
@@ -489,7 +489,7 @@ export const metadata = {
 
     When you save the game, exit the project and enter again to see if you respawn in the marker. If you have 
     [Debug hotkeys](/wiki/debugging#debug-hotkeys) enabled. Use `Ctrl+Shift+R` to simulate a save reload and 
-    `Ctrl+B` to test a gameover.
+    `Ctrl+B` to test a game over.
 
 </Box>
 
@@ -544,7 +544,7 @@ export const metadata = {
 
     As you can see, we didn't specify where the player will spawn, so the game will use the `spawn` marker instead.
     
-    If you don't define this marker, it will use the midle of the map instead, so always make sure to have this marker.
+    If you don't define this marker, it will use the middle of the map instead, so always make sure to have this marker.
 
     Usually transition are bidirectional, so let's also add a new point for the other transition to spawn us at. 
     The name doesn't matter, so use whatever name you want!
@@ -574,7 +574,7 @@ export const metadata = {
 <Box>
     ## Outline
     ---
-    Outline is a region of the map that draws a collored stencil outline for all the character that are inside of that area. 
+    Outline is a region of the map that draws a colored stencil outline for all the character that are inside of that area.
     The color of this outline is defined by the `Actor` of the character in the `self.color` field.
 
     This [`Event`](/wiki/api/Event) is an `area`, and naming an object `outline` on an `objects` layer in a map creates this object.
@@ -655,7 +655,7 @@ export const metadata = {
     ---
 
     This [`Event`](/wiki/api/Event) is a region in the Overworld that causes the camera to target a specific position while the player is inside.
-    Usefull when you want to make the player focus on a specific object.
+    Usefully when you want to make the player focus on a specific object.
 
     This event is an `area` and naming an object `cameratarget` on an `objects` layer creates this event.
 
@@ -664,27 +664,27 @@ export const metadata = {
     - `y: number` -> The y position where the camera needs to focus on.
     - `marker: string` -> The name of the marker that tells the position of where the camera needs to focus on.
 
-    It's recomended to use a marker instead of raw x and y values because it's simpler and can be moved inside of Tiled. 
+    It's recommended to use a marker instead of raw x and y values because it's simpler and can be moved inside of Tiled.
     
     To place a target you have to define the x and y position or add the marker, don't use both systems 
     at the same time because the marker has priority.
 
-    - `lockx: boolean = true` -> If **true**, the x position of the camera will be locked to the target possition.
+    - `lockx: boolean = true` -> If **true**, the x position of the camera will be locked to the target position.
     <br></br>If **false**, the camera will freely move along the x axis.
-    - `locky: boolean = true` -> If **true**, the y position of the camera will be locked to the target possition.
+    - `locky: boolean = true` -> If **true**, the y position of the camera will be locked to the target position.
     <br></br>If **false**, the camera will freely move along the y axis.
 
-    These properties are usefull if you want to offset the camera instead of just locking it in place.
+    These properties are useful if you want to offset the camera instead of just locking it in place.
 
     - `speed: number = 16` -> The speed at which the camera will move to the target position.
     - `returnspeed: number = 16` -> The speed at which the camera will return to its original target (normally the player).
     - `time: number = 0.25` -> The time, in seconds, that the camera will take to move to its target position.
     - `returntime: number = 0.25` -> The time, in seconds, that the camera will take to return to its original target (normally the player).
 
-    You can use **speed** or **time** to determine how the camera pans to the target possition, don't try to use both at the same time,
+    You can use **speed** or **time** to determine how the camera pans to the target position, don't try to use both at the same time,
     because **time** takes priority over **speed**.
     
-    If none are given, the camera defaults will be used intead. 16 for speed and 0.25 for time.
+    If none are given, the camera defaults will be used instead. 16 for speed and 0.25 for time.
 
     ### Examples
     ---
@@ -755,7 +755,7 @@ export const metadata = {
     List of configurable properties for this event:
     - `flag: string` -> The name of the flag that will be set to `value` once the player enters the area.
     - `value: any` -> The value to set on the flag. If this is not set, the `flag` will be set to **true** instead.
-    - `once: boolean = false` -> If **true** the event will destroy itself after seting the flag and will not load anymore in the save.
+    - `once: boolean = false` -> If **true** the event will destroy itself after setting the flag and will not load anymore in the save.
     <br></br>If **false** the player can step on this event, setting the flag, as many times as they want.
     - `mapflag: boolean = false` -> If **true**, the `flag` will be saved under the current map instead of a global flag. 
     <br></br>If **false**, the flag will be saved as a global flag.
@@ -789,7 +789,7 @@ export const metadata = {
     ## Forcefield
     ---
 
-    Forcefields are an electrical barrier that stops the player's progresion until a certain condition is met.
+    Forcefields are an electrical barrier that stops the player's progression until a certain condition is met.
     Mainly used to stop the player until they complete a puzzle or reach a certain point on the project.
 
     `Forcefield` is an [`Event`](/wiki/api/Event) and naming an object `forcefield` on an `objects` layer in a map creates this object.
@@ -847,7 +847,7 @@ export const metadata = {
     ## Magic Glass
     ---
 
-    Magicglass are glass tiles that only apear when a character (such as the player or its followers) steps on them.
+    Magicglass are glass tiles that only appear when a character (such as the player or its followers) steps on them.
 
     This [`Event`](/wiki/api/Event) is an `area`, and every tile of that area gets transformed to a glass tile. To create this object, create an area in an
     `objects` layer and name it `magicglass`.
@@ -935,7 +935,7 @@ export const metadata = {
     end
     ```
 
-    Since the tileobject is created as an event, you can get acess to it using the Game.world:getEvent(id) function. 
+    Since the tileobject is created as an event, you can get access to it using the Game.world:getEvent(id) function.
     This will give you the object in the map that has that id. If you don't know what the id is, you can
     look at it in the object properties.
 
@@ -965,15 +965,15 @@ export const metadata = {
 
     These are the custom properties of this event:
     - `open: boolean = true` -> If **true**, the door is open and the player can interact with it to fast travel.
-    <br></br>If **false**, only the door frame apears and the player can't fast travel.
+    <br></br>If **false**, only the door frame appears and the player can't fast travel.
     - `openflag: string` -> The name of the flag to check if the door is open or not. The flag has to be a boolean.
-    <br></br>If the flag is **true** the door is open, and if the flag is **false** or just doen't exist (nil), the door is closed.
+    <br></br>If the flag is **true** the door is open, and if the flag is **false** or just doesn't exist (nil), the door is closed.
 
     - `map: string[]` -> The list of the names of the maps where the player can fast travel to.
-    - `name: string[]` -> The list of the names the warp choice will display for each avaliable map.
+    - `name: string[]` -> The list of the names the warp choice will display for each available map.
     - `marker: string[]` -> The names of the markers the door will teleport the player to.
-    - `flag: string[]` -> A list of flags to check for to decide whether a map can be warped to or not. This is usefull if you
-    want to allow the player to fast travel in the midle of you project, but not to a latter location.
+    - `flag: string[]` -> A list of flags to check for to decide whether a map can be warped to or not. This is usefully if you
+    want to allow the player to fast travel in the middle of you project, but not to a latter location.
 
     ### Examples
     ---
@@ -1127,7 +1127,7 @@ export const metadata = {
     in a `objects` layer and name it `pushblock`.
 
     To create the boundaries of where the push block can and cannot move, you need to create a new `blockcollision` layer, 
-    in this layer you define the collision of the pushables blocks, the player is not affected by this collision.
+    in this layer you define the collision of the pushable blocks, the player is not affected by this collision.
     See the example for more information.
 
     You also should use a different kind of floor to let the player know what are the boundaries of the block.
@@ -1136,7 +1136,7 @@ export const metadata = {
     - `sprite: string` ->  An option custom sprite that the block will use instead of the normal one. <br></br> 
     If you want to use the normal sprite, you don't need this.
     - `solvedsprite: string` -> An optional custom sprite that the block will use when it's on a solved state. <br></br> 
-    Updated automaticatly when the block is on top of a [Tile Button](#tile-button)
+    Updated automatically when the block is on top of a [Tile Button](#tile-button)
     - `pushdist: number = 40` -> The number of pixels the block moves per push. 40 is one tile, but this depends in the 
     tile width and tile height of your map.
     - `pushtime: number = 0.2` -> The time the block takes to move when you push it, in seconds.
@@ -1148,7 +1148,7 @@ export const metadata = {
     complexity of your puzzle, you might prefer this behaviour.
     - `inputlock: boolean` -> If **true**, the player will be locked in place while the block is getting pushed.
     <br></br> If **false**, the player can move even if you push the blocks.
-    <br></br> If you plan on making a complex puzzle, set this to false to avoid unnecesary pauses.
+    <br></br> If you plan on making a complex puzzle, set this to false to avoid unnecessary pauses.
     <br></br> The default value is defined in the config file of your mod, in the `pushBlockInputLock` property.
 
     ### Example
@@ -1160,7 +1160,7 @@ export const metadata = {
 
     ![](/wiki/pushblock_tutorial_1.png)
 
-    Then, I'll add a `pushblock`, and define the path that the pushblock can move throught. To do that, I'll modify
+    Then, I'll add a `pushblock`, and define the path that the pushblock can move through. To do that, I'll modify
     the map to place the ground where the block can be moved and add the collisions.
 
     I'll also add the `inputlock` property to the pushable blocks with false as the value.
@@ -1176,7 +1176,7 @@ export const metadata = {
         Your browser does not support this video. Sorry!
     </video>
 
-    Well... that was embarasing. What do we do now?
+    Well... that was embarrassing. What do we do now?
 
     We can walk out off the room to reset the puzzle, but why don't we create a button to reset the puzzle?
     
@@ -1186,7 +1186,7 @@ export const metadata = {
     This is the event that I've created.
 
     ```lua
-    --- A custom event that resets a pushblock puzzle when steped on by the player
+    --- A custom event that resets a pushblock puzzle when stepped on by the player
     ---@class ResetButton : Event
     local ResetButton, super = Class(Event)
 
@@ -1217,9 +1217,9 @@ export const metadata = {
             for _, pushblock in ipairs(Game.stage:getObjects(PushBlock)) do
                 pushblock:reset()
             end
-            -- Prevets the player for moving while the block are resseting, 
+            -- Prevets the player for moving while the block are resetting,
             -- if you don't do this, the player
-            -- can step where the block are supossed to go and get stuck 
+            -- can step where the block are supposed to go and get stuck
             -- in the collision.
             Game.lock_movement = true
             Game.world.timer:after(.4, function ()
@@ -1248,7 +1248,7 @@ export const metadata = {
         Your browser does not support this video. Sorry!
     </video>
 
-    Now we have a way of resseting the puzzle, continue with the [Tile Button](#tile-button) to finish the puzzle.
+    Now we have a way of resetting the puzzle, continue with the [Tile Button](#tile-button) to finish the puzzle.
 
 </Box>
 
@@ -1281,12 +1281,12 @@ export const metadata = {
     - `script: string` -> The name of a script file that should be executed when the button's puzzle is solved.
 
     ### Examples
-    Well... that's a lot of properties so let's go over some examples and videos to help you undertand how this event works.
+    Well... that's a lot of properties so let's go over some examples and videos to help you understand how this event works.
 
     You should do the puzzle in the [Push Blocks](#push-block) tutorial because we're going to finish it in this example.
 
     Now that we've created our test puzzle, we're going to replace our reset button with a tile button. To do that, I'm going to add a tile button and
-    give it a new cutscene since I don't want the player to move while the puzzle is being resseted.
+    give it a new cutscene since I don't want the player to move while the puzzle is being reset.
 
     First, let's create our cutscene, to do that, create a new .lua file in `scripts/world/cutscenes`. I'll name it `puzzles.lua`.
 
@@ -1339,7 +1339,7 @@ export const metadata = {
     - `blocks: bool` = **true**. We only want the button to be activated with a pushable box.
     - `once: bool` = **true**. Once we solved the puzzle, it can't be unsolved anymore.
     - `flag: string` = **example_room:puzzle_solved**. The same flag of the forcefield.
-    - `group: int` = **1**. The group id of the buttons, this way, the focefield will only deactivate when both buttons are
+    - `group: int` = **1**. The group id of the buttons, this way, the forcefield will only deactivate when both buttons are
     being pressed.
 
     ![](/wiki/tilebutton_tutorial_3.png)
@@ -1352,7 +1352,7 @@ export const metadata = {
     </video>
 
     It worked! But why don't we spice things a little bit, why don't we add another puzzle, but this one will be activated when
-    kris, susie and ralsei step on three buttons. Making this is very simple, we'll add another [forcefield](#forcefield), that uses
+    Kris, Susie and Ralsei step on three buttons. Making this is very simple, we'll add another [forcefield](#forcefield), that uses
     the `flag` **example_room:puzzle_2_solved** and more step buttons.
 
     I'll go step by step on this.
@@ -1392,7 +1392,7 @@ export const metadata = {
     First we have the **dark fountain** itself, this is an event, an to create it, place a `point` in an `objects` layer and name it `darkfountain`.
 
     This is the configurable property of this event.
-    - `narrow: boolean = false` -> This is used if you want to create a narrow dark fountain (like the dark fountain in the first sanctuary of chapter 4) intead of the normal one.
+    - `narrow: boolean = false` -> This is used if you want to create a narrow dark fountain (like the dark fountain in the first sanctuary of chapter 4) instead of the normal one.
     <br></br>If **true**, you'll create a narrow dark fountain. <br></br>If **false**, a normal dark fountain will be created instead.
 
     #### Example
@@ -1606,6 +1606,6 @@ export const metadata = {
         Your browser does not support this video. Sorry!
     </video>
 
-    This tutorial should give you a good example on how to create an NPC in your map, so I hope it was helpfull!
+    This tutorial should give you a good example on how to create an NPC in your map, so I hope it was helpful!
 
 </Box>
