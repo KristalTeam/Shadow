@@ -6,3 +6,7 @@
     word-wrap: normal;
     word-break: normal;
 }
+
+.content_table td {
+    vertical-align: top;
+}
