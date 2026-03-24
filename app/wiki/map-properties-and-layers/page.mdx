@@ -53,23 +53,23 @@ Layer names are **case-sensitive**, and they can also include a **suffix**. This
 #### `battleborder` (Tile)
 
 - Only visible when the player is inside a *battle area*.
-- - (See [Battle Areas](/wiki/battle-areas) for more information on battle areas.) 
+    - (See [Battle Areas](/wiki/battle-areas) for more information on battle areas.) 
 
 #### `objects` (Object)
 
 - Objects layers are used for placing events into a map. 
 - These can place engine events, any objects registered using [`Game:registerEvent()`](/wiki/api/Game#registerEvent), and any legacy events in `scripts/world/events`.
-- - Either the `Class` or `Name` property of the object must reference the ID of the registered event you want to spawn.
+    - Either the `Class` or `Name` property of the object must reference the ID of the registered event you want to spawn.
 
 #### `objects_party` (Object)
 
 - If an objects layer exists with this name, the party will always spawn on it.
-- - If this layer does not exist, the first `objects` layer that exists above the `markers` layer spawns the party instead.
+    - If this layer does not exist, the first `objects` layer that exists above the `markers` layer spawns the party instead.
 
 #### `controllers` (Object)
 
 - Controller layers are used for placing controllers into a map. 
-- - These are special event-like objects that have no physical presence in the map. They are designed for controlling other events, hence their name.
+    - These are special event-like objects that have no physical presence in the map. They are designed for controlling other events, hence their name.
 - User-registered controllers should be stored in the `scripts/world/events/controllers` folder of the project.
 
 #### `collision` (Object)
@@ -85,21 +85,23 @@ Layer names are **case-sensitive**, and they can also include a **suffix**. This
 
 - The shapes on this layer create markers that reference specific points or regions of a map. Each marker must be given a name so it can be referenced later.
 - Markers for the current map are stored in `Game.world.map.markers`, or can be gathered with `Game.world.map:getMarker(name)`. 
-- - Sometimes, events will need markers for certain properties. 
-- - Additionally, the world uses the `spawn` marker, if it exists, to determine where to place the party when the map is loaded from a savefile or without an entry position.
+    - Sometimes, events will need markers for certain properties. 
+    - Additionally, the world uses the `spawn` marker, if it exists, to determine where to place the party when the map is loaded from a savefile or without an entry position.
 
 #### `paths` (Object)
 
 - The perimeter of each shape on this layer is treated as a path. Each path must be given a name so it can be referenced later.
+<br></br>Go to the [Path system tutorial](/wiki/using-events#path-system-tutorial) to know more.
 
 #### `battleareas` (Object)
 
 - When the player enters any object on this layer, it will cause them to enter a "World Battle". This causes the `battleborder` layer to become visible, and the world to darken.
-- - (See [Battle Areas](/wiki/battle-areas) for more information on battle areas.) 
+    - (See [Battle Areas](/wiki/battle-areas) for more information on battle areas.) 
 
 #### `blockcollision` (Object)
 
-- The shapes on this layer will be used as collision for the `pushblock` event.
+- The shapes on this layer will be used as collision for the `pushblock` event. 
+<br></br>Go to the [pushblock tutorial](/wiki/using-events#push-block) to know more
 
 #### Generic Image Layers
 
