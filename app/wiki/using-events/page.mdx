@@ -110,10 +110,10 @@ export const metadata = {
 
     ## Map properties
     ---
-    Like events, a map also defines some custom properties that define some aspects,
-    like what is the background music or what is the name of the map.
+    Like events, a map also defines some custom properties that define the background music 
+    or what is the name of the map.
 
-    To access them, go to Map -> Map properties... and add the custom properties that you want.
+    To access them, go to **Map -> Map properties...** and add the custom properties that you want.
 
     <>![](/wiki/map_properties_tutorial_1.png)</>
 
@@ -124,15 +124,16 @@ export const metadata = {
     If the name of the music is the same as in the previous map the player was in, the music
     will continue instead of starting over.
     - `keepmusic: boolean = false` -> If **true**, Kristal will not change the music from the previous map, even if
-    the music track is diferrent. If **false**, Kristal will transition the music from the previous map to the music of
+    the music track is diferrent. 
+    <br></br>If **false**, Kristal will transition the music from the previous map to the music of
     this map, only if that music track is different.
     - `light: boolean = false` -> If **true**, the map will be in the `light world` and
     Kristal will use the inventory, textboxes and Game Over from Undertale. If any member of the party has a lightworld variant
     it'll be used intead of the normal dark world version.
-    If **false**, the map will be set in the `dark world` and Kristal will use the systems from Deltarune.
+    <br></br>If **false**, the map will be set in the `dark world` and Kristal will use the systems from Deltarune.
     - `border: string` -> The name of the border to use when the player changes the `Border` option from Kristal to `Dynamic`.
     Kristal already defines some borders you can use, which are `castle`, `city`, `cyber`, `leaves`, `mansion` and `simple` and 
-    are stored in `sprites/borders` in the Kristal source code.
+    are stored in `assets/sprites/borders` in the Kristal source code.
 
 </Box>
 
@@ -141,7 +142,7 @@ export const metadata = {
     ## Text tutorial
     ---
 
-    The text properties that the events have are normally defined as string[], an array of strings, since you can't 
+    The text properties that some events have, are normally defined as string[], an array of strings, since you can't 
     directy create arrays in Tiled, you have to use a custom definition that Krital implements.
 
     With this system, you can create a single textbox to display text, create multiple textboxes to display more text, 
@@ -149,7 +150,7 @@ export const metadata = {
 
     Use the [writting text tutorial](/wiki/writing-text) to know what value to give to these fields.
 
-    The syntax of these properties are different depending on the use you want.
+    The syntax of these properties are different depending on the use that you want.
 
     ### One textbox
     ---
@@ -256,7 +257,7 @@ export const metadata = {
     ---
     Scripts are just a function that you can execute on some events. Like a cutscene, but with different parameters.
 
-    To make a script, create a `"file".lua` in `/scripts/world/scripts`. file is the name of the script, and the
+    To make a script, create a `"file".lua` in `/scripts/world/scripts`. **file** is the name of the script, and the
     name you'll use to call that script.
 
     For this example, let's create a test_script.lua and store it in that directory. Then we'll need to create
@@ -290,7 +291,7 @@ export const metadata = {
     end
     ```
 
-    You can execute this if you create an [Interactable](#interactable) and add a custom field called `script` with the value: test_script
+    You can execute this if you create an [Interactable](#interactable) and add a custom field called `script` with the value: **test_script**
     or create an [Script](#script) and give it the same property.
 
 </Box>
@@ -332,14 +333,14 @@ export const metadata = {
     An interactable is an object that activates scripts, cutscenes or text when the player interacts with it, when the
     player presses the action button (normally the "Z" key).
 
-    This event should be an area, so create it using a rectangle or polygon and name it `interactable`
+    This [`Event`](/wiki/api/Event) should be an `area`, so create it using a rectangle and name it `interactable`
     on an `objects` layer.
 
-    This is what you can use to add flavor text to an overworld object.
+    This is what you can use to **add flavor text** to an overworld object.
 
     These are the properties of the event:
     - `solid: boolean = false` -> If **true**, the player will collide with this object as if it was a collider.
-    If **false**, the player will go through the object.
+    <br></br>If **false**, the player will go through the object.
     - `cutscene: string` -> The name of a cutscene to start when interacting with this object.
     Remember to name it **group.name**.
     - `script: string` -> The name of a script file to execute when interacting with this object.
@@ -348,7 +349,7 @@ export const metadata = {
     You can define `setvalue` if you use this property.
     - `setvalue: any = true` -> The value to set the flag specified by `set_flag` to.
     - `once: boolean = false` -> If **true**, this event can only be interacted with once per save file.
-    If **false**, you can interact with this event as many times as you want.
+    <br></br>If **false**, you can interact with this event as many times as you want.
 
     `cutscene`, `script` and `text` are mutually exclusive, so only one of them should be used in an Interactable.
 
@@ -372,7 +373,7 @@ export const metadata = {
 
     ## Script
 
-    Scripts are Overworld events that trigger immediately when the player steps into them.
+    Scripts are Overworld [`Events`](/wiki/api/Event) that trigger immediately when the player steps into them.
 
     Naming an object `script` on an `objects` layer in a map creates this object.
 
@@ -384,7 +385,7 @@ export const metadata = {
     You must define `setvalue` if you use this property.
     - `setvalue: any = true` -> The value to set the flag specified by `set_flag` to.
     - `once: boolean = true` -> If **true**, this event will destroy itself when it gets triggered.
-    If **false**, you can trigger this event as many times as you want.
+    <br></br>If **false**, you can trigger this event as many times as you want.
     - `temp: boolean = false` -> Whether the script is temporarily persistent - appears even if `once` is true,
     and it has been triggered.
 
@@ -394,19 +395,19 @@ export const metadata = {
 
     ## Treasure Chest
     ---
-    To create this event, place a point on an `objects` layer and call it `chest`.
+    To create this [`Event`](/wiki/api/Event), place a point on an `objects` layer and call it `chest`.
 
     These are the properties of the event:
     - `item: string` -> The name of the item contained in this treasure chest - cannot be used in conjunction with `money`.
     - `money: number` ->   The amount of money contained in this treasure chest - cannot be used in conjunction with `item`.
-    - `set_flag: string` -> An optional flag to set when the treasure chest is opened.
-    - `set_value: any = true` -> The value to set on the flag specified by `setflag`.
+    - `setflag: string` -> An optional flag to set when the treasure chest is opened. Stores as a **global flag**.
+    - `setvalue: any = true` -> The value to set on the flag specified by `setflag`. If this isn't defined, the flag will be set to **true**.
 
     ### Examples
     ---
     We already created a chest that gives money, so lets instead create a chest that gives you an item.
 
-    Add a point in your map and call it `chest`, then create a custom property named `item` and give it the type of `string`.
+    Add a **point** or a **one tile area** in your map and call it `chest`, then create a custom property named `item` and give it the `string` type.
 
     Then set the value to the name of the item. If you want to use the items that Kristal has by default, go to the folder
     where you have cloned the Kristal source code and go to the folder `data/items` and select the one you want
@@ -439,7 +440,7 @@ export const metadata = {
     - `item: string` -> The name of the item contained in this treasure chest - cannot be used in conjunction with `money`.
     - `money: number` ->   The amount of money contained in this treasure chest - cannot be used in conjunction with `item`.
     - `set_flag: string` -> An optional flag to set when the treasure chest is opened.
-    - `set_value: any = true` -> The value to set on the flag specified by `setflag`.
+    - `set_value: any = true` -> The value to set on the flag specified by `setflag`. If this isn't defined, the flag will be set to **true**.
 
 </Box>
 
@@ -448,9 +449,9 @@ export const metadata = {
     ## Savepoint
     ---
 
-    These are the stars that allow the Player to SAVE the game.
+    These are the stars that allow the Player to **SAVE** the game.
 
-    To create this event, define a point in an `objects` layer and name it `savepoint`.
+    To create this [`Event`](/wiki/api/Event), define a **point** or a **one tile area** in an `objects` layer and name it `savepoint`.
 
     Savepoint is a child of `Interactable`, so it inherits all of its custom properties.
 
@@ -459,15 +460,15 @@ export const metadata = {
     the game or a Game Over. You should always define this.
     - `simple: boolean = Mod configuration` -> If **true**, the Savepoint will use its simple version.
     Without recruits and storage, like in Chapter 1.
-    If **false**, the Savepoint will use the menu with these two options.
-    By default, it uses the value configured in mod.json file.
+    <br></br>If **false**, the Savepoint will use the menu with these two options.
+    <br></br>By default, it uses the value configured in **mod.json** file.
     - `text_once: boolean = false` -> If **true**, the Savepoint will only display the interactable text on the first Interaction.
-    If **false**, the Savepoint always display the interaction text.
+    <br></br>If **false**, the Savepoint always display the interaction text.
     - `heals: boolean = true` -> If **true**, the party will get healed when interacting with the Savepoint.
-    If **false**, the Savepoint won't heal the party.
+    <br></br>If **false**, the Savepoint won't heal the party.
 
     These are the properties that Savepoint inherits and modifies from Interactable.
-    - `solid: boolean = true` -> Savepoint always sets this to true, and you can't change this behavior.
+    - `solid: boolean = true` -> Savepoint always sets this to **true**, and you can't change this behavior.
     - `text: string[]` -> The text that will be displayed on a textbox when the player interacts with the savepoint. [Tutorial to this property](#text-tutorial)
     - `cutscene: string` -> Savepoint doesn't use this property, so don't try to define it.
     - `script: string` -> Savepoint doesn't use this property, so don't try to define it.
@@ -505,7 +506,7 @@ export const metadata = {
     ---
     Transitions are objects that allow the player to load other maps or shops.
 
-    This object is an area, so you have to create it using
+    This [`Event`](/wiki/api/Event) is an `area`, so you have to create it using
     the `rectangle tool` on a `objects` layer and name it `transition`.
 
     These are the properties that this event has:
@@ -518,7 +519,8 @@ export const metadata = {
     - `marker: string = spawn` -> The name of the marker the player will spawn at.
 
     You can either define the x and y position or define a marker where the player will spawn. This last one is
-    the best option. If you don't define any, the player will spawn at the "spawn" marker if defined on the new map.
+    the best option. If you don't define any, the player will spawn at the **spawn** marker if defined on the new map.
+
     - `facing: string` -> The direction the player will face when spawning in the new map. Can be `left`, `right`, `up` or `down`.
     - `sound: string` -> An optional sound to play when the player activates this transition.
     - `pitch: number` -> The pitch the entry sound should play at.
@@ -532,7 +534,7 @@ export const metadata = {
 
     To test this, you first need to create a new map to make the transition to. Follow the 
     [creating a map](/wiki/designing-a-map#creating-a-map) tutorial again, but make the map bigger this time. 50x25 should work.
-    Name the map as you prefer, but for the example I'll call it example_map_2.
+    Name the map as you prefer, but for the example I'll call it **example_map_2**.
 
     Make the map that you want, I made this for the example.
 
@@ -546,6 +548,7 @@ export const metadata = {
     - `map`: example_map_2
     - `sound`: splat
     - `facing`: right
+
     As you can see, we didn't specify where the player will spawn, so the game will use the `spawn` marker instead.
     
     If you don't define this marker, it will use the midle of the map instead, so always make sure to have this marker.
@@ -557,7 +560,7 @@ export const metadata = {
 
     <>![](/wiki/transition_tutorial_2.png)</>
 
-    Now, lets go to the new map and add the other `transition`. This time, with this properties.
+    Now, lets go to the new map and add the other `transition`. This time, with these properties.
     - `map`: example_map
     - `marker`: exit
     - `sound`: splat
@@ -581,7 +584,7 @@ export const metadata = {
     Outline is a region of the map that draws a collored stencil outline for all the character that are inside of that area. 
     The color of this outline is defined by the `Actor` of the character in the `self.color` field.
 
-    This event is an area, and naming an object `outline` on an `objects` layer in a map creates this object.
+    This [`Event`](/wiki/api/Event) is an `area`, and naming an object `outline` on an `objects` layer in a map creates this object.
 
     This event doesn't have any custom properties.
 
@@ -606,11 +609,11 @@ export const metadata = {
     ---
     A slide area is an area of the map that makes the player slide down when entered.
     
-    To create this event, create an area on a `objects` layer and name it `slidearea`.
+    To create this [`Event`](/wiki/api/Event), create an `area` on a `objects` layer and name it `slidearea`.
 
     List of configurable properties for this event:
     - `lock: boolean = false` -> If **true**, the player can't move when sliding down. 
-    If **false**, the player can move left and right when sliding down.
+    <br></br>If **false**, the player can move left and right when sliding down.
 
     ### Example
     ---
@@ -630,7 +633,7 @@ export const metadata = {
 
     ## Silhouette
     ---
-    Silhouette is an area event that draws silhouette on top of the characters that are inside of the event. 
+    Silhouette is an area [`Event`](/wiki/api/Event) that draws a silhouette on top of the characters that are inside of the event. 
     In practice, this dims the color of the characters.
 
     This event is an `area` and naming an object `silhouette` on an `objects` layer in a map creates this object.
@@ -658,7 +661,7 @@ export const metadata = {
     ## Camera target
     ---
 
-    This event is a region in the Overworld that causes the camera to target a specific position while the player is inside.
+    This [`Event`](/wiki/api/Event) is a region in the Overworld that causes the camera to target a specific position while the player is inside.
     Usefull when you want to make the player focus on a specific object.
 
     This event is an `area` and naming an object `cameratarget` on an `objects` layer creates this event.
@@ -666,26 +669,27 @@ export const metadata = {
     List of configurable properties of this event:
     - `x: number` -> The x position where the camera needs to focus on.
     - `y: number` -> The y position where the camera needs to focus on.
-    - `marker: string` -> The name of the marker that dictates the position of where the camera needs to focus on.
+    - `marker: string` -> The name of the marker that tells the position of where the camera needs to focus on.
 
-    It's recomended to use a marker instead of raw x and y values because it's simpler. To place a target
-    you have to define the x and y position or add the marker, don't use both systems at tha same time because
-    the marker has priority.
+    It's recomended to use a marker instead of raw x and y values because it's simpler and can be moved inside of Tiled. 
+    
+    To place a target you have to define the x and y position or add the marker, don't use both systems 
+    at the same time because the marker has priority.
 
     - `lockx: boolean = true` -> If **true**, the x position of the camera will be locked to the target possition.
-    If **false**, the camera will freely move along the x axis.
+    <br></br>If **false**, the camera will freely move along the x axis.
     - `locky: boolean = true` -> If **true**, the y position of the camera will be locked to the target possition.
-    If **false**, the camera will freely move along the y axis.
+    <br></br>If **false**, the camera will freely move along the y axis.
 
-    These properties are usefull if you want to offset the camera instead of just locking it.
+    These properties are usefull if you want to offset the camera instead of just locking it in place.
 
     - `speed: number = 16` -> The speed at which the camera will move to the target position.
     - `returnspeed: number = 16` -> The speed at which the camera will return to its original target (normally the player).
     - `time: number = 0.25` -> The time, in seconds, that the camera will take to move to its target position.
     - `returntime: number = 0.25` -> The time, in seconds, that the camera will take to return to its original target (normally the player).
 
-    You can use speed of time to determine how the camera pans to the target possitions, don't try to use both at the same time,
-    because `time` takes priority over `speed`.
+    You can use **speed** or **time** to determine how the camera pans to the target possition, don't try to use both at the same time,
+    because **time** takes priority over **speed**.
     
     If none are given, the camera defaults will be used intead. 16 for speed and 0.25 for time.
 
@@ -708,7 +712,7 @@ export const metadata = {
     and put either `lockx` or `locky` to false.
 
     This example offsets the y position of the camera a bit. I also changed the name of the marker
-    because that name didn't actually make a lot of sense.
+    because that name didn't actually make a lot of sense for this example.
 
     <>![](/wiki/cameratarget_tutorial_2.png)</>
     
@@ -724,12 +728,12 @@ export const metadata = {
     ## Hide Party
     ---
     
-    This event is a region in the Overworld which hides the followers of the player when the player steps into the event.
+    This event is a region in the Overworld which hides the [followers](/wiki/api/Follower) of the [player](/wiki/api/Player) when the player steps into the event.
 
     This event is an `area` and naming an object `hideparty` on an `objects` layer creates this event.
 
     List of configurable properties for this event:
-    - `alpha: number = 0` -> The target alpha of followers in this region, how transparent they will end up being.
+    - `alpha: number = 0` -> The target alpha of followers in this region. How transparent they will end up being.
 
     ### Example
     ---
@@ -751,17 +755,17 @@ export const metadata = {
     ## Set flag event
     ---
     
-    This event is an Overworld region that sets a flag when the player steps into it.
+    This event is an Overworld region that sets a flag to a certain value when the player steps into it.
 
-    This event is an `area` and naming an object `setflag` on an `objects` layer creates this event.
+    This [`Event`](/wiki/api/Event) is an `area` and naming an object `setflag` on an `objects` layer creates this event.
 
     List of configurable properties for this event:
     - `flag: string` -> The name of the flag that will be set to `value` once the player enters the area.
-    - `value: any` -> The value to set on the flag.
-    - `once: boolean = false` -> If **true** the event will destoy itself after seting the flag and will not load anymore in the save.
-    If **false** the player can step on this event, setting the flag, as many times as it wants.
+    - `value: any` -> The value to set on the flag. If this is not set, the `flag` will be set to **true** instead.
+    - `once: boolean = false` -> If **true** the event will destroy itself after seting the flag and will not load anymore in the save.
+    <br></br>If **false** the player can step on this event, setting the flag, as many times as they want.
     - `mapflag: boolean = false` -> If **true**, the `flag` will be saved under the current map instead of a global flag. 
-    If **false**, the flag will be saved as a global flag.
+    <br></br>If **false**, the flag will be saved as a global flag.
 
     If you set `mapflag` to true, the flag will be stored in the [Game flags](/wiki/api/Game#flags) under the current map uid, 
     if not, the flag will be stored as a global flag.
@@ -798,13 +802,14 @@ export const metadata = {
     `Forcefield` is an [`Event`](/wiki/api/Event) and naming an object `forcefield` on an `objects` layer in a map creates this object.
 
     List of configurable properties:
-    - `solid: boolean = true` -> If **true**, the forcefield is solid and the player can't walk through it. If **false**, the player
+    - `solid: boolean = true` -> If **true**, the forcefield is solid and the player can't walk through it. 
+    <br></br>If **false**, the player
     will be able to walk through the forcefield.
     - `visible: boolean = false` -> If **true**, the forcefield will always be visible to the player.
-    If **false**, the player will only be able to see the forcefield when they are close to the object.    
+    <br></br>If **false**, the player will only be able to see the forcefield when they are close to the object.    
     - `flag: string` -> The name of the flag to check for whether this forcefield is active. If `!` is at the start of the flag, the check will be inverted.
     - `inverted: boolean` -> If **true**, the flagcheck is inverted, so if `flag == value`, the forcefield is **inactive**.
-    If **false**, when `flag == value`, the forcefield is **active**.
+    <br></br>If **false**, when `flag == value`, the forcefield is **active**.
     - `value: boolean` -> The value that `flag` should be for the forcefield to be active.
 
     ### Example
@@ -851,7 +856,7 @@ export const metadata = {
 
     Magicglass are glass tiles that only apear when a character (such as the player or its followers) steps on them.
 
-    This Event is an `area`, and every tile of that area gets transformed to a glass tile. To create this object, create an area in an
+    This [`Event`](/wiki/api/Event) is an `area`, and every tile of that area gets transformed to a glass tile. To create this object, create an area in an
     `objects` layer and name it `magicglass`.
 
     List of configurable properties:
@@ -963,13 +968,13 @@ export const metadata = {
 
     Warp doors are objects that allow to **fast travel** between Overworld locations.
 
-    To create this event, place a point on a `objects` layer and call it `warpdoor`.
+    To create this [`Event`](/wiki/api/Event), place a point on a `objects` layer and call it `warpdoor`.
 
     These are the custom properties of this event:
     - `open: boolean = true` -> If **true**, the door is open and the player can interact with it to fast travel.
-    If **false**, only the door frame apears and the player can't fast travel.
-    - `openflag: string` -> The name of the flag to check if the door is open or not. The flag has to be boolean.
-    If the flag is **true** the door is open, and if the flag is **false** or just doen't exist (nil), the door is closed.
+    <br></br>If **false**, only the door frame apears and the player can't fast travel.
+    - `openflag: string` -> The name of the flag to check if the door is open or not. The flag has to be a boolean.
+    <br></br>If the flag is **true** the door is open, and if the flag is **false** or just doen't exist (nil), the door is closed.
 
     - `map: string[]` -> The list of the names of the maps where the player can fast travel to.
     - `name: string[]` -> The list of the names the warp choice will display for each avaliable map.
@@ -985,12 +990,12 @@ export const metadata = {
 
     These are the properties, since `map`, `name` and `marker` are arrays, we have to define them as in the 
     [multiple texboxes from the text tutorial](#multiple-textboxes).
-    - `map1` -> example_map -- This is the name of the first map you want to fast travel to
-    - `map2` -> example_map_2 -- This is the name of the second map you want to fast travel to
-    - `name1` -> Start -- The name the door will use for the selection of map1
-    - `name2` -> End -- The name the door will use for the selection of map2
-    - `marker1` -> door_warp -- The marker the door will teleport the player when they select map1 as the destiny
-    - `marker2` -> door_warp -- The marker the door will teleport the player when they select map2 as the destiny
+    - `map1` -> example_map -- This is the name of the first map you want to fast travel to.
+    - `map2` -> example_map_2 -- This is the name of the second map you want to fast travel to.
+    - `name1` -> Start -- The name the door will use for the selection of map1.
+    - `name2` -> End -- The name the door will use for the selection of map2.
+    - `marker1` -> door_warp -- The marker the door will teleport the player when they select map1 as the destiny.
+    - `marker2` -> door_warp -- The marker the door will teleport the player when they select map2 as the destiny.
 
     You can define up to four maps, but you'll also need to define `map3`, `map4`, `name3`, `name4`, `marker3` and `marker4`.
 
@@ -1041,10 +1046,10 @@ export const metadata = {
     Usable to skip the starting cutscene of a boss if the players dies to that boss, like when you fight
     Sphamton NEO.
 
-    `QuicksaveEvent` is an area [`Event`](/wiki/api/Event) and naming an object `quicksave` on an `objects` layer in a map creates this objects.
+    `QuicksaveEvent` is an area [`Event`](/wiki/api/Event) and naming an object `quicksave` on an `objects` layer in a map creates this object.
 
     This is the custom parameter of this event:
-    - `marker: string` -> The name of the marker to use for to spawn the party after loading the quicksave. Like in a gameover.
+    - `marker: string` -> The name of the marker to use to spawn the party after loading the quicksave. Like in a gameover.
 
     ### Example
     ---
@@ -1125,7 +1130,7 @@ export const metadata = {
 
     ## Push Block
     ---
-    A pushable block that is usually used to make puzzles, to create this event, place an `area` that covers only one tile
+    A pushable block that is usually used to make puzzles, to create this event, place an `area` that covers only **one tile**
     in a `objects` layer and name it `pushblock`.
 
     To create the boundaries of where the push block can and cannot move, you need to create a new `blockcollision` layer, 
@@ -1475,16 +1480,16 @@ export const metadata = {
 
     - `facing: string = "down"` -> The direction the NPC should be facing by default. Can be `up`, `down`, `right` or `left`.
     - `turn: boolean = false` -> If **true**, the NPC should turn towards the player when interacted with.
-    If **false**, the NPC always looks as defined in `facing`.
+    <br></br>If **false**, the NPC always looks as defined in `facing`.
 
     If you enable turn, make sure that your actor has the sprites it needs, explained in further detail in the examples.
 
     - `talk: boolean = true` -> If **true**, the NPC does a talking animation when interacted and typing in the dialogue.
-    If **false**, the NPC doesn't do this animation. This is explained in the examples.
+    <br></br>If **false**, the NPC doesn't do this animation. This is explained in the examples.
     - `talksprite: string` -> The name of a talk sprite to use for the NPC when talking. If you have an actor,
     set this to the name of the sprite you want to use for talking instead of the default one.
     - `solid: boolean = true` -> If **true**, the NPC is a solid object and the player can't walk through it.
-    If **false**, the player can walk through the NPC.
+    <br></br>If **false**, the player can walk through the NPC.
     - `cutscene: string` -> The name of a cutscene to start when interacting with this NPC.
     Remember to use the **group.cutscene** notation.
     - `script: string` -> The name of a script file to run when interacting with this NPC.
