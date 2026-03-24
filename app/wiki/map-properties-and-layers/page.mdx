@@ -11,14 +11,26 @@ export const metadata = {
 
 Maps have a few custom properties that can be added to them. 
 
-A map's properties panel can be accessed from the top ribbon, under "Map" > "Map properties...".
+A map's properties panel can be accessed from the top ribbon, under **"Map" > "Map properties..."**.
 
-The following are all the custom properties that can be added to a map: 
+The following are all the custom properties that can be added to a map, read this [tutorial](/wiki/using-events/#the-basics) to 
+undertand the naming convention of custom properties:
 
-- `name` - The name of the map. (shown on the save file)
-- `light` - Whether the map is a Light World map (defaults to `false`)
-- `music` - Name of the music track to play in the map (relative to `assets/music`)
-- `border` - Name of the border to display in this map (relative to `assets/sprites/borders`)
+    - `name: string` -> The name of the map. Mainly used to display the map you're on when saving and loading the game.
+    - `music: string` -> The name of the background music that plays inside of this map. 
+    If the name of the music is the same as in the previous map the player was in, the music
+    will continue instead of starting over.
+    - `keepmusic: boolean = false` -> If **true**, Kristal will not change the music from the previous map, even if
+    the music track is diferrent. 
+    <br></br>If **false**, Kristal will transition the music from the previous map to the music of
+    this map, only if that music track is different.
+    - `light: boolean = false` -> If **true**, the map will be in the `light world` and
+    Kristal will use the inventory, textboxes and Game Over from Undertale. If any member of the party has a lightworld variant
+    it'll be used intead of the normal dark world version.
+    <br></br>If **false**, the map will be set in the `dark world` and Kristal will use the systems from Deltarune.
+    - `border: string` -> The name of the border to use when the player changes the `Border` option from Kristal to `Dynamic`.
+    Kristal already defines some borders you can use, which are `castle`, `city`, `cyber`, `leaves`, `mansion` and `simple` and 
+    are stored in `assets/sprites/borders` in the Kristal source code.
 
 </Box>
 
