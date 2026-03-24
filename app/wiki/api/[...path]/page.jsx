@@ -16,15 +16,47 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }){
+
+    let desc = TYPES.find((current) => current.name == params.path[0])?.defines?.[0]?.rawdesc
+
+    if (desc) {
+        desc = desc.trim()
+        desc = desc.replace(/\s?\\\s?\n\s?/g, "\n") // remove weird linebreak exports
+
+        // if it still ends with \, strip that
+        if (desc.endsWith("\\")) {
+            desc = desc.slice(0, -1)
+        }
+
+        desc = resolveLuaLinks(desc, true)
+
+        // stop desc from being too long (over 300 chars)
+        // cut it either at the last full sentence, or the last full word
+        if (desc.length > 300) {
+            const truncated = desc.substring(0, 300);
+            const lastSentenceEnd = truncated.lastIndexOf(". ");
+            const lastWordEnd = truncated.lastIndexOf(" ");
+            if (lastSentenceEnd > 0) {
+                desc = truncated.substring(0, lastSentenceEnd + 1);
+            }
+            else if (lastWordEnd > 0) {
+                // if cut at the last full word, add ...
+                desc = truncated.substring(0, lastWordEnd) + "...";
+            }
+            else {
+                // cut off so add ...
+                desc = truncated + "...";
+            }
+        }
+    }
+
     return {
-        title: String(params.path),
-        description: "Kristal API Reference"
+        title: String(params.path) + " | Kristal API",
+        description: desc ?? "Kristal API Reference"
     }
 }
 
-async function parse(input) {
-    if (!input) return null;
-
+function resolveLuaLinks(str, full_path = false) {
     // warning, this sucks
     // try to convert lua://Thing.something to /wiki/api/Thing#something
     // however... apparently its also inconsistent whether lua:// stays normal or turns into file://
@@ -32,9 +64,21 @@ async function parse(input) {
     // --- Changes the state of the battle and calls [onStateChange()](lua://Battle.onStateChange)
     // which turned into
     // Changes the state of the battle and calls [onStateChange()](file:///home/ally/Shadow/tmp/kristal/src/engine/game/battle.lua#386)
-    input = input.replace(/\(lua:\/\/([a-zA-Z0-9_.:]+)\)/g, (match, p1) => {
-        return `(/wiki/api/${p1.replace(/\./g, '#').replace(/:/g, '#')})`;
+    return str.replace(/\(lua:\/\/([a-zA-Z0-9_.:]+)\)/g, (match, p1) => {
+        if (full_path) {
+            return `(https://kristal.cc/wiki/api/${p1.replace(/\./g, '#').replace(/:/g, '#')})`;
+        }
+        else
+        {
+            return `(/wiki/api/${p1.replace(/\./g, '#').replace(/:/g, '#')})`;
+        }
     });
+}
+
+async function parse(input) {
+    if (!input) return null;
+
+    input = resolveLuaLinks(input);
 
     return await parseMarkdown(input);
 }
