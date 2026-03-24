@@ -28,7 +28,7 @@ export async function generateMetadata({ params }){
             desc = desc.slice(0, -1)
         }
 
-        desc = resolveLuaLinks(desc, true)
+        desc = desc.replace(/\[(.*)\]\((?:.*)\)/g, "[$1]") // remove markdown links
 
         // stop desc from being too long (over 300 chars)
         // cut it either at the last full sentence, or the last full word
