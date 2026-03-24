@@ -40,7 +40,7 @@ export const metadata = {
     - [Quick Save Event](#quick-save-event)
     - [Mirror area](#mirror-area)
     - [Push Block](#push-block)
-    - TileButton
+    - [Tile Button](#tile-button)
     - [DarkFountain](#making-dark-fountains)
     - [FountainFloor](#making-dark-fountains)
 
@@ -875,7 +875,7 @@ export const metadata = {
 
     Wait... that doesn't look right! Why does the glass tiles show in front of the player?
 
-    That is because both the player an the glass tiles are beign drawn on the same layer, 
+    That is because both the player an the glass tiles are being drawn on the same layer, 
     so the object that is lower gets drawn first.
 
     To stop this from happening, we're going to make another `objects` layer behind our normal objects layer.
@@ -1186,6 +1186,7 @@ export const metadata = {
     (I'll even replace my custom event with a Tile Button later)
 
     This is the event that I've created.
+
     ```lua
     --- A custom event that resets a pushblock puzzle when steped on by the player
     ---@class ResetButton : Event
@@ -1209,7 +1210,7 @@ export const metadata = {
     ---@param player Player The character that enters the event
     function ResetButton:onEnter(player)
         --- This makes sure that the event only reacts to the Player (Kris)
-        if ClassUtils.getClassName(player) == "Player" then
+        if player.is_player then
             self:setSprite(self.pressed_sprite)
             Assets.playSound("noise")
             Assets.playSound("him_quick")
@@ -1234,7 +1235,7 @@ export const metadata = {
     ---@param player Player The character that leaves the event
     function ResetButton:onExit(player)
         --- This makes sure that the event only reacts to the Player (Kris)
-        if ClassUtils.getClassName(player) == "Player" then
+        if player.is_player then
             self:setSprite(self.idle_sprite, 1/8)
         end
     end
@@ -1250,6 +1251,135 @@ export const metadata = {
     </video>
 
     Now we have a way of resseting the puzzle, continue with the [Tile Button](#tile-button) to finish the puzzle.
+
+</Box>
+
+<Box>
+
+    ## Tile Button
+    ---
+    A button that can be either pressed down by characters or by [Push Blocks](#push-block).
+
+    To create this event, place an `area` of one tile on an `objects` layer and name it `tilebutton`.
+
+    This is the list of configurable properties for this event:
+    - `sprite: string` -> An optional custom sprite to use instead of the normal **idle** one.
+    - `pressedsprite: string` -> An optional custom sprite to use when this button is **pressed** instead of the normal one.
+    - `onsound: string` -> The sound effect to use when something steps in the button.
+    - `offsound: string` -> The sound effect to use when the button is no longer pressed down.
+    - `blocks: boolean = false` -> If **true**, this tile button can **only be activated** by [Push Blocks](#push-block).
+    <br></br>If **false**, the tile button can **only be activated** by [NPCs](#npc), the [Player](/wiki/api/Player) and [Followers](/wiki/api/Follower).
+    - `group: string|number` -> This value is used to group multiple buttons in one room, and they will only be set as **completed/solved** when all of them
+    are **pressed simultaneously**. 
+    <br></br>This is like an ID, so every button in a group needs to have the same group value.
+    - `flag: string` -> The name of a flag to set to **true** when the button's group is solved and to **false** when the puzzle stops being solved. 
+    This flag will be saved as a **global flag**.
+    - `once: boolean = false` -> If **true**, the puzzle of this button can only be completed once per save file. This means that the game will no longer
+    check if the puzzle is completed once it has been solved, and the `flag` won't be set to **false**. You'll mostly prefer this behaviour.
+    <br></br>If **false**, the `flag` will be set to **false** when the puzzle **stops** being in a **solved state**.
+    - `keepdown: boolean = false` -> If **true**, the button will remain pressed even if the object that is pressing it moves away.
+    <br></br>If **false**, the button will go back to being unpressed when the object that is pressing it moves away.
+    - `cutscene: string` -> The name of a cutscene that should play when the button's puzzle is solved.
+    - `script: string` -> The name of a script file that should be executed when the button's puzzle is solved.
+
+    ### Examples
+    Well... that's a lot of properties so let's go over some examples and videos to help you undertand how this event works.
+
+    You should do the puzzle in the [Push Blocks](#push-block) tutorial because we're going to finish it in this example.
+
+    Now that we've created our test puzzle, we're going to replace our reset button with a tile button. To do that, I'm going to add a tile button and
+    give it a new cutscene since I don't want the player to move while the puzzle is being resseted.
+
+    First, let's create our cutscene, to do that, create a new .lua file in `scripts/world/cutscenes`. I'll name it `puzzles.lua`.
+
+    This is what I created in this file.
+
+    ```lua
+    return {
+        ---This cutcenes resets all of the block pusing puzzles in the current map.
+        ---@param cutscene WorldCutscene The cutcene object
+        ---@param event TileButton The event that executes this cutcene
+        reset_puzzle = function (cutscene, event)
+            -- This will make it so the TileButton can't be activated with 
+            -- the followers, only by the players
+            -- We can't configure this in the properties since the `blocks` 
+            -- property only tells if the button can be activated 
+            -- by the player AND followers not one or the other.
+            event.npc_activated = false
+            Assets.playSound("noise")
+            Assets.playSound("him_quick")
+            -- Get every PushBlock in the current scene and reset it to its default
+            for _, pushblock in ipairs(Game.stage:getObjects(PushBlock)) do
+                pushblock:reset()
+            end
+            cutscene:wait(.4)
+        end
+    }
+    ```
+
+    Now just create the object like in this capture and test if it works.
+
+    ![](/wiki/tilebutton_tutorial_1.png)
+
+    <video controls preload="none">
+    <source src="/wiki/tilebutton_tutorial_1.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    Now, let's create the puzzle! To do that, first we'll need to create the barrier that will keep the player from continuing
+    until they solve the puzzle. 
+
+    We can use a [forcefield](#forcefield) for this and give it these properties.
+    - `flag: string` = **!example_room:puzzle_solved**
+    Since we're checking when the `flag` is true, we don't need to give it a value.
+    - `visible: bool` = **true**
+
+    ![](/wiki/tilebutton_tutorial_2.png)
+
+    Then let's create the buttons that the puzzle will solve. Since we have two boxes, we'll add two `tilebutton` with
+    these properties.
+    - `blocks: bool` = **true**. We only want the button to be activated with a pushable box.
+    - `once: bool` = **true**. Once we solved the puzzle, it can't be unsolved anymore.
+    - `flag: string` = **example_room:puzzle_solved**. The same flag of the forcefield.
+    - `group: int` = **1**. The group id of the buttons, this way, the focefield will only deactivate when both buttons are
+    being pressed.
+
+    ![](/wiki/tilebutton_tutorial_3.png)
+
+    Let's test the puzzle and see if it works!
+
+    <video controls preload="none">
+    <source src="/wiki/tilebutton_tutorial_2.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    It worked! But why don't we spice things a little bit, why don't we add another puzzle, but this one will be activated when
+    kris, susie and ralsei step on three buttons. Making this is very simple, we'll add another [forcefield](#forcefield), that uses
+    the `flag` **example_room:puzzle_2_solved** and more step buttons.
+
+    I'll go step by step on this.
+
+    First, create another `forcefield` with these properties:
+    - `flag: string` = **!example_room:puzzle_2_solved**
+    - `visible: bool` = **true**
+
+    ![](/wiki/tilebutton_tutorial_4.png)
+
+    And then create the new `tilebutton` with these properties.
+    - `once: bool` = **true**. Once we solved the puzzle, it can't be unsolved anymore.
+    - `flag: string` = **example_room:puzzle_2_solved**. The same flag of the second forcefield.
+    - `group: int` = **2**. The group id of the buttons, this way, the puzzle will be solved when all buttons are pressed.
+    This id has to be different from the one in the first puzzle since we want to create independent puzzles.
+    - `onsound: string` = **noise**
+
+    ![](/wiki/tilebutton_tutorial_5.png)
+    
+    Now... let's try it!
+
+    <video controls preload="none">
+    <source src="/wiki/tilebutton_tutorial_3.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
 
 </Box>
 
@@ -1369,7 +1499,7 @@ export const metadata = {
     - `path: string` -> The name of the path shape that the NPC will follow. Use the [Path system tutorial](#path-system-tutorial) as a reference.
     - `speed: number` -> The speed that the NPC will move along the path specified in `path`, if defined. This can be a float.
     - `progress: number` -> The initial progress of the NPC along their `path`, if defined, as a decimal value between 0 and 1. 
-    0 beign the start of the path and 1 the end of the path. This can be a float.
+    0 being the start of the path and 1 the end of the path. This can be a float.
 
     ### Examples
     ---
