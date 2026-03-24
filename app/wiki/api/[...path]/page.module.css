@@ -34,7 +34,12 @@
     color: hotpink;
 }
 
-.syntaxTypeMod{
+.syntaxTypeMod {
     color: pink;
-    cursor: "help";
+    cursor: help;
+}
+
+.syntaxString {
+    color: lightgreen;
+    cursor: help;
 }

@@ -8,6 +8,10 @@
   margin: 0;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   margin: auto;
 
@@ -28,6 +32,9 @@ body {
 
   font-smooth: never;
   -webkit-font-smoothing: none;
+
+  display: flex;
+  flex-direction: column;
 }
 
 small {
@@ -77,6 +84,8 @@ hr {
   border-width: 1px;
   border-color: white;
   border-style: solid;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
 }
 
 p {
@@ -170,7 +179,7 @@ summary {
 
 summary::after {
   margin-right: 1em;
-  display: inline-block;
+  display: block;
   content: '+';
   float: right;
 }

@@ -1,5 +1,3 @@
-import Box from 'components/Box'
-
 export const metadata = {
     title: 'Releasing Projects',
     description: 'Learn about the options for releasing/distributing projects made with Kristal.',
@@ -49,11 +47,7 @@ This option is best for lightweight projects. (You can also follow these steps t
 #### Step 2 - Making a ZIP archive [mod-only-zip]
 Now, you need to compress your project's folder into a **ZIP Archive**.
 
-<details>
-
-<summary>
-Windows:
-</summary>
+<CollapseBox title="Windows" id="windows-zip">
 
 Windows has quick compression support built into File Explorer. 
 
@@ -61,13 +55,9 @@ Open your project, and **select everything in the root folder**, right click, an
 - `Compress To... > ZIP Archive` (Windows 11)
 - `Send To > Compressed (zipped) Folder` (Windows 10)
 
-</details>
+</CollapseBox>
 
-<details>
-
-<summary>
-Mac:
-</summary>
+<CollapseBox title="Mac" id="mac-zip">
 
 Mac has a built-in zip compression option.
 
@@ -79,13 +69,9 @@ Alternatively, open a terminal and navigate into your project's folder, and run:
 zip -9 -r <YourProjectName>.zip .
 ```
 
-</details>
+</CollapseBox>
 
-<details>
-
-<summary>
-Linux:
-</summary>
+<CollapseBox title="Linux" id="linux-zip">
 
 Open the command line and navigate into your project's folder. You can then use `zip` to create an archive:
 
@@ -93,7 +79,7 @@ Open the command line and navigate into your project's folder. You can then use 
 zip -9 -r <YourProjectName>.zip .
 ```
 
-</details>
+</CollapseBox>
 
 That's it! The ZIP file you created contains your project, ready for sharing!
 
@@ -163,11 +149,10 @@ Open the file `src/engine/vendcust.lua`. The comments in the file should instruc
 Open the file `conf.lua`. Modify the file as the comments instruct, then save and close the file.
 
 ---
-<details>
 
-<summary>
 #### Step 5 - Custom Icons (optional) [engine-prep-config-icons]
-</summary>
+
+<CollapseBox title="Custom Icons" id="icons">
 If you want to have custom application icons, replace `icon.png` and `bigicon.png` with your custom icons.
 
 If you wish to make a **Windows executable (fused) build** (see [Build Types](#build-types) for more info), you also need to do some additional things. 
@@ -187,14 +172,13 @@ rc icon.res
 This should recompile `icon.res` for your custom icon.
 
 Alternatively, check out [LOVEs guide on Windows Distributions](https://love2d.org/wiki/Game_Distribution#Creating_a_Windows_Executable) for other options in compiling `icon.res`.
-</details>
+</CollapseBox>
 
 ---
-<details>
 
-<summary>
 #### Step 6 - Custom Main Menu (optional) [engine-prep-custom-menu]
-</summary>
+
+<CollapseBox title="Custom Main Menu" id="custom-menu">
 If you want to customise the look of the main menu, you can do so now. (This has no effect if you have enabled `AUTO_MOD_START`)
 
 You can modify the source directly if you need to, but the main menu will already model itself based on your project's (the one set as `TARGET_MOD` if you have multiple) preview information:
@@ -203,7 +187,8 @@ You can modify the source directly if you need to, but the main menu will alread
 - The Kristal logo will be replaced with `logo.png`, if it exists.
 - The Kristal background will be replaced with `bg.png`, if it exists.
 
-</details>
+</CollapseBox>
+
 ---
 #### Step 7 - Check it works [engine-prep-test]
 
@@ -237,11 +222,7 @@ A `.love` archive is actually just a `.zip` archive (shocked face). That's great
 
 Compress your source code into a **ZIP Archive**:
 
-<details>
-
-<summary>
-Windows:
-</summary>
+<CollapseBox title="Windows" id="love-archive-windows">
 
 Windows has quick compression support built into File Explorer. 
 
@@ -249,13 +230,9 @@ Open your source code and **select everything**, right click, and then select:
 - `Compress To... > ZIP Archive` (Windows 11)
 - `Send To > Compressed (zipped) Folder` (Windows 10)
 
-</details>
+</CollapseBox>
 
-<details>
-
-<summary>
-Mac:
-</summary>
+<CollapseBox title="Mac" id="love-archive-mac">
 
 Mac has a built-in zip compression option.
 
@@ -267,13 +244,9 @@ Alternatively, open a terminal and navigate into the source code folder, and run
 zip -9 -r <YourProjectName>.zip .
 ```
 
-</details>
+</CollapseBox>
 
-<details>
-
-<summary>
-Linux:
-</summary>
+<CollapseBox title="Linux" id="love-archive-linux">
 
 Open the command line and navigate inside the source code folder. You can then use `zip` to create an archive:
 
@@ -281,7 +254,7 @@ Open the command line and navigate inside the source code folder. You can then u
 zip -9 -r <YourProjectName>.zip .
 ```
 
-</details>
+</CollapseBox>
 
 ---
 #### Step 2 - Rename your archive [love-archive-rename]
@@ -289,7 +262,7 @@ zip -9 -r <YourProjectName>.zip .
 When you've got your compressed archive, **change the extension from `.zip` to `.love`**.
 
 ---
-#### Step 3 - Check it works! [love-archive-test]
+#### Step 3 - Check if it works! [love-archive-test]
 
 Run your new `.love` archive with LÖVE 11.5 to check that it works.
 
@@ -323,11 +296,7 @@ When you distribute your game as a fused executable, **you must include the love
 
 Fused executables are platform specific.
 
-<details>
-
-<summary>
-Windows Executables:
-</summary>
+<CollapseBox title="Windows Executables" id="windows-executables">
 
 Building a Windows executable will require the `love2d-11.5` package for Windows.
 
@@ -336,11 +305,7 @@ Building a Windows executable will require the `love2d-11.5` package for Windows
 
 First, we'll need to create the executable itself. This is platform-specific.
 
-<details>
-
-<summary>
-On Windows:
-</summary>
+<CollapseBox title="On Windows" id="windows-fusing">
 
 Start by opening a terminal inside your LÖVE folder (if you used the installer, this is likely `C:\Program Files\LOVE\`).
 
@@ -357,13 +322,10 @@ Alternatively, if you use Windows PowerShell, run this with the **same substitut
 ```
 
 This will create a fused executable file for your project.
-</details>
 
-<details>
+</CollapseBox>
 
-<summary>
-On macOS/Linux:
-</summary>
+<CollapseBox title="On macOS/Linux:" id="mac-linux-fusing">
 
 Open the `love2d-11.5` package for Windows in a terminal/command-line, **substitute in the \(\) bracket values**, and then run:
 
@@ -372,7 +334,7 @@ Open the `love2d-11.5` package for Windows in a terminal/command-line, **substit
 ```
 
 This will create a fused Windows executable for your project.
-</details>
+</CollapseBox>
 
 ---
 #### Step 2 - Packaging [windows-packaging]
@@ -388,15 +350,10 @@ Copy your executable, as well as `license.txt` from the LÖVE folder, and all th
 Your Windows fused release is ready! To share this build, you'll want to distribute the archive you just created.
 
 You should also check that it works if you're on Windows by trying to extract and run it yourself.
-</details>
 
----
+</CollapseBox>
 
-<details>
-
-<summary>
-Mac Applications:
-</summary>
+<CollapseBox title="Mac Applications" id="mac-applications">
 
 Building a Mac application will require the `love2d-11.5` package for macOS.
 
@@ -435,21 +392,14 @@ Your macOS fused release is ready! To share this build, you'll want to distribut
 
 You should also check that it works if you're on macOS, by trying to extract and run it yourself.
 
-</details>
+</CollapseBox>
 
----
-
-<details>
-
-<summary>
-Linux AppImages:
-</summary>
-
+<CollapseBox title="Linux AppImages" id="linux-appimages">
 AppImage is a format for packaging applications on Linux. LÖVE has an official AppImage for Linux, which is capable of being fused with `.love` files.
 
 This is a more involved process than regular fusing, so it's best done by following the [official LÖVE Distribution For Linux guide](https://love2d.org/wiki/Game_Distribution#Distribution_for_Linux). You should follow the "Official AppImage" subsection, with your "game" being the `.love` archive you created earlier.
+</CollapseBox>
 
-</details>
 ---
 #### Compatibility [fused-compatibility]
 

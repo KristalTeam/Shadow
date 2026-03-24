@@ -1,11 +1,56 @@
+"use client"
+
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import styles from "./Sidebar.module.css";
 import Searchbar from 'components/Searchbar'
 
 export default function Sidebar(props) {
+    const sidebarRef = useRef(null);
+
+    /* Handle dynamic sidebar height */
+    useEffect(() => {
+        const sidebarEl = sidebarRef.current;
+        if (!sidebarEl) return;
+
+        const navbarEl = document.getElementById("wiki-navbar");
+
+        const updateSidebarOffset = () => {
+            if (!navbarEl) {
+                sidebarEl.style.setProperty("--sidebar-offset", "0px");
+                return;
+            }
+
+            const navbarRect = navbarEl.getBoundingClientRect();
+            const offset = Math.max(0, navbarRect.bottom);
+            sidebarEl.style.setProperty("--sidebar-offset", `${offset}px`);
+        };
+
+        let raf = null;
+        const scheduleUpdate = () => {
+            if (raf !== null) return;
+            raf = requestAnimationFrame(() => {
+                raf = null;
+                updateSidebarOffset();
+            });
+        };
+
+        updateSidebarOffset();
+        window.addEventListener("scroll", scheduleUpdate, { passive: true });
+        window.addEventListener("resize", scheduleUpdate);
+
+        return () => {
+            if (raf !== null) cancelAnimationFrame(raf);
+            window.removeEventListener("scroll", scheduleUpdate);
+            window.removeEventListener("resize", scheduleUpdate);
+        };
+    }, []);
+
+    /* Content */
+
     let toggleTitle = <h2>Kristal Wiki</h2>
     let content = <>
-        <hr/>
+        <br/>
         <h3><Link href="/wiki/">General Information</Link></h3>
         <hr/>
         <p>These pages get you ready to use the engine.</p>
@@ -39,7 +84,10 @@ export default function Sidebar(props) {
         <ul>
             <li><Link href="/wiki/designing-a-map">Designing a Map</Link></li>
             <li><Link href="/wiki/cutscenes">Cutscenes</Link></li>
+            <li><Link href="/wiki/map-properties-and-layers">Map Properties and Layers</Link></li>
             <li><Link href="/wiki/using-events">Events</Link></li>
+            <li><Link href="/wiki/battle-areas">Battle Areas</Link></li>
+            <li><Link href="/wiki/world-tool">The World Tool</Link></li>
         </ul>
         <br/>
         <h3><Link href="/wiki/mod-creation">Battles</Link></h3>
@@ -64,11 +112,11 @@ export default function Sidebar(props) {
         <h3><Link href="/wiki/api">API Reference</Link></h3>
         <hr/>
         <p>An auto-generated API reference for Kristal.</p>
-        <a href="#top" style={{textAlign: "right"}}>⮬Back to Top⮭</a>
+        <Link href="#top" style={{textAlign: "right"}}>⮬ Back to Top ⮭</Link>
     </>
 
     return <>
-        <div className={styles.sidebar}>
+        <div ref={sidebarRef} className={styles.sidebar}>
             {toggleTitle}
             <Searchbar id="header-search" placeholder="Search Wiki" submit="Go"/>
             {content}

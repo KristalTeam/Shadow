@@ -1,19 +1,26 @@
 .container {
-    display: grid;
-    grid-template-columns: 16rem 1fr;
+    padding-left: 20rem;
     width: 100%;
 }
 
 .main {
     padding-top: 6rem;
     padding-bottom: 6rem;
-    max-width: 1024px;
-    width: 100%;
-    margin: auto;
+    min-width: 0;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width: 1024px) {
+    .container {
+        padding-left: 16rem;
+    }
 }
 
 @media screen and (max-width: 768px) {
     .container {
+        padding-left: 0;
         display: block;
     }
 

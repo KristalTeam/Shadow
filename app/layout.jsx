@@ -1,6 +1,8 @@
 import './globals.css'
 import styles from './layout.module.css'
 import Navbar from 'components/Navbar'
+import NextTopLoader from 'nextjs-toploader';
+import NewTab from 'components/NewTab';
 
 export const metadata = {
   title: 'Kristal',
@@ -29,15 +31,16 @@ export default function RootLayout({children}) {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css"/>
       </head>
       <body>
+        <NextTopLoader color="#00FFFF"/>
         <Navbar/>
         <main className={styles.main}>
           {children}
         </main>
         <footer className={styles.footer}>
-            DELTARUNE by Toby Fox.
-            Website designed by NyakoFox.
-            © 2025 Kristal Team. All rights reserved.
-          </footer>
+          <NewTab href="https://deltarune.com/">DELTARUNE</NewTab> by Toby Fox.<br/>
+          Website designed by <NewTab href="https://nyako.dev/">NyakoFox</NewTab>.<br/>
+          © 2026 Kristal Team. All rights reserved.
+        </footer>
       </body>
     </html>
   )

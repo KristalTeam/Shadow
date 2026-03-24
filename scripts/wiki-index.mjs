@@ -25,12 +25,13 @@ console.log("[wiki-index] Generating search index...");
 const dirRelativeToPublicFolder = './wiki/'
 const dir = path.resolve('./app/', dirRelativeToPublicFolder);
 const paths = fs.readdirSync(dir, {recursive: true})
-    .filter( (rpath) => 
+    .filter((rpath) => rpath.includes("page") && rpath.endsWith(".mdx"));
             //only text content; handle API pages seperately
-            rpath.includes("page") &&
-            !rpath.includes(".module") &&
-            !rpath.includes("api") &&
-            !rpath.match(/^page\..../)); 
+//            rpath.includes("page") &&
+//            !rpath.includes(".module") &&
+//            !rpath.includes("api") &&
+//            !rpath.includes("search") &&
+//            !rpath.match(/^page\..../));
     //.map( (rpath) => dir + path.sep + rpath )
 
 const articles = paths.map(rpath => {
@@ -73,7 +74,7 @@ const articles = paths.map(rpath => {
         function(err, file) {
             body = sanitizeHtml(String(file.value), {allowedTags: []});
             if (err){
-                console.warn("Couldn't parse "+name+", is it .mdx?");
+                console.warn("Couldn't parse " + name + ", is it .mdx?");
                 //throw err;
             }     
     });
@@ -104,11 +105,11 @@ TYPES.forEach( (type) => {
                 id: JSON.stringify({
                     route: "/wiki/api/" + type.name + "#" + field.name,
                     title: type.name + "." + field.name,
-                    description: "(API: " + field.type.replace("set", "").replace("doc.", "") + ")" + ((field.desc ?? field.rawdesc) ?? "")
+                    description: "(API: " + field.type.replace("set", "").replace("doc.", "") + ") " + ((field.desc ?? field.rawdesc) ?? "")
                 }),
 
                 title: type.name + "." + field.name,
-                description: "(API: " + field.type.replace("set", "").replace("doc.", "") + ")" + ((field.desc ?? field.rawdesc) ?? ""),
+                description: "(API: " + field.type.replace("set", "").replace("doc.", "") + ") " + ((field.desc ?? field.rawdesc) ?? ""),
                 content: type.name + "." + field.name,
                 boost: BOOST.API_FIELD
             });
@@ -119,11 +120,11 @@ TYPES.forEach( (type) => {
         id: JSON.stringify({
             route: "/wiki/api/" + type.name,
             title: type.name,
-            description: "(API: " + type.type.replace("set", "") + ")" + ((type.desc ?? type.rawdesc) ?? "")
+            description: "(API: " + type.type.replace("set", "") + ") " + ((type.desc ?? type.rawdesc) ?? "")
         }),
 
         title: type.name,
-        description: "(API: " + type.type.replace("set", "") + ")" + ((type.desc ?? type.rawdesc) ?? ""),
+        description: "(API: " + type.type.replace("set", "") + ") " + ((type.desc ?? type.rawdesc) ?? ""),
         content: text,
         boost: BOOST.API_TYPE
     })

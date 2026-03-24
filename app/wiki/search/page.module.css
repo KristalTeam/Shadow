@@ -1,0 +1,12 @@
+.search {
+    padding-bottom: 2rem;
+}
+
+.searchbox {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+
+    flex-direction: column;
+    gap: 2rem;
+}

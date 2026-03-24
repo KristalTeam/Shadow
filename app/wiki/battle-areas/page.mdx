@@ -1,0 +1,79 @@
+export const metadata = {
+    title: 'Battle Areas',
+    description: '',
+}
+
+# Battle Areas
+
+<Box>
+The world goes dark, and you can feel your very SOUL beating faster...
+
+What's happening? You're entering a **Battle area**, of course!
+</Box>
+
+<Box>
+## What are battle areas?
+---
+
+Battle areas are usually used to indicate "dangerous" sections of the world map, where world bullets or other dangers that can damage the player appear.
+
+When the player enters a battle area, they enter a state that we'll refer to as a "**World Battle**". This causes the battle overlay to appear, including the player's soul and the `battleborder` tile layer.
+
+</Box>
+
+<Box>
+## Using Battle Areas
+---
+
+Usually you want to mark specific regions of each map as being battle areas. This can be done by creating a new layer on your map, called `battleareas` (case-sensitive), and placing shapes to cover the area you want counted.
+
+However, you may not always want to tie the World Battle state to a specific area of the map.
+
+For this reason, you can also use `Game.world:setBattle(state)` from code to force the world into a battle state. However, you **can not** override battleareas to force the battle state off in a map.  
+
+### The Battleborder
+---
+
+When the player is inside the world battle state, a purple outline of the map usually appears, referred to as the battle border.
+
+The battle border is a tile layer called `battleborder`. You will need to create an additional tileset to make battle borders for your maps.
+
+A standard battle border tileset is simply outlines of every path tile in a shade of purple such as `#ac00bf`, although DELTARUNE changes the colour slightly between areas. This specific colour is taken from the Scarlet Forest battle border.
+
+You can of course use anything you want, but you may want to follow this if you're looking to match DELTARUNE's style for your project.
+
+</Box>
+
+<Box>
+## Accompanying Features
+---
+
+Battle areas usually aren't used on their own. You may want to check out these features as well.
+
+### World bullets
+---
+World bullets are the most common usecase for battle areas. You can check them out on the [API Reference](/wiki/api/WorldBullet).
+
+They are functionally very similar to the bullets used in battle.
+
+(Hopefully there will be a full guide for using world bullets... soon...!)
+
+### Hideparty event
+---
+The event [`hideparty`](/wiki/api/HideParty) causes all of the player's followers to fade out and become invisible while the player is standing in that area.
+
+This is sometimes used in battle segments. These events should generally cover the same region as any battleareas in the same map.
+
+### Custom Events
+---
+Some hazards can be created as custom events. These can also end up incorporating world bullets, depending on the type of hazard you're aiming for.
+
+You can check out the [API Reference for Event](/wiki/api/Event) as well as the [Designing a Map](/wiki/designing-a-map#creating-events) page if you're looking for more information on setting up custom events.
+
+### The Map Class
+---
+The Map Class can be used to add custom code to a specific map, which is often useful for hazards which can easily be very specific to one map.
+
+(There's no guide for setting up a map class... yet!)
+
+</Box>

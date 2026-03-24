@@ -9,7 +9,7 @@
     "start": "next start --webpack",
     "lint": "next lint --webpack",
     "wiki-index": "node scripts/wiki-index.mjs",
-    "docs-make": "bash scripts/docs-make.sh"
+    "docs-make": "node scripts/docs-make.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.0",
@@ -17,7 +17,8 @@
     "@next/mdx": "^14.0.3",
     "@types/mdx": "^2.0.10",
     "lunr": "^2.3.9",
-    "next": "16.1.5",
+    "next": "^14.2.23",
+    "nextjs-toploader": "^3.9.17",
     "react": "^18",
     "react-dom": "^18",
     "react-paginate": "^8.2.0",
@@ -40,7 +41,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint": "9.26.0",
+    "eslint": "^8",
     "eslint-config-next": "14.0.2",
     "typescript": "^5"
   }

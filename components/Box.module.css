@@ -1,6 +1,6 @@
 .box {
     border: 4px solid transparent;
-    border-image:url("/brokenborder.png") 8 repeat;
+    border-image: url("/brokenborder.png") 8 repeat;
     border-image-outset: 4px;
     background-color: rgba(0, 0, 0, 0.75);
     padding-left: min(2rem, 5vw);
