@@ -1569,6 +1569,79 @@ export const metadata = {
 
 <Box>
 
+    ## Toggle Controller
+    ---
+    This [`Event`](/wiki/api/Event) is a **controller** that toggles the existence of other events in maps on the Overworld.
+
+    This controller toggles the existence of other events **inmediatly** upon the a **change of its flag**, so it doesn't need
+    a room reload to activate or deactivate other events.
+
+    This event is created in a `controllers` layer and I'll use a <span style={{color: "#ffc800"}}>Golden Color. #ffc800 (255, 200, 0) </span>
+    for the examples that uses this layer.
+
+    ![](/wiki/toggle_controller_tutorial_1.png)
+
+    To create this event, place a `point` on a `controllers` layer and name it `toggle`.
+
+    These are the custom properties of this controller:
+    - `flag: string` -> The name of the flag to check for whether the targets should be active or not. If `!` is at the start of the flag, the check will be inverted.
+    The controller will try to get this flag as a **global flag** and then as a **map flag** if it didn't find it.
+    - `inverted: boolean = false` -> If **true**, the flagcheck is inverted, so if `flag == value`, the targets are **inactive**
+    <br></br>If **false**, when `flag == value`, the targets are **active**.
+    - `value: boolean = true` -> The value that `flag` should be for the targets to be active. If not given, the controller will check
+    `if flag == true`
+    - `target: (Character|Event|Collider)[]` -> A list of **objects** that this **controller is attached to** and is responsible for toggling on or off.
+    
+    Wait... what does `(Character|Event|Collider)[]` mean? It simple, target is an array of the objects that the controller can toggle, and those objects can be
+    events (this includes other characters like npcs) or a collider on the map.
+
+    How do you create this property inside of Tiled then? To do this, we're going to use a **Tiled type** that we haven't use until now, the **object** type.
+
+    ![](/wiki/toggle_controller_tutorial_2.png)
+
+    Since target is an `array`, we can define it like in the [multiple texboxes tutorial](/wiki/using-events#multiple-textboxes) in the text property.
+
+    So create the targets like this: `target1`, `target2`, `target3`, `target4`, `target5`, ..., `targetN`. **targetN** means that you can have as many targets as you want.
+
+    This image show how you can link objects in your map to this property.
+
+    ![](/wiki/toggle_controller_tutorial_3.png)
+
+    Great photoshop skills, I know.
+
+    Now lets go over some examples.
+
+    ### Examples
+    ---
+    I've already showed how to link the objects to the toggle, so let's go over an example that show how this works.
+
+    I've created a toggle linked to two chests an a collider that blocks the way, I've also given it `chest_active` as the `flag` it should check for.
+
+    ![](/wiki/toggle_controller_tutorial_4.png)
+
+    I've also created a [set flag event](/wiki/using-events#set-flag-event) to **create the chest_active flag**.
+
+    ![](/wiki/toggle_controller_tutorial_5.png)
+
+    This video shows how the toggle works.
+
+    <video controls preload="none">
+    <source src="/wiki/toggle_controller_tutorial_1.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    Now... lets make another example, but this time with the flag inverted. You can either archieve this using the `inverted` property or
+    putting `!` at the start of your flag.
+
+    <video controls preload="none">
+    <source src="/wiki/toggle_controller_tutorial_2.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+</Box>
+
+<Box>
+
     ## NPC
     ---
     NPC are an extension of [Character](/wiki/api/Character) that can be placed on a map as if they were an event.
