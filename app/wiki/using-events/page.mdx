@@ -32,8 +32,7 @@ export const metadata = {
     In this tutorial, you'll understand everything about the events in Kristal, how to configure them from Tiled and
     a few examples on how to use them.
 
-    This tutorial is more complex and uses references from Kristal's code. So there are some things that you need to
-    understand first.
+    This tutorial is more complex. So there are some things that you need to understand first.
 
     ### Tiled properties
     ---
@@ -57,7 +56,7 @@ export const metadata = {
     The `any` type means that you can use either int, bool or string as the Tiled type of this property.
 
     A number is usually an int (an Integer, a number without any decimals). But sometimes it can be a float 
-    (a number with decimals). Unless specified, always use the int type.
+    (a number with decimals).
 
     In this tutorial, the properties of the events uses this definition: **name: type = default**.
 
@@ -1572,7 +1571,7 @@ export const metadata = {
     ---
     This [`Event`](/wiki/api/Event) is a **controller** that toggles the existence of other events in maps on the Overworld.
 
-    This controller toggles the existence of other events **inmediatly** upon the a **change of its flag**, so it doesn't need
+    This controller toggles the existence of other events **immediately** upon the a **change of its flag**, so it doesn't need
     a room reload to activate or deactivate other events.
 
     This event is created in a `controllers` layer and I'll use a <span style={{color: "#ffc800"}}>Golden Color. #ffc800 (255, 200, 0) </span>
@@ -1629,7 +1628,7 @@ export const metadata = {
         Your browser does not support this video. Sorry!
     </video>
 
-    Now... lets make another example, but this time with the flag inverted. You can either archieve this using the `inverted` property or
+    Now... lets make another example, but this time with the flag inverted. You can either archive this using the `inverted` property or
     putting `!` at the start of your flag.
 
     <video controls preload="none">
@@ -1844,7 +1843,7 @@ export const metadata = {
         - `multiplier` -> The enemy speed is exponential to the time it has been chasing the player.
         - `flee` -> The enemy will **run away** from the player at the same speed as in linear.
         
-    If you don't get the differenece from `linear` to `multiplier`, don't worry, you just need to know 
+    If you don't get the difference from `linear` to `multiplier`, don't worry, you just need to know
     that the chase speed of the enemy will increase a lot faster when using the `multiplier` chasetype.
 
     - `chasespeed: number = 9` -> The speed the enemy will chase the player at, in pixels per frame at 30FPS.
@@ -1864,8 +1863,8 @@ export const metadata = {
     - `pacetype: string` -> The type of pacing that the enemy will do while it's not chasing down the player. This property has multiple values you can give it:
         - `wander` -> Wanders between the enemy spawn point and several markers in a fixed order.
         - `randomwander` -> Wanders between the enemy spawn point and several markers at random.
-        - `verticalswing` -> Moves along a sinusodial wave on the y-axis. So it moves up and down.
-        - `horizontalswing` -> Moves along a sinusodial wave on the x-axis. So it moves left and right.
+        - `verticalswing` -> Moves along a sinusoidal wave on the y-axis. So it moves up and down.
+        - `horizontalswing` -> Moves along a sinusoidal wave on the x-axis. So it moves left and right.
 
     Depending on the pacetype that you want to use, there are exclusive properties that define how these behave.
 
@@ -1882,7 +1881,7 @@ export const metadata = {
     - `swingdiv: number = 24` -> A divisor for the speed of the swing of this enemy (Higher number = slower). 
     - `swinglength: number = 400` -> The full length swing covered by this enemy, in pixels. The starting position of the enemy is the center of the line.
 
-    Okay, that was a lot, so let's go over some examples to undertand how this object works.
+    Okay, that was a lot, so let's go over some examples to understand how this object works.
 
     ### Examples
     ---
@@ -2020,7 +2019,7 @@ export const metadata = {
     </video>
 
     As you can see in the end, since both enemies are in the same group, once we finished the encounter,
-    both enemies disapear from the map.
+    both enemies disappear from the map.
 
     Now, we'll test the **wander and randomwander pacetype**. Since both of them require a list of points for the enemy
     to wander to, let's first **create those markers**.
