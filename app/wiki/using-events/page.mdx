@@ -918,9 +918,9 @@ export const metadata = {
     - `visible: boolean = false` -> If **true**, the forcefield will always be visible to the player.
     <br></br>If **false**, the player will only be able to see the forcefield when they are close to the object.    
     - `flag: string` -> The name of the flag to check for whether this forcefield is active. If `!` is at the start of the flag, the check will be inverted.
-    - `inverted: boolean` -> If **true**, the flagcheck is inverted, so if `flag == value`, the forcefield is **inactive**.
+    - `inverted: boolean = false` -> If **true**, the flagcheck is inverted, so if `flag == value`, the forcefield is **inactive**.
     <br></br>If **false**, when `flag == value`, the forcefield is **active**.
-    - `value: boolean` -> The value that `flag` should be for the forcefield to be active.
+    - `value: boolean = true` -> The value that `flag` should be for the forcefield to be active.
 
     ### Example
     ---
@@ -1240,7 +1240,7 @@ export const metadata = {
 
     ## Push Block
     ---
-    A pushable block that is usually used to make puzzles, to create this event, place an `area` that covers only **one tile**
+    A pushable block that is usually used to make puzzles, to create this [`Event`](/wiki/api/Event), place an `area` that covers only **one tile**
     in a `objects` layer and name it `pushblock`.
 
     To create the boundaries of where the push block can and cannot move, you need to create a new `blockcollision` layer, 
@@ -1375,7 +1375,7 @@ export const metadata = {
     ---
     A button that can be either pressed down by characters or by [Push Blocks](#push-block).
 
-    To create this event, place an `area` of one tile on an `objects` layer and name it `tilebutton`.
+    To create this [`Event`](/wiki/api/Event), place an `area` of one tile on an `objects` layer and name it `tilebutton`.
 
     This is the list of configurable properties for this event:
     - `sprite: string` -> An optional custom sprite to use instead of the normal **idle** one.
