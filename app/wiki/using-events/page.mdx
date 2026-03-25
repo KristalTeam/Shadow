@@ -314,8 +314,7 @@ export const metadata = {
 
     #### Using paths on a Chaser Enemy
     ---
-
-    Needs the chaser enemy tutorial first.
+    There is a tutorial of this in the [Chaser enemy tutorial](#chaser-enemy).
 
     #### Using paths in cutscenes
     ---
@@ -1797,5 +1796,285 @@ export const metadata = {
     </video>
 
     This tutorial should give you a good example on how to create an NPC in your map, so I hope it was helpful!
+
+</Box>
+
+<Box>
+
+    ## Chaser Enemy
+    ---
+    Chaser enemies are the enemies that you encounter in the Overworld and start an encounter when you collide with them.
+    This is a complex event, so I hope this tutorial helps you implement your enemies in you project.
+
+    A Chaser Enemy is not an extension of [`Event`](/wiki/api/Event), it's an extension of [`Character`](/wiki/api/Character) but they are created like an Event.
+    To create an enemy, place a `point` or a `one tile area` in an `objects layer` and name it `enemy`.
+
+    These are the configurable properties of this object:
+    - `actor: string` -> The actor ID of this enemy, used to display the enemy in the map. If you don't want you mod to crash, define this.
+    - `sprite: string` -> The sprite to use for this enemy instead of the default sprite defined in the actor data.
+    - `animation: string` -> The animation to use for this enemy instead of the default animation defined in the actor data.
+    - `facing: string` -> The facing direction of the enemy, if you have a facing sprite. Can be `left`, `right`, `up` or `down`.
+
+    Lets stop here for a bit, what does mean having a facing sprite? We'll use kris sprites as an example. Head over the folder `assets/sprites/party/kris/dark` in Kristal.
+    <br></br>If we look into the `walk` folder, you can see that we have sprites for all four directions `left`, `right`, `up` and `down`.
+    <br></br>So if we create an enemy with **kris as the actor** we can set `facing` and the game will use one of these four sprites,
+    depending on the value. But you don't have to create a separate folder to do this. When the game checks if an sprite is a facing sprite, it uses two
+    kinds of separators **\_** and **\/**. So you can either define the sprites as **animation`_`direction** like **walk_down**, **walk_up**, **walk_left** and **walk_right** 
+    or create a folder with the **name of the sprite** and place the sprites inside, naming them **left**, **right**, **up** and **down**.
+
+    - `encounter: string` -> The encounter ID that will trigger when the player collides with the enemy. Stored in `scripts/battle/encounters`.
+    - `enemy: string` -> The enemy ID to use for this enemy. Stored in `scripts/data/actors`.
+    <br></br>Wait... why do we need to define the `enemy` if we also define the `actor`? I don't really know, but I can tell you what they do.
+    The **actor** is used for the sprite that's in the overworld and to make the transition to the battle, while **enemy**
+    is added to the enemies that transition into battle, along with the actor.
+    - `group: string` -> An arbitrary ID that can be given to multiple enemies and make them group together. So when the Player defeats that encounter,
+    all the enemies on that group are unloaded from the map.
+    - `path: string` -> The name of the path shape that the enemy will follow. Use the [Path system tutorial](#path-system-tutorial) as a reference.
+    - `speed: number = 6` -> The speed that the enemy will move along the path specified in `path`, if defined. This can be a float.
+    - `progress: number = 0` -> The initial progress of the enemy along their `path`, if defined, as a decimal value between 0 and 1. 
+    0 being the start of the path and 1 the end of the path. This can be a float.
+    - `chase: boolean = false` -> If **true**, the enemy will chase the player when it catches sign of them.
+    <br></br>If **false**, the enemy won't chase the player in any case.
+    - `chasing: boolean = false` -> If **true**, the enemy will start chasing the player as soon as they enter the room.
+    <br></br>If **false**, the enemy will move as configured in the other properties.
+    - `chasedist: number = 200` -> The distance, in pixels, that the enemy can see the player from. 
+    So when the player distance to the enemy is less that `chasedist`, the enemy will start chasing the player if `chase` is set to true.
+    - `chasetype: string = linear` -> How the enemy will chase the player. This property has multiple values you can give it:
+        - `linear` -> The enemy will chase the player at a constant speed unless a `chaseaccel` is given. In that case, the speed is multiplied by the acceleration each frame.
+        - `multiplier` -> The enemy speed is exponential to the time it has been chasing the player.
+        - `flee` -> The enemy will **run away** from the player at the same speed as in linear.
+        
+    If you don't get the differenece from `linear` to `multiplier`, don't worry, you just need to know 
+    that the chase speed of the enemy will increase a lot faster when using the `multiplier` chasetype.
+
+    - `chasespeed: number = 9` -> The speed the enemy will chase the player at, in pixels per frame at 30FPS.
+    - `chaseaccel: number` -> The acceleration of the enemy when chasing the player. In `linear` mode, the speed is multiplied by the acceleration each frame, 
+    but in `multiplier` mode, the speed is powered to the acceleration each frame.
+    - `chasemax: number` -> The maximum speed the enemy will chase the player at, this is only applied if `chaseaccel` is also set.
+
+    As you can see, chasing is a bit complex, so I'll make some examples to make them easier to understand. This is the mecanic that uses the `enemycollision` layer,
+    but more of that in the examples.
+
+    - `once: boolean = false` -> If **true**, the enemy will not spawn anymore once **its encounter has been done**.
+    <br></br>If **false**, the enemy will spawn when the room loads, even if you've done its encounter.
+    - `aura: boolean` -> If **true**, the enemy will have an aura around it as seen in the enemies in Chapter 2.
+    <br></br>If **false**, the enemy won't have this aura around it.
+    <br></br>The default value of this is set in the **config file** of your mod. In the **enemyAuras** property.
+
+    - `pacetype: string` -> The type of pacing that the enemy will do while it's not chasing down the player. This property has multiple values you can give it:
+        - `wander` -> Wanders between the enemy spawn point and several markers in a fixed order.
+        - `randomwander` -> Wanders between the enemy spawn point and several markers at random.
+        - `verticalswing` -> Moves along a sinusodial wave on the y-axis. So it moves up and down.
+        - `horizontalswing` -> Moves along a sinusodial wave on the x-axis. So it moves left and right.
+
+    Depending on the pacetype that you want to use, there are exclusive properties that define how these behave.
+
+    If you use **wander** or **randomwander**:
+    - `marker: string[]` -> A list of markers that the enemy will move between, in order when using `wander` and at random when using `randomwander`.
+    <br></br>Since this property is an array of strings. You must define it using `marker1`, `marker2`, `marker3`, ..., `markerN`. The value of each marker
+    is the name of that marker.
+    - `paceinterval: number = 24` -> The number of frames the enemy will stay in each marker before going to the next one.
+    - `pacereturn: boolean = true` -> If **true**, the enemy will return to its spawn point every time it reaches a marker.
+    <br></br>If **false**, the enemy will continue to the next marker, instead of returning to its spawn point.
+    - `pacespeed: number = 2` -> The speed at which the enemy moves when wandering.
+
+    If you use **verticalswing** or **horizontalswing**:
+    - `swingdiv: number = 24` -> A divisor for the speed of the swing of this enemy (Higher number = slower). 
+    - `swinglength: number = 400` -> The full length swing covered by this enemy, in pixels. The starting position of the enemy is the center of the line.
+
+    Okay, that was a lot, so let's go over some examples to undertand how this object works.
+
+    ### Examples
+    ---
+
+    First, let's create a base enemy that we can test things on.
+
+    Since the starting project already comes with a `dummy` encounter, we're going to use it.
+
+    Create the enemy where you want and give it these base properties.
+    - `actor`: dummy
+    - `encounter`: dummy
+
+    ![](/wiki/chaserenemy_tutorial_1.png)
+
+    <video controls preload="none">
+    <source src="/wiki/chaserenemy_tutorial_1.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    This creates a basic enemy we can interact with to start an encounter.
+
+    #### Chasing down the player
+    ---
+
+    Now we can make the enemy chase the player down. Just enable `chase` and we'll test every type of chasing.
+
+    **Linear chasing**
+    We're going to test it without acceleration first with these properties.
+    - `chase` = true
+    - `chasetype` = linear. Not really needed, since linear is the default.
+
+    ![](/wiki/chaserenemy_tutorial_2.png)
+
+    <video controls preload="none">
+    <source src="/wiki/chaserenemy_tutorial_2.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    Now... with acceleration.
+    - `chaseaccel` = 1
+
+    ![](/wiki/chaserenemy_tutorial_3.png)
+
+    <video controls preload="none">
+    <source src="/wiki/chaserenemy_tutorial_3.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    Let's try to actually make the enemy avoidable by the player.
+    - `chasespeed` = 2
+    - `chaseaccel` = 0.3
+    - `chasemax` = 12
+
+    ![](/wiki/chaserenemy_tutorial_4.png)
+
+
+    <video controls preload="none">
+    <source src="/wiki/chaserenemy_tutorial_4.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    Okay... that is not really avoidable is it? We go faster than the enemy at first, but it ends up reaching us in the end.
+
+    But don't worry, there is a way to make boundaries that only affect enemies, enemies are affected by colliders,
+    but we can't really use colliders to bound the enemy, because that will also affect the player, instead we can use a special kind
+    of collision that only affects the enemies.
+
+    To create this collision, create a new **object layer** in Tiled, starting with `enemycollision` as the name, then you can use this layer as
+    a normal collision layer, but the collisions you define in this layer will only affect enemies.
+
+    I'll create this layer and color it <span style={{color: "#00ffff"}}>Aqua. #00ffff (0, 255, 255) </span>
+
+    ![](/wiki/enemycollision_layer_color.png)
+
+    ![](/wiki/chaserenemy_tutorial_5.png)
+
+    Now... let's add the boundaries!
+
+    ![](/wiki/chaserenemy_tutorial_6.png)
+
+    Let's see if we can avoid the enemy now.
+
+    <video controls preload="none">
+    <source src="/wiki/chaserenemy_tutorial_5.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    Now, we'll test the **multiplier chasetype**, we have to change the acceleration to a value bigger than 1, 
+    I'll also remove the speed limit to see how the **multiplier chasetype** functions.
+    This is explained in the speed calculation:
+    ```lua
+    self.chase_speed = self.chase_init_speed * math.pow(self.chase_accel, self.chase_timer)
+    ```
+    Since we do acceleration to the power of the time the enemy has been chasing, a value \<= 1 will give 1 or a 
+    extremely small number, giving 0 speed or the normal speed.
+
+    ![](/wiki/chaserenemy_tutorial_7.png)
+
+    <video controls preload="none">
+    <source src="/wiki/chaserenemy_tutorial_6.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    This other video is using the **linear chasetype**, everything else is the same.
+
+    <video controls preload="none">
+    <source src="/wiki/chaserenemy_tutorial_7.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    As you can see in the end, the enemy looks to be moving much faster when using the **multiplier chasetype**.
+    
+    #### Moving the enemy
+    ---
+
+    There are multiple ways of making the enemy move in the overworld. 
+    
+    We'll test the **path system** first, along with understanding how groups work.
+
+    Create the path shape that you want, this is the one that I've done.
+
+    ![](/wiki/chaserenemy_tutorial_8.png)
+
+    Then we're going to create the other enemy and modify the properties to create the enemy that we want.
+    Since we're going to test the group property, make sure that both of the have the **same group**. 
+    <br></br>You'll also need to **modify the dummy encounter** and add another dummy.
+    
+    ![](/wiki/chaserenemy_tutorial_9.png)
+
+    Modify the progress of the second enemy so they don't overlap, and this is how it looks in Game!
+
+    <video controls preload="none">
+    <source src="/wiki/chaserenemy_tutorial_8.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    As you can see in the end, since both enemies are in the same group, once we finished the encounter,
+    both enemies disapear from the map.
+
+    Now, we'll test the **wander and randomwander pacetype**. Since both of them require a list of points for the enemy
+    to wander to, let's first **create those markers**.
+
+    The `marker` property is an array of strings, so define the using `marker1`, `marker2`, `marker3`, ..., `markerN`.
+
+    This image shows the points I've created and how I've assigned those markers to the enemy.
+
+    ![](/wiki/chaserenemy_tutorial_10.png)
+
+    With that done, we can test the **wander pacetype**, since we haven't defined `pacereturn`, it will be set to true.
+
+    <video controls preload="none">
+    <source src="/wiki/chaserenemy_tutorial_9.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    I've speed up the Game to make it faster to see.
+
+    Now let's test what happens when we set `pacereturn` to false.
+
+    <video controls preload="none">
+    <source src="/wiki/chaserenemy_tutorial_10.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    As you can see, the enemy now goes to every marker and then returns home when it reaches the last one.
+
+    Now let's test the **randomwander pacetype** type, just set the property `pacetype` to `randomwander`. I'll also set `pacereturn` as true.
+
+    <video controls preload="none">
+    <source src="/wiki/chaserenemy_tutorial_11.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    The last thing we have to test, are the **verticalswing and horizontalswing pacetype**. Both of them have the same parameters,
+    it just changes the way that they move, with **verticalswing**, the enemy will go up and down and with **horizontalswing**,
+    the enemy will go right and left.
+
+    First, let's test **verticalswing** to do this, set `pacetype` to `verticalswing`, I'll also change `swinglength` to 200.
+
+    <video controls preload="none">
+    <source src="/wiki/chaserenemy_tutorial_12.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    Now with **horizontalswing**, set `pacetype` to `horizontalswing`. This time I'll set `swinglength` to 300 and `swingdiv` to 12. 
+    This will make the enemy move more distance and at double the speed.
+
+    <video controls preload="none">
+    <source src="/wiki/chaserenemy_tutorial_13.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    That should be all for this object, so I hope this tutorial was helpful.
 
 </Box>
