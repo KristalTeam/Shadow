@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --webpack",
-    "build": "npm run docs-make && npm run wiki-index && next build --webpack",
-    "build-no-wiki-index": "next build --webpack",
-    "start": "next start --webpack",
-    "lint": "next lint --webpack",
+    "dev": "next dev",
+    "build": "npm run docs-make && npm run wiki-index && next build ",
+    "build-no-wiki-index": "next build ",
+    "start": "next start",
+    "lint": "next lint",
     "wiki-index": "node scripts/wiki-index.mjs",
     "docs-make": "node scripts/docs-make.mjs"
   },
