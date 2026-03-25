@@ -230,13 +230,20 @@ export const metadata = {
     ---The function that will be executed
     ---@param event Event The event that executes this script
     ---@param player Player The player that executes this script
-    ---@param facing string The direction the player is facing. Only set if the script is executed in a interactable event
+    ---@param facing string The direction the player is facing. Only set if the script is executed in a interactable or NPC event
     return function(event, player, facing)
         -- Code to be executed
     end
     ```
-    `facing` will be set to `"left"`, `"up"`, `"down"` or `"right"` if you execute this script in an [Interactable](#interactable)
-    and `nil` if you use an [Script](#script).
+
+    As you can see, the function has multiple parameters, but these parameters vary depending on the event that calls this script.
+
+    If you use a [Interactable](#interactable) or a [NPC](#npc), the function will receive `event`, `player` and `facing`. facing will be
+    set to `"left"`, `"up"`, `"down"` or `"right"`.
+    
+    If you use a [Script](#script), the function will receive `event` and `player`.
+
+    If you use a [Tile Button](#tile-button), only `event` will be set.
 
     Let's create something silly for this example, like making Kris t-pose and play a funny sound.
 
