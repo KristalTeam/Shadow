@@ -977,33 +977,37 @@ export const metadata = {
 
     Modify the second map to make something like this.
 
-    ![magicglass_titorial_1](/wiki/magicglass_titorial_1.png)
+    ![magicglass_titorial_1](/wiki/magicglass_tutorial_1.png)
     
     And this should be your result!
 
     <video controls preload="none">
-    <source src="/wiki/magicglass_titorial_1.mp4" type="video/mp4" />
+    <source src="/wiki/magicglass_tutorial_1.mp4" type="video/mp4" />
         Your browser does not support this video. Sorry!
     </video>
 
-    Wait... that doesn't look right! Why does the glass tiles show in front of the player?
+    Wait... that doesn't look right! Why does the glass tiles show in front of the player and the chest?
 
     That is because both the player an the glass tiles are being drawn on the same layer, 
     so the object that is lower gets drawn first.
 
-    To stop this from happening, we're going to make another `objects` layer behind our normal objects layer.
-    Name it something like `objects_under` and change the `magicglass` from `objects` to `objects_under`.
+    This is easy to fix, as seen in the [Map Layers Page](/wiki/map-properties-and-layers#map-layers), we can just
+    create a new objects layer called `objects_party` and the party will be spawned on that layer, since we want
+    the party to be on top of the glass, we'll place this layer on top of the objects layer that the glass uses.
+
+    Now... If the glass is now rendering on top of your chest, don't worry, you can just create a new `objects` layer, I'll name mine
+    `objects_under` and now I can change the `magicglass` to be on my `objects_under` layer.
     
-    ![magicglass_titorial_2](/wiki/magicglass_titorial_2.png)
+    ![magicglass_titorial_2](/wiki/magicglass_tutorial_2.png)
 
 
     If you don't know in witch layer is located an object, use the `Select Objects (S)` tool in Tiled and 
-    select your object, the layer the object is on, is highlighted in blue.
+    select your object, the layer the object is on will be highlighted in blue.
 
     This should be how everything looks after those changes!
 
     <video controls preload="none">
-    <source src="/wiki/magicglass_titorial_2.mp4" type="video/mp4" />
+    <source src="/wiki/magicglass_tutorial_2.mp4" type="video/mp4" />
         Your browser does not support this video. Sorry!
     </video>
 
