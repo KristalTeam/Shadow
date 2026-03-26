@@ -1405,36 +1405,41 @@ export const metadata = {
     You should do the puzzle in the [Push Blocks](#push-block) tutorial because we're going to finish it in this example.
 
     Now that we've created our test puzzle, we're going to replace our reset button with a tile button. To do that, I'm going to add a tile button and
-    give it a new cutscene since I don't want the player to move while the puzzle is being reset.
+    give it a new script since I don't want the player to move while the puzzle is being reset.
 
-    First, let's create our cutscene, to do that, create a new .lua file in `scripts/world/cutscenes`. I'll name it `puzzles.lua`.
+    First, let's create our `script`, to do that, create a new .lua file in `scripts/world/scripts`. I'll name mine `reset_puzzle.lua`.
 
-    This is what I created in this file.
+    This is the script that I created.
 
     ```lua
-    return {
-        ---This cutcenes resets all of the block pusing puzzles in the current map.
-        ---@param cutscene WorldCutscene The cutcene object
-        ---@param event TileButton The event that executes this cutcene
-        reset_puzzle = function (cutscene, event)
-            -- This will make it so the TileButton can't be activated with 
-            -- the followers, only by the players
-            -- We can't configure this in the properties since the `blocks` 
-            -- property only tells if the button can be activated 
-            -- by the player AND followers not one or the other.
-            event.npc_activated = false
-            Assets.playSound("noise")
-            Assets.playSound("him_quick")
-            -- Get every PushBlock in the current scene and reset it to its default
-            for _, pushblock in ipairs(Game.stage:getObjects(PushBlock)) do
-                pushblock:reset()
-            end
-            cutscene:wait(.4)
+    ---Resets every box pushing puzzle in the room
+    ---@param event TileButton The event that executes this script
+    return function(event)
+        -- Since we're calling this script from a Tile Button, we only get the event
+
+        -- This will make it so the TileButton can't be activated with 
+        -- the followers, only by the player
+        -- We can't configure this in the properties since the `blocks` 
+        -- property only tells if the button can be activated 
+        -- by the player AND followers not one or the other.
+        event.npc_activated = false
+        Assets.playSound("noise")
+        Assets.playSound("him_quick")
+        -- Get every PushBlock in the current scene and reset it to its default
+        for _, pushblock in ipairs(Game.stage:getObjects(PushBlock)) do
+            pushblock:reset()
         end
-    }
+
+        -- Prevets the player for moving while the block are resseting, if you don't do this, the player
+        -- can step where the block are supossed to go and get stuck in the collision.
+        Game.lock_movement = true
+        Game.world.timer:after(.4, function ()
+            Game.lock_movement = false
+        end)
+    end
     ```
 
-    Now just create the object like in this capture and test if it works.
+    Now just create the object like in this image and test if it works.
 
     ![](/wiki/tilebutton_tutorial_1.png)
 
