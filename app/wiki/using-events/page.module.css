@@ -1,0 +1,12 @@
+.center_table td {
+    text-align: center;
+}
+
+.center_table td:first-child {
+    word-wrap: normal;
+    word-break: normal;
+}
+
+.content_table td {
+    vertical-align: top;
+}

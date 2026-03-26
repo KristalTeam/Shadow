@@ -1,0 +1,20 @@
+.layer_table table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.layer_table th:nth-child(1),
+.layer_table td:nth-child(1) {
+  width: 20%;
+}
+
+.layer_table th:nth-child(2),
+.layer_table td:nth-child(2) {
+  width: 60%;
+}
+
+.layer_table th:nth-child(3),
+.layer_table td:nth-child(3) {
+  width: 21%;
+}
