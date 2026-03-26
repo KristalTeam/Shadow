@@ -4,6 +4,7 @@ doc.md
 doc.json
 app/data
 tmp/
+.idea
 
 # dependencies
 /node_modules
