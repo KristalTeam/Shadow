@@ -563,7 +563,7 @@ export const metadata = {
     These are the properties of this event.
     - `marker: string` -> The name of the marker the player will spawn at when respawning to this savepoint. After reloading
     the game or a Game Over. You should always define this.
-    - `simple: boolean = Mod configuration` -> If **true**, the Savepoint will use its simple version.
+    - `simple: boolean = Project configuration` -> If **true**, the Savepoint will use its simple version.
     Without recruits and storage, like in Chapter 1.
     <br></br>If **false**, the Savepoint will use the menu with these two options.
     <br></br>By default, it uses the value configured in you project properties in the **mod.json** file.
@@ -1272,7 +1272,7 @@ export const metadata = {
     - `inputlock: boolean` -> If **true**, the player will be locked in place while the block is getting pushed.
     <br></br> If **false**, the player can move even if you push the blocks.
     <br></br> If you plan on making a complex puzzle, set this to false to avoid unnecessary pauses.
-    <br></br> The default value is defined in the config file of your mod, in the `pushBlockInputLock` property.
+    <br></br> The default value is defined in the config file of your project, in the `pushBlockInputLock` property.
 
     ### Example
     ---
@@ -1832,7 +1832,7 @@ export const metadata = {
     To create an enemy, place a `point` or a `one tile area` in an `objects layer` and name it `enemy`.
 
     These are the configurable properties of this object:
-    - `actor: string` -> The actor ID of this enemy, used to display the enemy in the map. If you don't want you mod to crash, define this.
+    - `actor: string` -> The actor ID of this enemy, used to display the enemy in the map. If you don't want you project to crash, define this.
     - `sprite: string` -> The sprite to use for this enemy instead of the default sprite defined in the actor data.
     - `animation: string` -> The animation to use for this enemy instead of the default animation defined in the actor data.
     - `facing: string` -> The facing direction of the enemy, if you have a facing sprite. Can be `left`, `right`, `up` or `down`.
@@ -1881,7 +1881,7 @@ export const metadata = {
     <br></br>If **false**, the enemy will spawn when the room loads, even if you've done its encounter.
     - `aura: boolean` -> If **true**, the enemy will have an aura around it as seen in the enemies in Chapter 2.
     <br></br>If **false**, the enemy won't have this aura around it.
-    <br></br>The default value of this is set in the **config file** of your mod. In the **enemyAuras** property.
+    <br></br>The default value of this is set in the **config file** of your project. In the **enemyAuras** property.
 
     - `pacetype: string` -> The type of pacing that the enemy will do while it's not chasing down the player. This property has multiple values you can give it:
         - `wander` -> Wanders between the enemy spawn point and several markers in a fixed order.
