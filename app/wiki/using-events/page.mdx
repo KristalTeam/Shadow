@@ -14,7 +14,7 @@ export const metadata = {
 
     |General tutorials|Events tutorials|Controllers tutorials|Character tutorials|
     |---|---|---|---|
-    |[Using text](#text-tutorial)<br></br>[Making an script](#making-scripts)<br></br>[Path system tutorial](#path-system-tutorial)|[Interactable](#interactable)<br></br>[Script](#script)<br></br>[Treasure Chest](#treasure-chest)<br></br>[Cyber trash can](#cyber-trash-can)<br></br>[Savepoint](#savepoint)<br></br>[Transitions](#transitions)<br></br>[Outline](#outline)<br></br>[Slide area](#slide-area)<br></br>[Silhouette](#silhouette)<br></br>[Camera target](#camera-target)<br></br>[Hide Party](#hide-party)<br></br>[Set flag event](#set-flag-event)<br></br>[Force field](#forcefield)<br></br>[Magic Glass](#magic-glass)<br></br>[Tile Object](#tile-object)<br></br>[Warp door](#warp-door)<br></br>[Quick Save Event](#quick-save-event)<br></br>[Mirror area](#mirror-area)<br></br>[Push Block](#push-block)<br></br>[Tile Button](#tile-button)<br></br>[DarkFountain](#making-dark-fountains)<br></br>[FountainFloor](#making-dark-fountains)|[Toggle Controller](#toggle-controller)<br></br>[Fountain Shadow Controller](#making-dark-fountains)|[NPC](#npc)<br></br>[Chaser Enemy](#chaser-enemy)|
+    |[Using text](#text-tutorial)<br></br>[Making an script](#making-scripts)<br></br>[Path system tutorial](#path-system-tutorial)|[Interactable](#interactable)<br></br>[Script](#script)<br></br>[Treasure Chest](#treasure-chest)<br></br>[Cyber trash can](#cyber-trash-can)<br></br>[Savepoint](#savepoint)<br></br>[Transitions](#transitions)<br></br>[Outline](#outline)<br></br>[Slide area](#slide-area)<br></br>[Silhouette](#silhouette)<br></br>[Camera target](#camera-target)<br></br>[Hide Party](#hide-party)<br></br>[Set flag event](#set-flag-event)<br></br>[Forcefield](#forcefield)<br></br>[Magic Glass](#magic-glass)<br></br>[Tile Object](#tile-object)<br></br>[Warp door](#warp-door)<br></br>[Quick Save Event](#quick-save-event)<br></br>[Mirror area](#mirror-area)<br></br>[Push Block](#push-block)<br></br>[Tile Button](#tile-button)<br></br>[DarkFountain](#making-dark-fountains)<br></br>[FountainFloor](#making-dark-fountains)|[Toggle Controller](#toggle-controller)<br></br>[Fountain Shadow Controller](#making-dark-fountains)|[NPC](#npc)<br></br>[Chaser Enemy](#chaser-enemy)|
 
 </Box>
 
@@ -32,7 +32,7 @@ export const metadata = {
     In this tutorial, you'll understand everything about the events in Kristal, how to configure them from Tiled and
     a few examples on how to use them.
 
-    This tutorial is more complex. So there are some things that you need to understand first.
+    This tutorial is a bit more complex. So there are some things that you need to understand first.
 
     ### Tiled properties
     ---
@@ -64,7 +64,7 @@ export const metadata = {
 
     `type` is the **lua type** of that property.
 
-    `default` is the value that the property will have if you don't define it in Tiled.
+    `default` is the value that the property **will have** if you **don't define it in Tiled**.
     If a property doesn't have this parameter, it means that the property doesn't have a default value.
 
     ### Map layer colors
@@ -95,6 +95,8 @@ export const metadata = {
     |`battleborder`|None, because it's a **Tile layer**|
 
     </div>
+
+    `battleareas` and `battleborder` are explained in the [Battle Areas Page](/wiki/battle-areas).
 
 </Box>
 
@@ -138,7 +140,7 @@ export const metadata = {
     ### Multiple textboxes
     ---
 
-    If the text you want to display doesn't fit in just one textbox, you can just use multiple textboxes to display
+    If the text you want to display doesn't fit in one textbox, you can just use multiple textboxes to display
     all the text that you want.
 
     Making these uses multiple custom properties, one for each textbox, follow this syntax: **textX**.
@@ -216,7 +218,7 @@ export const metadata = {
 
     ## Making scripts
     ---
-    Scripts are just a function that you can execute on some events. Like a cutscene, but with different parameters.
+    Scripts are a function that you can execute on some events. Like a cutscene, but with different parameters and without having to use the cutscene system.
 
     To make a script, create a `"file".lua` in `/scripts/world/scripts`. **file** is the name of the script, and the
     name you'll use to call that script.
@@ -272,7 +274,7 @@ export const metadata = {
 
     To create a path, make a new object layer that starts with the name `paths`. Then use the `insert polygon tool (P)` utility from Tiled
     and create a polygon, the **perimeter** of the polygon is the path that the object will follow, don't forget to add a **name** to the polygon
-    because that is how you will reference it.
+    because that is how you will reference it later.
 
     If you want to make a circular path, use the `Insert Ellipse (C)` tool and create the circular shape that you want your path to be.
     The path is the **circumference** of your ellipse. Don't forget to **name** it because that is how you'll reference this path.
@@ -329,7 +331,7 @@ export const metadata = {
     The main difference between `walkPath` and `slidePath` is that `walkPath` makes a character do its walking animation, 
     while `slidePath` just moves an object.
     
-    Prety simple right? Well... not so much when you consider how many options these functions have. 
+    Pretty simple right? Well... not so much when you consider how many options these functions have.
     Since the options are already defined in the API, I'll just use them in the examples.
 
     First, I'll create a new cutscene in my **room1** group and name it **testing_paths**.
@@ -338,7 +340,7 @@ export const metadata = {
 
     ```lua
     ---@param cutscene WorldCutscene The cutcene object
-    ---@param event TileButton The event that executes this cutcene
+    ---@param event Event The event that executes this cutcene
     testing_paths = function (cutscene, event)
     end
     ```
@@ -441,7 +443,7 @@ export const metadata = {
     - `cutscene: string` -> The name of a cutscene to start when interacting with this object.
     Remember to name it **group.name**.
     - `script: string` -> The name of a script file to execute when interacting with this object.
-    - `text: string[]` -> The text that will be displayed on a textbox when the player interacts. [Tutorial to this property](#text-tutorial)
+    - `text: string[]` -> The text that will be displayed on a textbox when the player interacts. [Tutorial to this property](#text-tutorial).
     - `setflag: string` -> The name of the flag that will be set to `setvalue` when the player interacts.
     You can define `setvalue` if you use this property.
     - `setvalue: any = true` -> The value to set the flag specified by `set_flag` to.
@@ -454,11 +456,13 @@ export const metadata = {
     ---
     #### Using an script
     Follow the [script creation tutorial](#making-scripts) and add the `test_script` to the `script` custom property.
+
     <>![](/wiki/interactable_script_tutorial.png)</>
 
     #### Using a cutscene
     It's the same process as using an script, we can even use the same test cutscenes as in the
     [cutscenes tutorial](/wiki/cutscenes). Just add a `cutscene` property and give it the value: `examples.center`
+
     <>![](/wiki/interactable_cutscene_tutorial.png)</>
 
     #### Flavor text
@@ -497,17 +501,17 @@ export const metadata = {
 
     ## Treasure Chest
     ---
-    To create this [`Event`](/wiki/api/Event), place a point on an `objects` layer and call it `chest`.
+    To create this [`Event`](/wiki/api/Event), place a `point` or a `one tile area` on an `objects` layer and call it `chest`.
 
     These are the properties of the event:
     - `item: string` -> The name of the item contained in this treasure chest - cannot be used in conjunction with `money`.
     - `money: number` ->   The amount of money contained in this treasure chest - cannot be used in conjunction with `item`.
-    - `setflag: string` -> An optional flag to set when the treasure chest is opened. Stores as a **global flag**.
+    - `setflag: string` -> An optional flag to set when the treasure chest is opened. Stored as a **global flag**.
     - `setvalue: any = true` -> The value to set on the flag specified by `setflag`. If this isn't defined, the flag will be set to **true**.
 
     ### Examples
     ---
-    We already created a chest that gives money, so lets instead create a chest that gives you an item.
+    We've already created a chest that gives money, so let's create a chest that gives you an item instead.
 
     Add a **point** or a **one tile area** in your map and call it `chest`, then create a custom property named `item` and give it the `string` type.
 
@@ -519,8 +523,7 @@ export const metadata = {
     of the item property.
 
     ```lua
-    local item, super = Class(HealItem, "butjuice") -- butjuice is the id
-                                                    -- of this item
+    local item, super = Class(HealItem, "butjuice") -- butjuice is the id of this item
     ```
     <>![](/wiki/treasure_chest_item_tutorial.png)</>
 
@@ -539,9 +542,9 @@ export const metadata = {
     `CyberTrashCan` is an [`Event`](/wiki/api/Event) and naming an object `cybertrash` on an `objects` layer in a map creates this object.
 
     These are the properties of the event:
-    - `item: string` -> The name of the item contained in this treasure chest - cannot be used in conjunction with `money`.
-    - `money: number` ->   The amount of money contained in this treasure chest - cannot be used in conjunction with `item`.
-    - `set_flag: string` -> An optional flag to set when the treasure chest is opened.
+    - `item: string` -> The name of the item contained in this trash can - cannot be used in conjunction with `money`.
+    - `money: number` ->   The amount of money contained in this trash can - cannot be used in conjunction with `item`.
+    - `set_flag: string` -> An optional flag to set when the trash can is opened.
     - `set_value: any = true` -> The value to set on the flag specified by `setflag`. If this isn't defined, the flag will be set to **true**.
 
 </Box>
@@ -555,7 +558,7 @@ export const metadata = {
 
     To create this [`Event`](/wiki/api/Event), define a **point** or a **one tile area** in an `objects` layer and name it `savepoint`.
 
-    Savepoint is a child of `Interactable`, so it inherits all of its custom properties.
+    Savepoint is a child of [`Interactable`](#interactable), so it inherits all of its custom properties.
 
     These are the properties of this event.
     - `marker: string` -> The name of the marker the player will spawn at when respawning to this savepoint. After reloading
@@ -563,7 +566,7 @@ export const metadata = {
     - `simple: boolean = Mod configuration` -> If **true**, the Savepoint will use its simple version.
     Without recruits and storage, like in Chapter 1.
     <br></br>If **false**, the Savepoint will use the menu with these two options.
-    <br></br>By default, it uses the value configured in **mod.json** file.
+    <br></br>By default, it uses the value configured in you project properties in the **mod.json** file.
     - `text_once: boolean = false` -> If **true**, the Savepoint will only display the interactable text on the first Interaction.
     <br></br>If **false**, the Savepoint always display the interaction text.
     - `heals: boolean = true` -> If **true**, the party will get healed when interacting with the Savepoint.
@@ -609,7 +612,7 @@ export const metadata = {
     Transitions are objects that allow the player to load other maps or shops.
 
     This [`Event`](/wiki/api/Event) is an `area`, so you have to create it using
-    the `rectangle tool` on a `objects` layer and name it `transition`.
+    the `rectangle tool` on an `objects` layer and name it `transition`.
 
     These are the properties that this event has:
     - `map: string` -> The name of the map to send the player to.
@@ -620,7 +623,7 @@ export const metadata = {
     - `y: number` -> The y position of the map where the player will spawn at.
     - `marker: string = spawn` -> The name of the marker the player will spawn at.
 
-    You can either define the x and y position or define a marker where the player will spawn. This last one is
+    You can either define the x and y position or define a marker where the player will spawn at. The last one is
     the best option. If you don't define any, the player will spawn at the **spawn** marker if defined on the new map.
 
     - `facing: string` -> The direction the player will face when spawning in the new map. Can be `left`, `right`, `up` or `down`.
@@ -682,7 +685,13 @@ export const metadata = {
 
     <>![](/wiki/transition_tutorial_4.png)</>
 
-    I used the [world tool](/wiki/world-tool) for this example. As you can see, the transitions are outside the boundaries of the map.
+    I used the [world tool](/wiki/world-tool) for this example. As you can see, the transitions are outside the boundaries of the map and this creates the illusion
+    that the player is going to another section of the same zone.
+
+    <video controls preload="none">
+    <source src="/wiki/transition_tutorial_2.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
 
 </Box>
 
@@ -770,7 +779,7 @@ export const metadata = {
     ---
 
     This [`Event`](/wiki/api/Event) is a region in the Overworld that causes the camera to target a specific position while the player is inside.
-    Usefully when you want to make the player focus on a specific object.
+    Usefully when you want to make the player focus on an specific object.
 
     This event is an `area` and naming an object `cameratarget` on an `objects` layer creates this event.
 
@@ -779,15 +788,12 @@ export const metadata = {
     - `y: number` -> The y position where the camera needs to focus on.
     - `marker: string` -> The name of the marker that tells the position of where the camera needs to focus on.
 
-    It's recommended to use a marker instead of raw x and y values because it's simpler and can be moved inside of Tiled.
-    
-    To place a target you have to define the x and y position or add the marker, don't use both systems 
-    at the same time because the marker has priority.
+    It's recommended to **use a marker** instead of raw x and y values because it's simpler and you can move it inside of Tiled.
 
     - `lockx: boolean = true` -> If **true**, the x position of the camera will be locked to the target position.
-    <br></br>If **false**, the camera will freely move along the x axis.
+    <br></br>If **false**, the camera will move freely along the x axis.
     - `locky: boolean = true` -> If **true**, the y position of the camera will be locked to the target position.
-    <br></br>If **false**, the camera will freely move along the y axis.
+    <br></br>If **false**, the camera will move freely along the y axis.
 
     These properties are useful if you want to offset the camera instead of just locking it in place.
 
@@ -819,8 +825,8 @@ export const metadata = {
     Now let's try to make an offset using this event, to do this just move the `cameratarget` and the marker, 
     and put either `lockx` or `locky` to false.
 
-    This example offsets the y position of the camera a bit. I also changed the name of the marker
-    because that name didn't actually make a lot of sense for this example.
+    This example offsets the y position of the camera a bit, so I changed the name of the marker
+    because the original name didn't actually make a lot of sense for this example.
 
     <>![](/wiki/cameratarget_tutorial_2.png)</>
     
@@ -836,7 +842,7 @@ export const metadata = {
     ## Hide Party
     ---
     
-    This event is a region in the Overworld which hides the [followers](/wiki/api/Follower) of the [player](/wiki/api/Player) when the player steps into the event.
+    This event is a region in the Overworld that hides the [followers](/wiki/api/Follower) of the [player](/wiki/api/Player) when the player steps into the event.
 
     This event is an `area` and naming an object `hideparty` on an `objects` layer creates this event.
 
@@ -869,14 +875,14 @@ export const metadata = {
 
     List of configurable properties for this event:
     - `flag: string` -> The name of the flag that will be set to `value` once the player enters the area.
-    - `value: any` -> The value to set on the flag. If this is not set, the `flag` will be set to **true** instead.
+    - `value: any = true` -> The value to set on the flag. If this is not set, the `flag` will be set to **true** instead.
     - `once: boolean = false` -> If **true** the event will destroy itself after setting the flag and will not load anymore in the save.
     <br></br>If **false** the player can step on this event, setting the flag, as many times as they want.
     - `mapflag: boolean = false` -> If **true**, the `flag` will be saved under the current map instead of a global flag. 
     <br></br>If **false**, the flag will be saved as a global flag.
 
-    If you set `mapflag` to true, the flag will be stored in the [Game flags](/wiki/api/Game#flags) under the current map uid, 
-    if not, the flag will be stored as a global flag.
+    If you set `mapflag` to true, the flag will be stored in the [Game flags](/wiki/api/Game#flags) under the **current map uid**, 
+    if not, the flag will be stored as a **global flag**.
 
     ### Example
     ---
@@ -962,14 +968,14 @@ export const metadata = {
     ## Magic Glass
     ---
 
-    Magicglass are glass tiles that only appear when a character (such as the player or its followers) steps on them.
+    Magic glass are glass tiles that only appear when a character (such as the player or its followers) steps on them.
 
     This [`Event`](/wiki/api/Event) is an `area`, and every tile of that area gets transformed to a glass tile. To create this object, create an area in an
     `objects` layer and name it `magicglass`.
 
     List of configurable properties:
-    - `new_sprite: string` -> Name of a sprite you want to use instead of the default one that the event already defines.
-    That new sprite should be 20x20px to make them snap to the map.
+    - `new_sprite: boolean = false` -> If **true**, the glass will use the new sprite. Stored in `assets/sprites/world/events/magical_glass_new`.1
+    <br></br>If **false**, the glass will use the old sprite. Stored in `assets/sprites/world/events/magical_glass`.
 
     ### Example
     ---
@@ -977,7 +983,7 @@ export const metadata = {
 
     Modify the second map to make something like this.
 
-    ![magicglass_titorial_1](/wiki/magicglass_tutorial_1.png)
+    ![magicglass_tutorial_1](/wiki/magicglass_tutorial_1.png)
     
     And this should be your result!
 
@@ -998,7 +1004,7 @@ export const metadata = {
     Now... If the glass is now rendering on top of your chest, don't worry, you can just create a new `objects` layer, I'll name mine
     `objects_under` and now I can change the `magicglass` to be on my `objects_under` layer.
     
-    ![magicglass_titorial_2](/wiki/magicglass_tutorial_2.png)
+    ![magicglass_tutorial_2](/wiki/magicglass_tutorial_2.png)
 
 
     If you don't know in witch layer is located an object, use the `Select Objects (S)` tool in Tiled and 
@@ -1019,7 +1025,7 @@ export const metadata = {
     ---
 
     Tile objects are a combination between a tile from a tileset and an [Event](/wiki/api/Event),
-    its main use case is to make a tile that has the properties of an [Object](/wiki/api/Object).
+    this is how you can make a tile that has the properties of an [Object](/wiki/api/Object).
 
     TileObject is not a normal Event, it has no properties, and you create them using the `Insert Tile (T)` feature from Tiled
     inside of a `objects` layer. Then select the tile that you want to place from your tileset and place it in the map.
@@ -1078,7 +1084,7 @@ export const metadata = {
     ## Warp Door
     ---
 
-    Warp doors are objects that allow to **fast travel** between Overworld locations.
+    Warp doors are objects that allow the player to **fast travel** between Overworld locations.
 
     To create this [`Event`](/wiki/api/Event), place a point on a `objects` layer and call it `warpdoor`.
 
@@ -1101,7 +1107,7 @@ export const metadata = {
     You'll also need to define the markers where the player will be teleported to, I'll name them `door_warp` to make it simple. 
 
     These are the properties, since `map`, `name` and `marker` are arrays, we have to define them as in the 
-    [multiple texboxes from the text tutorial](#multiple-textboxes).
+    [multiple textboxes from the text tutorial](#multiple-textboxes).
     - `map1` -> example_map -- This is the name of the first map you want to fast travel to.
     - `map2` -> example_map_2 -- This is the name of the second map you want to fast travel to.
     - `name1` -> Start -- The name the door will use for the selection of map1.
@@ -1131,7 +1137,7 @@ export const metadata = {
     player reaches the end.
 
     Modify the door on the example_map and add `openflag` -> `reached_end` to its custom properties.
-    Move the door of example_map_2 to the end and add a [set flag event](#set-flag-event) to set the reached_end flag to true.
+    Move the door of example_map_2 to the end and add a [set flag event](#set-flag-event) to set the **reached_end** flag to **true**.
     |example_map|
     |---|
     |![](/wiki/warpdoor_tutorial_4.png)|
@@ -1155,8 +1161,6 @@ export const metadata = {
 
     An overworld object that triggers a [Quicksave](/wiki/api/Game#saveQuick) when entered. 
     You can use this if you want to save flags values after the player game overs.
-    Usable to skip the starting cutscene of a boss if the players dies to that boss, like when you fight
-    Sphamton NEO.
 
     `QuicksaveEvent` is an area [`Event`](/wiki/api/Event) and naming an object `quicksave` on an `objects` layer in a map creates this object.
 
@@ -1196,7 +1200,7 @@ export const metadata = {
 
     You can customize the sprites that get reflected in the mirror in the [`Actor`](/wiki/api/Actor) and 
     their [`mirror_sprites`](/wiki/api/Actor#mirror_sprites) table and 
-    functions: [`getMirrorSprites`](/wiki/api/Actor#getMirrorSprites), [`getMirrorSprite`](/wiki/api/Actor#getMirrorSprite)
+    functions: [`getMirrorSprites`](/wiki/api/Actor#getMirrorSprites), [`getMirrorSprite`](/wiki/api/Actor#getMirrorSprite).
 
     This is the list of the customizable properties of this event:
     - `offset: number = 0` -> The y-offset for reflections drawn in this mirror.
@@ -1255,14 +1259,14 @@ export const metadata = {
     - `sprite: string` ->  An option custom sprite that the block will use instead of the normal one. <br></br> 
     If you want to use the normal sprite, you don't need this.
     - `solvedsprite: string` -> An optional custom sprite that the block will use when it's on a solved state. <br></br> 
-    Updated automatically when the block is on top of a [Tile Button](#tile-button)
-    - `pushdist: number = 40` -> The number of pixels the block moves per push. 40 is one tile, but this depends in the 
+    Updated automatically when the block is on top of a [Tile Button](#tile-button).
+    - `pushdist: number = 40` -> The number of pixels the block moves per push. 40 is one tile, but this depends on the 
     tile width and tile height of your map.
     - `pushtime: number = 0.2` -> The time the block takes to move when you push it, in seconds.
     - `pushsound: string = "noise"` -> The name of the sound effect to play when you push the block.
     - `pressbuttons: boolean = true` -> This property is **unused**.
     - `lock: boolean = false` -> If **true**, the block will be locked in place when it reaches a solved state 
-    (when the block is on top of a [Tile Button](#tile-button))
+    (when the block is on top of a [Tile Button](#tile-button)).
     <br></br> If **false**, the block can be moved even when on top of a [Tile Button](#tile-button), depending on the
     complexity of your puzzle, you might prefer this behaviour.
     - `inputlock: boolean` -> If **true**, the player will be locked in place while the block is getting pushed.
@@ -1282,7 +1286,7 @@ export const metadata = {
     Then, I'll add a `pushblock`, and define the path that the pushblock can move through. To do that, I'll modify
     the map to place the ground where the block can be moved and add the collisions.
 
-    I'll also add the `inputlock` property to the pushable blocks with false as the value.
+    I'll also add the `inputlock` property to the pushable blocks with **false** as the value.
 
     This is what I've created.
 
@@ -1400,6 +1404,8 @@ export const metadata = {
     - `script: string` -> The name of a script file that should be executed when the button's puzzle is solved.
 
     ### Examples
+    ---
+
     Well... that's a lot of properties so let's go over some examples and videos to help you understand how this event works.
 
     You should do the puzzle in the [Push Blocks](#push-block) tutorial because we're going to finish it in this example.
@@ -1430,8 +1436,8 @@ export const metadata = {
             pushblock:reset()
         end
 
-        -- Prevets the player for moving while the block are resseting, if you don't do this, the player
-        -- can step where the block are supossed to go and get stuck in the collision.
+        -- Prevets the player for moving while the block are resetting, if you don't do this, the player
+        -- can step where the block are supposed to go and get stuck in the collision.
         Game.lock_movement = true
         Game.world.timer:after(.4, function ()
             Game.lock_movement = false
@@ -1452,7 +1458,7 @@ export const metadata = {
     until they solve the puzzle. 
 
     We can use a [forcefield](#forcefield) for this and give it these properties.
-    - `flag: string` = **!example_room:puzzle_solved**
+    - `flag: string` = **!example_room:puzzle_solved**.
     Since we're checking when the `flag` is true, we don't need to give it a value.
     - `visible: bool` = **true**
 
@@ -1562,7 +1568,7 @@ export const metadata = {
 
     #### Example
     ---
-    I've added created a `controllers` layer in my map, to make this, create a new object layer and name it `controllers`. 
+    I've added a `controllers` layer in my map, to make this, create a new object layer and name it `controllers`. 
     Use the color that you want, but I'll use a <span style={{color: "#ffc800"}}>Golden Color. </span>#ffc800 (255, 200, 0)  ![](/wiki/controllers_layer_color.png)
 
     ![](/wiki/darkfountain_tutorial_3.png)
@@ -1580,7 +1586,7 @@ export const metadata = {
     ---
     This [`Event`](/wiki/api/Event) is a **controller** that toggles the existence of other events in maps on the Overworld.
 
-    This controller toggles the existence of other events **immediately** upon the a **change of its flag**, so it doesn't need
+    This controller toggles the existence of other events **immediately** upon the **change of its flag**, so it doesn't need
     a room reload to activate or deactivate other events.
 
     This event is created in a `controllers` layer and I'll use a <span style={{color: "#ffc800"}}>Golden Color. #ffc800 (255, 200, 0) </span>
@@ -1606,7 +1612,7 @@ export const metadata = {
 
     ![](/wiki/toggle_controller_tutorial_2.png)
 
-    Since target is an `array`, we can define it like in the [multiple texboxes tutorial](/wiki/using-events#multiple-textboxes) in the text property.
+    Since target is an `array`, we can define it like in the [multiple textboxes tutorial](/wiki/using-events#multiple-textboxes) in the text property.
 
     So create the targets like this: `target1`, `target2`, `target3`, `target4`, `target5`, ..., `targetN`. **targetN** means that you can have as many targets as you want.
 
@@ -1622,7 +1628,7 @@ export const metadata = {
     ---
     I've already showed how to link the objects to the toggle, so let's go over an example that show how this works.
 
-    I've created a toggle linked to two chests an a collider that blocks the way, I've also given it `chest_active` as the `flag` it should check for.
+    I've created a toggle linked to two chests and a collider that blocks the way, I've also given it `chest_active` as the `flag` it should check for.
 
     ![](/wiki/toggle_controller_tutorial_4.png)
 
@@ -1637,8 +1643,8 @@ export const metadata = {
         Your browser does not support this video. Sorry!
     </video>
 
-    Now... lets make another example, but this time with the flag inverted. You can either archive this using the `inverted` property or
-    putting `!` at the start of your flag.
+    Now... lets make another example, but this time with the flag inverted. You can either achieve this using the `inverted` property or
+    by putting `!` at the start of your flag.
 
     <video controls preload="none">
     <source src="/wiki/toggle_controller_tutorial_2.mp4" type="video/mp4" />
@@ -1660,24 +1666,29 @@ export const metadata = {
     - `sprite: string` -> The name of the sprite this NPC should use when Idle.
     - `animation: string` -> The name of the animation this NPC should use when Idle.
 
-    If you use an actor, the idle sprite and idle animation is defined in the actor properties. 
+    You must define the actor. The NPC will use the idle sprite or idle animation that's defined in the actor properties.
     The idle sprite is `self.default_sprite` and the idle animation is `default_anim`.
-    or use `self.default` instead. But you still can define `sprite` if
-    you want the NPC to use another animation that is not the default one.
-
-    If you don't define an actor for an NPC, you have to define either `sprite` or `animation`,
-    not both because the `sprite` takes priority.
+    or use `self.default` instead. But you can define `sprite` or `animation` if
+    you want your NPC to use another sprite or animation as the default instead of the one defined in the actor data.
 
     - `facing: string = "down"` -> The direction the NPC should be facing by default. Can be `up`, `down`, `right` or `left`.
     - `turn: boolean = false` -> If **true**, the NPC should turn towards the player when interacted with.
     <br></br>If **false**, the NPC always looks as defined in `facing`.
 
-    If you enable turn, make sure that your actor has the sprites it needs, explained in further detail in the examples.
+    If you enable turn, make sure that the sprite your NPC is using is a **facing sprite**. I'll use the same tutorial that's in 
+    [Chaser Enemy](#chaser-enemy) to explain what a facing sprite is.
+
+    Lets stop here for a bit, what does mean having a facing sprite? We'll use kris sprites as an example. Head over the folder `assets/sprites/party/kris/dark` in Kristal.
+    <br></br>If we look into the `walk` folder, you can see that we have sprites for all four directions `left`, `right`, `up` and `down`.
+    <br></br>So if we create an NPC with **kris as the actor** we can set `facing` and the game will use one of these four sprites,
+    depending on the facing value. But you don't have to create a separate folder to do this. When the game checks if an sprite is a facing sprite, it uses two
+    kinds of separators **\_** and **\/**. So you can either define the sprites as **animation`_`direction** like **walk_down**, **walk_up**, **walk_left** and **walk_right** 
+    or create a folder with the **name of the sprite** and place the sprites inside, naming them **left**, **right**, **up** and **down**.
 
     - `talk: boolean = true` -> If **true**, the NPC does a talking animation when interacted and typing in the dialogue.
     <br></br>If **false**, the NPC doesn't do this animation. This is explained in the examples.
-    - `talksprite: string` -> The name of a talk sprite to use for the NPC when talking. If you have an actor,
-    set this to the name of the sprite you want to use for talking instead of the default one.
+    - `talksprite: string` -> The name of a talk sprite to use for the NPC when talking.
+    Set this to the name of the sprite you want to use for talking instead of the default one.
     - `solid: boolean = true` -> If **true**, the NPC is a solid object and the player can't walk through it.
     <br></br>If **false**, the player can walk through the NPC.
     - `cutscene: string` -> The name of a cutscene to start when interacting with this NPC.
@@ -1686,7 +1697,7 @@ export const metadata = {
     - `text: string[]` -> The text to be displayed when interacting with this NPC. Works the same way as in the 
     [text tutorial](#text-tutorial).
 
-    Don't use `script`, `cutscene` and `text` in the same NPC because it could cause unpredicted behaviour.
+    Don't use `script`, `cutscene` and `text` in the same NPC, only use one.
 
     - `setflag: string` -> The name of the flag that will be set to `setvalue` when the player interacts.
     You can define `setvalue` if you use this property.
@@ -1703,7 +1714,7 @@ export const metadata = {
 
     Since a new project already comes with `starwalker` as an NPC, we can use it for this example.
 
-    To create this simple NPC, make a new object named `npc` in an `objects` layer and define these properties.
+    To create this simple NPC, make a new **point** or **one tile area** named `npc` in an `objects` layer and define these properties.
     - `actor`: starwalker
     - `text1`: * This example...[wait:10] \n    is [color:yellow]pissing me off[color:reset].
     - `text2`: * I'm the ORIGINAL[wait:10]\n    [color:yellow]STARWALKER[color:reset].
@@ -1722,7 +1733,7 @@ export const metadata = {
     towards the player when you talk to them from the side?
 
     Doing that is easy, but we need to organize our npc first, to do that, make a new folder inside of `assets/sprites/npcs` 
-    and call it `starwalker`. Then, inside the folder, we're going to add new sprites for stalwalker directional talk.
+    and call it `starwalker`. Then, inside the folder, we're going to add new sprites for starwalker directional talk.
 
     These are the sprites that I made, just copy them into the folder you just made with the name of the headers.
 
@@ -1803,6 +1814,9 @@ export const metadata = {
         Your browser does not support this video. Sorry!
     </video>
 
+    You can always define `talksprite` if you want your NPC to use other sprites for the talking animation instead of the
+    default one.
+
     This tutorial should give you a good example on how to create an NPC in your map, so I hope it was helpful!
 
 </Box>
@@ -1860,7 +1874,7 @@ export const metadata = {
     but in `multiplier` mode, the speed is powered to the acceleration each frame.
     - `chasemax: number` -> The maximum speed the enemy will chase the player at, this is only applied if `chaseaccel` is also set.
 
-    As you can see, chasing is a bit complex, so I'll make some examples to make them easier to understand. This is the mecanic that uses the `enemycollision` layer,
+    As you can see, chasing is a bit complex, so I'll make some examples to make them easier to understand. This is the mechanic that uses the `enemycollision` layer,
     but more of that in the examples.
 
     - `once: boolean = false` -> If **true**, the enemy will not spawn anymore once **its encounter has been done**.
