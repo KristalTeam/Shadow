@@ -755,7 +755,9 @@ export const metadata = {
 
     This event is an `area` and naming an object `silhouette` on an `objects` layer in a map creates this object.
 
-    This event doesn't have any configurable properties.
+    This is the custom property of this event:
+    - `color: color = { 0, 0, 0, 0.5 }` -> The color that will be used for the silhouette. 
+    <br></br>You define this using the `Color Tiled type`. This is in `RGBA` format.
 
     ### Example
     ---
@@ -766,10 +768,25 @@ export const metadata = {
     Then this is what happens when you step inside the area of this event.
 
     <>![](/wiki/silhouette_tutorial_2.png)</>
+    
     <video controls preload="none">
     <source src="/wiki/silhouette_tutorial.mp4" type="video/mp4" />
         Your browser does not support this video. Sorry!
     </video>
+
+    If you want to customize the color that will be drawn on top of the characters, 
+    you can do so by using the `color` property. Since this property is of the `Color Tiled type`,
+    you define it this way.
+
+    <>![](/wiki/silhouette_tutorial_3.png)</>
+
+    Then choose the color that you want using the color picker.
+
+    <>![](/wiki/silhouette_tutorial_4.png)</>
+
+    And this is the result!
+    
+    <>![](/wiki/silhouette_tutorial_5.png)</>
 
 </Box>
 
