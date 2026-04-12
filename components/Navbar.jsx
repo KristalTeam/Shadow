@@ -2,14 +2,23 @@ import styles from './Navbar.module.css';
 import Link from 'next/link';
 import NewTab from 'components/NewTab';
 
+export function Item({ href, newTab, children, text, icon }) {
+    const Component = newTab ? NewTab : Link;
+    const url = `url("/navbar/${icon}.png")`;
+    return <Component href={href} className={styles.item} title={text}>
+        <div className={styles.item_text}>{text}</div>
+        <div className={styles.item_icon} style={{WebkitMaskImage: url, maskImage: url}}></div>
+    </Component>
+}
+
 export default function Navbar() {
     return <div id="wiki-navbar" className={styles.navbar}>
         <div className={styles.navbar_inner}>
-            <Link href="/" className={styles.item}>Home</Link>
-            <Link href="/wiki" className={styles.item}>Wiki</Link>
-            <NewTab href="https://github.com/KristalTeam/Kristal/" className={styles.item}>Source</NewTab>
-            <Link href="/wiki/downloading" className={styles.item}>Downloads</Link>
-            <NewTab href="https://discord.gg/8ZGuKXJE2C" className={styles.item}>Discord</NewTab>
+            <Item href="/" text="Home" icon="home"/>
+            <Item href="/wiki" text="Wiki" icon="wiki"/>
+            <Item href="https://github.com/KristalTeam/Kristal/" newTab text="Source" icon="source"/>
+            <Item href="/wiki/downloading" text="Downloads" icon="download"/>
+            <Item href="https://discord.gg/8ZGuKXJE2C" newTab text="Discord" icon="discord"/>
         </div>
     </div>
 }
