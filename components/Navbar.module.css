@@ -34,29 +34,52 @@
     font-size: 24px;
     color: white;
     text-decoration: none;
-    transition: 0.2s;
+    transition: color 0.2s;
 }
 
 .item:hover {
     color: yellow;
 }
 
+.item_icon {
+    display: none;
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+
+    background-color: white;
+    mask-size: cover;
+
+    background-size: cover;
+}
+
+.item:hover .item_icon {
+    background-color: yellow;
+}
+
 @media screen and (max-width: 768px) {
 
     .navbar {
-        padding: 24px;
-        height: auto;
+        padding: 0;
     }
 
     .navbar_inner {
-        height: auto;
+        padding: 0;
         width: 100%;
-        gap: 16px;
-        flex-direction: column;
+        gap: 0px;
     }
 
     .item {
-        height: auto;
-        width: 80%;
+        width: 100%;
+        height: 100%;
+        flex: 1;
+    }
+
+    .item_text {
+        display: none;
+    }
+
+    .item_icon {
+        display: block;
     }
 }
