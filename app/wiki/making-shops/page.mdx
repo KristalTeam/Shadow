@@ -1,0 +1,451 @@
+import Box from 'components/Box'
+import CollapseBox from 'components/CollapseBox'
+
+export const metadata = {
+    title: 'Creating a new shop',
+    description: 'Learn how to make a shop in Kristal',
+}
+
+
+# Creating shops
+
+<Box>
+    In this tutorial, you'll learn about how to create a shop for your project,
+    either **creating a full fledged** shop with a shopkeeper and a background,
+    something more simple like a **vending machine** or a small **one-item shop**.
+</Box>
+
+<Box>
+
+    ## Complete shop
+    ---
+    Let's first start on how to make a **complete shop**, we'll start with the text and the items you can sell 
+    and then we'll make the shopkeeper.
+
+    <CollapseBox title="The shop file" id="shop-file">
+
+        First, create your shop file, go to `scripts/shops` and create a new `.lua` file. For this example, I'll create a new file called
+        `test_shop.lua`. This is the file where you define the logic for the shop. Then add the shop class.
+
+        ```lua
+        ---@class TestShop : Shop
+        local TestShop, super = Class(Shop, "complete_shop")
+
+        function TestShop:init()
+            super.init(self)
+        end
+
+        return TestShop
+        ```
+
+        For this example, I've defined `complete_shop` as the ID for the shop, this will be the name that I'll use to reference it later.
+        If I don't define an ID, I can use the name of the shop file instead, in this case, that would be `test_shop`.
+
+        Now... we need a way to get into our new shop, to do that, we can create a [Transition Event](/wiki/using-events#transitions) and set
+        the `shop` property to the name of the shop.
+
+        In the properties of the Transition, you also define where the player will spawn at when it leaves the shop. I'll explain the properties 
+        of a Transition that are useful to make a shop:
+
+        - `shop: string` -> The name of the shop to send the player to.
+        - `x: number` -> The x position where the player will spawn when it leaves the shop.
+        - `y: number` -> The y position where the player will spawn when it leaves the shop.
+        - `marker: string = spawn` -> The name of the marker where the player will spawn when it leaves the shop.
+
+        It's recommended to use a `marker` instead of raw `x` and `y` values because it's easier to change.
+
+        - `facing: string` -> The direction the player will face when it leaves the shop. Can be `left`, `right`, `up` or `down`.
+
+        With that explained, let's create a transition to our new shop and the exit marker. This is what I've created.
+
+        ![](/wiki/shop_tutorial_1.png)
+
+        As you can see, I'm will be using deltarune assets to make this tutorial. Mainly the ones from Seam, I'll not distribute them, 
+        but the assets are easily accessible in websites like **spriters-resource.com**.
+
+        With the transition done, this is what our shop currently looks like.
+
+        <video controls preload="none">
+        <source src="/wiki/shop_tutorial_1.mp4" type="video/mp4" />
+            Your browser does not support this video. Sorry!
+        </video>
+
+        The shop works, so now we need to define everything else.
+
+    </CollapseBox>
+
+    <CollapseBox title="Shop text" id = "shop-text">
+
+        ### Shop text
+        ---
+        Defining the normal text of a shop is very easy, you just need to define the text variables in the init function. This is the text that a shop has, along with the default value.
+        
+        - `self.currency_text = $%d` -> The label used for currency in this shop. **%d indicates where the currency amounts should substitute in**.
+        - `self.encounter_text = * Encounter text` -> The text shown when you first enter the shop.
+        - `self.shop_text = * Shop text` -> The text shown when you return to the main menu of the shop.
+        - `self.leaving_text = * Leaving text` -> The text shown when you leave the shop.
+        - `self.buy_menu_text = Purchase\ntext` -> The text shown when you're in the BUY items menu.
+        - `self.buy_confirmation_text = Buy it for\n%s ?` -> The text shown when you're about to buy something. **%s is replaced by the cost of the item**.
+        - `self.buy_refuse_text = Buy\nrefused\ntext` -> The text shown when you refuse to buy something.
+        - `self.buy_text = Buy text` -> The text shown when you buy something.
+        - `self.buy_storage_text = Storage\nbuy text` -> The text shown when you buy something and it goes in your storage.
+        - `self.buy_too_expensive_text = Not\nenough\nmoney.` -> The text shown when you don't have enough money to buy something.
+        - `self.buy_no_space_text = You're\ncarrying\ntoo much.` -> The text shown when you don't have enough space to buy something.
+        - `self.sell_no_price_text = No\nprice\ntext` -> The text shown when something doesn't have a sell price.
+        - `self.sell_menu_text = Sell\nmenu\ntext` -> The text shown when you're in the SELL menu.
+        - `self.sell_nothing_text = Sell\nnothing\nattempt` -> The text shown when you try to sell an empty spot.
+        - `self.sell_confirmation_text = Sell it for\n%s ?` -> The text shown when you're about to sell something. **%s is replaced by the cost of the item**.
+        - `self.sell_refuse_text = Sell\nrefuse\ntext` -> The text shown when you refuse to sell something.
+        - `self.sell_text = Sell\ntext` -> The text shown when you sell something.
+        - `self.talk_text = Talk\ntext` -> The text shown when you enter the talk menu.
+        - `self.sell_no_storage_text = Empty\ninventory\ntext` -> The text shown when you have nothing in a storage.
+        - `self.sell_everything_text = Sold\neverything\ntext` -> The text shown when you have sold all your items in a storage.
+
+        A `storage` is the place where the player stores their items. A shop uses these four storages: `items`, `weapons`, `armors` and `storage`.
+        
+        - The `items storage` is where the player stores the items that can be used in battle and in the **Item tab**.
+        - The `weapons storage` is where the player stores the weapons. Can be accessed in the **Equip tab**.
+        - The `armors storage` is where the player stores the armors. Can be accessed in the **Equip tab**.
+        - The `storage storage` is the storage that is **accessible in savepoints** and is where the player saves the items that they don't want in their inventory.
+
+        ### Example
+        ---
+
+        For my example, this is the text for the shop that I came up with.
+        ```lua
+        ---@class TestShop : Shop
+        local TestShop, super = Class(Shop, "complete_shop")
+
+        function TestShop:init()
+            super.init(self)
+            
+            self.encounter_text = "* Welcome back, traveler..."
+            self.shop_text = "* What will it be this time?"
+            self.leaving_text = "* Come back again...[wait:10] \n* Or not..."
+            self.buy_menu_text = "See something you like?"
+            self.buy_confirmation_text = "Only for %s"
+            self.buy_refuse_text = "Buy something else then"
+            self.buy_text = "Thanks \nfor the purchase"
+            self.buy_storage_text = "You'll keep it in you storage."
+            self.buy_too_expensive_text = "Sorry,[wait:5] but that's not enough."
+            self.sell_no_price_text = "I don't buy these"
+            self.sell_menu_text = "What junk do you have?"
+            self.sell_nothing_text = "You don't have anything there"
+            self.sell_refuse_text = "Okay then"
+            self.sell_text = "Here is your change"
+            self.sell_no_storage_text = "You don't have anything \nto sell"
+            self.sell_everything_text = "That should be all"
+            self.talk_text = "What do you want to talk about?"
+            self.sell_options_text.items = "Let's see what items you have"
+            self.sell_options_text.weapons = "What weapons have grown dull?"
+            self.sell_options_text.armors = "Any interesting armor?"
+            self.sell_options_text.storage = "What have you been storing?"
+        end
+
+        return TestShop
+        ```
+
+        Now that we've added some text, let's see how it looks in game.
+
+        <video controls preload="none">
+        <source src="/wiki/shop_tutorial_2.mp4" type="video/mp4" />
+            Your browser does not support this video. Sorry!
+        </video>
+
+        </CollapseBox>
+
+    <CollapseBox title="Adding items" id="adding-items">
+
+        ## Adding items
+        ---
+
+        With the text done, now we need to add the items that the shop will sell to the player.
+
+        To add a item to the shop, we use the `self:registerItem(item, options)` function. **item** is the item ID of the item we want to sell 
+        and **options** is a table with properties that can be given to that sell item.
+
+        The `options` of a sell item defines these fields:
+        - `name` -> The name of the item shown in the shop. Uses `self.name` of the item by default.
+        - `description` -> The description of the item shown in the shop. Uses `self.shop` of the item by default.
+        - `price` -> The price of the item in this shop. Uses `self.price` of the item by default.
+        - `bonuses` -> The preview stat bonuses provided by the item (does not affect actual item stat bonuses)
+        - `color` -> The color of the item name text. Uses the color white by default.
+        - `flag` -> The name of a flag used to store the remaining stock of this item. Defaults to `stock_<index>_<item.id>`
+        - `stock` -> The default number of stock of this item. Infinite if unspecified.
+
+        `Item` already defines most of these options, but you can use them if you need to overwrite what the item
+        already defines or place a stock limit.
+
+        ### Example
+        ---
+        For my example, I'll add **Ancient Sweet** and **CD Bagel** as healing items, the **Twisted Sword** for a weapon and the **Shadow Mantle** as the armor.
+        
+        You can't buy most of these in Deltarune, so I'll also define a description for the item, since I'm not going to modify the item data directly, I'll use the options table.
+
+        This is the code that adds these items:
+        ```lua
+        function TestShop:init()
+        ...
+        self:registerItem("ancientsweet", {description = "Only Kris \ncan eat this \nHeals 400HP", stock = 4, color = COLORS.aqua})
+        self:registerItem("cd_bagel")
+        self:registerItem("twistedswd", {name = "Twisted Sword", description = "A strange \nblade", price = 6666, stock = 1, color = COLORS.yellow})
+        self:registerItem("shadowmantle", {price = 666, description = "Shadows slip \noff like water", stock = 1, color = COLORS.black})
+        end
+        ```
+
+        Let's see how it looks inside of the game.
+
+        <video controls preload="none">
+        <source src="/wiki/shop_tutorial_3.mp4" type="video/mp4" />
+            Your browser does not support this video. Sorry!
+        </video>
+
+    </CollapseBox>
+
+    <CollapseBox title="Shopkeepers" id="shopkeeper-bg-music">
+
+        ## Shopkeeper, background and music
+        ---
+        Defining the background and the music for the shop is very easy. First, store the shop music inside of the `assets/music` folder and the background image for the shop inside
+        of the `assets/sprites/shops` folder. Then, define them inside of your shop code.
+
+        ```lua
+        function TestShop:init()
+        ...
+        self.background = "shops/<your_background_name>"
+        self.shop_music = "<your_music_name>"
+        end
+        ```
+
+        **For the example**, I've taken Seam shop music from deltarune and stored it in `assets/music/shop1.ogg` and Seam shop background in 
+        `assets/sprites/shops/bg_seam_shop.png` and assigned them in my shop code.
+
+        ```lua
+        function TestShop:init()
+        ...
+        self.background = "shops/bg_seam_shop"
+        self.shop_music = "shop1"
+        end
+        ```
+
+        Creating a **shopkeeper** is easy, but it requires a **few steps**.
+
+        **First**, create the assets for the shopkeeper with all the expressions that you want it to have, save them in `assets/sprites/shopkeepers/<name>` 
+        name is the name of the folder where you'll keep the shopkeeper sprites.
+
+        For the example, I've taken the sprites from Seam and placed them in the folder `assets/sprites/shopkeepers/seam`
+
+        ![](/wiki/shop_tutorial_2.png)
+
+        The **different names are the animations** of the shopkeeper, if you have multiple frames, Kristal will synchronize the animation to the talking of the shopkeeper.
+        In the text, you can change the current animation of the shopkeeper using the **\[emote:\<emotion\>\]** tag. More of that in the example.
+
+        With the sprites of the shopkeeper done, the **second step** is to the create the actor of the shopkeeper. 
+        
+        Making this actor is very simple, **create a new .lua file** in the directory `scripts/data/actors/<shopkeeper_name>.lua`. 
+        You can use the code for my shopkeeper as an example.
+
+        ```lua
+        ---@class Seam : Actor
+        local Seam, super = Class(Actor, "seam")
+
+        function Seam:init()
+            super.init(self)
+
+            -- The name of the actor
+            self.name = "seam"
+
+            -- The sprites dimensions
+            -- The shop uses this to know where to place the shopkeeper
+            self.width = 135
+            self.height = 109
+
+            -- The path to the shopkeeper sprites
+            self.path = "shopkeepers/seam"
+            -- The default animation to use
+            self.default = "talk"
+        end
+
+        return Seam
+        ```
+
+        With the actor created, we need to define it in the shop data with this piece of code.
+
+        ```lua
+        function TestShop:init()
+        ... 
+        -- This makes the shopkeeper slide when you enter the BUY menu
+        self.shopkeeper.slide = true
+        -- This places the actor we've just created
+        self.shopkeeper:setActor("seam")
+        end
+        ```
+
+        With this done, let's check on how the shop looks.
+
+        <video controls preload="none">
+        <source src="/wiki/shop_tutorial_4.mp4" type="video/mp4" />
+            Your browser does not support this video. Sorry!
+        </video>
+
+    </CollapseBox>
+
+    <CollapseBox title="Talking menu" id="talking-menu">
+
+        ## Talking options
+        ---
+        We've created our shop, but something is missing, what is a shop without some sweet lore?
+
+        Let's create some talking options then. First, we're going to define the **talking options** and the **replacements**.
+        The replacements are the talk topics that you choose when you've already talked about something. These are using to expand
+        on the topic.
+
+        To define the starting topics, use the [`self:registerTalk("topic")`](/wiki/api/Shop#registerTalk) function. `"topic"` is the name of the talking option.
+        
+        If you also want to define the replacement topic, you do so by using [`self:registerTalkAfter("new_topic", index)`](/wiki/api/Shop#registerTalkAfter). `"new_topic"` is the name
+        of the new talking topic and `index` is the index of the topic that it's replacing, it's a number **between 1 and 4**.
+
+        If you want to replace a topic that has already been replaced, it's a bit more complex, but not by much.
+
+        One you've defined you topics, we need to place the dialogue for the talking options, to do that, 
+        overwrite the [`Shop:startTalk(dialogue)`](/wiki/api/Shop#startTalk) and place your dialogue inside the [`Shop:startDialogue(text, callback)`](/wiki/api/Shop#startDialogue).
+        Let's go over a example to make it easier to understand.
+
+        ### Example
+        ---
+        I've created this diagram to show the topics I want to talk about.
+
+        - About you
+        - About this place
+        - Symbol
+            - The prophecy
+                - The ending
+        - Your eye
+
+        This is how I've defined the topic inside of my code.
+
+            ```lua
+        function TestShop:init()
+        ... 
+        self:registerTalk("About you")
+        self:registerTalk("About this place")
+        self:registerTalk("Symbol")
+        self:registerTalk("Your eye")
+
+        -- This replaces the topic 3. Symbol in this case
+        self:registerTalkAfter("The prophecy", 3)
+        -- This replaces the same topic after a flag is set to true
+        self:registerTalkAfter("The ending", 3, "talk_3_1", true)
+        end
+        ```
+
+        Now, we define the function that handles the talking and the different talking topics.
+
+        ```lua
+        ---The function that manages the talking
+        ---@param dialogue string The talk topic that the player is using
+        function TestShop:startTalk(dialogue)
+            if dialogue == "About you" then
+            elseif dialogue == "About this place" then
+            elseif dialogue == "Symbol" then
+            elseif dialogue == "Your eye" then
+            elseif dialogue == "The prophecy" then
+            elseif dialogue == "The ending" then
+            end
+        end
+        ```
+
+        Now we just need to place the shopkeeper dialogue inside of the topics using the [`Shop:startDialogue(text, callback)`](/wiki/api/Shop#startDialogue) function. 
+        You can use this as a placeholder.
+
+        ```lua
+        self:startDialogue({
+            "talk_1",
+            "talk_2",
+            "talk_3",
+            "talk_4",
+        }, function ()
+            -- This is a callback, this function gets executed
+            -- when the player is done with the talking
+        end)
+        ```
+
+        This is where you use the **\[emote:\<emotion\>\]** tag. When you call this is a dialogue, the shopkeeper sprite is replaced by the sprite with the name \<emotion\>.
+        For example, if I want Seam to use the **laugh** animation, I can use this.
+
+        ```lua
+        self:startDialogue({
+            "[emote:laugh] * This is me laughing.",
+        }, function ()
+            -- Use this to reset the animation of the shopkeeper
+            self.shopkeeper:setSprite("talk")
+        end)
+        ```
+
+        Since **emote** changed the animation of the sprite, we need to change it back in the callback.
+
+        This is the dialogue that I came up with for my test shop.
+
+        ```lua
+        ---The function that manages the talking
+        ---@param dialogue string The talk topic that the player is using
+        function TestShop:startTalk(dialogue)
+            if dialogue == "About you" then
+                self:startDialogue({
+                    "[emote:laugh]* You shouldn't think too hard about who I am.",
+                    "[emote:talk]* I'm just your convenient shopkeeper,[wait:5] nothing more,[wait:5] nothing less."
+                })
+            elseif dialogue == "About this place" then
+                self:startDialogue({
+                    "* You are in the test rooms.",
+                    "[emote:idle]* A place made to test the functions of this world."
+                }, function ()
+                    self.shopkeeper:setSprite("talk")
+                end)
+                
+            elseif dialogue == "Symbol" then
+                self:startDialogue({
+                    "* That's the Deltarune. \nThe symbol that gives this world purpose.",
+                })
+
+            elseif dialogue == "Your eye" then
+                self:startDialogue({
+                    "[emote:impatient]* That's not something I want to talk about.",
+                }, function ()
+                    self.shopkeeper:setSprite("talk")
+                end)
+                
+            elseif dialogue == "The prophecy" then
+                self:startDialogue({
+                    "* Oh yes...[wait:5] the prophecy,[wait:5] I know it fully,[wait:5] even how it ends...",
+                    "[emote:oh]* What...[wait:5] you want to know how it ends?",
+                    "[emote:laugh]* That is not something for me to say.",
+                }, function ()
+                    self.shopkeeper:setSprite("talk")
+                    -- This flag is set, so Kristal knows replace this dialogue option with "The ending"
+                    self:setFlag("talk_3_1", true)
+                end)
+                
+            elseif dialogue == "The ending" then
+                self:startDialogue({
+                    "[emote:impatient]* Even if you keep on insisting, I'll not say anything more.",
+                }, function ()
+                    self.shopkeeper:setSprite("talk")
+                end)
+            end
+        end
+        ```
+
+        Let's see how this looks inside of the game.
+
+        With this, you should be able to **create a complete shop**. You can look into the [Shop](/wiki/api/Shop) code if you want to create something more complex.
+
+        <video controls preload="none">
+        <source src="/wiki/shop_tutorial_5.mp4" type="video/mp4" />
+            Your browser does not support this video. Sorry!
+        </video>
+
+    </CollapseBox>
+
+
+</Box>
