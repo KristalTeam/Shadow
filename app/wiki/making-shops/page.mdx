@@ -447,5 +447,107 @@ export const metadata = {
 
     </CollapseBox>
 
+</Box>
+
+<Box>
+
+    ## Making a vending machine
+    ---
+    This is an example on how to make a shop that doesn't transition into another place and just uses the shop interface, the vending machines in Chapter 3 are a great
+    example on this, so I'll try to recreate them in this.
+
+    First, create the **shop.lua** file. I'll name mine as `vending_machine.lua`.
+
+    ```lua
+    ---@class TestShop : Shop
+    local VendingMachine, super = Class(Shop)
+
+    function VendingMachine:init()
+        super.init(self)
+    end
+
+    return VendingMachine
+    ```
+
+    Then add the shop text.
+
+    ```lua
+    function VendingMachine:init()
+        super.init(self)
+        self.encounter_text = "* Buy from the vending machine."
+        self.shop_text = "* Buy from the vending machine."
+        self.leaving_text = "* You bid farewell to the vending machine."
+        self.buy_menu_text = "Buy for money."
+        self.buy_confirmation_text = "Only for \n%s"
+        self.buy_refuse_text = "Buy for money."
+        self.buy_text = "You feel \nbetter."
+        self.buy_storage_text = "Saved in your storage."
+        self.buy_too_expensive_text = "You don't have enough money.."
+
+        self:registerItem("butjuice", {name = "Juice", description = "Great Healing!\nGreat Price!\nHeals 100HP", stock = 6})
+        self:registerItem("tensionbit", {description = "Raises TP by\n32% in battle.", price = 240, stock = 2})
+        self:registerItem("revivedust", {description = "Revives all \nfallen party \nmembers to 25% HP.", price = 220, stock = 2})
+        self:registerItem("scarlixir", {description = "Has a fruity \ntaste. \nHeals 160 HP.", stock = 4})
+
+    end
+    ```
+
+    Since we don't want to hide the world or have the SELL or TALK menu, we need to configure the menu options of the shop.
+
+    ```lua
+    function VendingMachine:init()
+        ...
+        -- With this, the map is not hidden
+        self.hide_world = false
+        -- This is the menu options. First is the text and Second is the State
+        self.menu_options = {
+            {"Buy",  "BUYMENU" },
+            {"Purchase", "BUYMENU" },
+            {"Smile", "SMILE" },
+            {"Exit", "LEAVE" }
+        }
+        -- This removes the black rectangle behind the UI, 
+        -- you can leave it if you want
+        self.bg_cover:remove()
+    end
+    ```
+
+    Since we've added a new state to the menu, we need to manage this new state in out code.
+    We can use the [`Shop:onStateChange(old, new)`](/wiki/api/Shop#onStateChange), overwrite it in your shop code and
+    add the new state.
+    ```lua
+    function VendingMachine:onStateChange(old, new)
+        super.onStateChange(self, old, new)
+        if new == "SMILE" then
+            self:startDialogue("* You smiled.")
+        end
+    end
+    ```
+
+    Everything that's left, is creating a way of calling this shop. To do that, I'll add the vending machine sprite and
+    a [`Interactable`](/wiki/using-events#interactable) and give it a [`script`](/wiki/using-events#making-scripts).
+
+    I'll name my script as `vending_machine.lua` and just add this piece of code.
+
+    ```lua
+    ---The function to execute the shop
+    ---@param event Event The event that executes this script
+    ---@param player Player The player that executes this script
+    return function(event, player)
+        -- This tells the game to load the shop called "vending_machine"
+        Game:enterShop("vending_machine")
+    end 
+    ```
+
+    And then make the changes in the map.
+
+    ![](/wiki/shop_tutorial_3.png)
+
+    This is how it looks like in the game.
+
+    <video controls preload="none">
+    <source src="/wiki/shop_tutorial_6.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
 
 </Box>
