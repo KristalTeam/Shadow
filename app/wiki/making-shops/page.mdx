@@ -551,3 +551,81 @@ export const metadata = {
     </video>
 
 </Box>
+
+<Box>
+
+    ## Mini shop UI
+    ---
+    There is one more thing I want to talk about in this tutorial, [`WorldCutscene:showShop()`](/wiki/api/WorldCutscene#showShop) and
+    [`WorldCutscene:hideShop()`](/wiki/api/WorldCutscene#hideShop). These can be used inside of a cutscene to show the money and left space that
+    the player has.
+
+    I'll show how to create a cutscene that uses those functions inside of a cutscene. And how to use it in your project.
+
+    This is explained better in the [`cutscenes tutorial`](/wiki/cutscenes). Create a new **\<name\>.lua** file inside of `scripts/world/cutscenes`. **name** is the
+    group of the cutscene. Then add a new empty cutscene. I'll name my group as **test** and the cutscene as **shop**.
+
+    Inside of `scripts/world/cutscenes/test.lua`.
+
+    ```lua
+    return {
+        ---A testing for the mini shop UI 
+        ---@param cutscene WorldCutscene
+        ---@param event Event
+        shop = function (cutscene, event)
+        end
+    }
+    ```
+
+    Now I'll create a cutscene that sells the player one rhapsotea for 250 D$.
+
+    ```lua
+    return {
+        ---A testing for the mini shop UI 
+        ---@param cutscene WorldCutscene
+        ---@param event Event
+        shop = function (cutscene, event)
+            -- This shows the mini shop UI
+            cutscene:showShop()
+            cutscene:text("* Do you want to buy a rhapsotea? * One for 250 D$ ")
+            -- Ask if the player wants to buy
+            local buyOption = cutscene:choicer({"Yes", "No"})
+
+            if buyOption == 1 then
+                -- If they choose yes
+                -- Game.money is where your money is stored in
+                if Game.money >= 250 then
+                    -- If they have the money, try to give them the rhapsotea item
+                    if Game.inventory:tryGiveItem("rhapsotea") then
+                        -- Play the equip SFX
+                        Assets.playSound("equip")
+                        -- Subtract the money if the player got the item
+                        Game.money = Game.money - 250
+                        cutscene:text("* You got a Rhapsotea.")
+                    else
+                        -- If the player inventory and storage is full, don't subtract any money
+                        cutscene:text("* You're carrying too much.")
+                    end
+                else
+                    -- If the player doesn't have enough money
+                    cutscene:text("* You don't have enough money.")
+                end
+            end
+            -- Hide the mini shop UI
+            cutscene:hideShop()
+        end
+    }
+    ```
+
+    With the cutscene done, I'll add some props to the scene and assign the cutscene to a [`Interactable`](/wiki/using-events#interactable).
+
+    ![](/wiki/shop_tutorial_4.png)
+
+    Let's see how it looks inside of the game.
+
+    <video controls preload="none">
+    <source src="/wiki/shop_tutorial_7.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+</Box>
