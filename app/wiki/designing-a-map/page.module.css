@@ -18,3 +18,7 @@
 .layer_table td:nth-child(3) {
   width: 21%;
 }
+
+.center_table td {
+  text-align: center;
+}
