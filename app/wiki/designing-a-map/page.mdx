@@ -325,3 +325,114 @@ export const metadata = {
     They're all extensions of either the [Event](/wiki/api/Event) class, or the [Character](/wiki/api/Character) class. Using Tree View on the [API Reference](/wiki/api) and looking for `Character` and `Event` will allow you to see all of them.
 
 </Box>
+
+<Box className={styles.center_table}>
+
+    ## Decorating your map
+    ---
+    Tilesets are great for making your map, but what if you want to place other sprites that aren't exactly 20x20px?
+
+    Let's take this table, chair and teapot as an example.
+    |Table|Chair|Teapot|
+    |---|---|---|
+    |<ScaledSprite src="/wiki/deco_tutorial_table.png" name="example_table.png" width={120} height={48} scale={2}/>|<ScaledSprite src="/wiki/deco_tutorial_chair.png" name="example_chair.png" width={32} height={48} scale={2}/>|<ScaledSprite src="/wiki/deco_tutorial_tea.png" name="example_tea.png" width={40} height={26} scale={2}/>|
+    |64 x 16 px|16 x 24 px|20 x 13 px|
+
+    I want to add the table with the teapot on top and the chair bellow the table, but these assets are nowhere close to being 20x20 px.
+
+    There are multiples ways to add these assets into your map, but I'll explain what I think is the easiest one. Placing them inside of a **objects layer**.
+
+    **First of all**, we have to create a tileset to contain all of these images. In [`creating tilesets`](/wiki/designing-a-map#creating-tilesets) you've created a tileset
+    of type **Based on Tileset Image**, this is perfect when everything has the same dimensions. But when we want to add sprites that have a different dimension, we'll use the 
+    **Collection of Images** type.
+
+    Go to the tileset tab and click on _New Tileset_.
+
+    ![](/wiki/deco_tutorial_1.png)
+
+    Give it a **name** and select **Collection of Images** as the type.
+    
+    ![](/wiki/deco_tutorial_2.png)
+
+    Save it inside of `scripts/world/tilesets` and then export it into a `.lua` file.
+
+    Then go to the edit tab of your tileset, you can either select the tileset you want to modify by **double clicking** on your **projects folder** or in the **tileset tab** by clicking on **Edit Tileset** 
+    while selecting the tileset you want to modify.
+
+    |Projects Folder|Tileset tab|
+    |---|---|
+    |![](/wiki/deco_tutorial_3.png)|![](/wiki/deco_tutorial_4.png)|
+
+    (Ignore the other tilesets, I've made them for other tutorials)
+
+    Inside of the edit page, you can either select **Add Tiles** and select the tile you want to add or **drag and drop** while selecting the tile you want to add.
+
+    ![](/wiki/deco_tutorial_5.png)
+
+    Select the sprites that you want to add into the tileset and you should be able to see how they look inside of the edit tab.
+
+    ![](/wiki/deco_tutorial_6.png)
+
+    Now you can place these Tiles inside of your map. To do that, go to your map, select your tile in the tiletset while making sure that you are inside of a [`objects layer`](/wiki/map-properties-and-layers#map-layers)
+    and use the **Insert Tile (T)** tool from Tiled to insert that tile inside of your map.
+
+    With the tile and the tool selected you can now place the tile inside of your map.
+
+    ![](/wiki/deco_tutorial_7.png)
+
+    As you see in the image, make sure that the Object Layer you're placing the tile in is a **objects layer**. If you try to place it while using another layer like a 
+    **Collision Layer** or a **Marker Layer**, you'll see the tile inside of Tiled, but Kristal will not place the tile inside of your map.
+
+    That is because, when Kristal finds a tile inside of a **objects layer**, it will create a [`Tile Object`](/wiki/using-events#tile-object) for that tile.
+
+    If you look at the image again, you can see that the table is too small, that's because everything is scaled by 2 inside of Deltarune (and Kristal) but our Tile Object is not.
+
+    Solving that is easy, just use the **transformation tools** or the **object properties** to scale it by two. Be careful when you're doing this because you don't want to warp
+    the dimensions of your sprite or have inconsistent pixels sizes.
+
+    **You don't want this**.
+
+    ![](/wiki/deco_tutorial_8.png)
+
+    **You want this instead**.
+
+    ![](/wiki/deco_tutorial_9.png)
+
+    If you don't scale your sprites properly, you'll have **mixels** inside of your project, that means that you have **different sizes of pixels** inside of your project. 
+    Normally, you don't want to use mixels because it makes your project's visuals look off and inconsistent.
+
+    If you want some of your assets to be on top of others, just add more **objects layers** and place them accordingly.
+    
+    For this example, I'll have two objects layers inside of my map, the table will be in the bottom layer, and the chair and teacup in the top layer.
+
+    ![](/wiki/deco_tutorial_10.png)
+
+    These Tile Objects **doesn't define any collision**, you'll have to manually add it if you don't want the player to walk on top of them.
+
+    ![](/wiki/deco_tutorial_11.png)
+
+    Let's see how it looks like inside of the game.
+
+    <video controls preload="none">
+    <source src="/wiki/deco_tutorial_1.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    Okay that's... not ideal, I want the player to be drawn on top, so why is it below the chair?
+
+    If you look into the [`map layers tutorial`](/wiki/map-properties-and-layers#list-of-map-layers) the player is been drawn in the `objects-bottom` layer, but the chair is
+    in the `objects-top` layer, solving this is easy, create the `objects_party` layer and place it on top of the other two objects layers.
+
+    ![](/wiki/deco_tutorial_12.png)
+
+    It should work now.
+
+    <video controls preload="none">
+    <source src="/wiki/deco_tutorial_2.mp4" type="video/mp4" />
+        Your browser does not support this video. Sorry!
+    </video>
+
+    There are others ways to add sprites into your maps, like using a **Image Layer**, but those have a **lot of limitations** (you can't change the sprite size)
+    and you can only have **one sprite per layer**, so I will not explain them since using `Tile Objects` is easier and more convenient.
+
+</Box>
