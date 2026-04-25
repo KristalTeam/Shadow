@@ -7,6 +7,22 @@ export default function Home() {
 
     const mods = [
         {
+            title: "#th Sanctuary",
+            description: "WORLDS ENTER COLLISION. THE KNIGHT IS TO NO FAULT. Join the fun gang in a liminal exploration reminiscient to Yume Nikki & Mario 64 B3313 crossed over with Dark Worlds!",
+            image: "/screenshots/nthsanctuary.png",
+            page: "https://gamejolt.com/games/nth_sanctum/1018037",
+            author: "Ralszor & Project Sanctum Team",
+            author_link: "https://www.youtube.com/@Ralszor"
+        },
+        {
+            title: "DELTARUNE: Frostveil",
+            description: "A take on Chapter 5's Weird Route. Explore a new Dark World, find unique weapons and armors to try and defeat the Awakened Frostmancer, Noelle.",
+            image: "/screenshots/frostveil.png",
+            page: "https://gamejolt.com/games/deltarune_frostveil/1058015",
+            author: "Duskkii",
+            author_link: "https://www.youtube.com/@Tsuska"
+        },
+        {
             title: "Godhome",
             description: "Take your place amongst the Gods. 40+ boss fights, challenge modes, and a unique ending. Contains major spoilers for Hollow Knight.",
             image: "/screenshots/godhome.png",
@@ -23,14 +39,6 @@ export default function Home() {
             author_link: "https://www.guilded.gg/i/240D4G02"
         },
         {
-            title: "Deltarune: Missing Light",
-            description: "Traverse through different worlds and realities, and save the multiverse from being consumed by darkness and anomalies!",
-            image: "/screenshots/deltarune_missing_light.png",
-            page: "https://gamejolt.com/games/missinglight/799416",
-            author: "DiamondBor",
-            author_link: "https://www.youtube.com/channel/UCs76CI1gJeWx77sSTCCbICA"
-        },
-        {
             title: "Frozen Heart",
             description: "The end of the Snowgrave Route seen from another place. While Kris gets torn to pieces by a bootleg Mettaton NEO, Susie has to face Noelle, lost in the trance of the Thorn Ring, before she freezes her to death! And who knows, maybe the situation can get even worse than that?",
             image: "/screenshots/frozen_heart.png",
@@ -45,6 +53,14 @@ export default function Home() {
             page: "https://gamejolt.com/games/Deltamon/946082",
             author: "Riverstar",
             author_link: null
+        },
+        {
+            title: "Deltarune: Missing Light",
+            description: "Traverse through different worlds and realities, and save the multiverse from being consumed by darkness and anomalies!",
+            image: "/screenshots/deltarune_missing_light.png",
+            page: "https://gamejolt.com/games/missinglight/799416",
+            author: "DiamondBor",
+            author_link: "https://www.youtube.com/channel/UCs76CI1gJeWx77sSTCCbICA"
         }
     ]
 
