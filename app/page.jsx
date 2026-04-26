@@ -31,6 +31,14 @@ export default function Home() {
             author_link: "https://www.youtube.com/@funkygarb"
         },
         {
+            title: "No Words Spoken",
+            description: "Two roads lie ahead for Kris—and they can’t hear your voice anymore. All they know is this: they will not walk either path as a puppet, and you are the last thread left to cut.",
+            image: "/screenshots/nowordsspoken.png",
+            page: "https://gamebanana.com/mods/642559",
+            author: "AcousticJamm",
+            author_link: "https://rootapp.gg/ACuv93NxigqCycHYi4-m1g"
+        },
+        {
             title: "Godhome",
             description: "Take your place amongst the Gods. 40+ boss fights, challenge modes, and a unique ending. Contains major spoilers for Hollow Knight.",
             image: "/screenshots/godhome.png",
@@ -44,7 +52,7 @@ export default function Home() {
             image: "/screenshots/deoxynn.png",
             page: "https://gamebanana.com/mods/434334",
             author: "AcousticJamm",
-            author_link: "https://www.guilded.gg/i/240D4G02"
+            author_link: "https://rootapp.gg/ACuv93NxigqCycHYi4-m1g"
         },
         {
             title: "Frozen Heart",
