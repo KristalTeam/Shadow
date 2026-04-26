@@ -23,6 +23,14 @@ export default function Home() {
             author_link: "https://www.youtube.com/@Tsuska"
         },
         {
+            title: "Plugged Dream",
+            description: "The gaming console. The dusty screen. And HE, asking for one last challenge, like in the old days. Gaining the power from the wires, RAMB became stronger. Now, will you be able to defeat him?",
+            image: "/screenshots/pluggeddream.png",
+            page: "https://gamejolt.com/games/pluggeddream/1019739",
+            author: "Funkin's Garbage",
+            author_link: "https://www.youtube.com/@funkygarb"
+        },
+        {
             title: "Godhome",
             description: "Take your place amongst the Gods. 40+ boss fights, challenge modes, and a unique ending. Contains major spoilers for Hollow Knight.",
             image: "/screenshots/godhome.png",
