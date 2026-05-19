@@ -31,6 +31,14 @@ export default function Home() {
             author_link: "https://www.youtube.com/@funkygarb"
         },
         {
+            title: "Deltarune: UZUMAKI",
+            description: "Join the DELTA WARRIORS in a journey to break the endless cycle, and free everyone from their fate. In this fangame, you can play small snippets of Deltarune: UZUMAKI's hypothetical Chapters 3 to 7. The Demo is currently in development, so please have patience!",
+            image: "/screenshots/uzumaki.png",
+            page: "https://deltaruneuzumaki.neocities.org/",
+            author: "RazFraz, Emily Ember Ignatus Bunnington & Team Raspberry",
+            author_link: "https://www.youtube.com/@RazFraz"
+        },
+        {
             title: "No Words Spoken",
             description: "Two roads lie ahead for Kris—and they can’t hear your voice anymore. All they know is this: they will not walk either path as a puppet, and you are the last thread left to cut.",
             image: "/screenshots/nowordsspoken.png",
