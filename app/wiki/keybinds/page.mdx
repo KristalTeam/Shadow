@@ -50,10 +50,10 @@ Additionally, `lsup`, `lsdown`, `lsleft`, and `lsright` are the left stick direc
 
 Using the new custom keybind is like using any other keybind in Kristal.
 
-You can use the `Input` class to check if the keybind is pressed:
+You can use `Input` to check if the keybind is pressed:
 
 ```lua
-if Input:down("dance") then
+if Input.down("dance") then
     Game.world.player:setAnimation("dancing")
 end
 ```
