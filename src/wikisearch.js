@@ -1,5 +1,5 @@
 import lunr from 'lunr';
-import data from '/app/data/wiki-index.json'
+import data from '@/app/data/wiki-index.json'
 
 const STRING_MAX_SIZE = 80;
 

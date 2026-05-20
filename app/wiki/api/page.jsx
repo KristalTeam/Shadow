@@ -1,5 +1,5 @@
-import { TYPES, sanitizeLink } from '/src/docparser.mjs';
-import Docbox from 'components/Docbox';
+import { TYPES, sanitizeLink } from '@/src/docparser.mjs';
+import Docbox from '@/components/Docbox';
 import styles from './page.module.css';
 import Link from 'next/link';
 import SwapVisibilityButton from 'components/SwapVisibilityButton'

@@ -17,7 +17,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }){
 
-    let desc = TYPES.find((current) => current.name == params.path[0])?.defines?.[0]?.rawdesc
+    const { path } = await params;
+
+    let desc = TYPES.find((current) => current.name == path[0])?.defines?.[0]?.rawdesc
 
     if (desc) {
         desc = desc.trim()
@@ -51,7 +53,7 @@ export async function generateMetadata({ params }){
     }
 
     return {
-        title: String(params.path) + " | Kristal API",
+        title: String(path) + " | Kristal API",
         description: desc ?? "Kristal API Reference"
     }
 }
@@ -444,10 +446,11 @@ function Api_variable(type, { params }) {
 }
 
 export default async function Api({ params }) {
-        
+    const { path } = await params;
+
     // read the types from TYPES 
 
-    const type = TYPES.find((current) => current.name == params.path[0]);
+    const type = TYPES.find((current) => current.name == path[0]);
 
     if (!type) {
         return notFound();
