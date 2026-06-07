@@ -287,12 +287,12 @@ export const metadata = {
     #### Using paths on an NPC
     ---
 
-    First, head over the [NPCs tutorial](#npc) to make an NPC. Then we're going to make it actually move.
+    First, head over to the [NPCs tutorial](#npc) to make an NPC. Then we're going to make it actually move.
 
     Now that you have your NPC, let's make a path for it to move.
 
     Use the **insert polygon tool (P)** to create a polygon that defines the path the NPC will move through, then **name** your path.
-    I'll name mine `test_path1`. You should **close** this polygon since the npc will loop through it.
+    I'll name mine `test_path1`. You should **close** this polygon since the NPC will loop through it.
 
     ![](/wiki/path_tutorial_1.png)
 
@@ -302,7 +302,7 @@ export const metadata = {
     - `progress: number = 0` -> The initial progress of the NPC along their `path`, if defined, as a decimal value between 0 and 1. 
     0 being the start of the path and 1 the end of the path.
 
-    So... let's add these to our npc. Since the name of the path I created is `test_path1` this is how I ended up configuring my npc.
+    So... let's add these to our npc. Since the name of the path I created is `test_path1` this is how I ended up configuring my NPC.
 
     ![](/wiki/path_tutorial_2.png)
 
@@ -454,13 +454,13 @@ export const metadata = {
 
     ### Examples
     ---
-    #### Using an script
+    #### Using a script
     Follow the [script creation tutorial](#making-scripts) and add the `test_script` to the `script` custom property.
 
     <>![](/wiki/interactable_script_tutorial.png)</>
 
     #### Using a cutscene
-    It's the same process as using an script, we can even use the same test cutscenes as in the
+    It's the same process as using a script, we can even use the same test cutscenes as in the
     [cutscenes tutorial](/wiki/cutscenes). Just add a `cutscene` property and give it the value: `examples.center`
 
     <>![](/wiki/interactable_cutscene_tutorial.png)</>
@@ -566,7 +566,7 @@ export const metadata = {
     - `simple: boolean = Project configuration` -> If **true**, the Savepoint will use its simple version.
     Without recruits and storage, like in Chapter 1.
     <br></br>If **false**, the Savepoint will use the menu with these two options.
-    <br></br>By default, it uses the value configured in you project properties in the **mod.json** file.
+    <br></br>By default, it uses the value configured in your project properties in the **mod.json** file.
     - `text_once: boolean = false` -> If **true**, the Savepoint will only display the interactable text on the first Interaction.
     <br></br>If **false**, the Savepoint always display the interaction text.
     - `heals: boolean = true` -> If **true**, the party will get healed when interacting with the Savepoint.
@@ -698,7 +698,7 @@ export const metadata = {
 <Box>
     ## Outline
     ---
-    Outline is a region of the map that draws a colored stencil outline for all the character that are inside of that area.
+    Outline is a region of the map that draws a colored stencil outline for all the characters that are inside of that area.
     The color of this outline is defined by the `Actor` of the character in the `self.color` field.
 
     This [`Event`](/wiki/api/Event) is an `area`, and naming an object `outline` on an `objects` layer in a map creates this object.
@@ -711,7 +711,7 @@ export const metadata = {
 
     <>![](/wiki/outline_tutorial_1.png)</>
 
-    That's it! Now just step into the area with you party like in the image bellow.
+    That's it! Now just step into the area with you party like in the image below.
 
     <>![](/wiki/outline_tutorial_2.png)</>
     <video controls preload="none">
@@ -726,7 +726,7 @@ export const metadata = {
     ---
     A slide area is an area of the map that makes the player slide down when entered.
     
-    To create this [`Event`](/wiki/api/Event), create an `area` on a `objects` layer and name it `slidearea`.
+    To create this [`Event`](/wiki/api/Event), create an `area` on an `objects` layer and name it `slidearea`.
 
     List of configurable properties for this event:
     - `lock: boolean = false` -> If **true**, the player can't move when sliding down. 
@@ -761,7 +761,7 @@ export const metadata = {
 
     ### Example
     ---
-    First, create the `area` that you want in an `objects` layer and then name it `silhouette`. Like in the example bellow.
+    First, create the `area` that you want in an `objects` layer and then name it `silhouette`. Like in the example below.
 
     <>![](/wiki/silhouette_tutorial_1.png)</>
 
@@ -796,7 +796,7 @@ export const metadata = {
     ---
 
     This [`Event`](/wiki/api/Event) is a region in the Overworld that causes the camera to target a specific position while the player is inside.
-    Usefully when you want to make the player focus on an specific object.
+    Useful when you want to make the player focus on a specific object.
 
     This event is an `area` and naming an object `cameratarget` on an `objects` layer creates this event.
 
@@ -913,7 +913,7 @@ export const metadata = {
     |![](/wiki/setflag_tutorial_1.png)|![](/wiki/setflag_tutorial_2.png)|![](/wiki/setflag_tutorial_3.png)|
     |string|bool|int|
     
-    This video show how the event works.
+    This video shows how the event works.
 
     <video controls preload="none">
     <source src="/wiki/setflag_tutorial_1.mp4" type="video/mp4" />
@@ -1009,9 +1009,9 @@ export const metadata = {
         Your browser does not support this video. Sorry!
     </video>
 
-    Wait... that doesn't look right! Why does the glass tiles show in front of the player and the chest?
+    Wait... that doesn't look right! Why do the glass tiles show in front of the player and the chest?
 
-    That is because both the player an the glass tiles are being drawn on the same layer, 
+    That is because both the player and the glass tiles are being drawn on the same layer, 
     so the object that is lower gets drawn first.
 
     This is easy to fix, as seen in the [Map Layers Page](/wiki/map-properties-and-layers#map-layers), we can just
@@ -1024,7 +1024,7 @@ export const metadata = {
     ![magicglass_tutorial_2](/wiki/magicglass_tutorial_2.png)
 
 
-    If you don't know in witch layer is located an object, use the `Select Objects (S)` tool in Tiled and 
+    If you don't know in which layer your object is located in, use the `Select Objects (S)` tool in Tiled and 
     select your object, the layer the object is on will be highlighted in blue.
 
     This should be how everything looks after those changes!
@@ -1045,7 +1045,7 @@ export const metadata = {
     this is how you can make a tile that has the properties of an [Object](/wiki/api/Object).
 
     TileObject is not a normal Event, it has no properties, and you create them using the `Insert Tile (T)` feature from Tiled
-    inside of a `objects` layer. Then select the tile that you want to place from your tileset and place it in the map.
+    inside of an `objects` layer. Then select the tile that you want to place from your tileset and place it in the map.
 
     Since the tiles are 20x20px and a tile from the map is 40x40px, you'll need to use the transform controls and scale it
     to the size that you want.
@@ -1054,11 +1054,11 @@ export const metadata = {
     ---
     For this example, let's place a tileobject and create a script to do something with it. 
 
-    Follow the tutorial bellow if you still don't get how to make them.
+    Follow the tutorial below if you still don't get how to make them.
 
     ![](/wiki/tileobject_tutorial_1.png)
 
-    Then let's create an script to do something with this tileobject, we'll just modify the script from the
+    Then let's create a script to do something with this tileobject, we'll just modify the script from the
     [script making tutorial](#making-scripts) to do something like this instead.
 
     ```lua
@@ -1068,7 +1068,7 @@ export const metadata = {
     return function(event, player)
         --Play an alert sound
         Assets.playSound("alert")
-        -- Get the tile from it's id
+        -- Get the tile from its id
         ---@type Event
         local tile = Game.world:getEvent(75) -- Replace with the id of your tileobject.
         --- Shake the object and make it fall upwards
@@ -1077,7 +1077,7 @@ export const metadata = {
     end
     ```
 
-    Since the tileobject is created as an event, you can get access to it using the Game.world:getEvent(id) function.
+    Since the tileobject is created as an event, you can get access to it using the `Game.world:getEvent(id)` function.
     This will give you the object in the map that has that id. If you don't know what the id is, you can
     look at it in the object properties.
 
@@ -1103,7 +1103,7 @@ export const metadata = {
 
     Warp doors are objects that allow the player to **fast travel** between Overworld locations.
 
-    To create this [`Event`](/wiki/api/Event), place a point on a `objects` layer and call it `warpdoor`.
+    To create this [`Event`](/wiki/api/Event), place a point on an `objects` layer and call it `warpdoor`.
 
     These are the custom properties of this event:
     - `open: boolean = true` -> If **true**, the door is open and the player can interact with it to fast travel.
@@ -1114,8 +1114,8 @@ export const metadata = {
     - `map: string[]` -> The list of the names of the maps where the player can fast travel to.
     - `name: string[]` -> The list of the names the warp choice will display for each available map.
     - `marker: string[]` -> The names of the markers the door will teleport the player to.
-    - `flag: string[]` -> A list of flags to check for to decide whether a map can be warped to or not. This is usefully if you
-    want to allow the player to fast travel in the middle of you project, but not to a latter location.
+    - `flag: string[]` -> A list of flags to check for to decide whether a map can be warped to or not. This is useful if you
+    want to allow the player to fast travel in the middle of your project, but not to a latter location.
 
     ### Examples
     ---
@@ -1129,8 +1129,8 @@ export const metadata = {
     - `map2` -> example_map_2 -- This is the name of the second map you want to fast travel to.
     - `name1` -> Start -- The name the door will use for the selection of map1.
     - `name2` -> End -- The name the door will use for the selection of map2.
-    - `marker1` -> door_warp -- The marker the door will teleport the player when they select map1 as the destiny.
-    - `marker2` -> door_warp -- The marker the door will teleport the player when they select map2 as the destiny.
+    - `marker1` -> door_warp -- The marker the door will teleport the player to when they select map1 as the destination.
+    - `marker2` -> door_warp -- The marker the door will teleport the player zto when they select map2 as the destination.
 
     You can define up to four maps, but you'll also need to define `map3`, `map4`, `name3`, `name4`, `marker3` and `marker4`.
 
@@ -1211,7 +1211,7 @@ export const metadata = {
     ## Mirror area
     ---
 
-    A mirror area is a region in the Overworld that reflects the characters bellow it, like a mirror.
+    A mirror area is a region in the Overworld that reflects the characters below it, like a mirror.
 
     `MirrorArea` is an [`Event`](/wiki/api/Event) and naming an object `mirror` on an `objects` layer in a map creates this object.
 
@@ -1228,7 +1228,7 @@ export const metadata = {
 
     For the first example, I'll just create a mirror to show how the event works.
 
-    This event is simple to use, just create an area where you want to place your mirror at, like in the image bellow.
+    This event is simple to use, just create an area where you want to place your mirror at, like in the image below.
 
     ![](/wiki/mirror_tutorial_1.png)
 
@@ -1264,7 +1264,7 @@ export const metadata = {
     ## Push Block
     ---
     A pushable block that is usually used to make puzzles, to create this [`Event`](/wiki/api/Event), place an `area` that covers only **one tile**
-    in a `objects` layer and name it `pushblock`.
+    in an `objects` layer and name it `pushblock`.
 
     To create the boundaries of where the push block can and cannot move, you need to create a new `blockcollision` layer, 
     in this layer you define the collision of the pushable blocks, the player is not affected by this collision.
@@ -1273,7 +1273,7 @@ export const metadata = {
     You also should use a different kind of floor to let the player know what are the boundaries of the block.
 
     This is the list of the configurable properties of this event.
-    - `sprite: string` ->  An option custom sprite that the block will use instead of the normal one. <br></br> 
+    - `sprite: string` ->  An optional custom sprite that the block will use instead of the normal one. <br></br> 
     If you want to use the normal sprite, you don't need this.
     - `solvedsprite: string` -> An optional custom sprite that the block will use when it's on a solved state. <br></br> 
     Updated automatically when the block is on top of a [Tile Button](#tile-button).
@@ -1357,9 +1357,9 @@ export const metadata = {
             for _, pushblock in ipairs(Game.stage:getObjects(PushBlock)) do
                 pushblock:reset()
             end
-            -- Prevets the player for moving while the block are resetting,
+            -- Prevents the player from moving while the blocks are resetting,
             -- if you don't do this, the player
-            -- can step where the block are supposed to go and get stuck
+            -- can step where the blocks are supposed to go and get stuck
             -- in the collision.
             Game.lock_movement = true
             Game.world.timer:after(.4, function ()
@@ -1403,7 +1403,7 @@ export const metadata = {
     This is the list of configurable properties for this event:
     - `sprite: string` -> An optional custom sprite to use instead of the normal **idle** one.
     - `pressedsprite: string` -> An optional custom sprite to use when this button is **pressed** instead of the normal one.
-    - `onsound: string` -> The sound effect to use when something steps in the button.
+    - `onsound: string` -> The sound effect to use when something steps on the button.
     - `offsound: string` -> The sound effect to use when the button is no longer pressed down.
     - `blocks: boolean = false` -> If **true**, this tile button can **only be activated** by [Push Blocks](#push-block).
     <br></br>If **false**, the tile button can **only be activated** by [NPCs](#npc), the [Player](/wiki/api/Player) and [Followers](/wiki/api/Follower).
@@ -1440,7 +1440,7 @@ export const metadata = {
     return function(event)
         -- Since we're calling this script from a Tile Button, we only get the event
 
-        -- This will make it so the TileButton can't be activated with 
+        -- This will make it so the TileButton can't be activated by 
         -- the followers, only by the player
         -- We can't configure this in the properties since the `blocks` 
         -- property only tells if the button can be activated 
@@ -1448,13 +1448,13 @@ export const metadata = {
         event.npc_activated = false
         Assets.playSound("noise")
         Assets.playSound("him_quick")
-        -- Get every PushBlock in the current scene and reset it to its default
+        -- Get every PushBlock in the current scene and reset it to its default position
         for _, pushblock in ipairs(Game.stage:getObjects(PushBlock)) do
             pushblock:reset()
         end
 
-        -- Prevets the player for moving while the block are resetting, if you don't do this, the player
-        -- can step where the block are supposed to go and get stuck in the collision.
+        -- Prevents the player from moving while the blocks are resetting, if you don't do this, the player
+        -- can step where the blocks are supposed to go and get stuck in the collision.
         Game.lock_movement = true
         Game.world.timer:after(.4, function ()
             Game.lock_movement = false
@@ -1481,7 +1481,7 @@ export const metadata = {
 
     ![](/wiki/tilebutton_tutorial_2.png)
 
-    Then let's create the buttons that the puzzle will solve. Since we have two boxes, we'll add two `tilebutton` with
+    Then let's create the buttons that the puzzle will solve. Since we have two boxes, we'll add two `tilebutton`s with
     these properties.
     - `blocks: bool` = **true**. We only want the button to be activated with a pushable box.
     - `once: bool` = **true**. Once we solved the puzzle, it can't be unsolved anymore.
@@ -1498,7 +1498,7 @@ export const metadata = {
         Your browser does not support this video. Sorry!
     </video>
 
-    It worked! But why don't we spice things a little bit, why don't we add another puzzle, but this one will be activated when
+    It worked! But why don't we spice things up a little bit? We'll make another puzzle, but this one will be activated when
     Kris, Susie and Ralsei step on three buttons. Making this is very simple, we'll add another [forcefield](#forcefield), that uses
     the `flag` **example_room:puzzle_2_solved** and more step buttons.
 
@@ -1511,7 +1511,7 @@ export const metadata = {
     ![](/wiki/tilebutton_tutorial_4.png)
 
     And then create the new `tilebutton` with these properties.
-    - `once: bool` = **true**. Once we solved the puzzle, it can't be unsolved anymore.
+    - `once: bool` = **true**. Once we've solved the puzzle, it can't be unsolved anymore.
     - `flag: string` = **example_room:puzzle_2_solved**. The same flag of the second forcefield.
     - `group: int` = **2**. The group id of the buttons, this way, the puzzle will be solved when all buttons are pressed.
     This id has to be different from the one in the first puzzle since we want to create independent puzzles.
@@ -1536,7 +1536,7 @@ export const metadata = {
 
     ### Dark fountain
     ---
-    First we have the **dark fountain** itself, this is an event, an to create it, place a `point` in an `objects` layer and name it `darkfountain`.
+    First we have the **dark fountain** itself, this is an event, and to create it, place a `point` in an `objects` layer and name it `darkfountain`.
 
     This is the configurable property of this event.
     - `narrow: boolean = false` -> This is used if you want to create a narrow dark fountain (like the dark fountain in the first sanctuary of chapter 4) instead of the normal one.
@@ -1564,7 +1564,7 @@ export const metadata = {
     #### Example
     ---
     I've modified the room a bit to place this new event, since `fountainfloor` is an object, make sure that you create it in an 
-    `objects` layer that's **bellow the one the player is drawn at** or you might find that the floor gets drawn above the player. 
+    `objects` layer that's **below the one the player is drawn at** or you might find that the floor gets drawn above the player. 
     
     Go to the [Magic Glass](#magic-glass) tutorial if you don't know what I'm talking about.
 
@@ -1575,7 +1575,7 @@ export const metadata = {
         Your browser does not support this video. Sorry!
     </video>
 
-    That looks good, but we are still mising an important part of the dark fountain room, the shadow effect of the characters.
+    That looks good, but we are still mising an important part of the dark fountain room, the shadows of the characters.
 
     ### Fountain Shadow Controller
     ---
@@ -1622,10 +1622,10 @@ export const metadata = {
     `if flag == true`
     - `target: (Character|Event|Collider)[]` -> A list of **objects** that this **controller is attached to** and is responsible for toggling on or off.
     
-    Wait... what does `(Character|Event|Collider)[]` mean? It simple, target is an array of the objects that the controller can toggle, and those objects can be
-    events (this includes other characters like npcs) or a collider on the map.
+    Wait... what does `(Character|Event|Collider)[]` mean? It's simple, target is an array of the objects that the controller can toggle, and those objects can be
+    events (Including other characters like NPCs) or a collider on the map.
 
-    How do you create this property inside of Tiled then? To do this, we're going to use a **Tiled type** that we haven't use until now, the **object** type.
+    How do you create this property inside of Tiled then? To do this, we're going to use a **Tiled property type** that we haven't used until now, the **object** type.
 
     ![](/wiki/toggle_controller_tutorial_2.png)
 
@@ -1633,7 +1633,7 @@ export const metadata = {
 
     So create the targets like this: `target1`, `target2`, `target3`, `target4`, `target5`, ..., `targetN`. **targetN** means that you can have as many targets as you want.
 
-    This image show how you can link objects in your map to this property.
+    This image shows how you can link objects in your map to this property.
 
     ![](/wiki/toggle_controller_tutorial_3.png)
 
@@ -1643,7 +1643,7 @@ export const metadata = {
 
     ### Examples
     ---
-    I've already showed how to link the objects to the toggle, so let's go over an example that show how this works.
+    I've already showed how to link the objects to the toggle, so let's go over an example that shows how this works.
 
     I've created a toggle linked to two chests and a collider that blocks the way, I've also given it `chest_active` as the `flag` it should check for.
 
@@ -1672,9 +1672,9 @@ export const metadata = {
 
 <Box>
 
-    ## NPC
+    ## NPCs
     ---
-    NPC are an extension of [Character](/wiki/api/Character) that can be placed on a map as if they were an event.
+    NPCs are an extension of [Character](/wiki/api/Character) that can be placed on a map as if they were an event.
 
     Naming an object `npc` on an `objects` layer in a map creates an NPC.
 
@@ -1695,14 +1695,14 @@ export const metadata = {
     If you enable turn, make sure that the sprite your NPC is using is a **facing sprite**. I'll use the same tutorial that's in 
     [Chaser Enemy](#chaser-enemy) to explain what a facing sprite is.
 
-    Lets stop here for a bit, what does mean having a facing sprite? We'll use kris sprites as an example. Head over the folder `assets/sprites/party/kris/dark` in Kristal.
+    Lets stop here for a bit, what does having a facing sprite mean? We'll use kris sprites as an example. Head over to the folder `assets/sprites/party/kris/dark` in Kristal.
     <br></br>If we look into the `walk` folder, you can see that we have sprites for all four directions `left`, `right`, `up` and `down`.
     <br></br>So if we create an NPC with **kris as the actor** we can set `facing` and the game will use one of these four sprites,
-    depending on the facing value. But you don't have to create a separate folder to do this. When the game checks if an sprite is a facing sprite, it uses two
-    kinds of separators **\_** and **\/**. So you can either define the sprites as **animation`_`direction** like **walk_down**, **walk_up**, **walk_left** and **walk_right** 
+    depending on the facing value. But you don't have to create a separate folder to do this. When the game checks if a sprite is a facing sprite, it uses two
+    kinds of separators: **\_**, and **\/**. So you can either define the sprites as **animation`_`direction** like **walk_down**, **walk_up**, **walk_left** and **walk_right** 
     or create a folder with the **name of the sprite** and place the sprites inside, naming them **left**, **right**, **up** and **down**.
 
-    - `talk: boolean = true` -> If **true**, the NPC does a talking animation when interacted and typing in the dialogue.
+    - `talk: boolean = true` -> If **true**, the NPC does a talking animation when interacted with and typing in the dialogue.
     <br></br>If **false**, the NPC doesn't do this animation. This is explained in the examples.
     - `talksprite: string` -> The name of a talk sprite to use for the NPC when talking.
     Set this to the name of the sprite you want to use for talking instead of the default one.
@@ -1726,7 +1726,7 @@ export const metadata = {
 
     ### Examples
     ---
-    First, we need to create a new actor to use as an npc or use one that is already defined. 
+    First, we need to create a new actor to use as an NPC or use one that is already defined. 
     You can create the actor for the new npcs in `scripts/data/actors` and store the assets in `assets/sprites/npcs`.
 
     Since a new project already comes with `starwalker` as an NPC, we can use it for this example.
@@ -1746,10 +1746,10 @@ export const metadata = {
         Your browser does not support this video. Sorry!
     </video>
 
-    As you can see, this creates a `starwalker` npc with the text as an interaction. But what if we want starwalker to turn
+    As you can see, this creates a `starwalker` NPC with the text as an interaction. But what if we want starwalker to turn
     towards the player when you talk to them from the side?
 
-    Doing that is easy, but we need to organize our npc first, to do that, make a new folder inside of `assets/sprites/npcs` 
+    Doing that is easy, but we need to organize our NPC first, to do that, make a new folder inside of `assets/sprites/npcs` 
     and call it `starwalker`. Then, inside the folder, we're going to add new sprites for starwalker directional talk.
 
     These are the sprites that I made, just copy them into the folder you just made with the name of the headers.
@@ -1778,7 +1778,7 @@ export const metadata = {
     return actor
     ```
 
-    You'll need to add the custom property `turn` to the npc, so it knows to use the directional sprites.
+    You'll need to add the custom property `turn` to the NPC, so it knows to use the directional sprites.
 
     ![](/wiki/npc_tutorial_3.png)
 
@@ -1800,7 +1800,7 @@ export const metadata = {
     |---|---|---|---|
     |![](/wiki/starwalker_idle_left.png)|![](/wiki/starwalker_idle_left2.png)|![](/wiki/starwalker_idle_right.png)|![](/wiki/starwalker_idle_right2.png)|
 
-    This is what your npc folder should look like.
+    This is what your NPC folder should look like.
 
     ![](/wiki/npc_tutorial_4.png)
 
@@ -1824,7 +1824,7 @@ export const metadata = {
     return actor
     ```
 
-    This is what your npc should look like.
+    This is what your NPC should look like.
 
     <video controls preload="none">
     <source src="/wiki/npc_tutorial_3.mp4" type="video/mp4" />
@@ -1843,22 +1843,22 @@ export const metadata = {
     ## Chaser Enemy
     ---
     Chaser enemies are the enemies that you encounter in the Overworld and start an encounter when you collide with them.
-    This is a complex event, so I hope this tutorial helps you implement your enemies in you project.
+    This is a complex event, so I hope this tutorial helps you implement your enemies in your project.
 
     A Chaser Enemy is not an extension of [`Event`](/wiki/api/Event), it's an extension of [`Character`](/wiki/api/Character) but they are created like an Event.
     To create an enemy, place a `point` or a `one tile area` in an `objects layer` and name it `enemy`.
 
     These are the configurable properties of this object:
-    - `actor: string` -> The actor ID of this enemy, used to display the enemy in the map. If you don't want you project to crash, define this.
+    - `actor: string` -> The actor ID of this enemy, used to display the enemy in the map. If you don't want your project to crash, define this.
     - `sprite: string` -> The sprite to use for this enemy instead of the default sprite defined in the actor data.
     - `animation: string` -> The animation to use for this enemy instead of the default animation defined in the actor data.
     - `facing: string` -> The facing direction of the enemy, if you have a facing sprite. Can be `left`, `right`, `up` or `down`.
 
-    Lets stop here for a bit, what does mean having a facing sprite? We'll use kris sprites as an example. Head over the folder `assets/sprites/party/kris/dark` in Kristal.
+    Lets stop here for a bit, what does having a facing sprite mean? We'll use kris sprites as an example. Head over to the folder `assets/sprites/party/kris/dark` in Kristal.
     <br></br>If we look into the `walk` folder, you can see that we have sprites for all four directions `left`, `right`, `up` and `down`.
     <br></br>So if we create an enemy with **kris as the actor** we can set `facing` and the game will use one of these four sprites,
-    depending on the value. But you don't have to create a separate folder to do this. When the game checks if an sprite is a facing sprite, it uses two
-    kinds of separators **\_** and **\/**. So you can either define the sprites as **animation`_`direction** like **walk_down**, **walk_up**, **walk_left** and **walk_right** 
+    depending on the value. But you don't have to create a separate folder to do this. When the game checks if a sprite is a facing sprite, it uses two
+    kinds of separators: **\_**, and **\/**. So you can either define the sprites as **animation`_`direction** like **walk_down**, **walk_up**, **walk_left** and **walk_right** 
     or create a folder with the **name of the sprite** and place the sprites inside, naming them **left**, **right**, **up** and **down**.
 
     - `encounter: string` -> The encounter ID that will trigger when the player collides with the enemy. Stored in `scripts/battle/encounters`.
@@ -1866,8 +1866,8 @@ export const metadata = {
     <br></br>Wait... why do we need to define the `enemy` if we also define the `actor`? I don't really know, but I can tell you what they do.
     The **actor** is used for the sprite that's in the overworld and to make the transition to the battle, while **enemy**
     is added to the enemies that transition into battle, along with the actor.
-    - `group: string` -> An arbitrary ID that can be given to multiple enemies and make them group together. So when the Player defeats that encounter,
-    all the enemies on that group are unloaded from the map.
+    - `group: string` -> An arbitrary ID that can be given to multiple enemies and group them together. So when the Player defeats that encounter,
+    all the enemies in that group are unloaded from the map.
     - `path: string` -> The name of the path shape that the enemy will follow. Use the [Path system tutorial](#path-system-tutorial) as a reference.
     - `speed: number = 6` -> The speed that the enemy will move along the path specified in `path`, if defined. This can be a float.
     - `progress: number = 0` -> The initial progress of the enemy along their `path`, if defined, as a decimal value between 0 and 1. 
@@ -1877,7 +1877,7 @@ export const metadata = {
     - `chasing: boolean = false` -> If **true**, the enemy will start chasing the player as soon as they enter the room.
     <br></br>If **false**, the enemy will move as configured in the other properties.
     - `chasedist: number = 200` -> The distance, in pixels, that the enemy can see the player from. 
-    So when the player distance to the enemy is less that `chasedist`, the enemy will start chasing the player if `chase` is set to true.
+    So when the player's distance to the enemy is less that `chasedist`, the enemy will start chasing the player if `chase` is set to true.
     - `chasetype: string = linear` -> How the enemy will chase the player. This property has multiple values you can give it:
         - `linear` -> The enemy will chase the player at a constant speed unless a `chaseaccel` is given. In that case, the speed is multiplied by the acceleration each frame.
         - `multiplier` -> The enemy speed is exponential to the time it has been chasing the player.
@@ -1896,7 +1896,7 @@ export const metadata = {
 
     - `once: boolean = false` -> If **true**, the enemy will not spawn anymore once **its encounter has been done**.
     <br></br>If **false**, the enemy will spawn when the room loads, even if you've done its encounter.
-    - `aura: boolean` -> If **true**, the enemy will have an aura around it as seen in the enemies in Chapter 2.
+    - `aura: boolean` -> If **true**, the enemy will have an aura around it as seen in Chapter 2.
     <br></br>If **false**, the enemy won't have this aura around it.
     <br></br>The default value of this is set in the **config file** of your project. In the **enemyAuras** property.
 
@@ -2046,7 +2046,7 @@ export const metadata = {
     ![](/wiki/chaserenemy_tutorial_8.png)
 
     Then we're going to create the other enemy and modify the properties to create the enemy that we want.
-    Since we're going to test the group property, make sure that both of the have the **same group**. 
+    Since we're going to test the group property, make sure that both of them have the **same group**. 
     <br></br>You'll also need to **modify the dummy encounter** and add another dummy.
     
     ![](/wiki/chaserenemy_tutorial_9.png)
@@ -2077,7 +2077,7 @@ export const metadata = {
         Your browser does not support this video. Sorry!
     </video>
 
-    I've speed up the Game to make it faster to see.
+    I've sped up the Game to make it faster to see.
 
     Now let's test what happens when we set `pacereturn` to false.
 
@@ -2086,7 +2086,7 @@ export const metadata = {
         Your browser does not support this video. Sorry!
     </video>
 
-    As you can see, the enemy now goes to every marker and then returns home when it reaches the last one.
+    As you can see, the enemy now goes to every marker and then returns to its original positiom when it reaches the last one.
 
     Now let's test the **randomwander pacetype** type, just set the property `pacetype` to `randomwander`. I'll also set `pacereturn` as true.
 
@@ -2095,7 +2095,7 @@ export const metadata = {
         Your browser does not support this video. Sorry!
     </video>
 
-    The last thing we have to test, are the **verticalswing and horizontalswing pacetype**. Both of them have the same parameters,
+    The last things we have to test, are the **verticalswing** and the **horizontalswing** pacetypes. Both of them have the same parameters,
     it just changes the way that they move, with **verticalswing**, the enemy will go up and down and with **horizontalswing**,
     the enemy will go right and left.
 
@@ -2107,13 +2107,13 @@ export const metadata = {
     </video>
 
     Now with **horizontalswing**, set `pacetype` to `horizontalswing`. This time I'll set `swinglength` to 300 and `swingdiv` to 12. 
-    This will make the enemy move more distance and at double the speed.
+    This will make the enemy move farther and at double the speed.
 
     <video controls preload="none">
     <source src="/wiki/chaserenemy_tutorial_13.mp4" type="video/mp4" />
         Your browser does not support this video. Sorry!
     </video>
 
-    That should be all for this object, so I hope this tutorial was helpful.
+    That should be all for this event, so I hope this tutorial was helpful.
 
 </Box>
