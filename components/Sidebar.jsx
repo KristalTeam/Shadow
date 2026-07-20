@@ -84,8 +84,9 @@ export default function Sidebar(props) {
         <p>Everything to do with the overworld.</p>
         <ul>
             <li><Link href="/wiki/designing-a-map">Designing a Map</Link></li>
+            <li><Link href="/wiki/map-layers">Map Layers</Link></li>
             <li><Link href="/wiki/cutscenes">Cutscenes</Link></li>
-            <li><Link href="/wiki/map-properties-and-layers">Map Properties and Layers</Link></li>
+            <li><Link href="/wiki/map-properties">Map Properties</Link></li>
             <li><Link href="/wiki/using-events">Events</Link></li>
             <li><Link href="/wiki/battle-areas">Battle Areas</Link></li>
             <li><Link href="/wiki/world-tool">The World Tool</Link></li>

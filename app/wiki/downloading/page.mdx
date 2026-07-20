@@ -117,7 +117,15 @@ You can open a terminal in the **Kristal folder**, and run something like the fo
 "C:\\Program Files\\LOVE\\love.exe" .
 ```
 
-You can make a **batch file** to simplify this.
+**The period is NOT a typo!** It simply means "the directory the terminal is currently inside".
+
+**If you're using PowerShell**, you may need to add an ampersand before the command, like so:
+
+```bat
+& "C:\\Program Files\\LOVE\\love.exe" .
+```
+
+You can make a **batch file** to simplify launching Kristal.
 
 ```bat
 "C:\\Program Files\\Love\\love.exe" "C:\\Path\\To\\Your\\Kristal\\Folder"

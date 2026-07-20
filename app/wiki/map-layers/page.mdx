@@ -1,0 +1,100 @@
+export const metadata = {
+    title: 'Map Layers',
+    description: 'The layer types that can be used on maps.',
+}
+
+# Map Layers
+
+<Box>
+## Map Layers
+---
+
+Everything in a map has to be on a layer.
+
+While some layers are self-explanatory (such as tile layers), object layers need some extra information -- namely, their **layer type**!
+
+When making an "Object Layer" in Tiled, take a look at the **properties panel**! You should see an empty field, called **Class**.
+This is where you input your layer type!
+
+<CollapseBox title="Legacy name system" id="legacy-name-system">
+    In the past, the preferred way to set a layer's type was to name the layer with the type's name, or let it start with the type's name.
+    They were case-insensitive, and the layer name could have anything after the type.
+
+    A few examples of valid names would be:
+    - `objects`
+    - `objects_above` (would be treated as "objects")
+    - `markers_asdfsdfdsf` (would be treated as "markers")
+    - `MARKERS` (would be treated as "markers")
+
+    This type of naming system is flimsy and can lead to confusion. Try to convert your layers to use the **Class** property instead.
+</CollapseBox>
+
+Layer classes are **case-sensitive**, and must be spelled exactly as they are listed below.
+
+</Box>
+
+<Box>
+## List of Object Layer Types
+---
+### `objects`
+
+- Objects layers are used for placing events into a map.
+    - (See [Using events](/wiki/using-events) for more information about events)
+- These can place engine events, any objects registered using [`Game:registerEvent()`](/wiki/api/Game#registerEvent), and any legacy events in `scripts/world/events`.
+    - Either the `Class` or `Name` property of the object must reference the ID of the registered event you want to spawn.
+
+### `objects_party`
+
+- If an objects layer exists with this name, the party will always spawn on it.
+    - If this layer does not exist, the first `objects` layer that exists above the `markers` layer spawns the party instead.
+
+### `controllers`
+
+- Controller layers are used for placing controllers into a map. 
+    - These are special event-like objects that have no physical presence in the map. They are designed for controlling other events, hence their name.
+    - (See [Using events](/wiki/using-events) for more information about controllers)
+- User-registered controllers should be stored in the `scripts/world/events/controllers` folder of the project.
+
+### `collision`
+
+- The shapes on this layer will be used as the collision for each map.
+
+### `enemycollision`
+
+- The shapes on this layer will be used as collision that only affects enemies ([ChaserEnemy](/wiki/api/ChaserEnemy)).
+- Enemies will still be affected by the collision of the standard `collision` layer, regardless of this layer's presence
+    - (See the tutorial dedicated to the [Chaser Enemy](/wiki/using-events#chaser-enemy) for more information about this layer)
+
+
+### `markers`
+
+- The shapes on this layer create markers that reference specific points or regions of a map. Each marker must be given a name so it can be referenced later.
+- Markers for the current map are stored in `Game.world.map.markers`, and can be gathered with `Game.world.map:getMarker(name)`. 
+    - Sometimes, events will need markers for certain properties. 
+    - Additionally, the world uses the `spawn` marker, if it exists, to determine where to place the party when the map is loaded from a savefile or without an entry position.
+
+### `paths`
+
+- The perimeter of each shape on this layer is treated as a path. Each path must be given a name so it can be referenced later.
+    - (Go to the [Path system tutorial](/wiki/using-events#path-system-tutorial) to know more).
+
+### `battleareas`
+
+- When the player enters any object on this layer, it will cause them to enter a "World Battle". This causes the `battleborder` layer to become visible, and the world to darken.
+    - (See [Battle Areas](/wiki/battle-areas) for more information on battle areas.) 
+
+### `blockcollision`
+
+- The shapes on this layer will be used as collision for the `pushblock` event. 
+    - (Go to the [push block tutorial](/wiki/using-events#push-block) to know more).
+
+</Box>
+
+<Box>
+## List of Tile Layer Types
+---
+### `battleborder` (Tile)
+
+- Only visible when the player is inside a *battle area*.
+    - (See [Battle Areas](/wiki/battle-areas) for more information on battle areas.) 
+</Box>
