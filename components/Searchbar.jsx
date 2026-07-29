@@ -1,5 +1,7 @@
 "use client"
-import { useTopLoader } from "nextjs-toploader";
+
+import { useProgress } from "@bprogress/next";
+
 //from https://www.emgoto.com/react-search-bar/
 import styles from "./Searchbar.module.css";
 
@@ -9,10 +11,10 @@ export default function Searchbar(props) {
     const id = props.id || "searchbar"
     const defaultValue = props.defaultValue || ""
 
-    const loader = useTopLoader();
+    const { start } = useProgress();
 
     return (
-        <form action="/" method="get" className={styles.form} onSubmit={() => loader.start()}>
+        <form action="/" method="get" className={styles.form} onSubmit={() => start()}>
             {/* Header, for screen readers: */}
             <label htmlFor={id}>
                 <span className={styles.hidden}>{placeholder}</span> 

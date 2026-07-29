@@ -1,7 +1,7 @@
 import './globals.css'
 import styles from './layout.module.css'
 import Navbar from 'components/Navbar'
-import NextTopLoader from 'nextjs-toploader';
+import { Providers } from './providers'
 import NewTab from 'components/NewTab';
 
 export const metadata = {
@@ -31,16 +31,17 @@ export default function RootLayout({children}) {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css"/>
       </head>
       <body>
-        <NextTopLoader color="#00FFFF"/>
-        <Navbar/>
-        <main className={styles.main}>
-          {children}
-        </main>
-        <footer className={styles.footer}>
-          <NewTab href="https://deltarune.com/">DELTARUNE</NewTab> by Toby Fox.<br/>
-          Website designed by <NewTab href="https://nyako.dev/">NyakoFox</NewTab>.<br/>
-          © 2026 Kristal Team. All rights reserved.
-        </footer>
+        <Providers>
+          <Navbar/>
+          <main className={styles.main}>
+            {children}
+          </main>
+          <footer className={styles.footer}>
+            <NewTab href="https://deltarune.com/">DELTARUNE</NewTab> by Toby Fox.<br/>
+            Website designed by <NewTab href="https://nyako.dev/">NyakoFox</NewTab>.<br/>
+            © 2026 Kristal Team. All rights reserved.
+          </footer>
+        </Providers>
       </body>
     </html>
   )
