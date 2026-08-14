@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run docs-make && npm run wiki-index && next build ",
-    "build-no-wiki-index": "next build ",
+    "build": "npm run env-updater && npm run docs-make && npm run wiki-index && next build ",
+    "build-no-wiki-index": "npm run env-updater && next build ",
     "start": "next start",
     "lint": "next lint",
     "wiki-index": "node scripts/wiki-index.mjs",
-    "docs-make": "node scripts/docs-make.mjs"
+    "docs-make": "node scripts/docs-make.mjs",
+    "env-updater": "node scripts/env-updater.mjs"
   },
   "dependencies": {
     "@bprogress/next": "^3.2.12",
