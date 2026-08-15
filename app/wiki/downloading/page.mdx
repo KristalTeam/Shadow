@@ -8,7 +8,7 @@ export const metadata = {
 <Box>
 There are three methods of downloading and using Kristal.
 
-- Using a [beta release](#beta-releases) - Not recommended at the moment.
+- Using a [beta release](#beta-releases) - **Not recommended** at the moment.
 - Using a [nightly release](#nightly-releases) - Recommended for **playing fangames**.
 - Using [the source code](#source-code) - Perfect for **fangame development**.
 
@@ -76,6 +76,27 @@ The instructions below should work on all platforms, but they have only mainly b
 1. Install the prerequisites listed above if you haven't already. Most settings can be left as default.
 2. Open a "terminal". If you're not sure what this is, see [the glossary](/wiki/glossary#terminal).
 3. Navigate to the folder where you want to download Kristal.
+    <CollapseBox title="How to navigate folders" id="how-to-navigate">
+        In your terminal, you can see the path to the left. That's where the terminal is currently looking.
+
+        Most likely, assuming you're on Windows, it says something like `C:\Users\YourName>`. Ignoring the `>`, that means the terminal is
+        currently looking at the `C:\Users\YourName` folder.
+
+        Now, let's say you have a "Games", which is at `C:\Users\YourName\Games`. To navigate to that folder, you can use the `cd` command, which stands for "change directory".
+
+        So, typing `cd Games` and pressing enter will change the terminal to look at the `C:\Users\YourName\Games` folder.
+
+        For example:
+
+        ```bash
+        C:\Users\YourName> cd Games
+        C:\Users\YourName\Games> _
+        ```
+
+        Leaving a directory is done by using `cd ..`, which will go back to the "parent" folder (the folder that contains the current folder).
+
+        You can also enter a full path to go somewhere else entirely. For example, if you want to go to `C:\Users\YourName\Documents`, you can type `cd C:\Users\YourName\Documents`.
+    </CollapseBox>
 4. Clone the repository. That can be done with the following command:
 
 ```bash
