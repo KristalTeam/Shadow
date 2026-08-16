@@ -55,7 +55,17 @@ First, we need to create a tileset. A tileset is, as the name suggests, a set of
 
 <ScaledSprite src="/wiki/example_tileset.png" name="example_tileset.png" width={120} height={80} scale={2}/>
 
-It's... not the greatest, but it'll get the job done. Let's save this in the folder `assets/sprites/tilesets`, as `example_tileset.png`. **It's very important that you use this directory for your tileset images.**
+It's... not the greatest, but it'll get the job done.
+
+This tileset's tiles are **20 pixels wide and 20 pixels tall**. We'll refer to that size as **20x20**.
+
+<NoteBox type="important">
+    You can use any size you'd like, but most of DELTARUNE's tilesets are 20x20, upscaled to 40x40. We'd **heavily recommend** using 20x20.
+
+    We can let Tiled upscale the tiles for us, and we'll go over that further down.
+</NoteBox>
+
+Let's save this in the folder `assets/sprites/tilesets`, as `example_tileset.png`. **It's very important that you use this directory for your tileset images.**
 
 Now, let's create the tileset.
 
@@ -73,9 +83,17 @@ Now that the tileset is created, we need to do one last step. Open the tileset p
 
 Change **Tile Render Size** to `Map Grid Size`. This will make the tiles render at the size we want them to. Now, click **Save**.
 
+<NoteBox type="note">
+    This'll make our 20x20 tiles from earlier stretch to 40x40, which is exactly what we want.
+</NoteBox>
+
 Once everything's saved, press `CTRL+E` to **export** the tileset. You have to export it every time you make a change to it, otherwise the changes won't be applied.
 
 Make sure to export it as a `.lua` file in the same directory as the `.tsx` file. So, in this case, `scripts/world/tilesets/example_tileset.lua`.
+
+<NoteBox type="important">
+    You must export it as `.lua`. Renaming is not enough!
+</NoteBox>
 
 If you get tired of having to export after every save, you can enable this in the preferences:
 
@@ -85,26 +103,45 @@ But anyway, we have a tileset now! So why don't we create a map now?
 </Box>
 
 <Box>
-## Creating a Map
+## Creating a New Map [new-map]
 ---
 
-Here's where the fun begins.
+Now that we've made a tileset, we can start making maps!
 
-Create a new map by going to `File`, then `New`, then `New Map...`. Make sure the orientation is `Orthogonal`,
-tile layer format is `CSV`, and tile render order is `Right Down`.
+Create a new map by going to `File`, then `New`, then `New Map...`.
 
-Also, make the tile size `40x40`.
-You'll notice this is **twice the size** of the tiles in our tileset.
-This is because DELTARUNE actually upscales tiles by 2x! Since we don't want to do that manually, we'll just let Tiled make them bigger for us!
+- Make sure the orientation is `Orthogonal`,
+- The tile layer format is `CSV`,
+- and the tile render order is `Right Down`.
 
-Map size should be **Fixed**, with a width of `16`, and a height of `12`.
-Those are the minimum dimensions for a map, since that's the size of the screen.
-They can be larger if you wish, but for this tutorial, let's just stay with 16x12.
+We want our tile size to be `40x40`, since that's what DELTARUNE's maps use. If your tileset is smaller than that (like the one we made earlier, which is 20x20),
+it will be automatically stretched (because of the settings we changed earlier).
 
-After clicking OK, this should take you to an empty map.
-First thing we'll want to do is save it into our project.
+The map size should be **Fixed**. For now, we'll make a map with a width of `16`, and a height of `12`.
+
+<NoteBox type="note">
+    You can make maps larger than this, but for this tutorial, we'll just stick with 16x12.
+
+    It's not recommended to make a map smaller than 16x12, as anything smaller would be smaller than the screen.
+</NoteBox>
+
+After making sure all of that is set, click **OK**. Congratulations, you now have an empty map!
+
+---
+
+The first thing we'll want to do is to save.
+
 Go to `File`, then `Save As...`. Save it to `scripts/world/maps` as `example_map.tmx`.
-**It's very important that you use this directory for your maps.** You probably get that by now.
+
+<NoteBox type="important">
+    You **must** save it in `scripts/world/maps`. This is where Kristal will look for maps.
+</NoteBox>
+
+Make sure to export it as a `.lua` file in the same directory as the `.tmx` file. So, in this case, `scripts/world/maps/example_map.lua`.
+
+<NoteBox type="important">
+    You must export it as `.lua`. Renaming is not enough!
+</NoteBox>
 
 Now, you can place down tiles! Make anything you'd like, and don't forget to keep saving! Here's what I made:
 
@@ -132,17 +169,22 @@ Read the [Map Layers](/wiki/map-layers) page to learn more about the different l
 ## Markers
 ---
 
-Markers are a very important part of maps.
-They're used to mark things like spawn points, and just general points of interest.
-Let's add a marker to our map.
+Markers are "points" in a map, which can be used for many different things.
 
-First, we'll have to make a new layer, named `markers`.
+They're used to mark things like spawn points, and general points of interest.
 
-<>![](/wiki/designing-a-map/new_object_layer.png)</>
+First, let's make a new markers layer.
 
-Us Kristal devs really like when they're purple (it helps us know the layer at a glance), but you can make them any color you want.
+<CollapseBox title="How to make a markers layer" defaultOpen={false}>
+    Create a new object layer, and set its class to `markers`. You can name it whatever you want, but make sure that you'll understand it later!
+    <>![](/wiki/designing-a-map/new_object_layer.png)</>
 
-<>![](/wiki/designing-a-map/purple_color.png)</>
+    Us Kristal devs really like when they're purple (it helps us know the layer at a glance), but you can make them any color you want.
+
+    <>![](/wiki/designing-a-map/purple_color.png)</>
+
+    Further information on layers can be found in the [Map Layers](/wiki/map-layers) page.
+</CollapseBox>
 
 To place down a point, use the Insert Point tool, which you can find in the toolbar at the top, or by pressing `I`.
 
@@ -153,23 +195,39 @@ This is a marker! We're trying to make the player's spawn point right now, so na
 
 <>![](/wiki/designing-a-map/example_map_with_spawn_marker.png)</>
 
-Now, let's test in-game! Save your map, and then press `CTRL+E` to export it.
-Yep, you have to export maps as well. Make sure it's a `.lua` file!
+Now, let's test in-game! Save and export your map.
 
-Now, open your project in Kristal. You'll either load into here...
+<NoteBox type="note">
+    Loading your project may show you an error...
+    <CollapseBox title="View error" defaultOpen={false}>
+        <>![](/wiki/designing-a-map/room1_error.png)</>
+    </CollapseBox>
 
-<>![](/wiki/designing-a-map/room1.png)</>
+    ...or spawn in a different room.
+    <CollapseBox title="View room" defaultOpen={false}>
+        <>![](/wiki/designing-a-map/room1.png)</>
+    </CollapseBox>
 
-...or get this error.
+    You can fix this by changing the map that Kristal loads into.
 
-<>![](/wiki/designing-a-map/room1_error.png)</>
+    <CollapseBox title="Changing the default map" defaultOpen={false}>
+        Open `mod.json` in your project folder. You should see a line that looks like this:
 
-Kristal is currently trying to load a map called `room1`. If it errored, you deleted it. That's okay, since we don't need it.
+        ```json
+        "map": "room1",
+        ```
 
-Let's tell Kristal to load our map instead:
+        Change it to the name of your map, which in this case is `example_map`. It should now look like this:
 
-In `mod.json`, change `"map": "room1"` to `"map": "example_map"`.
-Now, save the file, and try again. It should work! And look at that, our spawnpoint is working, too!
+        ```json
+        "map": "example_map",
+        ```
+
+        Save the file, and try again!
+    </CollapseBox>
+</NoteBox>
+
+As you can see, we've now successfully spawned at the marker we placed!
 
 <>![](/wiki/designing-a-map/working_spawnpoint.png)</>
 
@@ -211,150 +269,184 @@ Holding down `CTRL` makes it snap to the grid, as well, so you can make perfect 
 </Box>
 
 <Box>
-## Events
+## Placing Objects
 ---
 
-    Events are a very important part of maps. They're special [objects](/wiki/basics#objects) which can be placed down directly in maps.
+Most of what you'll see in rooms are **objects**. Most things in Kristal are objects!
 
-    ---
+---
 
-    ### Using Events
+### Using Objects
 
-    To use an event, we need to first make a layer for them. Make a new object layer, and name it `objects`. We make these layers pink!
+To use an object, we need to first make a layer for them.
+
+First, make an "objects" layer.
+
+<CollapseBox title="How to make an objects layer" defaultOpen={false}>
+    Create a new (Tiled) object layer, and set its class to `objects`. You can name it whatever you want, but make sure that you'll understand it later!
+    <>![](/wiki/designing-a-map/new_object_layer.png)</>
+
+    They're usually pink.
 
     <>![](/wiki/pink_color.png)</>
 
-    Now, you can select the **Insert Point** tool which we talked about earlier. Click anywhere on the map, and a point should appear. This is an event! Or, well, it *will* be.
+    Further information on layers can be found in the [Map Layers](/wiki/map-layers) page.
+</CollapseBox>
 
-    Let's name it `chest`. This'll tell the engine which event to use -- in this case, the [TreasureChest](/wiki/api/TreasureChest) event. Now, let's add some properties to it.
+Kristal Objects can be placed through using one of the Tiled object placement tools. Most of the time, you'll be using either **Insert Rectangle** or **Insert Point**.
 
-    Let's now add the `money` custom property (making sure it's an `int`) and set it to `999`. This'll give us a lot of money when we open the chest!
+Once you've placed down a Tiled object (for this example, we'll use a **point**), you can change its properties in the properties panel.
 
-    <>![](/wiki/chest_properties.png)</>
+To select which object you want to use, change the `class` field (or `name` field, if you want it to show up in the editor) to the name of any [registered "event"](/wiki/using-events).
 
-    If we save, export, then open up our project in Kristal, we should see the chest! And interacting with it should give us **999 Dark Dollars**! Wow!
+Let's name it `chest`, which'll spawn the [TreasureChest](/wiki/api/TreasureChest) object.
 
-    ---
+Let's now add the `money` custom property (making sure it's an `int`) and set it to `999`. This'll give us a lot of money when we open the chest!
 
-    ### Using Events (Continued)
+<>![](/wiki/chest_properties.png)</>
 
-    Okay, we can add a chest. But what if we want to add something that needs a bit more than just a point? Well, we can use the **Insert Rectangle** tool to make a rectangle instead!
+If we save, export, then open up our project in Kristal, we should see the chest! And interacting with it should give us **999 Dark Dollars**! Wow!
 
-    Let's make an interactable box. We'll name it `interactable`, and give it the `text` string property, with the contents `* Hello, World!`
+---
 
-    <>![](/wiki/map_with_interactable.png)</>
+### Example: Interactables
 
-    And if we check it out in-game, then...
+Interactables are simple boxes which you can interact with. They'll show text, or start a cutscene when the player interacts with them.
 
-    <>![](/wiki/hello_world_interactable.png)</>
+Let's make an interactable box, and set its class (or name) to `interactable`.
 
-    Perfect!
+Now, we want to give it the custom property `text` (which should be a string), and make its contents `* Hello,[wait:5] World!`.
 
-    ---
+<CollapseBox title="What's [wait:5]?" defaultOpen={false}>
+    DELTARUNE usually has 5-frame pauses after punctuation.
+    Learn more on the [Writing Text](/wiki/writing-text) page how to structure your text, and how to use text modifiers.
+</CollapseBox>
 
-    ### Room Transitions
+<>![](/wiki/map_with_interactable.png)</>
 
-    Room transitions are events, so the last section applies to them as well.
+And if we check it out in-game, then...
 
-    They're called `transition`, and can take the following properties, which are all optional:
+<>![](/wiki/hello_world_interactable.png)</>
 
-    - `map` -> The map to transition to
-    - `shop` -> The shop to transition to
-    - `x` -> The X position to spawn at
-    - `y` -> The Y position to spawn at
-    - `marker` -> The marker to spawn at
-    - `facing` -> The direction to face when spawning in a map
-    - `stairs` -> Whether to play the stairs sound or not
+Perfect!
 
-    Most of the time, you should probably use the `marker` property instead of specifying `x` and `y`.
+---
 
-    ---
+### Room Transitions
 
-    ### Creating Events
+Room transitions are rectangular objects, called `transition.`
 
-    Events are just [objects](/wiki/basics#objects) which extend the [Event](/wiki/api/Event) class. You can make your own events by creating a new file in `scripts/world/events`, and extending the `Event` class. Let's make an event which is... a pinwheel! And let's make it spin when you interact with it!
+Normally, you'll want to set the `map` and `marker` properties (to go to a marker in another map).
 
-    Here's the sprites I made, although they're not very good:
+You can use the `facing` property to make the player face a certain direction when they spawn in the new map; otherwise, they'll just face the direction they were facing when they left the previous map.
 
-    <ScaledSprite src="/wiki/pinwheel.png" name="pinwheel.png" width={12} height={12}/>
-    <ScaledSprite src="/wiki/pinwheel_base.png" name="pinwheel_base.png" width={20} height={20}/>
+You can read more about room transitions on the [Using Events](/wiki/using-events#transitions) page.
 
-    And here's the code I ended up making:
+---
 
-    ```lua
-    -- Extend the Event class, and set the ID to "pinwheel"
-    -- This is what you'll use to refer to the event in Tiled
-    local PinwheelEvent, super = Class(Event, "pinwheel")
+### Creating Events
 
-    -- `data` is the data directly from Tiled
-    function PinwheelEvent:init(data)
-        -- Place the event at the correct position, and make the size 20x20
-        super.init(self, data.x, data.y, 20, 20, data)
+<NoteBox type="warning">
+    The information in this section is **outdated**, and will be rewritten and moved in the future.
 
-        -- Any custom properties are stored in `data.properties`, but we don't use any.
+    In modern Kristal, Events are just made in the Objects folder, and registered through `Game:registerEvent()`.
 
-        -- Just some variables for the pinwheel
-        self.min_speed = 2
-        self.speed_slowdown = 0.5
-        self.speed = self.min_speed
-        self.pinwheel_rotation = 0
+    <CollapseBox title="Sample" defaultOpen={false}>
+        ```lua
+        function Mod:init()
+            -- Register our custom events
 
-        -- Most events in DELTARUNE are 2x sized
-        self:setScale(2)
-
-        -- We placed a single point in Tiled, which we want to be the bottom center of the pinwheel
-        self:setOrigin(0.5, 1)
-    end
-
-    -- Update gets called every frame
-    function PinwheelEvent:update()
-        super.update(self)
-
-        -- Make it rotate using the speed
-        self.pinwheel_rotation = self.pinwheel_rotation + (self.speed * DTMULT)
-
-        -- If it's going too fast, slow it down
-        if self.speed > self.min_speed then
-            self.speed = self.speed - self.speed_slowdown * DTMULT
+            Game:registerEvent("mycustomevent", function(data)
+                return MyCustomEvent(data.x, data.y, { data.width, data.height })
+            end)
         end
+        ```
+    </CollapseBox>
+</NoteBox>
 
-        -- Make sure it doesn't go below the minimum speed
-        self.speed = math.max(self.speed, self.min_speed)
+Events are just [objects](/wiki/basics#objects) which extend the [Event](/wiki/api/Event) class. You can make your own events by creating a new file in `scripts/world/events`, and extending the `Event` class. Let's make an event which is... a pinwheel! And let's make it spin when you interact with it!
+
+Here's the sprites I made, although they're not very good:
+
+<ScaledSprite src="/wiki/pinwheel.png" name="pinwheel.png" width={12} height={12}/>
+<ScaledSprite src="/wiki/pinwheel_base.png" name="pinwheel_base.png" width={20} height={20}/>
+
+And here's the code I ended up making:
+
+```lua
+-- Extend the Event class, and set the ID to "pinwheel"
+-- This is what you'll use to refer to the event in Tiled
+local PinwheelEvent, super = Class(Event, "pinwheel")
+
+-- `data` is the data directly from Tiled
+function PinwheelEvent:init(data)
+    -- Place the event at the correct position, and make the size 20x20
+    super.init(self, data.x, data.y, 20, 20, data)
+
+    -- Any custom properties are stored in `data.properties`, but we don't use any.
+
+    -- Just some variables for the pinwheel
+    self.min_speed = 2
+    self.speed_slowdown = 0.5
+    self.speed = self.min_speed
+    self.pinwheel_rotation = 0
+
+    -- Most events in DELTARUNE are 2x sized
+    self:setScale(2)
+
+    -- We placed a single point in Tiled, which we want to be the bottom center of the pinwheel
+    self:setOrigin(0.5, 1)
+end
+
+-- Update gets called every frame
+function PinwheelEvent:update()
+    super.update(self)
+
+    -- Make it rotate using the speed
+    self.pinwheel_rotation = self.pinwheel_rotation + (self.speed * DTMULT)
+
+    -- If it's going too fast, slow it down
+    if self.speed > self.min_speed then
+        self.speed = self.speed - self.speed_slowdown * DTMULT
     end
 
-    function PinwheelEvent:draw()
-        super.draw(self)
+    -- Make sure it doesn't go below the minimum speed
+    self.speed = math.max(self.speed, self.min_speed)
+end
 
-        -- First, draw the base
-        love.graphics.draw(Assets.getTexture("pinwheel_base"), 0, 0, 0, 1, 1)
-        -- Then draw the pinwheel, spinning
-        love.graphics.draw(Assets.getTexture("pinwheel"), 10, 10, math.rad(self.pinwheel_rotation), 1, 1, 6, 6)
-    end
+function PinwheelEvent:draw()
+    super.draw(self)
 
-    -- When we interact with the pinwheel, make it spin faster!
-    function PinwheelEvent:onInteract()
-        self.speed = 60
-    end
+    -- First, draw the base
+    love.graphics.draw(Assets.getTexture("pinwheel_base"), 0, 0, 0, 1, 1)
+    -- Then draw the pinwheel, spinning
+    love.graphics.draw(Assets.getTexture("pinwheel"), 10, 10, math.rad(self.pinwheel_rotation), 1, 1, 6, 6)
+end
 
-    return PinwheelEvent
-    ```
+-- When we interact with the pinwheel, make it spin faster!
+function PinwheelEvent:onInteract()
+    self.speed = 60
+end
 
-    Then we just have to place it somewhere, using the ID we supplied in the code, `pinwheel`!
+return PinwheelEvent
+```
 
-    <>![](/wiki/pinwheel_placed.png)</>
+Then we just have to place it somewhere, using the ID we supplied in the code, `pinwheel`!
 
-    After all this, we have our own event!
+<>![](/wiki/pinwheel_placed.png)</>
 
-    <>![](/wiki/pinwheel_spin.gif)</>
+After all this, we have our own event!
 
-    ---
+<>![](/wiki/pinwheel_spin.gif)</>
 
-    ### Other Engine Events
+---
 
-    Kristal provides quite a few other events baked directly into the engine.
+### Other Engine Events
 
-    Go to [Using Events](/wiki/using-events) to know about **all of the Events that Kristal has**.
+Kristal provides quite a few other events baked directly into the engine.
 
-    They're all extensions of either the [Event](/wiki/api/Event) class, or the [Character](/wiki/api/Character) class. Using Tree View on the [API Reference](/wiki/api) and looking for `Character` and `Event` will allow you to see all of them.
+Go to [Using Events](/wiki/using-events) to know about **all of the Events that Kristal has**.
+
+They're all extensions of either the [Event](/wiki/api/Event) class, or the [Character](/wiki/api/Character) class. Using Tree View on the [API Reference](/wiki/api) and looking for `Character` and `Event` will allow you to see all of them.
 
 </Box>

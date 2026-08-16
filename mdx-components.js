@@ -6,6 +6,7 @@ import Anchor from 'components/Anchor'
 import ScaledSprite from "components/ScaledSprite"
 import NewTab from "components/NewTab"
 import CollapseBox from 'components/CollapseBox'
+import NoteBox from 'components/NoteBox'
 
 export function useMDXComponents(components) {
     return {
@@ -38,6 +39,7 @@ export function useMDXComponents(components) {
         Anchor,
         NewTab,
         CollapseBox,
+        NoteBox,
         ...components,
     }
 }
