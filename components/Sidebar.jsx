@@ -67,7 +67,9 @@ export default function Sidebar(props) {
         <ul>
             <li><Link href="/wiki/lua-tutorial">Lua Tutorial</Link></li>
             <li><Link href="/wiki/basics">Understanding the Basics</Link></li>
+            <li><Link href="/wiki/classes-and-instances">Classes and Instances</Link></li>
             <li><Link href="/wiki/creating-a-mod">Creating a Project</Link></li>
+            <li><Link href="/wiki/objects">Objects</Link></li>
             <li><Link href="/wiki/writing-text">Writing Text</Link></li>
             <li><Link href="/wiki/using-libraries">Using Libraries</Link></li>
             <li><Link href="/wiki/creating-an-item">Creating an Item</Link></li>

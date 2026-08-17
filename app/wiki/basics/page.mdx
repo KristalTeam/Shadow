@@ -6,159 +6,21 @@ export const metadata = {
 # Understanding the Basics
 
 <Box>
-Kristal is a DELTARUNE engine, written in Lua using LÖVE. It is designed to be as close to the original game as possible, while still being easy to use and modify. This page will explain the basics of Kristal's code, and how to use it.
+    Kristal is a DELTARUNE engine, written in Lua using LÖVE.
+    It is designed to be as close to the original game as possible, while still being easy to use and modify.
+
+    This page will explain the basics of Kristal's code, and how to use it.
 </Box>
 
 <Box>
-## Learning Lua
----
+    ## Learning Lua
+    ---
 
-This engine expects you to have a basic understanding of programming.
+    This engine expects you to have a basic understanding of programming.
 
-There are many places to learn Lua, but the best place is the [Lua manual](https://www.lua.org/manual/5.1/). It's a bit dense, but it's the most complete resource for learning Lua.
+    There are many places to learn Lua, but the best place is the [Lua manual](https://www.lua.org/manual/5.1/). It's a bit dense, but it's the most complete resource for learning Lua.
 
-However, if you'd like something a bit easier to digest, [this tutorial](/wiki/lua-tutorial) is a good place to start.
+    However, if you'd like something a bit easier to digest, [this tutorial](/wiki/lua-tutorial) is a good place to start.
 
-**It is very important you know Lua before continuing.**
-</Box>
-
-<Box>
-## Classes, Instances and Inheritance
----
-
-If you're familiar with Object-Oriented Programming, you'll know what classes are. It's the same concept here.
-
-While classes aren't a Lua feature, the language makes them very easy to implement. But what *is* a class?
-
----
-
-### What's a Class?
-
-A class is a template. It holds a set of variables and functions. An **instance** is a copy of a class. It has all the variables and functions of the class, but they can be changed without affecting the class itself.
-
-
-#### The Car Example
-
-Take a car for example. Let's say the concept of a car is a class.
-It has four wheels, windows, a steering wheel, and so on. That's what a car is.
-But multiple cars exist in the world (almost 1.5 billion!), so we'll refer to those as instances.
-They all have things in common, but they can be different colors, have different amounts of doors, and so on.
-
-The concept of a car is a class, and each car is an instance of that class. In Kristal's programming, we'd do something like the following:
-
-```lua
-local Car, super = Class()
-
-function Car:init()
-    super.init(self)
-
-    self.color = "red"
-end
-
-function Car:getWheelCount()
-    return 4
-end
-
-function Car:setColor(color)
-    self.color = color
-end
-
-return Car
-```
-
-Making a new instance of the class is as simple as calling `Car()`. When you create a new instance, the `init` function is called. This is where you'd set up the instance.
-
-`self` is a special variable, which refers to the instance itself. So, setting `self.color` sets the color *of that instance*.
-
-`super` is also a special variable, and it refers to the **parent class**. We'll talk about parents and inheritance later.
-
-```lua
-local new_car = Car() -- creates a new instance of the car class, or more simply, creates a new car.
-
-print(new_car:getWheelCount()) -- prints "4"
-print(new_car.color) -- prints "red"
-
-new_car:setColor("blue") -- sets the color of the car to blue
-print(new_car.color) -- prints "blue"
-```
-
-We just changed the color of the car to blue, but the class itself still predefines the color as red. **Remember, classes are like templates.**
-
----
-
-### Inheritance
-
-Classes can have a parent class. This is called **inheritance**. The child class *inherits* all of the variables and functions of the parent class, but can also have its own variables and functions.
-
-Let's say we want to make a racecar. It's still a car, but it has a spoiler and a different color. We can make a new class called `Racecar` that inherits from `Car`.
-
-```lua
-local Racecar, super = Class(Car)
-
-return Racecar
-```
-
-We've just made another class, which is an extension of the `Car` class. Despite not having any functions in the code above, it still has all of the functions of the `Car` class:
-
-```lua
-local new_racecar = Racecar()
-print(new_racecar:getWheelCount()) -- prints "4"
-```
-
-Now, remember the `super` variable from earlier? We can use it to call functions from the parent class if we override them.
-
-```lua
-local Racecar, super = Class(Car)
-
-function Racecar:init()
-    super.init(self)
-
-    self.color = "blue"
-end
-
-return Racecar
-```
-
-The above example calls the `init` function of the parent class, `Car`, and then sets the color of the racecar instance to blue.
-
-**Super functions should be called with a period, not a colon! They should also take in `self` as the first argument!**
-
-</Box>
-
-<Box>
-## Objects
----
-
-Objects are the main way of interacting with Kristal. They're a class which gets drawn to the screen. They have a position, a hierarchy, and a bunch of other things.
-
----
-### Hierarchies
-
-Tough word to spell, isn't it?
-
-Objects can have children. These children are drawn relative to their parent. If you move the parent, the child will move with it.
-
-The parent of an object draws its children. Those children draw *their* children, and so on. Parents also update their children. We'll talk about drawing and updating later.
-
-Think of it like a tree. The parent is the trunk, and the children are the branches. If you move the trunk, the branches move with it.
-
-Those children -- the branches -- can have their own children -- leaves. If you move the trunk, the branches move with it, and the leaves move with the branches.
-
-This means that **every single object has a parent**. The only exception is the stage.
-
----
-### The Stage
-
-The stage is the root of the hierarchy. It's the top of the tree. It's the roots which the trunk is connected to.
-
-The stage is a special object. It's the only object which doesn't have a parent. It's what kicks everything off -- it's the first object to be drawn and updated, which draws and updates its children, which draw and update THEIR children, etc.
-
----
-### Updating and Drawing
-
-Objects have some very important functions. The most important ones are `update` and `draw`.
-
-Update is called every frame, so it's where you'd put code which needs to be ran every frame. Simple, right? It's where you'd move something across the screen, or check if a button is pressed, or anything else which needs to be done every frame.
-
-Draw is called every frame, too. This is where you actually render stuff to the screen! You can draw images, shapes, text, and more.
+    **It is very important you know Lua before continuing.**
 </Box>

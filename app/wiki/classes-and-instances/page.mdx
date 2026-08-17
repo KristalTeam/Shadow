@@ -1,0 +1,264 @@
+export const metadata = {
+    title: 'Classes and Instances',
+    description: 'Object-oriented programming in Kristal.'
+}
+
+# Classes and Instances
+
+<Box>
+    <NoteBox type="important">
+        It is very important you know Lua before continuing.
+
+        If you don't know Lua, our [Lua tutorial](/wiki/lua-tutorial) is a good place to start.
+    </NoteBox>
+
+    While Lua doesn't have classes built into the language, it makes them very easy to add in. We use classes *everywhere* in Kristal, and it's important to understand how they work.
+</Box>
+
+<Box>
+    ## Foreword
+
+    ---
+
+    It's important to keep an open mind when learning about classes and instances.
+
+    Up until now, you've only learned about procedural programming. You run one line, and then run another, and then another, and so on.
+
+    Classes and instances are a different way of thinking about programming. Everything's in their own little world, and they can interact with each other.
+
+    That being said, it's not *entirely* different.
+</Box>
+
+<Box>
+    ## What's a Class? [classes]
+
+    ---
+
+    If you're familiar with **Object-Oriented Programming**, you'll know what classes are; it's the same concept here.
+
+    A class holds a collection of variables and functions.
+
+    It's like a template, or a blueprint. You can create multiple instances of a class, and each of those instances will do what the blueprint tells them to do.
+    But each instance is unique between itself and the other instances.
+
+    ### The Car Example
+
+    ---
+
+    Cars are a pretty simple concept; they have four wheels, a steering wheel, windows, and so on. That's what a car is.
+
+    But if you were asked to describe a *specific* car, you'd start describing its color, how big it is, and so on. That's what makes it *unique* from other cars.
+
+    There isn't just one car in the world, there are many. Almost 1.5 billion, in fact. They all have most things in common, but they are unique from each other.
+
+    So, you can think of the concept of a car as a class, and each car in the world as an instance of that class.
+    Changing the color of one car doesn't change the color of all cars, because each car is unique. That's what instances are.
+
+    ---
+
+    In Kristal's programming, we'd do something like the following:
+
+    ```lua
+    local Car, super = Class()
+
+    function Car:init()
+        super.init(self)
+
+        self.color = "red"
+    end
+
+    function Car:getWheelCount()
+        return 4
+    end
+
+    function Car:setColor(color)
+        self.color = color
+    end
+
+    return Car
+    ```
+
+    <NoteBox type="important">
+        It's important to note the functions being created using a colon (`:`) instead of a period (`.`).
+
+        For classes, the colon is important, and basically makes a function unique per instance.
+    </NoteBox>
+
+    Making a new instance of the class is as simple as calling `Car()`. When you create a new instance, the `init` function is called. This is where you'd set up the instance.
+
+    `self` is a special variable, which refers to the instance itself. So, setting `self.color` sets the color *of that instance*.
+
+    `super` is also a special variable, but we'll ignore that for now.
+
+    ```lua
+    local new_car = Car() -- creates a new instance of the car class, or more simply, creates a new car.
+
+    print(new_car:getWheelCount()) -- prints "4"
+    print(new_car.color) -- prints "red"
+
+    new_car:setColor("blue") -- sets the color of the car to blue
+    print(new_car.color) -- prints "blue"
+    ```
+
+    Even though all cars are red by default, we just made a new one and changed its color to blue.
+
+    No other cars were affected by this change, and new cars will continue to be red!
+
+    <NoteBox type="important">
+        It's very important to call instance functions with a colon (`:`) instead of a period (`.`)!
+    </NoteBox>
+
+    ### Constructors
+    ---
+
+    Take the code we used earlier:
+
+    ```lua
+    local new_car = Car()
+    ```
+
+    This code is what's responsible for making a new instance of `Car`. When you do that, it calls the `init` function of the class. This is called a **constructor**.
+
+    Of course, like functions, you can pass arguments to constructors. Let's say we want to make a car, but we want to set its color when we create it. We can do that like this:
+
+    ```lua
+    local Car, super = Class()
+
+    function Car:init(color)
+        super.init(self)
+
+        self.color = color
+    end
+    ```
+
+    And then we can create a new car like this:
+
+    ```lua
+    local new_car = Car("blue") -- creates a new car, and sets its color to blue.
+
+    print(new_car.color) -- prints "blue"
+    ```
+
+</Box>
+
+<Box>
+
+## Inheritance
+
+---
+
+One of the main features of classes is their ability to inherit from other classes. This is called **inheritance**.
+
+Basically, a "child class" *inherits* all of the variables and functions of its "parent class", but can add its own variables and functions, and even override the functions of the parent class.
+
+Let's use another class as an example:
+
+```lua
+local Animal, super = Class()
+
+function Animal:init()
+    super.init(self)
+end
+
+function Animal:speak()
+    print("...")
+end
+
+return Animal
+```
+
+Here's a very basic animal class. When you call `animal:speak()`, it will print "..." to the console. It's no animal in particular, but it's an animal nonetheless.
+
+Now, let's say we want to make a dog class. A dog is an animal, so it should inherit from the animal class.
+But dogs bark, so we want to override the `speak` function to make it bark instead.
+
+```lua
+local Dog, super = Class(Animal) -- We pass in the parent class as an argument to the Class function.
+
+function Dog:speak()
+    print("Woof!")
+end
+
+return Dog
+```
+
+Now, if we create a new `Dog` and we call speak...
+
+```lua
+local dog = Dog()
+dog:speak() -- prints "Woof!"
+```
+
+This is very useful, because it shows that traits of a parent class can be shared with child classes, but the child class can dictate its own behavior.
+
+If you have some code that expects an `Animal`, so it can call the `speak()` function on it, you can pass in your new `Dog` instance.
+This is why it's so powerful; despite having the same base, each animal could have its own behavior, and code that needs animals wouldn't have to be changed whatsoever to accommodate that.
+
+### Super
+
+---
+
+The `super` variable is a special variable which refers to the parent class. You can use it to call functions from the parent class, even if you've overridden them.
+
+For example:
+
+```lua
+local Dog, super = Class(Animal)
+
+function Dog:speak()
+    super.speak(self) -- calls the speak function of the parent class, Animal.
+    print("Woof!")
+end
+
+return Dog
+```
+
+By doing `super.speak(self)`, we call the `speak` function of the parent class, `Animal`. Then, we print "Woof!" to the console.
+
+This'll end up printing:
+
+```bash
+...
+Woof!
+```
+
+Most of the time, when you override a function, this is what you'll want to do; add behavior *on top of* the parent class's behavior, instead of replacing it entirely.
+Of course, you can do that as well.
+
+<NoteBox type="important">
+    Super functions should be called with a period, not a colon! They should also take in `self` as the first argument!
+</NoteBox>
+
+<NoteBox type="warning">
+    `init` functions should pretty much always call the `init` function of the parent class. Otherwise, things it requires won't be initialized.
+</NoteBox>
+
+Remember, functions can take arguments, as well. So, when you call the `super`, you must also pass in any necessary arguments.
+
+If animal has an `init` function which takes in a name...
+
+```lua
+local Animal, super = Class()
+
+function Animal:init(name)
+    super.init(self)
+
+    self.name = name
+end
+
+return Animal
+```
+
+... then the dog class must also take in a name, and pass it to the parent class's `init` function.
+
+```lua
+local Dog, super = Class(Animal)
+
+function Dog:init(name)
+    super.init(self, name)
+end
+
+return Dog
+```
+
+</Box>

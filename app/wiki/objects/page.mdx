@@ -1,0 +1,144 @@
+export const metadata = {
+    title: 'Objects',
+    description: 'What Objects are, and how to use them in Kristal.'
+}
+
+# Objects
+
+<Box>
+    <NoteBox type="important">
+        It is very important you know Lua, and understand classes and instances before continuing.
+
+        If you don't know Lua, our [Lua tutorial](/wiki/lua-tutorial) is a good place to start.
+
+        For classes and instances, our [Classes and Instances](/wiki/classes-and-instances) page is a good place to start.
+    </NoteBox>
+
+    Objects are the main way of interacting with Kristal. They represent a physical "game object", which gets drawn to the screen, can get moved around, rotated, and more.
+
+    Most of what you see in Kristal is handled by objects. There are only a few exceptions.
+</Box>
+
+<Box>
+    ## Creating An Object [update]
+    ---
+
+    Creating a new object is the same as creating a new class. Simply inherit from `Object`:
+
+    ```lua
+    local MyObject, super = Class(Object)
+
+    function MyObject:init()
+        super.init(self)
+
+        -- Set up the object here
+    end
+
+    return MyObject
+    ```
+
+    <NoteBox type="important">
+        Remember: it's very important that functions are defined with a colon (`:`) instead of a period (`.`) when creating classes and instances.
+    </NoteBox>
+
+    An object should go in the `scripts/objects` folder in your project. The file name should be the same as the class name, e.g. `MyObject.lua` for the above example.
+
+    It's a good idea to add a second argument to `Class`, being a string of the class name. For example, `Class(Object, "MyObject")`.
+
+    Objects in the `scripts/objects` folder are automatically loaded, and are registered as globals. So, to make this object in your project, you can simply do `local obj = MyObject()`.
+</Box>
+
+<Box>
+    ## The Update Function [update]
+    ---
+
+    Objects have an `update` function, which is called every frame.
+
+    So, the following code:
+
+    ```lua
+    function MyObject:update()
+        super.update(self)
+        print("Hello, world!")
+    end
+    ```
+
+    ... will print "Hello, world!" every frame.
+
+    A very common thing people want to do is move an object across the screen, or increase a timer.
+
+    Kristal can be ran at **many different framerates**, so you'll want to use `DT` (Delta Time), the time (in seconds) since the last frame, to make sure your code runs at the same speed regardless of framerate.
+
+    ```lua
+    function MyObject:update()
+        super.update(self)
+        self.x = self.x + (100 * DT) -- Move the object 100 pixels per second to the right
+    end
+    ```
+
+    Since DELTARUNE is a 30 FPS game, `DTMULT` exists to make it easier to work with 30 FPS. So, the following GameMaker code:
+
+    ```gml
+    x += 4; // Move 4 pixels every frame
+    ```
+
+    ... can be written in Kristal as:
+
+    ```lua
+    self.x = self.x + (4 * DTMULT) -- Move 4 pixels every frame
+    ```
+
+    ... assuming that the GameMaker project is 30 FPS, like DELTARUNE.
+</Box>
+
+<Box>
+    ## The Draw Function [draw]
+    ---
+
+    Objects also have a `draw` function, which is called every frame after the `update` function.
+
+    This is where you'd draw the object to the screen. You can draw images, shapes, text, and more.
+
+    ```lua
+    function MyObject:draw()
+        super.draw(self)
+        love.graphics.print("Hello, world!")
+    end
+    ```
+
+    The above code will print "Hello, world!" every frame.
+
+    Kristal "transforms" drawing, so if you draw something at `0, 0`, it will be relative to the object's top-left.
+
+    This means that scaling, rotation, and position of the object will affect how things are drawn in the `draw` function.
+
+    Most of the time, you won't have to do anything fancy to get things to draw properly.
+</Box>
+
+<Box>
+    ## Hierarchies
+
+    ---
+
+    Tough word to spell, isn't it?
+
+    Objects can have children. These children are drawn relative to their parent. If you move the parent, the child will move with it.
+
+    The parent of an object draws its children. Those children draw *their* children, and so on. Parents also update their children.
+
+    Think of it like a tree. The parent is the trunk, and the children are the branches. If you move the trunk, the branches move with it.
+
+    Those children -- the branches -- can have their own children -- leaves. If you move the trunk, the branches move with it, and the leaves move with the branches.
+
+    This means that **every single object has a parent**. The only exception is the stage.
+</Box>
+
+<Box>
+    ## The Stage
+
+    ---
+
+    The stage is the root of the hierarchy. It's the top of the tree. It's the roots which the trunk is connected to.
+
+    The stage is a special object. It's the only object which doesn't have a parent. It's what kicks everything off -- it's the first object to be drawn and updated, which draws and updates its children, which draw and update THEIR children, etc.
+</Box>

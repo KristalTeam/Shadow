@@ -175,7 +175,7 @@ They're used to mark things like spawn points, and general points of interest.
 
 First, let's make a new markers layer.
 
-<CollapseBox title="How to make a markers layer" defaultOpen={false}>
+<CollapseBox title="How to make a markers layer" defaultopen="false">
     Create a new object layer, and set its class to `markers`. You can name it whatever you want, but make sure that you'll understand it later!
     <>![](/wiki/designing-a-map/new_object_layer.png)</>
 
@@ -199,18 +199,18 @@ Now, let's test in-game! Save and export your map.
 
 <NoteBox type="note">
     Loading your project may show you an error...
-    <CollapseBox title="View error" defaultOpen={false}>
+    <CollapseBox title="View error" defaultopen="false">
         <>![](/wiki/designing-a-map/room1_error.png)</>
     </CollapseBox>
 
     ...or spawn in a different room.
-    <CollapseBox title="View room" defaultOpen={false}>
+    <CollapseBox title="View room" defaultopen="false">
         <>![](/wiki/designing-a-map/room1.png)</>
     </CollapseBox>
 
     You can fix this by changing the map that Kristal loads into.
 
-    <CollapseBox title="Changing the default map" defaultOpen={false}>
+    <CollapseBox title="Changing the default map" defaultopen="false">
         Open `mod.json` in your project folder. You should see a line that looks like this:
 
         ```json
@@ -282,7 +282,7 @@ To use an object, we need to first make a layer for them.
 
 First, make an "objects" layer.
 
-<CollapseBox title="How to make an objects layer" defaultOpen={false}>
+<CollapseBox title="How to make an objects layer" defaultopen="false">
     Create a new (Tiled) object layer, and set its class to `objects`. You can name it whatever you want, but make sure that you'll understand it later!
     <>![](/wiki/designing-a-map/new_object_layer.png)</>
 
@@ -317,7 +317,7 @@ Let's make an interactable box, and set its class (or name) to `interactable`.
 
 Now, we want to give it the custom property `text` (which should be a string), and make its contents `* Hello,[wait:5] World!`.
 
-<CollapseBox title="What's [wait:5]?" defaultOpen={false}>
+<CollapseBox title="What's [wait:5]?" defaultopen="false">
     DELTARUNE usually has 5-frame pauses after punctuation.
     Learn more on the [Writing Text](/wiki/writing-text) page how to structure your text, and how to use text modifiers.
 </CollapseBox>
@@ -351,7 +351,7 @@ You can read more about room transitions on the [Using Events](/wiki/using-event
 
     In modern Kristal, Events are just made in the Objects folder, and registered through `Game:registerEvent()`.
 
-    <CollapseBox title="Sample" defaultOpen={false}>
+    <CollapseBox title="Sample" defaultopen="false">
         ```lua
         function Mod:init()
             -- Register our custom events
@@ -364,7 +364,7 @@ You can read more about room transitions on the [Using Events](/wiki/using-event
     </CollapseBox>
 </NoteBox>
 
-Events are just [objects](/wiki/basics#objects) which extend the [Event](/wiki/api/Event) class. You can make your own events by creating a new file in `scripts/world/events`, and extending the `Event` class. Let's make an event which is... a pinwheel! And let's make it spin when you interact with it!
+Events are just [objects](/wiki/objects) which extend the [Event](/wiki/api/Event) class. You can make your own events by creating a new file in `scripts/world/events`, and extending the `Event` class. Let's make an event which is... a pinwheel! And let's make it spin when you interact with it!
 
 Here's the sprites I made, although they're not very good:
 
