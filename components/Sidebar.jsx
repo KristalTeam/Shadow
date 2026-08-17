@@ -91,6 +91,7 @@ export default function Sidebar(props) {
             <li><Link href="/wiki/map-properties">Map Properties</Link></li>
             <li><Link href="/wiki/using-events">Events</Link></li>
             <li><Link href="/wiki/battle-areas">Battle Areas</Link></li>
+            <li><Link href="/wiki/climbing">Climbing</Link></li>
             <li><Link href="/wiki/world-tool">The World Tool</Link></li>
         </ul>
         <br/>

@@ -1,0 +1,131 @@
+export const metadata = {
+    title: 'Climbing',
+    description: 'Information on how to use the climbing system.',
+}
+
+# Climbing
+
+<Box>
+
+In DELTARUNE Chapter 4, we were introduced to a new mechanic: climbing. You can climb on certain walls, jump between them, etc.
+
+This page will explain how to use the climbing system, and how to make your own climbable walls.
+
+</Box>
+
+<Box>
+## Climb Areas
+---
+
+I'll make a simple structure in Tiled which we'll add climbable walls to.
+
+<CollapseBox title="The structure (huge)">
+<>![](/wiki/climbing/example_preview.png)</>
+</CollapseBox>
+
+The basics are simple; everywhere the player will walk, we add collision. For climbing, we don't.
+
+Now, we'll add a new **objects layer**. To read more about layers, see the [Map layers](/wiki/map-layers) page.
+
+For organization's sake, I'll name it `climbing`, and make it cyan. **It's still an objects layer!**
+
+<>![](/wiki/climbing/layer_properties.png  "Notice the class is still \"objects\"? This is an objects layer!")</>
+
+I'll move it as low as I can, because any visual climbing events should appear underneath the player.
+
+<>![](/wiki/climbing/climbing_layer.png)</>
+
+<NoteBox type="warning">
+    It's important that the `markers` layer is directly underneath the `objects` layer, or else the player may spawn on the wrong layer!
+</NoteBox>
+
+### Placing Climb Areas
+
+---
+
+Now that we have our layer set up, we can start placing down objects. These are [ClimbArea](/wiki/api/ClimbArea) (`climbarea`) objects; they are where the player can climb.
+
+<>![](/wiki/climbing/climbarea_placement.png "Notice the `class` is set to `climbarea`? These are `climbarea` objects.")</>
+
+The reason I decided to use the `class` field here, rather than the `name`, is because there are many `climbarea` objects and I don't want each individual name to show.
+
+Of course, this is **no different** from any other object, so do what you think is best.
+
+<NoteBox type="warning">
+    Climbing is **grid aligned**. Any misalignments will cause unexpected results, so make sure you're snapping to the grid when placing objects!
+</NoteBox>
+
+</Box>
+
+<Box>
+## Entering Climbing
+---
+
+Now that we have our climbing set up, you'll notice that you still can't enter climbing. That's because we're missing an important part; the actual climb entry and exit objects!
+
+The relevant objects are [ClimbEntry](/wiki/api/ClimbEntry) (`climbentry`) and [ClimbExit](/wiki/api/ClimbExit) (`climbexit`). Let's start with the entry.
+
+<>![](/wiki/climbing/add_climbentry.png "I decided to put this on the normal objects layer, just so you can see the difference easily.")</>
+
+This is a solid box that the player can interact with. However, it won't work until we tell it where the climb area is! (In fact, it will crash.)
+
+For every ClimbEntry, we need to add a ClimbExit!
+
+Once you interact with a ClimbEntry, the player will jump to the ClimbExit. They can also use the ClimbExit to leave climbing! It's like a two-way door.
+
+<>![](/wiki/climbing/add_climbexit.png)</>
+
+<NoteBox type="important">
+    The ClimbExit must be placed **inside the climb area**. Otherwise, the player will fall!
+</NoteBox>
+
+<NoteBox type="warning">
+    Climbing is **grid aligned**. Any misalignments will cause unexpected results, so make sure you're snapping to the grid when placing objects!
+</NoteBox>
+
+Now, we have to tell the ClimbEntry where the ClimbExit is. Add the `target` object property to the ClimbEntry, and select the ClimbExit object.
+
+<>![](/wiki/climbing/entry_to_exit.png)</>
+
+Perfect! But we're not done yet. The ClimbExit needs to know where to place the player upon exiting climbing. So, we'll place a marker...
+
+<>![](/wiki/climbing/exit_marker.png "It doesn't have to be named.")</>
+
+Now, we'll add the `target` object property to the ClimbExit, and select the marker.
+
+<>![](/wiki/climbing/exit_to_marker.png)</>
+
+Aand we should be done!
+
+To show the relationship between these objects, here's a screenshot with things moved around:
+
+<>![](/wiki/climbing/climb_relationship.png)</>
+
+The `climbentry` points to the `climbexit` which points to the marker. Interacting with the `climbentry` will make the player jump to the `climbexit`, and pressing down from the `climbexit` will make the player leave climbing and jump to the marker.
+
+Moving everything back into place, and testing it reveals that we can properly climb!
+
+<>![](/wiki/climbing/climbing_test.png)</>
+
+
+### Climbing without an exit
+
+---
+
+There's a few cases where you'd want to enter a climb area, but not be able to leave it. That's when we use the `can_exit` boolean property, and turn it off!
+
+<>![](/wiki/climbing/can_exit_false.png "You don't need an exit marker if you can't leave from the ClimbExit.")</>
+
+<>![](/wiki/climbing/cant_leave_climbarea.mp4)</>
+
+### Finished area
+
+---
+
+After adding a few more `ClimbEntry`s and `ClimbExit`s, we're done!
+
+<>![](/wiki/climbing/finished_section.png)</>
+
+<>![](/wiki/climbing/finished_section_recording.mp4)</>
+
+</Box>
