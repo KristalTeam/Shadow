@@ -136,10 +136,77 @@ A ClimbExit does **not require** a ClimbEntry, so you can simply place a ClimbEx
 
 ---
 
-After adding a few more `ClimbEntry`s and `ClimbExit`s, we're done!
+After adding a few more entries and exits, we're done!
 
 <>![](/wiki/climbing/finished_section.png)</>
 
 <>![](/wiki/climbing/finished_section_recording.mp4)</>
+
+</Box>
+
+<Box>
+## Other Climbing Objects
+
+---
+
+Of course, there's far more to climbing than just... well, climbing.
+
+### Enemies
+
+---
+
+A [ClimbEnemy](/wiki/api/ClimbEnemy) is a special type of [WorldBullet](/wiki/api/WorldBullet). When the player jumps into them while climbing, they will take damage.
+
+Like WorldBullets, you have to decide how to spawn them yourself; most likely, through code in an object.
+
+They're pretty bare-bones, and you're intended to override their behavior to make them more interesting.
+
+### Falling Climb Areas
+
+---
+
+A [FallingClimbArea](/wiki/api/FallingClimbArea) is a special type of ClimbArea which falls once the player leaves it.
+
+They're mainly placed through tile objects. If you don't remember how to place those, click the insert tile button...
+
+<>![](/wiki/climbing/insert_tile.png)</>
+
+... and then select the tile you want to use.
+
+<>![](/wiki/climbing/selected_falling_tile.png)</>
+
+When placed, it gets placed at the **tileset size**, which means if you have a 20x20 tileset upscaled by the map, it'll look smaller.
+
+<>![](/wiki/climbing/falling_tile_small.png)</>
+
+<NoteBox type="important">
+    Make sure that you place this on the climbing layer, so they're layered underneath the player!
+</NoteBox>
+
+You can just change the width and height in the properties to match the map tile size.
+
+<>![](/wiki/climbing/falling_tile_size.png)</>
+
+Now, we'll set their `class` to `fallingclimbarea`.
+
+<>![](/wiki/climbing/fallingclimbareas.png)</>
+
+Well, except for one problem...
+
+<>![](/wiki/climbing/falling_softlock.mp4)</>
+
+#### Fixing softlocks
+
+---
+
+FallingClimbAreas are meant to be one-way trips, but jumping to the first one will almost always softlock the player if they decide to go backwards after.
+
+The solution is to add the `dont_break` property to the first FallingClimbArea, and set it to the direction the player is coming from.
+
+<>![](/wiki/climbing/dont_break_left.png)</>
+
+And with that, we're done!
+
+<>![](/wiki/climbing/dont_break_left_preview.mp4)</>
 
 </Box>
