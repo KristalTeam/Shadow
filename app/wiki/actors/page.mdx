@@ -76,7 +76,30 @@ If your character is going to be speaking, you'll want to give them a portrait. 
 
 ### Voices
 
-Again, if they're gonna be speaking, they'll need a voice, too!
+Again, if they're gonna be speaking, they'll need a voice, too! 
+
+**But, how exactly do we add voices?**
+
+As we can see in the Kris actor, they don't have a voice. 
+
+To add a voice, we first must create a `voice` folder inside `assets/sounds`. Make sure that is a **.wav** for it to work at its finest. NOTE: Do not change the file extension, that won't do anything. Use a converter if need be. (Enable file extensions if you haven't already, it's very handy for coding in general.) 
+
+Now what do we do? 
+
+Let's take a look at our actor. Let's set a voice for Kris, or your custom actor!
+
+Our actor's `self.voice` property is what handles this. Remember how we made our voice folder? For this specific instance, you do **NOT** need to specify the folder! 
+
+Place your sound in that voice folder, and then set `self.voice` to it! (Don't forget to make it a string!) 
+
+For example, in Kris' actor `:init()` I will set their voice to 
+
+```lua
+self.voice = "kris"
+```  
+Keeping in mind that we have a `kris.wav` `in assets/sounds/voice`. 
+
+Now, everytime Kris speaks(which will be never) this voice should play! Hooray, we did it!
 
 ### Blushing
 
