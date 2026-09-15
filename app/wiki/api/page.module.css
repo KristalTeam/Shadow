@@ -16,12 +16,10 @@
 }
 
 .type {
-  font-weight: normal;
-  font-family: "8bitOperatorPlus-Bold", monospace;
+  font-weight: var(--font-weight-bold);
 }
 
 .variable {
-  font-family: "8bitOperatorPlus-Regular", monospace;
   font-style: italic;
   color: white
 }

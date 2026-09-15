@@ -22,18 +22,15 @@
     border-radius: 0;
     border-color: white;
     color: white;
-    font-size: 1rem;
+    font-size: 16px;
     border-style: solid;
     box-sizing: border-box;
     min-width: 0;
-
-    font-family: "8bitOperatorPlus-Regular", monospace;
 
     background-color: transparent;
 }
 
 .button {
-    font-family: "8bitOperatorPlus-Regular", monospace;
     flex-shrink: 0;
     padding: 0.5rem 1rem;
     border: 2px solid white;

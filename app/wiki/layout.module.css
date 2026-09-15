@@ -1,6 +1,15 @@
 .container {
-    padding-left: 20rem;
+    padding-left: 16rem;
     width: 100%;
+    font-family: var(--font);
+
+    --font-weight-body: 400;
+    --font-weight-bold: 700;
+    font-weight: var(--font-weight-body);
+
+    font-smooth: auto;
+    -webkit-font-smoothing: auto;
+    font-size: 20px;
 }
 
 .main {
@@ -14,7 +23,7 @@
 
 @media screen and (max-width: 1024px) {
     .container {
-        padding-left: 16rem;
+        padding-left: 14rem;
     }
 }
 

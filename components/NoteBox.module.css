@@ -1,11 +1,11 @@
 .noteBox {
     margin-bottom: 1rem;
+    margin-top: 1rem;
 }
 
 .header {
-  font-weight: normal;
-  font-family: "8bitOperatorPlus-Bold", monospace;
-  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  font-size: 1.25rem;
 }
 
 .anchor {
@@ -21,7 +21,6 @@
     padding-top: 1rem;
     padding-bottom: 1rem;
     line-height: 1.5;
-    font-size: 1.1rem;
 }
 
 .content > p {

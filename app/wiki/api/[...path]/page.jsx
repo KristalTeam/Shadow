@@ -267,7 +267,6 @@ async function Api_type(type, { params }) {
                     </span>
             )}
             </h4>
-            <br/>
             <span style={{color: "lightgray"}}>{desc}</span>
 
         </div>
@@ -287,7 +286,7 @@ async function Api_type(type, { params }) {
                     {renderArgsInline(initializer.extends.args)}
                     <span className={styles.syntax}>)</span>
                     </h3>
-                    <div style={{color: "lightgray"}}>{await parse(initializer.rawdesc ?? initializer.desc)}</div>
+                    <div style={{color: "lightgray"}}>{await parse(initializer.rawdesc)}</div>
                     { hasVisibleArgs(initializer.extends.args) &&
                         <>
                             <p>Arguments:</p>

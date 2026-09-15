@@ -27,8 +27,7 @@
     background-color: lightgray;
     color: lightgray;
 
-    font-family: "8bitOperatorPlus-Bold", monospace;
-    font-weight: normal;
+    font-weight: var(--font-weight-bold);
   }
   
   .slider:before {

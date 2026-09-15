@@ -110,8 +110,7 @@
 }*/
 
 .screenshot_title {
-  font-weight: normal;
-  font-family: "8bitOperatorPlus-Bold", monospace;
+  font-weight: var(--font-weight-bold);
 }
 
 .screenshot_author {

@@ -25,9 +25,9 @@ This is a great place to try the language out.
 
 Lua is an easy language to learn, but difficult to master.
 
----
-
 ### Strings, And Your First Program [strings]
+
+---
 
 First, let's start with a very, very simple program:
 
@@ -47,9 +47,9 @@ So, what's happening here? Well, let's break it down in parts.
 
 Strings are a very important part of Lua. They are used to store text. They can be used to store anything, from a single letter, to a whole book. They are very, very useful.
 
----
-
 ### Numbers
+
+---
 
 ```lua
 print(5 + 10)
@@ -65,9 +65,9 @@ print(0.1 + 0.2)
 
 This will print out `0.3`.
 
----
-
 ### Variables
+
+---
 
 Variables are another important part of Lua. Variables are used to store data. Let's try this:
 
@@ -113,9 +113,9 @@ print(x) -- prints nil
 
 `nil` is the absence of a value.
 
----
-
 ### Local Variables
+
+---
 
 You may have noticed the word "local" before we set a variable for the first time. That is because we are making a **local variable**.
 
@@ -134,9 +134,9 @@ It's only accessible inside of that `if` statement, meaning that `hello` does no
 
 In this example, we use `if`, which will be explained later.
 
----
-
 ### Global Variables
+
+---
 
 Global variables are what you get when you don't use `local`. They are accessible from anywhere in the code, and are not limited to a scope.
 
@@ -144,9 +144,9 @@ Global variables are what you get when you don't use `local`. They are accessibl
 
 **Try to make all of your variables local if you can.** There are other places to store information (tables) which you will learn of later.
 
----
-
 ### Comments
+
+---
 
 Comments should be everywhere in your code. They are used to explain what your code does, and why it does it. They are also used to disable code.
 
@@ -168,9 +168,9 @@ It spans multiple lines.
 ]]
 ```
 
----
-
 ### Strings, Continued
+
+---
 
 Strings are actually a bit more complicated than what we've seen so far. For example, this is a valid string:
 
@@ -208,8 +208,9 @@ print(x .. " world!")
 
 This will print out `Hello world!` as well.
 
----
 ### Booleans
+
+---
 
 Conditions are a very important part of programming. They are used to check if something is true or false. For example:
 
@@ -242,9 +243,9 @@ end
 
 And of course, this prints nothing!
 
----
-
 ### Functions
+
+---
 
 Functions are used to store chunks of code, and to run them later. For example:
 
@@ -284,9 +285,9 @@ local add2 = add
 
 `add2` is the exact same as `add`!
 
----
-
 ### Tables
+
+---
 
 Tables store data. Think of them as a list of values. For example:
 
@@ -328,9 +329,9 @@ You can get the length of a table using `#` before the variable:
 print(#x) -- 4
 ```
 
----
-
 ### Tables, Continued
+
+---
 
 Tables can also have keys. Keys are used to access items in a table.
 
@@ -371,9 +372,9 @@ print(x.one.two.three)
 
 This will print `Three`!
 
----
-
 ### Loops
+
+---
 
 Loops are used to repeat code. For example:
 
@@ -415,9 +416,9 @@ end
 
 This function loops forever, because `true` is always, well, true!
 
----
-
 ### Putting It All Together
+
+---
 
 Let's make a program which takes a table of numbers, and prints out the sum of all of them:
 
@@ -447,9 +448,9 @@ Let's break it down:
 
 And that's it for the basics! That's... quite a bit, right? Don't worry, it's not as complicated as it seems. Well, yet, anyway.
 
----
-
 ### Scopes And Local Variables
+
+---
 
 We've been using the keyword `local` all over the place, what gives?
 
@@ -504,9 +505,9 @@ We've already gone over tables, and even had two sections of them in the last pa
 
 Well, here's an entire part dedicated to them. Oh boy.
 
----
-
 ### Tables, Continued, Continued
+
+---
 
 You don't always have to loop through a table by using a `for` loop and an index. You can also use `ipairs`:
 
@@ -558,9 +559,9 @@ That's... interesting. It wasn't in order! That's because tables are not guarant
 
 Due to the nature of list-like tables, those'll always be in order. But tables with keys are not guaranteed to be in any sort of order.
 
----
-
 ### Functions in Tables
+
+---
 
 Tables can store functions. For example:
 
@@ -584,9 +585,9 @@ print(x.subtract(5, 10))
 
 This prints out `15` and `-5`, respectively.
 
----
-
 ### Class-Like Tables
+
+---
 
 Since there's no class system in Lua, tables themselves are used as classes. For example:
 
@@ -610,9 +611,9 @@ x.sayHello(x)
 
 This is the exact same as the example above. It's just a shortcut.
 
----
-
 ### Varargs, Multiple Returns, and Destructuring
+
+---
 
 Functions can return multiple values. For example:
 
@@ -699,5 +700,7 @@ This is destructuring the return values of the function. We're getting the first
 Metatables, metamethods, coroutines
 
 This is a work in progress!
+
+(These aren't really required for Kristal, so if you've gotten here, feel free to proceed.)
 
 </Box>

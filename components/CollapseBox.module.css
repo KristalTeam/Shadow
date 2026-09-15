@@ -32,7 +32,7 @@
 
 .summary {
     font-size: 1.25rem;
-    font-family: "8bitOperatorPlus-Bold", monospace;
+    font-weight: var(--font-weight-bold);
     padding: 1rem;
     padding-left: 2rem;
     padding-right: 2rem;
