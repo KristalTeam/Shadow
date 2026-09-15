@@ -3,8 +3,8 @@
     width: 100%;
     font-family: var(--font);
 
-    --font-weight-body: 400;
-    --font-weight-bold: 700;
+    --font-weight-body: 350;
+    --font-weight-bold: 500;
     font-weight: var(--font-weight-body);
 
     font-smooth: auto;

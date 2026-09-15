@@ -1,9 +1,9 @@
 import styles from './layout.module.css'
 import Sidebar from 'components/Sidebar';
 
-import { Quicksand } from 'next/font/google'
+import { Roboto } from 'next/font/google'
 
-const font = Quicksand({
+const font = Roboto({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font',
