@@ -28,8 +28,8 @@ export const metadata = {
     ```lua
     local MyObject, super = Class(Object)
 
-    function MyObject:init()
-        super.init(self)
+    function MyObject:init(x, y)
+        super.init(self, x, y) -- Objects must get an x and y position!
 
         -- Set up the object here
     end
@@ -113,6 +113,16 @@ export const metadata = {
     This means that scaling, rotation, and position of the object will affect how things are drawn in the `draw` function.
 
     Most of the time, you won't have to do anything fancy to get things to draw properly.
+
+    <NoteBox type="warning">
+        You shouldn't do logic in here! This is solely for drawing.
+    </NoteBox>
+
+    <NoteBox type="info">
+        A frequently asked question is "how do you change the layer while drawing?"
+
+        You **cannot change the layer while drawing**. Objects are what control layers, and if you need to draw things at different layers, you must create multiple objects.
+    </NoteBox>
 </Box>
 
 <Box>
@@ -141,4 +151,51 @@ export const metadata = {
     The stage is the root of the hierarchy. It's the top of the tree. It's the roots which the trunk is connected to.
 
     The stage is a special object. It's the only object which doesn't have a parent. It's what kicks everything off -- it's the first object to be drawn and updated, which draws and updates its children, which draw and update THEIR children, etc.
+</Box>
+
+<Box>
+    ## Spawning Objects
+
+    ---
+
+    With these concepts in mind, we can now create objects.
+
+    There are two objects you'll be working with the most, being [`World`](/wiki/api/World) and [`Battle`](/wiki/api/Battle). These are two main objects which control gameplay.
+
+    [`Battle`](/wiki/api/Battle) lives at [`Game.battle`](/wiki/api/Game#battle) (as long as you're currently in a battle). In your code, you can do something like this:
+
+    ```lua
+    local obj = Game.battle:addChild(MyObject())
+    ```
+
+    This creates an instance of `MyObject()`, and adds it to the `Battle` object. This means that the object will now exist as long as the battle is there to keep it alive.
+
+    Additionally, you can now mess around with `obj` if needed, which refers to the specific instance of `MyObject` you just created. This means that you can now mess with it specifically:
+
+    ```lua
+    obj:setScale(4) -- Make it huge
+    ```
+
+    `addChild` is how you add an object to the hierarchy. Remember, just creating an object isn't enough -- you need to add it somewhere!
+
+    ---
+
+    [`World`](/wiki/api/World) lives at [`Game.world`](/wiki/api/Game#world), and you can add children the same way.
+
+    With that in mind, the overworld is actually special; the whole concept of overworld layers exist, too. Sometimes it may be preferrable to add an object to a specific layer.
+
+    Objects in the overworld have to worry about "depth sorting", which is a system that makes some objects appear in front of others (like how top-down RPGs normally work).
+
+    If your object needs to be depth-sorted, then you should make sure to add it using [`World:spawnObject()`](/wiki/api/World#spawnObject).
+
+    ```lua
+    local obj = Game.world:spawnObject(MyObject())
+    ```
+
+    Now, your object will either appear in front of or behind other objects, depending on its position in the world.
+
+    Think of something like a sign; you can walk in front of it (and the player appears in front of it), or you can walk behind it (and the sign is now in front).
+    This is what depth sorting is for.
+
+    Of course, if your object doesn't need anything like that (maybe a particle effect, a UI element, etc) then you can just use `addChild`.
 </Box>

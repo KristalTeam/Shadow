@@ -249,7 +249,7 @@ end
 return Animal
 ```
 
-... then the dog class must also take in a name, and pass it to the parent class's `init` function.
+... then the dog class must make sure to give the parent class's `init` function a name as well.
 
 ```lua
 local Dog, super = Class(Animal)
@@ -259,6 +259,18 @@ function Dog:init(name)
 end
 
 return Dog
+```
+
+A child constructor does NOT need to take in the same arguments as the parent, but it must make sure to give the parent class the arguments that *it* needs.
+
+```lua
+local JoeDog, super = Class(Dog)
+
+function JoeDog:init()
+    super.init(self, "Joe") -- Since Dog's first argument is `name`, we can pre-fill that.
+end
+
+return JoeDog
 ```
 
 </Box>
