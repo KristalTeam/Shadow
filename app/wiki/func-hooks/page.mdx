@@ -77,16 +77,16 @@ Now we can make a few changes - let's log some information to the Kristal consol
 ```lua
 HookSystem.hook(EnemyBattler, "hurt", function (orig, self, amount, battler, on_defeat, color, show_status, attacked)
     -- Code above the original function runs before it:
-    Kristal.Console:log("Enemy " .. self.name .. " has " .. self.health .. " HP.")
+    Logging.debug("Enemy " .. self.name .. " has " .. self.health .. " HP.")
 
-    Kristal.Console:log("Hurting enemy for " .. amount .. " damage")
+    Logging.debug("Hurting enemy for " .. amount .. " damage")
     -- Original EnemyBattler:hurt runs
     orig(self, amount, battler, on_defeat, color, show_status, attacked) 
 
     -- Code below the original function runs after it:
-    Kristal.Console:log("Enemy " .. self.name .. " has " .. self.health .. " HP.")
+    Logging.debug("Enemy " .. self.name .. " has " .. self.health .. " HP.")
 
-    Kristal.Console:log("-------------")
+    Logging.debug("-------------")
 end)
 ```
 
