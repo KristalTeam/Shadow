@@ -15,7 +15,6 @@ Creating items mostly involves copy pasting, then changing a few values. It's no
 
 <Box>
 ## Basic Items
----
 
 Let's say you want to make an item that does, well, nothing but take up inventory space. Just make a new Lua file in `data/items`.
 
@@ -85,8 +84,6 @@ See, it's just changing a bunch of variables. But, what if we want it to *do* so
 - `all`: you can use it anywhere
 - `none`: you can't use it
 
----
-
 ### Making it do something
 
 Let's make it usable in the overworld. That's easy, just change `self.usable_in` to `"world"`. We should also make you select an ally to use it on, so change `self.target` to `"ally"`.
@@ -141,7 +138,6 @@ Look around the menu for the `Give Item` option - that's what we're looking for.
 
 <Box>
 ## Heal Items
----
 
 Heal items are simple, just extend `HealItem` instead.
 
@@ -150,7 +146,6 @@ You'll want to set `self.heal_amount` to the amount you want the item to heal th
 
 <Box>
 ## TP Items
----
 
 TP items are also simple, just extend `TensionItem` instead.
 
@@ -158,7 +153,6 @@ You'll want to set `self.tp_amount` to the TP you wanna gain.
 </Box>
 <Box>
 ## Armor
----
 
 Here's everything special in the white ribbon:
 
@@ -184,7 +178,6 @@ Bonuses is a simple table, taking `defense`, `magic` and `attack`, all optional 
 
 <Box>
 ## Weapons
----
 
 Here's some code from the EverybodyWeapon, an unused weapon:
 
@@ -211,7 +204,6 @@ self.can_equip = {}
 
 <Box>
 ## Key Items
----
 
 Code from the cell phone:
 ```lua
@@ -224,7 +216,6 @@ self.type = "key"
 
 <Box>
 ## Reactions
----
 
 When you use an item, or equip one, characters might react. This is done with the `self.reactions` table. Taking a look at the EverybodyWeapon again, we get:
 

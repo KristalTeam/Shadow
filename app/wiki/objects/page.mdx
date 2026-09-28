@@ -21,7 +21,6 @@ export const metadata = {
 
 <Box>
     ## Creating An Object [creating-an-object]
-    ---
 
     Creating a new object is the same as creating a new class. Simply inherit from `Object`:
 
@@ -50,7 +49,6 @@ export const metadata = {
 
 <Box>
     ## The Update Function [update]
-    ---
 
     Objects have an `update` function, which is called every frame.
 
@@ -93,7 +91,6 @@ export const metadata = {
 
 <Box>
     ## The Draw Function [draw]
-    ---
 
     Objects also have a `draw` function, which is called every frame after the `update` function.
 
@@ -128,8 +125,6 @@ export const metadata = {
 <Box>
     ## Hierarchies
 
-    ---
-
     Tough word to spell, isn't it?
 
     Objects can have children. These children are drawn relative to their parent. If you move the parent, the child will move with it.
@@ -146,8 +141,6 @@ export const metadata = {
 <Box>
     ## The Stage
 
-    ---
-
     The stage is the root of the hierarchy. It's the top of the tree. It's the roots which the trunk is connected to.
 
     The stage is a special object. It's the only object which doesn't have a parent. It's what kicks everything off -- it's the first object to be drawn and updated, which draws and updates its children, which draw and update THEIR children, etc.
@@ -155,8 +148,6 @@ export const metadata = {
 
 <Box>
     ## Spawning Objects
-
-    ---
 
     With these concepts in mind, we can now create objects.
 

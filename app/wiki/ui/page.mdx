@@ -19,8 +19,6 @@ It allows you to create custom UIs such as menus, HUDs, and more.
 <Box>
 ## The Basics
 
----
-
 A UI is made up of **components**. A component is a single piece of the UI. Think of them as [objects](/wiki/objects), but more advanced.
 
 Let's take the main menu as an example. The soul is a component, each menu item is a component, and the Kristal logo is a component.
@@ -40,8 +38,6 @@ But what do these things mean, exactly?
 <Box>
 ## The Anatomy of a Component
 
----
-
 ### Margins and Paddings
 
 As stated before, components have **margins** and **paddings**.
@@ -59,8 +55,6 @@ The cyan area represents the margins, and the pink area represents the paddings.
 <>![](/wiki/margins_and_paddings.png)</>
 
 In Kristal, turning on **debug rendering** will show you the margins and paddings of each component.
-
----
 
 ### Sizings
 
@@ -87,8 +81,6 @@ An example of using both `FillSizing` and `FitSizing` is a menu item.
 You'd want the menu item to stretch horizontally to fit the menu, but you'd want the height to be the same as whatever's inside the menu item, such as text.
 
 <>![](/wiki/menu_option_example.png)</>
-
----
 
 ### Layouts
 
@@ -148,7 +140,6 @@ Finally, it's time to make something!
 
 <Box>
 ## Making a UI
----
 
 Making a UI is simple. You just need to create a component, and then add it somewhere.
 
@@ -229,7 +220,6 @@ That... was a lot of work, though. Is there anything we can do differently?
 
 <Box>
 ## No, and here's why [why-centering-is-hard]
----
 
 Anything powerful needs to be complicated. That's just how it is.
 Sure, we could make a million different layout types, but how would that interact with wrappin- oh no.
@@ -245,8 +235,6 @@ Let's do 8 * (32 + 8). That's, uh, 320. 320 is larger than 240, the height of th
 
 There's no wrapping, so what do we do? Simple: we pick **an overflow mode.**
 
----
-
 ### Overflow modes
 
 There's three overflow modes: `"visible"`, `"hidden"`, and `"scroll"`, which you can use with [`component:setOverflow(mode)`](/wiki/api/Component#setOverflow).
@@ -261,8 +249,6 @@ This overflow mode will hide any overflowing components. They'll be invisible.
 This overflow mode will let you scroll the component.
 - You can use [`AbstractMenuComponent:setScrollType(type)`](/wiki/api/AbstractMenuComponent#setScrollType) with either `"paged"` or `"scroll"` (default).
 
----
-
 ### "You keep talking about wrapping, or a lack thereof. Just get to the point already!" [no-wrapping-explanation]
 
 Fine, fine. Wrapping is complicated. It's not something you can just add, and it'll work perfectly. There's a lot of things to consider.
@@ -274,7 +260,6 @@ If you need wrapping, maybe it's a good idea to manually position your component
 
 <Box>
 ## Manual positioning of components [manual-component-positioning]
----
 
 Ever wonder what happens if you don't call `component:setLayout(layout)`? Well, simple, it doesn't have a layout.
 Or rather, it has **the default layout,** quite simply named [`Layout`](/wiki/api/Layout).
@@ -310,7 +295,6 @@ This... is not ideal, but it works. You're not really supposed to manually posit
 
 <Box>
 ## Input, menus, and all that jazz [input-and-menus]
----
 
 Okay, okay, enough with the boring stuff. We want to actually make a menu.
 
@@ -398,7 +382,6 @@ Now, since the menu is focused, you can use the arrow keys to navigate it, and p
 
 <Box>
 ## The characters can move while the menu is open! [characters-moving-while-menu-open]
----
 
 Use [`World:openMenu`](/wiki/api/World#openMenu) to open a menu instead!
 
@@ -406,7 +389,6 @@ Use [`World:openMenu`](/wiki/api/World#openMenu) to open a menu instead!
 
 <Box>
 ## The docs aren't working yet, so what're the components? [components]
----
 
 Glad you asked.
 
@@ -446,7 +428,6 @@ Glad you asked.
 
 <Box>
 ## Examples? [examples]
----
 
 Menu with scrollbar, easing, and a lot of item types, submenu, and paginated scrolling:
 

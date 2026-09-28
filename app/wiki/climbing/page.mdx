@@ -15,7 +15,6 @@ This page will explain how to use the climbing system, and how to make your own 
 
 <Box>
 ## Climb Areas
----
 
 I'll make a simple structure in Tiled which we'll add climbable walls to.
 
@@ -41,8 +40,6 @@ I'll move it as low as I can, because any visual climbing events should appear u
 
 ### Placing Climb Areas
 
----
-
 Now that we have our layer set up, we can start placing down objects. These are [ClimbArea](/wiki/api/ClimbArea) (`climbarea`) objects; they are where the player can climb.
 
 <>![](/wiki/climbing/climbarea_placement.png "Notice the `class` is set to `climbarea`? These are `climbarea` objects.")</>
@@ -59,7 +56,6 @@ Of course, this is **no different** from any other object, so do what you think 
 
 <Box>
 ## Entering Climbing
----
 
 Now that we have our climbing set up, you'll notice that you still can't enter climbing. That's because we're missing an important part; the actual climb entry and exit objects!
 
@@ -110,8 +106,6 @@ Moving everything back into place, and testing it reveals that we can properly c
 
 ### Climbing without an exit
 
----
-
 There's a few cases where you'd want to enter a climb area, but not be able to leave it. That's when we use the `can_exit` boolean property, and turn it off!
 
 <>![](/wiki/climbing/can_exit_false.png "You don't need an exit marker if you can't leave from the ClimbExit.")</>
@@ -119,8 +113,6 @@ There's a few cases where you'd want to enter a climb area, but not be able to l
 <>![](/wiki/climbing/cant_leave_climbarea.mp4)</>
 
 ### Exiting without an entry
-
----
 
 Another common case is when you want to leave a climb area without being able to re-enter it.
 
@@ -134,8 +126,6 @@ A ClimbExit does **not require** a ClimbEntry, so you can simply place a ClimbEx
 
 ### Finished area
 
----
-
 After adding a few more entries and exits, we're done!
 
 <>![](/wiki/climbing/finished_section.png)</>
@@ -147,13 +137,9 @@ After adding a few more entries and exits, we're done!
 <Box>
 ## Other Climbing Objects
 
----
-
 Of course, there's far more to climbing than just... well, climbing.
 
 ### Enemies
-
----
 
 A [ClimbEnemy](/wiki/api/ClimbEnemy) is a special type of [WorldBullet](/wiki/api/WorldBullet). When the player jumps into them while climbing, they will take damage.
 
@@ -162,8 +148,6 @@ Like WorldBullets, you have to decide how to spawn them yourself; most likely, t
 They're pretty bare-bones, and you're intended to override their behavior to make them more interesting.
 
 ### Falling Climb Areas
-
----
 
 A [FallingClimbArea](/wiki/api/FallingClimbArea) is a special type of ClimbArea which falls once the player leaves it.
 
@@ -196,8 +180,6 @@ Well, except for one problem...
 <>![](/wiki/climbing/falling_softlock.mp4)</>
 
 #### Fixing softlocks
-
----
 
 FallingClimbAreas are meant to be one-way trips, but jumping to the first one will almost always softlock the player if they decide to go backwards after.
 

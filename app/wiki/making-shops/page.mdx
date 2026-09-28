@@ -18,7 +18,7 @@ export const metadata = {
 <Box>
 
     ## Complete shop
-    ---
+
     Let's first start on how to make a **complete shop**.
 
     <CollapseBox title="The shop file" id="shop-file">
@@ -77,7 +77,7 @@ export const metadata = {
     <CollapseBox title="Shop text" id = "shop-text">
 
         ### Shop text
-        ---
+
         Defining the normal text of a shop is very easy, you just need to define the text variables in the init function. 
         
         This is the text that a shop has, along with its default value.
@@ -111,7 +111,6 @@ export const metadata = {
         - The `storage storage` is the storage that is **accessible in savepoints** and is where the player saves the items that they don't want in their inventory.
 
         ### Example
-        ---
 
         For my example, this is the text for the shop that I came up with.
         ```lua
@@ -159,7 +158,6 @@ export const metadata = {
     <CollapseBox title="Adding items" id="adding-items">
 
         ## Adding items
-        ---
 
         With the text done, now we need to add the items that the shop will sell to the player.
 
@@ -179,7 +177,7 @@ export const metadata = {
         already defines, or define the options that the Item doesn't define already.
 
         ### Example
-        ---
+
         For my example, I'll add **Ancient Sweet** and **CD Bagel** as healing items, the **Twisted Sword** for a weapon and the **Shadow Mantle** as the armor.
         
         You can't buy most of these in Deltarune, so I'll also define a description for the item, since I'm not going to modify the item data directly, I'll use the options table.
@@ -207,8 +205,7 @@ export const metadata = {
     <CollapseBox title="Shopkeepers" id="shopkeeper-bg-music">
 
         ## Shopkeeper, background and music
-        ---
-        Defining the background and the music for the shop is very easy. First, store the shop music inside of the `assets/music` folder and the background image for the shop inside
+        ---        Defining the background and the music for the shop is very easy. First, store the shop music inside of the `assets/music` folder and the background image for the shop inside
         of the `assets/sprites/shops` folder. Then, define them inside of your shop code.
 
         ```lua
@@ -295,7 +292,7 @@ export const metadata = {
     <CollapseBox title="Talking menu" id="talking-menu">
 
         ## Talking options
-        ---
+
         We've created our shop, but something is missing, what is a shop without some sweet lore?
 
         Let's create some talking options then. **First**, we're going to define the **talking options** and the **replacements**.
@@ -314,7 +311,7 @@ export const metadata = {
         Let's go over a example to make it easier to understand.
 
         ### Example
-        ---
+
         I've created this diagram to show the topics I want to talk about.
 
         - About you
@@ -455,7 +452,7 @@ export const metadata = {
 <Box>
 
     ## Making a vending machine
-    ---
+
     This is a example on how to make a shop that doesn't transition into another place and just uses the shop interface, the vending machines in Chapter 3 are a great
     example on this, so I'll try to recreate them in this.
 
@@ -558,7 +555,7 @@ export const metadata = {
 <Box>
 
     ## Mini shop UI
-    ---
+
     There is one more thing I want to talk about in this tutorial, [`WorldCutscene:showShop()`](/wiki/api/WorldCutscene#showShop) and
     [`WorldCutscene:hideShop()`](/wiki/api/WorldCutscene#hideShop). These can be used inside of a cutscene to show the money and left space that
     the player has.

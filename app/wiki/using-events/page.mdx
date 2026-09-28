@@ -28,14 +28,14 @@ export const metadata = {
 <Box className={styles.center_table}>
 
     ## The Basics
-    ---
+
     In this tutorial, you'll understand everything about the events in Kristal, how to configure them from Tiled and
     a few examples on how to use them.
 
     This tutorial is a bit more complex. So there are some things that you need to understand first.
 
     ### Tiled properties
-    ---
+
     When you want to create a new event, you can modify how it behaves using the properties of the event.
 
     When adding a custom property to an object, you have to make sure that the type you use in Tiled is the same as the type
@@ -103,7 +103,6 @@ export const metadata = {
 <Box>
 
     ## Text tutorial
-    ---
 
     The text properties that some events have, are normally defined as string[], an array of strings, since you can't 
     directly create arrays in Tiled, you have to use a custom definition that Kristal implements.
@@ -116,7 +115,6 @@ export const metadata = {
     The syntax of these properties are different depending on the use that you want.
 
     ### One textbox
-    ---
 
     If you only want to display a bit of text that fits in one textbox, you can create a custom property called
     `text: string` and give it the text you want.
@@ -138,7 +136,6 @@ export const metadata = {
 
 
     ### Multiple textboxes
-    ---
 
     If the text you want to display doesn't fit in one textbox, you can just use multiple textboxes to display
     all the text that you want.
@@ -164,7 +161,6 @@ export const metadata = {
     </video>
 
     ### Different text in multiples interactions
-    ---
 
     If you want to display a different text depending on the times you've interacted with an object,
     you can do that easily using this syntax: **textX_Y**. X is the number of the interaction and Y is the number of the
@@ -217,7 +213,7 @@ export const metadata = {
 <Box>
 
     ## Making scripts
-    ---
+
     Scripts are a function that you can execute on some events. Like a cutscene, but with different parameters and without having to use the cutscene system.
 
     To make a script, create a `"file".lua` in `/scripts/world/scripts`. **file** is the name of the script, and the
@@ -268,7 +264,6 @@ export const metadata = {
 
 <Box>
     ## Path system tutorial
-    ---
 
     Paths are a way of defining how some objects move in the overworld, essentially, they are a list of points that the object moves in between.
 
@@ -283,9 +278,8 @@ export const metadata = {
     That's all for the creations of paths, now let's go over some examples on how to use this system.
 
     ### Examples
-    ---
+
     #### Using paths on an NPC
-    ---
 
     First, head over to the [NPCs tutorial](#npc) to make an NPC. Then we're going to make it actually move.
 
@@ -314,11 +308,10 @@ export const metadata = {
     </video>
 
     #### Using paths on a Chaser Enemy
-    ---
+
     There is a tutorial of this in the [Chaser enemy tutorial](#chaser-enemy).
 
     #### Using paths in cutscenes
-    ---
 
     You **can't use an ellipse** as a path in a cutscene. **Only a polygon**.
 
@@ -428,7 +421,7 @@ export const metadata = {
 <Box>
 
     ## Interactable
-    ---
+
     An interactable is an object that activates scripts, cutscenes or text when the player interacts with it, when the
     player presses the action button (normally the "Z" key).
 
@@ -453,7 +446,7 @@ export const metadata = {
     `cutscene`, `script` and `text` are mutually exclusive, so only one of them should be used in an Interactable.
 
     ### Examples
-    ---
+
     #### Using a script
     Follow the [script creation tutorial](#making-scripts) and add the `test_script` to the `script` custom property.
 
@@ -491,7 +484,7 @@ export const metadata = {
     and it has been triggered.
 
     ### Example
-    ---
+
     I use script in a few examples of other events, like in the [path system tutorial](/wiki/using-events#path-system-tutorial)
     or in [tile object](/wiki/using-events#tile-object).
 
@@ -500,7 +493,7 @@ export const metadata = {
 <Box>
 
     ## Treasure Chest
-    ---
+
     To create this [`Event`](/wiki/api/Event), place a `point` or a `one tile area` on an `objects` layer and call it `chest`.
 
     These are the properties of the event:
@@ -510,7 +503,7 @@ export const metadata = {
     - `setvalue: any = true` -> The value to set on the flag specified by `setflag`. If this isn't defined, the flag will be set to **true**.
 
     ### Examples
-    ---
+
     We've already created a chest that gives money, so let's create a chest that gives you an item instead.
 
     Add a **point** or a **one tile area** in your map and call it `chest`, then create a custom property named `item` and give it the `string` type.
@@ -534,7 +527,6 @@ export const metadata = {
 <Box>
 
     ## Cyber trash can
-    ---
 
     A cyber trash can works the same way as a [Treasure Chest](#treasure-chest), it's an event that
     either gives you an item or money when you interact with it.
@@ -552,7 +544,6 @@ export const metadata = {
 <Box>
 
     ## Savepoint
-    ---
 
     These are the stars that allow the Player to **SAVE** the game.
 
@@ -582,7 +573,7 @@ export const metadata = {
     - `once: boolean = false` -> Savepoint doesn't use this property, so don't try to define it.
 
     ### Example
-    ---
+
     For this example, we have to create the `savepoint` on an `objects` layer and the marker that the savepoint will use to respawn as at.
 
     Something like this should work.
@@ -608,7 +599,7 @@ export const metadata = {
 <Box>
 
     ## Transitions
-    ---
+
     Transitions are objects that allow the player to load other maps or shops.
 
     This [`Event`](/wiki/api/Event) is an `area`, so you have to create it using
@@ -634,7 +625,7 @@ export const metadata = {
     - `exit_pitch: number` -> The pitch the exit sound should play at.
 
     ### Example
-    ---
+
     This example focuses on a map transition, if you want a shop transition, go to the [`Creating a shop tutorial`](/wiki/making-shops).
 
     To test this, you first need to create a new map to make the transition to. Follow the 
@@ -697,7 +688,7 @@ export const metadata = {
 
 <Box>
     ## Outline
-    ---
+
     Outline is a region of the map that draws a colored stencil outline for all the characters that are inside of that area.
     The color of this outline is defined by the `Actor` of the character in the `self.color` field.
 
@@ -706,7 +697,7 @@ export const metadata = {
     This event doesn't have any custom properties.
 
     ### Example
-    ---
+
     First, lets create an area on the `objects` layer and name it `outline`.
 
     <>![](/wiki/outline_tutorial_1.png)</>
@@ -723,7 +714,7 @@ export const metadata = {
 
 <Box>
     ## Slide area
-    ---
+
     A slide area is an area of the map that makes the player slide down when entered.
     
     To create this [`Event`](/wiki/api/Event), create an `area` on an `objects` layer and name it `slidearea`.
@@ -733,7 +724,7 @@ export const metadata = {
     <br></br>If **false**, the player can move left and right when sliding down.
 
     ### Example
-    ---
+
     To test this event, modify the current map to add a slide zone, you can use the darker 
     bones to mark these sections, then add the `slidearea` like in the example image 
     and step on this area to test it yourself!
@@ -749,7 +740,7 @@ export const metadata = {
 <Box>
 
     ## Silhouette
-    ---
+
     Silhouette is an area [`Event`](/wiki/api/Event) that draws a silhouette on top of the characters that are inside of the event. 
     In practice, this dims the color of the characters.
 
@@ -760,7 +751,7 @@ export const metadata = {
     <br></br>You define this using the `Color Tiled type`. This is in `RGBA` format.
 
     ### Example
-    ---
+
     First, create the `area` that you want in an `objects` layer and then name it `silhouette`. Like in the example below.
 
     <>![](/wiki/silhouette_tutorial_1.png)</>
@@ -793,7 +784,6 @@ export const metadata = {
 <Box>
 
     ## Camera target
-    ---
 
     This [`Event`](/wiki/api/Event) is a region in the Overworld that causes the camera to target a specific position while the player is inside.
     Useful when you want to make the player focus on a specific object.
@@ -825,7 +815,7 @@ export const metadata = {
     If none are given, the camera defaults will be used instead. 16 for speed and 0.25 for time.
 
     ### Examples
-    ---
+
     First, let's make an example in which we lock the camera to the center of the room. 
     To do that, just create the `cameratarget` and the `marker` the camera will focus on, then add the target to the
     custom properties of the `cameratarget`.
@@ -857,8 +847,7 @@ export const metadata = {
 <Box>
 
     ## Hide Party
-    ---
-    
+
     This event is a region in the Overworld that hides the [followers](/wiki/api/Follower) of the [player](/wiki/api/Player) when the player steps into the event.
 
     This event is an `area` and naming an object `hideparty` on an `objects` layer creates this event.
@@ -867,7 +856,7 @@ export const metadata = {
     - `alpha: number = 0` -> The target alpha of followers in this region. How transparent they will end up being.
 
     ### Example
-    ---
+
     Create an `area` where you want in the map and name it `hideparty`, like in this example.
 
     <>![](/wiki/hideparty_tutorial.png)</>
@@ -884,8 +873,7 @@ export const metadata = {
 <Box>
 
     ## Set flag event
-    ---
-    
+
     This event is an Overworld region that sets a flag to a certain value when the player steps into it.
 
     This [`Event`](/wiki/api/Event) is an `area` and naming an object `setflag` on an `objects` layer creates this event.
@@ -902,7 +890,7 @@ export const metadata = {
     if not, the flag will be stored as a **global flag**.
 
     ### Example
-    ---
+
     To test this event, you can use the flag editor in the [Debug System](/wiki/debugging) to see how the flags
     get created and the value they have.
 
@@ -925,7 +913,6 @@ export const metadata = {
 <Box>
 
     ## Forcefield
-    ---
 
     Forcefields are an electrical barrier that stops the player's progression until a certain condition is met.
     Mainly used to stop the player until they complete a puzzle or reach a certain point on the project.
@@ -944,7 +931,7 @@ export const metadata = {
     - `value: boolean = true` -> The value that `flag` should be for the forcefield to be active.
 
     ### Example
-    ---
+
     Since we're not making a puzzle yet, we can use the [Set flag event](#set-flag-event) or the debug flag editor
     to test the forcefield functionality.
 
@@ -983,7 +970,6 @@ export const metadata = {
 <Box>
 
     ## Magic Glass
-    ---
 
     Magic glass are glass tiles that only appear when a character (such as the player or its followers) steps on them.
 
@@ -995,7 +981,7 @@ export const metadata = {
     <br></br>If **false**, the glass will use the old sprite. Stored in `assets/sprites/world/events/magical_glass`.
 
     ### Example
-    ---
+
     Since `magicglass` is normally hidden, we can use it to make a secret pathway towards an inaccessible chest.
 
     Modify the second map to make something like this.
@@ -1039,7 +1025,6 @@ export const metadata = {
 <Box>
 
     ## Tile Object
-    ---
 
     Tile objects are a combination between a tile from a tileset and an [Event](/wiki/api/Event),
     this is how you can make a tile that has the properties of an [Object](/wiki/api/Object).
@@ -1051,7 +1036,7 @@ export const metadata = {
     to the size that you want.
 
     ## Example
-    ---
+
     For this example, let's place a tileobject and create a script to do something with it. 
 
     Follow the tutorial below if you still don't get how to make them.
@@ -1099,7 +1084,6 @@ export const metadata = {
 <Box>
 
     ## Warp Door
-    ---
 
     Warp doors are objects that allow the player to **fast travel** between Overworld locations.
 
@@ -1118,7 +1102,6 @@ export const metadata = {
     want to allow the player to fast travel in the middle of your project, but not to a latter location.
 
     ### Examples
-    ---
 
     Create a `warpdoor` in both maps, for this example the door will be open from the start, so the properties are the same for both.
     You'll also need to define the markers where the player will be teleported to, I'll name them `door_warp` to make it simple. 
@@ -1174,7 +1157,6 @@ export const metadata = {
 <Box>
 
     ## Quick Save Event
-    ---
 
     An overworld object that triggers a [Quicksave](/wiki/api/Game#saveQuick) when entered. 
     You can use this if you want to save flags values after the player game overs.
@@ -1185,7 +1167,6 @@ export const metadata = {
     - `marker: string` -> The name of the marker to use to spawn the party after loading the quicksave. Like in a gameover.
 
     ### Example
-    ---
 
     For this example, I'll just create a `quicksave` and a [`setflag`](#set-flag-event) to see how this works.
 
@@ -1209,7 +1190,6 @@ export const metadata = {
 <Box>
 
     ## Mirror area
-    ---
 
     A mirror area is a region in the Overworld that reflects the characters below it, like a mirror.
 
@@ -1224,7 +1204,6 @@ export const metadata = {
     - `opacity: number = 1` -> The opacity of reflections drawn in the mirror.
 
     ### Example
-    ---
 
     For the first example, I'll just create a mirror to show how the event works.
 
@@ -1262,7 +1241,7 @@ export const metadata = {
 <Box>
 
     ## Push Block
-    ---
+
     A pushable block that is usually used to make puzzles, to create this [`Event`](/wiki/api/Event), place an `area` that covers only **one tile**
     in an `objects` layer and name it `pushblock`.
 
@@ -1292,7 +1271,7 @@ export const metadata = {
     <br></br> The default value is defined in the config file of your project, in the `pushBlockInputLock` property.
 
     ### Example
-    ---
+
     For this example, I'll make the base of the puzzle and finish it in the [Tile Button](#tile-button) tutorial, since I need
     to use both to create a puzzle.
 
@@ -1395,7 +1374,7 @@ export const metadata = {
 <Box>
 
     ## Tile Button
-    ---
+
     A button that can be either pressed down by characters or by [Push Blocks](#push-block).
 
     To create this [`Event`](/wiki/api/Event), place an `area` of one tile on an `objects` layer and name it `tilebutton`.
@@ -1421,7 +1400,6 @@ export const metadata = {
     - `script: string` -> The name of a script file that should be executed when the button's puzzle is solved.
 
     ### Examples
-    ---
 
     Well... that's a lot of properties so let's go over some examples and videos to help you understand how this event works.
 
@@ -1531,11 +1509,11 @@ export const metadata = {
 <Box>
 
     ## Making Dark fountains
-    ---
+
     Creating a dark fountain in Kristal is very easy and you only need three parts.
 
     ### Dark fountain
-    ---
+
     First we have the **dark fountain** itself, this is an event, and to create it, place a `point` in an `objects` layer and name it `darkfountain`.
 
     This is the configurable property of this event.
@@ -1543,7 +1521,7 @@ export const metadata = {
     <br></br>If **true**, you'll create a narrow dark fountain. <br></br>If **false**, a normal dark fountain will be created instead.
 
     #### Example
-    ---
+
     I've created a new map to create the dark fountain, but you can place it in the maps you've already created.
 
     This is what I have so far.
@@ -1553,7 +1531,7 @@ export const metadata = {
     You might think "why doesn't it have a floor?" To answer that, we need to go to the next step in creating a dark fountain.
 
     ### Fountain floor
-    ---
+
     This is the floor that changes color overtime, following the color of the fountain. You don't need to have a dark fountain in the room to
     use this object, but if you define one, the color of the floor will sync with the color of the fountain.
 
@@ -1562,7 +1540,7 @@ export const metadata = {
     This event doesn't have any custom properties.
 
     #### Example
-    ---
+
     I've modified the room a bit to place this new event, since `fountainfloor` is an object, make sure that you create it in an 
     `objects` layer that's **below the one the player is drawn at** or you might find that the floor gets drawn above the player. 
     
@@ -1578,13 +1556,13 @@ export const metadata = {
     That looks good, but we are still mising an important part of the dark fountain room, the shadows of the characters.
 
     ### Fountain Shadow Controller
-    ---
+
     Creating this is very simple, insert a `point` in a `controllers` layer and name it `fountainshadow`.
 
     This will add the shadow effect to every character present in the map.
 
     #### Example
-    ---
+
     I've added a `controllers` layer in my map, to make this, create a new object layer and name it `controllers`. 
     Use the color that you want, but I'll use a <span style={{color: "#ffc800"}}>Golden Color. </span>#ffc800 (255, 200, 0)  ![](/wiki/controllers_layer_color.png)
 
@@ -1600,7 +1578,7 @@ export const metadata = {
 <Box>
 
     ## Toggle Controller
-    ---
+
     This [`Event`](/wiki/api/Event) is a **controller** that toggles the existence of other events in maps on the Overworld.
 
     This controller toggles the existence of other events **immediately** upon the **change of its flag**, so it doesn't need
@@ -1642,7 +1620,7 @@ export const metadata = {
     Now lets go over some examples.
 
     ### Examples
-    ---
+
     I've already showed how to link the objects to the toggle, so let's go over an example that shows how this works.
 
     I've created a toggle linked to two chests and a collider that blocks the way, I've also given it `chest_active` as the `flag` it should check for.
@@ -1673,7 +1651,7 @@ export const metadata = {
 <Box>
 
     ## NPCs
-    ---
+
     NPCs are an extension of [Character](/wiki/api/Character) that can be placed on a map as if they were an event.
 
     Naming an object `npc` on an `objects` layer in a map creates an NPC.
@@ -1725,7 +1703,7 @@ export const metadata = {
     0 being the start of the path and 1 the end of the path. This can be a float.
 
     ### Examples
-    ---
+
     First, we need to create a new actor to use as an NPC or use one that is already defined. 
     You can create the actor for the new npcs in `scripts/data/actors` and store the assets in `assets/sprites/npcs`.
 
@@ -1841,7 +1819,7 @@ export const metadata = {
 <Box>
 
     ## Chaser Enemy
-    ---
+
     Chaser enemies are the enemies that you encounter in the Overworld and start an encounter when you collide with them.
     This is a complex event, so I hope this tutorial helps you implement your enemies in your project.
 
@@ -1924,7 +1902,6 @@ export const metadata = {
     Okay, that was a lot, so let's go over some examples to understand how this object works.
 
     ### Examples
-    ---
 
     First, let's create a base enemy that we can test things on.
 
@@ -1944,7 +1921,6 @@ export const metadata = {
     This creates a basic enemy we can interact with to start an encounter.
 
     #### Chasing down the player
-    ---
 
     Now we can make the enemy chase the player down. Just enable `chase` and we'll test every type of chasing.
 
@@ -2035,7 +2011,6 @@ export const metadata = {
     As you can see in the end, the enemy looks to be moving much faster when using the **multiplier chasetype**.
     
     #### Moving the enemy
-    ---
 
     There are multiple ways of making the enemy move in the overworld. 
     

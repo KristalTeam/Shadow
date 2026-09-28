@@ -1,7 +1,5 @@
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 html {
@@ -11,7 +9,6 @@ html {
   --font-weight-body: 400;
   --font-weight-bold: 700;
 }
-
 
 @media screen and (max-width: 1024px) {
   html {
@@ -44,6 +41,10 @@ body {
   flex-direction: column;
 }
 
+ul {
+  padding-inline-start: 2rem;
+}
+
 small {
   padding-top: 1rem;
   color: lightgray;
@@ -53,10 +54,6 @@ small {
 strong, b {
   font-weight: var(--font-weight-bold);
   color: yellow;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: var(--font-weight-bold);
 }
 
 h1.markdown[level="1"] {
@@ -93,21 +90,12 @@ hr {
   margin-bottom: 1rem;
 }
 
-p {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
 img {
   max-width: 100%;
 }
 
 video {
   max-width: 100%;
-}
-
-li {
-  margin-left: 2rem;
 }
 
 li::marker {
@@ -119,12 +107,33 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 }
 
 h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-bold);
   overflow-wrap: break-word;
   word-break: break-word;
 }
 
+h1 {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+h3, h4, h5, h6 {
+  margin-top: 2rem;
+  margin-bottom: 0.25rem;
+}
+
 h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
   color: yellow;
+}
+
+p {
+  margin-block-start: 0;
+  margin-block-end: 1.25em;
 }
 
 table {
@@ -173,6 +182,7 @@ code {
   background: #0d1117;
   border-radius: 4px;
   padding: 2px;
+  margin-block-end: 1.5rem;
 }
 
 summary {

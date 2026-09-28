@@ -97,14 +97,14 @@ export default function Home() {
             </h1>
 
             <section className={styles.section}>
-                <Box>
+                <Box noLines>
                     <h2 className={styles.header}>What is this?</h2>
                     <p>
                         Kristal is a powerful <NewTab href="https://deltarune.com/">DELTARUNE</NewTab> fangame and battle engine, made with <NewTab href="https://love2d.org/">LÖVE</NewTab>. It allows you to make <b>custom DELTARUNE worlds, battles, and more!</b>
                     </p>
                 </Box>
 
-                <Box>
+                <Box noLines>
                     <h2 className={styles.header}>How do I use it?</h2>
                     <p>
                         Check out our <Link href="/wiki/">wiki</Link> for more information on how to use Kristal.
@@ -112,14 +112,14 @@ export default function Home() {
                     </p>
                 </Box>
 
-                <Box>
+                <Box noLines>
                     <h2 className={styles.header}>Can I help?</h2>
                     <p>
                         <b>Yes!</b> Feel free to look through the <NewTab href="https://github.com/KristalTeam/Kristal">source code of Kristal</NewTab> and contribute if you wish.
                     </p>
                 </Box>
 
-                <Box>
+                <Box noLines>
                     <h2 className={styles.header}>Show some screenshots!</h2>
                     <br/>
                     <div className={styles.screenshots}>

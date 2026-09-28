@@ -1,8 +1,15 @@
 import styles from './Box.module.css';
 
-export default function Box({ children, className, ...props}) {
-    if (className) {
-        return <div className={`${styles.box} ${className}`} {...props}>{children}</div>;
+export default function Box({ children, className, noLines, ...props}) {
+    const classList = [ styles.box ];
+
+    if (!noLines) {
+        classList.push(styles.headerLines);
     }
-    return <div className={styles.box} {...props}>{children}</div>;
+
+    if (className) {
+        classList.push(className);
+    }
+
+    return <div className={classList.join(' ')} {...props}>{children}</div>;
 }

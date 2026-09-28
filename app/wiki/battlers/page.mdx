@@ -13,17 +13,12 @@ If it's a character in a battle, it's a battler!
 
 <Box>
 ## Getting Started With Party Battlers
----
 
 Party battlers represent the characters in your party. Your party is separate from your battlers, since your party gets used in the overworld, in shops, in battles, everywhere. Your battlers are only used in battles, as the name suggests.
-
----
 
 ### Creating a Battler...?
 
 To create a party battler, you'll need to... wait, what? It's already done? Yes, that's right, battlers use your character's **actor data** as a display.
-
----
 
 ### But It's Invisible!
 
@@ -50,13 +45,10 @@ Since your battler is created using the actor data, you need to make sure the co
 
 <Box>
 ## Enemies
----
 
 Like party battlers, enemy battlers are displayed using their actor. However, unlike party battlers, enemy battlers aren't **tied to a party**. Instead, the battlers themselves carry around their own data, like health, magic, attack damage, etc.
 
 So, to create an enemy battler, you'll need to **make one**.
-
----
 
 ```lua
 local Dummy, super = Class(EnemyBattler)
@@ -129,8 +121,6 @@ And finally, registering acts:
     -- (second argument is description, usually empty)
     self:registerAct("Tell Story", "", {"ralsei"})
 ```
-
----
 
 ### Making ACTs Work
 

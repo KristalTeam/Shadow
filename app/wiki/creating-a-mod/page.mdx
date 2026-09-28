@@ -20,7 +20,6 @@ You can view the full list of configurable features [here](/wiki/configurable-fe
 
 <Box>
 ## Installing Visual Studio Code
----
 
 Visual Studio Code is the recommended code editor for Kristal projects. You can download it [here](https://code.visualstudio.com/).
 
@@ -35,7 +34,6 @@ That's it, you're now ready!
 
 <Box>
 ## Opening your project in Visual Studio Code
----
 
 With your project folder open, either right click inside of it, or right click the folder itself, and click "**Open with Code**".
 In the screenshot below, I'm using Visual Studio Code Insiders, but it's the same no matter what version you use.
@@ -50,7 +48,6 @@ Make sure to click "**Yes, I trust the authors**" when prompted -- you're the au
 
 <Box>
 ## Using Visual Studio Code
----
 
 The left-hand side of the screen has the **file explorer**. These are the files in your project!
 You can click on them once to preview them, or double click to open them.
@@ -62,12 +59,8 @@ Most of the time, if you want to edit a file, you should open it normally instea
 
 <Box>
 ## Project Structure
----
 
 Now you can see your project files, let's talk folders! It's important to have an idea what folders contain which files.
-
----
-
 
 ### The Root Folder
 
@@ -77,12 +70,7 @@ the one that contains everything else! It's the same one you just opened with Vi
 You might hear it referred to as "the root of your project",
 or just "your project folder" as you've seen here.
 
-<details> 
-
-<summary>
-*Key Content (Click to expand)*
-</summary>
-
+<CollapseBox title="Key Content">
 Two key files are stored in the root folder: `mod.lua` and `mod.json`. 
 
 On top of that, all of your project content folders are stored here:
@@ -109,52 +97,36 @@ The other file, `mod.json`, is your project's configuration file.
 Here you can change the chapter configs you selected during project creation, and some other behaviour, like the **initial save state** of your project.
 
 Many keys in `mod.json` **only apply to new save files**, so make sure to create fresh saves when testing changes to it!
-
-</details>
-
----
+</CollapseBox>
 
 ### The Assets Folder
 
 The assets folder stores, well, assets. It's where sprites, sounds, fonts, music and speech bubbles get stored, to be loaded by the engine.
 
-<details>
-
-<summary>
-*Assets sub-folders (Click to expand)*
-</summary>
-
+<CollapseBox title="Assets sub-folders">
 Each type of asset is stored in it's own sub-folder.
 
-<details>
-
-<summary>
-#### Sprites - `assets/sprites`
-</summary>
-
+<CollapseBox title="Sprites (assets/sprites)">
 Stores all the textures/images for your project. Accepted file types are `.png` or `.jpg`.
 
-For animated sprites, each frame should be saved as a seperate image, with the frame number being attached to the end of the name (e.g. `idle_1.png`, `idle_2.png`, ...). **Kristal does not support `.gif` files or spritesheets for animations**.
+For animated sprites, each frame should be saved as a seperate image, with the frame number being attached to the end of the name (e.g. `idle_1.png`, `idle_2.png`, ...).
 
-</details>
+**Kristal does not support `.gif` files or spritesheets for animations**.
+</CollapseBox>
 
-<details>
+<CollapseBox title="Sounds (assets/sounds)">
 
-<summary>
-#### Sounds - `assets/sounds`
-</summary>
+Stores all the sound files for your project. Accepted file types are `.wav` and `.ogg`.
 
-Stores all the sound files for your project. Accepted file tyes are `.wav` and `.ogg`.
+</CollapseBox>
 
-</details>
+<CollapseBox title="Music (assets/music)">
 
-<details>
+Stores all the music files for your project. Accepted file types are `.wav`, `.ogg`, and `.mp3` (`.ogg` is recommended).
 
-<summary>
-#### Music - `assets/music`
-</summary>
+Please try not to use `.mp3` files, as the format has baked-in silence at the start of the file, which will result in music looping extremely poorly.
 
-Stores all the music files for your project. Accepted file types are `.wav`, `.ogg`, and `.mp4` (`.ogg` is recommended).
+If you only have an `.mp3` file, it's recommended to use a program such as [Audacity](https://www.audacityteam.org/) to convert it to `.ogg` instead, and trim the silence at the start of the file.
 
 You can modify the global in-game volume and pitch of any track in `mod.lua` with the `MUSIC_VOLUMES` and `MUSIC_PITCHES` tables:
 ```lua
@@ -165,60 +137,30 @@ function Mod:init()
 end
 ```
 
-</details>
+</CollapseBox>
 
-<details>
-
-<summary>
-#### Fonts - `assets/fonts`
-</summary>
-
+<CollapseBox title="Fonts (assets/fonts)">
 Stores all the custom fonts (and any supporting information about them) for your project. Accepted fonts are `.ttf`, `.fnt`, or `.png`.
+</CollapseBox>
 
-</details>
-
-<details>
-
-<summary>
-#### Speech Bubbles - `assets/bubbles`
-</summary>
-
+<CollapseBox title="Speech Bubbles (assets/bubbles)">
 Stores speech bubble data in `.json` files. The actual sprites used to construct bubbles are stored in `assets/sprites/bubbles`. Sorry to burst your bubble...
 
 (You can check out the [source code](https://github.com/KristalTeam/Kristal/tree/main/assets/bubbles) to see how the default bubbles are constructed.)
+</CollapseBox>
 
-</details>
 
-<details>
-
-<summary>
-#### Shaders - `assets/shaders`
-</summary>
-
+<CollapseBox title="Shaders (assets/shaders)">
 Stores shadercode for your project. All shaders are `.glsl` files.
+</CollapseBox>
 
-</details>
-
-<details>
-
-<summary>
-#### Videos - `assets/videos`
-</summary>
-
+<CollapseBox title="Videos (assets/videos)">
 Stores video files for your project. They must be encoded in the Ogg theora format (`.ogv`, `.ogg`) to play correctly.
+</CollapseBox>
 
-</details>
+</CollapseBox>
 
-</details>
-
----
-
-<details>
-
-<summary>
-*Additional Information (Click to expand)*
-</summary>
-
+<CollapseBox title="Additional Information">
 #### Asset Paths
 
 When referencing any type of Asset in your project, the code will eventually call into `Assets` - you might even be doing so directly!
@@ -235,9 +177,7 @@ Assets used directly by the engine aren't visible inside your project folder, bu
 
 You can view the engine's assets from the `assets` folder of the [source code](https://github.com/KristalTeam/Kristal/tree/main). If you want to **replace** these assets (e.g. to reskin the UI) you can do so by placing your replacement texture at the **same file path in your project's assets**!
 
-</details>
-
----
+</CollapseBox>
 
 ### The Scripts Folder
 
@@ -245,20 +185,11 @@ Scripts are the code of your project. This folder contains all of them, whether 
 
 All scripts are `.lua` files, and each type of script must be inside a specific folder to be loaded.
 
-<details>
-
-<summary>
-*Scripts sub-folders (Click to expand)*
-</summary>
+<CollapseBox title="Scripts sub-folders">
 
 Your project will include empty folders for most types of script by default. Let's briefly introduce them all.
 
-<details>
-
-<summary>
-#### Battle - `scripts/battle`
-</summary>
-
+<CollapseBox title="Battle (scripts/battle)">
 This folder contains everything associated with battles in Kristal. There are several sub-folders of battle for each script type:
 
 - `bullets` - for `Bullet` scripts.
@@ -266,25 +197,13 @@ This folder contains everything associated with battles in Kristal. There are se
 - `encounters` - for `Encounter` scripts.
 - `enemies` - for `EnemyBattler` scripts.
 - `waves` - for `Wave` scripts.
+</CollapseBox>
 
-</details>
-
-<details>
-
-<summary>
-#### Borders - `scripts/borders`
-</summary>
-
+<CollapseBox title="Borders (scripts/borders)">
 The scripts in this folder define custom `Border` objects that support animations.
+</CollapseBox>
 
-</details>
-
-<details>
-
-<summary>
-#### Data - `scripts/data`
-</summary>
-
+<CollapseBox title="Data (scripts/data)">
 This folder contains the scripts of everything data-based, like items. There are several sub-folders for each data type:
 
 - `actors` - Scripts that define the data of your project's characters.
@@ -292,57 +211,23 @@ This folder contains the scripts of everything data-based, like items. There are
 - `party` - Scripts for your project's custom party members.
 - `recruits` - Scripts for all your enemies RECRUIT data.
 - `spells` - Scripts for your project's spells.
+</CollapseBox>
 
-</details>
-
-<details>
-
-<summary>
-#### Hooks - `scripts/hooks`
-</summary>
-
+<CollapseBox title="Hooks (scripts/hooks)">
 This folder contains hook scripts - they're an advanced engine tool for modfiying engine code.
+</CollapseBox>
 
-</details>
-
-<details>
-
-<summary>
-#### Legends - `scripts/legends`
-</summary>
-
+<CollapseBox title="Legends (scripts/legends)">
 This folder contains `LegendCutscene` scripts for... legend-styled cutscenes!
+</CollapseBox>
 
-</details>
-
-<details>
-
-<summary>
-#### Objects - `scripts/objects`
-</summary>
-
+<CollapseBox title="Objects (scripts/objects)">
 This folder contains custom object types for your project. You might use this folder for things like advanced spell effects and custom souls, as well as many other things.
 
-Each object in this folder is placed into a global variable **matching it's ID**. You can create instances of your new object through this global; If your object is `MyNewObject`, creating an instance would look like this:
+You can read about creating them [here](/wiki/objects).
+</CollapseBox>
 
-```lua
--- This line creates a new instance of MyNewObject
-local object = MyNewObject()
-
--- We also need to parent our object to something else after we've created it.
-Game.stage:addChild(object)
-```
-
-You can learn about how script IDs are determined [below](#script-ids).
-
-</details>
-
-<details>
-
-<summary>
-#### World - `scripts/world`
-</summary>
-
+<CollapseBox title="World (scripts/world)">
 This folder contains everything associated with maps and the world in Kristal. There are several sub-folders of world for each script type:
 
 - `bullets` - for `WorldBullet` scripts.
@@ -351,18 +236,11 @@ This folder contains everything associated with maps and the world in Kristal. T
 - `maps` - for map files.
 - `scripts` - for generic script types - these are mainly used with the `script` and `interactable` events.
 - `tilesets` - for all your tileset scripts.
+</CollapseBox>
 
-</details>
+</CollapseBox>
 
-</details>
-
----
-
-<details>
-
-<summary>
-*Additional Information (Click to expand)*
-</summary>
+<CollapseBox title="Additional Information">
 
 #### Script IDs
 
@@ -382,15 +260,12 @@ These are also **case-sensitive** - `Light/Pencil` and `light/pencil` are consid
 The engine has some `data/` scripts that appear ingame but are not visible from your project folder. If you want to modify them, you'll need to use hooks.
 
 Hooks are a more advanced feature of the engine that aren't recommended if you're starting out. But when you need them, you can read about them [here](/wiki/hooks).
-</details>
 
----
+</CollapseBox>
 
 ### The Libraries Folder
 
 Libraries are externally sourced code and assets - the [Libraries page](/wiki/using-libraries) will tell you more about them.
-
----
 
 ### The Preview Folder
 
@@ -402,7 +277,6 @@ The preview folder stores everything related to how your project appears on the 
 
 <Box>
 ## Now what?
----
 
 Now that you know how to use Visual Studio Code, it's time to start making your project! You can learn more about project creation [here](/wiki/mod-creation).
 </Box>

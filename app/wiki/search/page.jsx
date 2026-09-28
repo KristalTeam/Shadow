@@ -16,11 +16,7 @@ export default async function Page({params, searchParams}) {
                 <Searchbar placeholder="Enter a term to search for..." defaultValue={query} submit="Search" />
                 <h2>{"Search Results for: \"" + query + "\""}</h2>
                 <SearchResultsPaginate itemsPerPage={10} items={searchQuery(query)}/>
-            </div> : <>
-                <p>
-                    Enter a term in the search bar above to search through the wiki!
-                </p>
-            </>
+            </div> : <Searchbar placeholder="Enter a term to search for..." submit="Search" />
         }
         </Box>
     </>)

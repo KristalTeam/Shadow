@@ -36,7 +36,6 @@ There are a lot of objects relating to battles that are relevant to waves! Below
 
 Clicking on any of them will take you to their API reference page where you can learn more about them.
 
----
 ### Used in Waves
 The objects below are all used directly in waves.
 
@@ -47,7 +46,6 @@ The objects below are all used directly in waves.
 - [Timer](/wiki/api/Timer)
 - [Wave](/wiki/api/Wave)
 
----
 ### Colliders
 These are all the [Collider](/wiki/api/Collider) types in Kristal. They may be useful for custom bullet collision!
 
@@ -58,7 +56,6 @@ These are all the [Collider](/wiki/api/Collider) types in Kristal. They may be u
 - [PointCollider](/wiki/api/PointCollider)
 - [PolygonCollider](/wiki/api/PolygonCollider)
 
----
 ### Related Objects
 These objects aren't always involved directly in waves, but may have important or related functions.
 
@@ -859,7 +856,6 @@ The function now uses our `children_memory` table, and we've added this `if chil
 
 If you test this in action again, you'll see that the bullets don't shift around any more when they get removed.
 
----
 ### Detaching Bullets from the Circle
 
 Sorting out our removed children issue also allows us to detatch bullets (not destroying them) without issue! Let's look at how to do that.
@@ -878,7 +874,6 @@ bullet:setParent(self) -- We're in a wave file, so this parents it to the curren
 bullet:setScreenPos(x, y) -- Set our bullet to where it was on the screen before we reparented it.
 ```
 
----
 ### Actually Moving Circles
 
 All of this is great, but we haven't actually showed off the whole reason we made this object yet! This segment is all about *moving* circles after all!
@@ -991,7 +986,6 @@ And let's see how this one looks in action:
 
 That's pretty cool, but you'll notice that it's not feeling very "circle-y" because it's static. That brings us to our next point!
 
----
 ### Moving Bullets around a Circle
 
 We also need to look at how to tinker with the bullet positions along the circle (not movement of the circle as a whole)!
@@ -1080,7 +1074,6 @@ That's all there is to changing `angle` and `radius`.
 
 Now lets turn our attention to the spacing of our bullets to end off our circle tutorials.
 
----
 ### Configurable Bullet Spacing
 
 This does require some changes to `CircleController` to work.

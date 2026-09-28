@@ -136,8 +136,6 @@ For the purposes of introducing hooks, we'll keep it very simple and just log so
 
 With our hook set up like this, we can run code **before** and **after** the original function whenever it's called. As well as that, we can modify the arguments going into the `super.hurt` function if we want to.
 
----
-
 #### Note: Original Function Modifications 
 
 You'll notice that we specify here how our hook setup means we can run code before and after the original. If you need to change how the original function works, you need a slightly different setup.
@@ -291,6 +289,7 @@ Hook files for the registry must go into their **respective data sub-folders** i
 Let's run through hooking the Dark (or Darker) Candy item as an example.
 
 ---
+
 Dark Candy is an item, so the folder you want to be in is `scripts/data/items`. Inside, create a new file named **the same as the original** - in this case, that's `dark_candy.lua`.
 
 The contents of the file are nearly the same as any other hook. Here's a basic one that changes the dark candy to heal 400 HP:

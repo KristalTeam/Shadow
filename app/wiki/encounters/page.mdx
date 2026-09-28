@@ -13,7 +13,6 @@ Each battle is an **encounter**. Each different group of monsters, each differen
 
 <Box>
 ## Encounter Basics
----
 
 To start creating an encounter, you'll need to create a new file in the `encounters` folder. Let's make an encounter with a single monster, being the Dummy enemy we made.
 
@@ -34,7 +33,7 @@ function Dummy:init()
     -- Add the dummy enemy to the encounter
     self:addEnemy("dummy")
 
-    --- Uncomment this line to add another!
+    -- Uncomment this line to add another!
     --self:addEnemy("dummy")
 end
 
@@ -47,7 +46,6 @@ Aaaaaaaaand we're done.
 
 <Box>
 ## Advanced Encounters
----
 
 Okay, okay, some encounters are more advanced than that. For example, if you want to hide the world even if there's no background, you can set `self.hide_world` to true. Battles can also skip the YOU WON! text with `self.no_end_message = true`.
 

@@ -22,8 +22,6 @@ Kristal's text system is pretty simple. You can just write text, and the system 
 local text = "* This is text!"
 ```
 
----
-
 ### Line Breaks [line-breaks]
 
 If you want a line break, you can either let the engine wrap it automatically, or you can force a line break using `\n`.
@@ -71,8 +69,6 @@ local text = "* This is [color:yellow]yellow[color:reset] text!"
 ```
 
 Note that not all modifiers are available in all contexts. In any "instant" text which supports modifiers, `wait` is not available, for example.
-
----
 
 ### Available Modifiers [available-modifiers]
 
@@ -176,8 +172,6 @@ Speech bubbles are when battlers talk.
 
 DELTARUNE's text has a few standards to follow. While you don't HAVE to follow them, it can feel out of place or weird if you don't.
 
----
-
 ### Punctuation [punctuation]
 
 Generally, any punctuation is followed by a `[wait:5]`, as punctuation is a pause in speech.
@@ -193,8 +187,6 @@ local text = {
 ```
 
 I sort of went overboard with the elipses, but you get the idea. Anything that would naturally cause a pause in speech should be a pause in text.
-
----
 
 ### Pauses [pauses]
 
@@ -224,8 +216,6 @@ For example, DELTARUNE itself does a couple "unnatural pauses" for effect.
 ```lua
 local text = "* (One[wait:15] had a pine tree beside it.)"
 ```
-
----
 
 ### Emphasis [emphasis]
 

@@ -20,7 +20,6 @@ That's why we use [Tiled](https://www.mapeditor.org/).
 <Box>
 
 ## Installing Tiled
----
 
 Tiled is available for all major platforms. You can download it from [here](https://www.mapeditor.org/). There's no Kristal extension for Tiled yet, so that's all you need to do.
 
@@ -29,7 +28,6 @@ Tiled is available for all major platforms. You can download it from [here](http
 <Box>
 
 ## Opening Your Project
----
 
 Once you've installed Tiled, you can open your project. You can do this by clicking on `File`, and then `Open File or Project`.
 
@@ -43,7 +41,6 @@ The project window on the left should now show a folder tree. This is your proje
 
 <Box>
 ## Creating Tilesets
----
 
 These are the default maps and tilesets.
 
@@ -102,7 +99,6 @@ But anyway, we have a tileset now! So why don't we create a map now?
 
 <Box>
 ## Creating a New Map [new-map]
----
 
 Now that we've made a tileset, we can start making maps!
 
@@ -151,7 +147,6 @@ It's... a huge bone? I don't know. It's not important. What is important is that
 
 <Box>
 ## Layers
----
 
 Kristal needs to know what you intend to do with each layer.
 
@@ -165,7 +160,6 @@ Read the [Map Layers](/wiki/map-layers) page to learn more about the different l
 
 <Box>
 ## Markers
----
 
 Markers are "points" in a map, which can be used for many different things.
 
@@ -233,7 +227,6 @@ As you can see, we've now successfully spawned at the marker we placed!
 
 <Box>
 ## Collision
----
 
 Our test map is perfect, right? Well...
 
@@ -255,8 +248,6 @@ This is one of the tools you'll be using to draw collision. It's pretty simple, 
 
 Now that we've drawn out where collision should be, let's export and test! And look at that, it works!
 
----
-
 ### Slopes, Polygons, and More
 
 Using the **Insert Polygon** tool, which you can find in the toolbar at the top, or by pressing `P`,
@@ -268,11 +259,8 @@ Holding down `CTRL` makes it snap to the grid, as well, so you can make perfect 
 
 <Box>
 ## Placing Objects
----
 
 Most of what you'll see in rooms are **objects**. Most things in Kristal are objects!
-
----
 
 ### Using Objects
 
@@ -305,8 +293,6 @@ Let's now add the `money` custom property (making sure it's an `int`) and set it
 
 If we save, export, then open up our project in Kristal, we should see the chest! And interacting with it should give us **999 Dark Dollars**! Wow!
 
----
-
 ### Example: Interactables
 
 Interactables are simple boxes which you can interact with. They'll show text, or start a cutscene when the player interacts with them.
@@ -328,8 +314,6 @@ And if we check it out in-game, then...
 
 Perfect!
 
----
-
 ### Room Transitions
 
 Room transitions are rectangular objects, called `transition.`
@@ -339,8 +323,6 @@ Normally, you'll want to set the `map` and `marker` properties (to go to a marke
 You can use the `facing` property to make the player face a certain direction when they spawn in the new map; otherwise, they'll just face the direction they were facing when they left the previous map.
 
 You can read more about room transitions on the [Using Events](/wiki/using-events#transitions) page.
-
----
 
 ### Creating Events
 
@@ -436,8 +418,6 @@ Then we just have to place it somewhere, using the ID we supplied in the code, `
 After all this, we have our own event!
 
 <>![](/wiki/pinwheel_spin.gif)</>
-
----
 
 ### Other Engine Events
 

@@ -20,7 +20,6 @@ export default function Page() {
 
         <Box>
             <h2>Getting Started</h2>
-            <hr/>
             <p>
                 No matter whether you&apos;re making a fangame, or playing one, the first step is <b>downloading the engine.</b> Read the <Link href="/wiki/downloading">download guide</Link> for more information!
             </p>
@@ -28,7 +27,6 @@ export default function Page() {
 
         <Box>
             <h2>Contributing to the Wiki</h2>
-            <hr/>
 
             <p>
                 If you want to contribute <strong>wiki articles</strong>, you can do so by forking <Link href="https://github.com/KristalTeam/Shadow">the website&apos;s GitHub repository</Link> and making a pull request.

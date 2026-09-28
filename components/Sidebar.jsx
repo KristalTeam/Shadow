@@ -5,6 +5,20 @@ import { useEffect, useRef } from "react";
 import styles from "./Sidebar.module.css";
 import Searchbar from 'components/Searchbar'
 
+export function SidebarSection({ children, title, url, description }) {
+    return <div className={styles.section}>
+        <h3><Link href={url}>{title}</Link></h3>
+        <p>{description}</p>
+        <ul>
+            {children}
+        </ul>
+    </div>
+}
+
+export function SidebarEntry({ title, url }) {
+    return <li><Link href={url}>{title}</Link></li>
+}
+
 export default function Sidebar(props) {
     const sidebarRef = useRef(null);
 
@@ -50,74 +64,81 @@ export default function Sidebar(props) {
 
     let toggleTitle = <h2>Kristal Wiki</h2>
     let content = <>
-        <br/>
-        <h3><Link href="/wiki/">General Information</Link></h3>
-        <hr/>
-        <p>These pages get you ready to use the engine.</p>
-        <ul>
-            <li><Link href="/wiki/">Main Page</Link></li>
-            <li><Link href="/wiki/downloading">Downloading Kristal</Link></li>
-            <li><Link href="/wiki/playing-mods">Installing and Playing Projects</Link></li>
-            <li><Link href="/wiki/glossary">Glossary</Link></li>
-        </ul>
-        <br/>
-        <h3><Link href="/wiki/mod-creation">General Project Creation</Link></h3>
-        <hr/>
-        <p>These pages teach you about project development.</p>
-        <ul>
-            <li><Link href="/wiki/lua-tutorial">Lua Tutorial</Link></li>
-            <li><Link href="/wiki/basics">Understanding the Basics</Link></li>
-            <li><Link href="/wiki/classes-and-instances">Classes and Instances</Link></li>
-            <li><Link href="/wiki/creating-a-mod">Creating a Project</Link></li>
-            <li><Link href="/wiki/objects">Objects</Link></li>
-            <li><Link href="/wiki/writing-text">Writing Text</Link></li>
-            <li><Link href="/wiki/using-libraries">Using Libraries</Link></li>
-            <li><Link href="/wiki/creating-an-item">Creating an Item</Link></li>
-            <li><Link href="/wiki/making-shops">Creating a Shop</Link></li>
-            <li><Link href="/wiki/creating-a-spell">Creating a Spell</Link></li>
-            <li><Link href="/wiki/actors">Actors</Link></li>
-            <li><Link href="/wiki/party-members">Party Members</Link></li>
-            <li><Link href="/wiki/keybinds">Custom Keybinds</Link></li>
-            <li><Link href="/wiki/releasing-mods">Releasing Projects</Link></li>
-        </ul>
-        <br/>
-        <h3><Link href="/wiki/mod-creation">The Overworld</Link></h3>
-        <hr/>
-        <p>Everything to do with the overworld.</p>
-        <ul>
-            <li><Link href="/wiki/designing-a-map">Designing a Map</Link></li>
-            <li><Link href="/wiki/map-layers">Map Layers</Link></li>
-            <li><Link href="/wiki/cutscenes">Cutscenes</Link></li>
-            <li><Link href="/wiki/map-properties">Map Properties</Link></li>
-            <li><Link href="/wiki/using-events">Events</Link></li>
-            <li><Link href="/wiki/battle-areas">Battle Areas</Link></li>
-            <li><Link href="/wiki/climbing">Climbing</Link></li>
-            <li><Link href="/wiki/world-tool">The World Tool</Link></li>
-        </ul>
-        <br/>
-        <h3><Link href="/wiki/mod-creation">Battles</Link></h3>
-        <hr/>
-        <p>Everything related to creating battles.</p>
-        <ul>
-            <li><Link href="/wiki/battlers">Battlers</Link></li>
-            <li><Link href="/wiki/encounters">Encounters</Link></li>
-            <li><Link href="/wiki/enemy-attacks">Enemy Attacks (Waves)</Link></li>
-            <li><Link href="/wiki/wavemaking-reference">Wavemaking Tricks and References</Link></li>
-        </ul>
-        <br/>
-        <h3><Link href="/wiki/mod-creation#advanced-mod-creation">Advanced</Link></h3>
-        <hr/>
-        <p>These pages teach you more complex but powerful parts of the engine.</p>
-        <ul>
-            <li><Link href="/wiki/debugging">Debugging</Link></li>
-            <li><Link href="/wiki/hooks">Hooks</Link></li>
-            <li><Link href="/wiki/ui">The UI System</Link></li>
-        </ul>
-        <br/>
-        <h3><Link href="/wiki/api">API Reference</Link></h3>
-        <hr/>
-        <p>An auto-generated API reference for Kristal.</p>
-        <Link href="#top" style={{textAlign: "right"}}>⮬ Back to Top ⮭</Link>
+        <SidebarSection
+            title="General Information"
+            url="/wiki/"
+            description="These pages get you ready to use the engine."
+        >
+            <SidebarEntry title="Main Page" url="/wiki/" />
+            <SidebarEntry title="Downloading Kristal" url="/wiki/downloading" />
+            <SidebarEntry title="Installing and Playing Projects" url="/wiki/playing-mods" />
+            <SidebarEntry title="Glossary" url="/wiki/glossary" />
+        </SidebarSection>
+
+        <SidebarSection
+            title="General Project Creation"
+            url="/wiki/mod-creation/"
+            description="These pages teach you about project development."
+        >
+            <SidebarEntry title="Lua Tutorial" url="/wiki/lua-tutorial" />
+            <SidebarEntry title="Understanding the Basics" url="/wiki/basics" />
+            <SidebarEntry title="Classes and Instances" url="/wiki/classes-and-instances" />
+            <SidebarEntry title="Creating a Project" url="/wiki/creating-a-mod" />
+            <SidebarEntry title="Objects" url="/wiki/objects" />
+            <SidebarEntry title="Writing Text" url="/wiki/writing-text" />
+            <SidebarEntry title="Using Libraries" url="/wiki/using-libraries" />
+            <SidebarEntry title="Creating an Item" url="/wiki/creating-an-item" />
+            <SidebarEntry title="Creating a Shop" url="/wiki/making-shops" />
+            <SidebarEntry title="Creating a Spell" url="/wiki/creating-a-spell" />
+            <SidebarEntry title="Actors" url="/wiki/actors" />
+            <SidebarEntry title="Party Members" url="/wiki/party-members" />
+            <SidebarEntry title="Custom Keybinds" url="/wiki/keybinds" />
+            <SidebarEntry title="Releasing Projects" url="/wiki/releasing-mods" />
+        </SidebarSection>
+
+        <SidebarSection
+            title="The Overworld"
+            url="/wiki/mod-creation#the-overworld"
+            description="Everything to do with the overworld."
+        >
+            <SidebarEntry title="Designing a Map" url="/wiki/designing-a-map" />
+            <SidebarEntry title="Map Layers" url="/wiki/map-layers" />
+            <SidebarEntry title="Cutscenes" url="/wiki/cutscenes" />
+            <SidebarEntry title="Map Properties" url="/wiki/map-properties" />
+            <SidebarEntry title="Events" url="/wiki/using-events" />
+            <SidebarEntry title="Battle Areas" url="/wiki/battle-areas" />
+            <SidebarEntry title="Climbing" url="/wiki/climbing" />
+            <SidebarEntry title="The World Tool" url="/wiki/world-tool" />
+        </SidebarSection>
+
+        <SidebarSection
+            title="Battles"
+            url="/wiki/mod-creation#battles"
+            description="Everything related to creating battles."
+        >
+            <SidebarEntry title="Battlers" url="/wiki/battlers" />
+            <SidebarEntry title="Encounters" url="/wiki/encounters" />
+            <SidebarEntry title="Enemy Attacks (Waves)" url="/wiki/enemy-attacks" />
+            <SidebarEntry title="Wavemaking Tricks and References" url="/wiki/wavemaking-reference" />
+        </SidebarSection>
+
+        <SidebarSection
+            title="Advanced"
+            url="/wiki/mod-creation#advanced-mod-creation"
+            description="These pages teach you more complex but powerful parts of the engine."
+        >
+            <SidebarEntry title="Debugging" url="/wiki/debugging" />
+            <SidebarEntry title="Hooks" url="/wiki/hooks" />
+            <SidebarEntry title="The UI System" url="/wiki/ui" />
+        </SidebarSection>
+
+        <SidebarSection
+            title="API Reference"
+            url="/wiki/api"
+            description="An auto-generated API reference for Kristal."
+            ></SidebarSection>
+
+        {/*<Link href="#top" style={{textAlign: "center"}}>⮬ Back to Top ⮭</Link>*/}
     </>
 
     return <>
