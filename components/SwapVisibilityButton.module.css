@@ -1,63 +1,19 @@
-/*https://www.w3schools.com/howto/howto_css_switch.asp*/
- /* The switch - the box around the slider */
- .switch {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 2em;
-    border: 4px solid transparent;
-  }
-  
-  /* Hide default HTML checkbox */
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    display: none;
-  }
-  
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: lightgray;
-    color: lightgray;
+.container {
+  display: flex;
+  flex-direction: column;
+}
 
-    font-weight: var(--font-weight-bold);
-  }
-  
-  .slider:before {
+.selected {
+  color: white;
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
 
-    position: absolute;
-    content: "Alphabet View";
-    height: 100%;
-    width: 50%;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    background-color: #122;
-    text-align: center;
-  }
-  /*
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  */
-  .slider:hover {
-    color: yellow;
-    background-color: #fff
-  }
+.unselected {
+  color: lightgray;
+  text-decoration: none;
+}
 
-  input:checked + .slider:before {
-    left: 50%;
-    content: "Tree View";
-    text-align: center;
-  }
+.selected:hover, .unselected:hover {
+  text-decoration: none;
+}

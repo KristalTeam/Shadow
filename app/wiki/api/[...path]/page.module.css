@@ -7,15 +7,15 @@
 }
 
 .syntaxObject {
-    color: lawngreen;
+    color: #FF6699;
 }
 
 .syntaxMethod {
-    color: deepskyblue;
+    color: #D2A8FF;
 }
 
 .syntaxField {
-    color: gold;
+    color: #79C0FF;
 }
 
 .syntaxUndocumented {
@@ -31,7 +31,7 @@
 }
 
 .syntaxType {
-    color: hotpink;
+    color: #4EC9B0;
 }
 
 .syntaxTypeMod {
@@ -42,4 +42,41 @@
 .syntaxString {
     color: lightgreen;
     cursor: help;
+}
+
+.classHeirarchy {
+    font-weight: var(--font-weight-bold);
+    margin-block-end: 2rem;
+}
+
+.classHeirarchy a {
+    color: lightgray;
+    text-decoration: none;
+}
+
+.pageTitle {
+    margin-block-end: 0;
+}
+
+.tableName {
+    color: lightgray;
+    padding-block-end: 0.5rem;
+}
+
+.tableDescription p {
+    color: lightgray;
+    margin-block-end: 0;
+}
+
+
+.argumentTable th {
+    color: white;
+}
+
+.argumentTable th, .argumentTable td {
+    text-align: center;
+}
+
+.argumentTable th:last-child, .argumentTable td:last-child {
+    text-align: left;
 }

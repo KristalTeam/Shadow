@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation';
 import { TYPES } from 'src/docparser.mjs';
 import { parse as parseMarkdown } from 'src/markdown.js';
-import Docbox from 'components/Docbox';
+import Box from 'components/Box';
 import styles from './page.module.css';
 import { Fragment } from 'react';
+import Link from 'next/link';
 
 export async function generateStaticParams() {
     const types = TYPES
@@ -16,7 +17,6 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }){
-
     const { path } = await params;
 
     let desc = TYPES.find((current) => current.name == path[0])?.defines?.[0]?.rawdesc
@@ -186,42 +186,74 @@ function renderArgsInline(args) {
     });
 }
 
-async function renderArgumentRows(ownerName, args) {
-    return Promise.all(getRenderableArgs(args).map(async (arg) => {
-        const desc = await parse(arg.rawdesc ?? arg.desc);
-        const name = getArgName(arg);
-        const text = getArgText(arg);
-        return <tr key={ownerName + name}>
-            <td>
-                <span className={styles.syntaxSymbol} title={text}>{name}</span>
-                <span className={styles.syntax}>: </span>
-                {
-                    parseTypes(arg.view)
-                }
-            </td>
-            <td>
-                <div style={{color: "lightgray"}}>{desc}</div>
-            </td>
-        </tr>
-    }));
+async function ArgumentTable({ ownerName, args }) {
+    return <>
+        <div className={styles.tableName}>Arguments:</div>
+        <table className={styles.argumentTable}>
+            <thead>
+                <tr>
+                    <th>Argument</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+            {
+                Promise.all(getRenderableArgs(args).map(async (arg) => {
+                    const desc = await parse(arg.rawdesc ?? arg.desc);
+                    const name = getArgName(arg);
+                    const text = getArgText(arg);
+                    return <tr key={ownerName + name}>
+                        <td>
+                            <span className={styles.syntaxSymbol} title={text}>{name}</span>
+                        </td>
+                        <td>
+                            { parseTypes(arg.view) }
+                        </td>
+                        <td>
+                            <div className={styles.tableDescription}>{desc}</div>
+                        </td>
+                    </tr>
+                }))
+            }
+            </tbody>
+        </table>
+    </>
 }
 
-async function renderReturnRows(ownerName, returnsList) {
-    return Promise.all(returnsList.map(async (ret, index) => {
-        const desc = await parse(ret.rawdesc ?? ret.desc);
-        return <tr key={ownerName + index}>
-            <td>
-                <span className={styles.syntaxSymbol}>{ret.name ?? index + 1}</span>
-                <span className={styles.syntax}>: </span>
-                {
-                    parseTypes(ret.view)
-                }
-            </td>
-            <td>
-                <div style={{color: "lightgray"}}>{desc}</div>
-            </td>
-        </tr>
-    }));
+async function ReturnTable({ ownerName, returnsList }) {
+    return <>
+        <div className={styles.tableName}>Returns:</div>
+        <table className={styles.argumentTable}>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+            {
+                Promise.all(returnsList.map(async (ret, index) => {
+                    const desc = await parse(ret.rawdesc ?? ret.desc);
+                    return <tr key={ownerName + index}>
+                        <td>
+                            <span className={styles.syntaxSymbol}>{ret.name ?? index + 1}</span>
+                        </td>
+                        <td>
+                            {
+                                parseTypes(ret.view)
+                            }
+                        </td>
+                        <td>
+                            <div className={styles.tableDescription}>{desc}</div>
+                        </td>
+                    </tr>
+                }))
+            }
+            </tbody>
+        </table>
+    </>
 }
 
 async function Api_type(type, { params }) {
@@ -252,31 +284,27 @@ async function Api_type(type, { params }) {
     const desc = await parse(type?.defines?.[0].rawdesc ?? type?.defines?.[0].desc);
 
     return <div>
-        <Docbox className={styles.wikiNoShadow}>
-        
-        <div id={type.name}>
+        <Box className={styles.wikiNoShadow}>
 
-            <h1>
-                <a href={"#"+type.name}>{type.name}</a>
-            </h1>
-            <h4>
-            {classHeirarchy.map( (cls, index) => 
-                    <span key={cls.name} style={{color: "gray"}}>
-                    {index === 0 ? "┗> " : " > "}
-                    <a href={"/wiki/api/" + cls.name}>{cls.name}</a>
-                    </span>
-            )}
-            </h4>
-            <span style={{color: "lightgray"}}>{desc}</span>
-
+        <h1 className={styles.pageTitle}>
+            <Link href={"/wiki/api/"+type.name}>{type.name}</Link>
+        </h1>
+        <div className={styles.classHeirarchy}>
+        {classHeirarchy.map( (cls, index) => 
+                <span key={cls.name} style={{color: "gray"}}>
+                {index === 0 ? "┗> " : " > "}
+                <Link href={"/wiki/api/" + cls.name}>{cls.name}</Link>
+                </span>
+        )}
         </div>
+        <span style={{color: "lightgray"}}>{desc}</span>
+
         <br/>
         {
         initializer ?
         <>
         <details id="Constructor" open>
             <summary className={styles.detailHeader}><h2 className={styles.syntaxObject}>Constructor</h2></summary>
-                <hr/>
                 <div id={initializer.name} key={initializer.name}>
                     <h3>
                     <a className={styles.syntaxObject} href={"#"+initializer.name}>
@@ -290,33 +318,25 @@ async function Api_type(type, { params }) {
                     { hasVisibleArgs(initializer.extends.args) &&
                         <>
                             <p>Arguments:</p>
-                            <table>
-                                <tbody>
-                                {
-                                    await renderArgumentRows(initializer.name, initializer.extends.args)
-                                }
-                                </tbody>
-                            </table>
+                            <ArgumentTable ownerName={initializer.name} args={initializer.extends.args} />
                         </>
                     }
                 </div>
                 <br/>
             <br/>
-        </details>   
-        <hr/>
+        </details>
         <br/>
         </>
-        : <div></div>
+        : <></>
         }
         {
             methods.length > 0 && <>
                 <details id="Methods" open>
                 <summary className={styles.detailHeader}><h2 className={styles.syntaxMethod}>Methods</h2></summary>
                 {
-                    methods.map(async (method) => {
+                    await Promise.all(methods.map(async (method) => {
                         const desc = await parse(method.rawdesc ?? method.desc);
                         return <Fragment key={method.name}>
-                        <hr/>
                         <div id={method.name}>
                             <h3>
                             <a href={"#"+method.name}>
@@ -331,35 +351,20 @@ async function Api_type(type, { params }) {
                             <div style={{color: "lightgray"}}>{desc}</div>
                             { hasVisibleArgs(method.extends.args) &&
                                 <>
-                                    <p>Arguments:</p>
-                                    <table>
-                                        <tbody>
-                                        {
-                                            await renderArgumentRows(method.name, method.extends.args)
-                                        }
-                                        </tbody>
-                                    </table>
+                                    <ArgumentTable ownerName={method.name} args={method.extends.args} />
                                 </>
                             }
                             {
                                 method.extends.returns && method.extends.returns.length > 0 && <>
-                                    <p>Returns: </p>
-                                    <table>
-                                        <tbody>
-                                        {
-                                            await renderReturnRows(method.name, method.extends.returns)
-                                        }
-                                        </tbody>
-                                    </table>
+                                    <ReturnTable ownerName={method.name} returnsList={method.extends.returns} />
                                 </>
                             }
                         </div>
                         <br/>
                     </Fragment>
-                })
+                }))
             }
         </details>
-        <hr/>
         <br/>
         </>
         }
@@ -368,10 +373,9 @@ async function Api_type(type, { params }) {
                 <details id="Fields" open>
                     <summary className={styles.detailHeader}><h2 className={styles.syntaxField}>Fields</h2></summary>
                     {
-                        fields.map(async (field) => {
+                        await Promise.all(fields.map(async (field) => {
                             const desc = await parse(field.rawdesc ?? field.desc);
                             return <Fragment key={field.name}>
-                            <hr/>
                             <div id={field.name}>
                                 <h3>
                                     <a href={"#"+field.name}>
@@ -387,10 +391,9 @@ async function Api_type(type, { params }) {
                                 <div style={{color: "lightgray"}}>{desc}</div>
                             </div>
                             </Fragment>
-                        })
+                        }))
                     }
                 </details>
-                <hr/>
                 <br/>
             </>
         }
@@ -400,10 +403,9 @@ async function Api_type(type, { params }) {
                 <details id="Undocumented" open>
                     <summary className={styles.detailHeader}><h2 className={styles.syntaxUndocumented}>Undocumented</h2></summary>
                     {
-                        undocumented.map(async (field) => {
+                        await Promise.all(undocumented.map(async (field) => {
                             const desc = await parse(field.rawdesc ?? field.desc);
                             return <Fragment key={field.name}>
-                            <hr/>
                             <br/>
                             <div id={field.name} key={field.name}>
                                 <h3>
@@ -420,19 +422,18 @@ async function Api_type(type, { params }) {
                                 <div style={{color: "lightgray"}}>{desc}</div>
                             </div>
                             </Fragment>
-                        })
+                        }))
                     }
                 </details>
-                <hr/>
             </>
         }
-        </Docbox>
+        </Box>
     </div>
 }
 
 function Api_variable(type, { params }) {
     return <div>
-        <Docbox className={styles.wikiNoShadow}>
+        <Box className={styles.wikiNoShadow}>
         <div id={type.name}>
             <h1>
                 <a href={"#" + type.name}>{type.name}</a>
@@ -440,7 +441,7 @@ function Api_variable(type, { params }) {
             {type.rawdesc ?? type.desc}
         </div>
 
-        </Docbox>
+        </Box>
     </div>
 }
 

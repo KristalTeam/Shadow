@@ -1,5 +1,6 @@
 import { TYPES, sanitizeLink } from '@/src/docparser.mjs';
 import Docbox from '@/components/Docbox';
+import Box from '@/components/Box';
 import styles from './page.module.css';
 import Link from 'next/link';
 import SwapVisibilityButton from 'components/SwapVisibilityButton'
@@ -97,16 +98,17 @@ export default async function Api() {
     return (
         <>
         <h1 style={{textAlign: "center"}}>API Reference</h1>
-        <SwapVisibilityButton componentA="tree" componentB = "alphabetical">schmesting</SwapVisibilityButton>
-        <Docbox id = "tree" className={styles.wikiNoShadow} style={{display: "none"}}>
+        <SwapVisibilityButton componentA="tree" componentB="alphabetical"/>
+
+        <Box id="tree" className={styles.wikiNoShadow} style={{display: "none"}}>
             <ul className={styles.tree}>
                 {tree.map(i => (
                     <ListTreeItem item={i} key={i.data.name} />
                 ))}
             </ul>
-        </Docbox>
+        </Box>
         
-        <Docbox id = "alphabetical" className={styles.wikiNoShadow}>
+        <Box id="alphabetical" className={styles.wikiNoShadow}>
         {
             alphabetical.map( (section, letter) => {
                 return <Fragment key={letter}>
@@ -125,7 +127,7 @@ export default async function Api() {
                 </Fragment>
             })
         }
-        </Docbox>
+        </Box>
         </>
     )
 }

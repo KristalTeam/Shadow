@@ -6,10 +6,6 @@
     text-shadow: 0px 0px
 }
 
-.Doxbox {
-    display: block;
-}
-
 .toggle {
     cursor: pointer;
     user-select: none;
@@ -29,6 +25,8 @@ https://iamkate.com/code/tree-views/
 .tree{
     --spacing : 1.5rem;
     --radius  : 10px;
+
+    padding-inline-start: 0;
   }
   
   .tree li{
