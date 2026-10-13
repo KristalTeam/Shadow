@@ -6,17 +6,19 @@ import styles from './page.module.css';
 import { Fragment } from 'react';
 import Link from 'next/link';
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
     const types = TYPES
     // return all keys
     return types.map((type) => {
         return {
-            slug: type.name
+            path: [ type.name ]
         }
     });
 }
 
-export async function generateMetadata({ params }){
+export async function generateMetadata({ params }) {
     const { path } = await params;
 
     let desc = TYPES.find((current) => current.name == path[0])?.defines?.[0]?.rawdesc
@@ -256,7 +258,7 @@ async function ReturnTable({ ownerName, returnsList }) {
     </>
 }
 
-async function Api_type(type, { params }) {
+async function Api_type(type) {
     const classHeirarchy = getClassHeirarchy(type, [])
     const methods = []
     const fields = []
@@ -431,7 +433,7 @@ async function Api_type(type, { params }) {
     </div>
 }
 
-function Api_variable(type, { params }) {
+function Api_variable(type) {
     return <div>
         <Box className={styles.wikiNoShadow}>
         <div id={type.name}>
@@ -445,7 +447,7 @@ function Api_variable(type, { params }) {
     </div>
 }
 
-export default async function Api({ params }) {
+export default async function Page({ params }) {
     const { path } = await params;
 
     // read the types from TYPES 
@@ -455,9 +457,10 @@ export default async function Api({ params }) {
     if (!type) {
         return notFound();
     }
-    if(type.type === "type"){
-        return Api_type(type, { params })
-    }else if (type.type === "variable"){
-        return Api_variable(type, { params })
+
+    if (type.type === "type") {
+        return Api_type(type)
+    } else if (type.type === "variable") {
+        return Api_variable(type)
     }
 }
