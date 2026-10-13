@@ -102,6 +102,122 @@ export const metadata = {
         It's very important to call instance functions with a colon (`:`) instead of a period (`.`)!
     </NoteBox>
 
+    ### Instance Variables
+
+    So, let's go more in-depth about variables. Each instance of something should have it's own variables, right?
+    It'd be bad if every single car in the world could only have one color, which they all share.
+
+    We can make variables unique to each instance by using `self`, which refers to the current instance.
+    Creating a variable like this is called an **instance variable**, since it's unique to that instance.
+
+    Let's look at our car example from earlier:
+
+    ```lua
+    local Car, super = Class()
+
+    function Car:init()
+        super.init(self)
+
+        self.color = "red"
+    end
+
+    return Car
+    ```
+
+    You can see that we set `self.color` to "red". That car now has a `color` variable, which is `"red"`, and unique to that instance of the car.
+
+    For example, if we make two cars:
+
+    ```lua
+    local car_red = Car() -- creates a new car
+    local car_blue = Car() -- creates another car
+
+    print(car_red.color) -- prints "red"
+    print(car_blue.color) -- prints "red"
+
+    car_blue.color = "blue" -- sets the color of the blue car to blue
+
+    print(car_red.color) -- prints "red"
+    print(car_blue.color) -- prints "blue"
+    ```
+
+    ... changing the color of *one* car does not affect the color of the other car.
+    Again, this is because each car now has its own `color` variable, because we used `self`.
+
+    <NoteBox type="warning">
+        It's very tempting to do something like this:
+
+        ```lua
+        local Car, super = Class()
+
+        local color -- A free-floating local
+
+        function Car:init()
+            super.init(self)
+
+            color = "red" -- Setting the local
+        end
+
+        return Car
+        ```
+
+        However, this will **not work** as expected. `color` here is a free-floating local variable, and will only ever exist a single time.
+        This means that all instances of the class will refer to the same variable, which is **not** what we want.
+        And if that *is* wanted, then you should use a **class variable** instead, explained below.
+
+        Likewise, creating a global instead, by removing the `local color` keyword, will also not work as expected. **Globals should never be used in Kristal**.
+
+        ```lua
+        local Car, super = Class()
+
+        function Car:init()
+            super.init(self)
+
+            color = "red" -- Setting a global variable, by not defining it as local, nor using `self`
+        end
+
+        return Car
+        ```
+
+        Avoid these at all costs!
+
+    </NoteBox>
+
+    ### Class Variables
+
+    This is not something that should be used too often, but you can also make variables that are shared between all instances of a class. These are called **class variables**.
+
+    Take the following example:
+
+    ```lua
+    local Car, super = Class()
+
+    Car.DEFAULT_COLOR = "red"
+
+    function Car:init()
+        super.init(self)
+
+        self.color = Car.DEFAULT_COLOR
+    end
+
+    return Car
+    ```
+
+    This adds the `DEFAULT_COLOR` variable, which the class itself will have.
+    This means that changing it once will change it everywhere; but you **should be very careful** when doing this.
+
+    Most of the time, you should treat these as **static, unchanging variables**, only existing to be read, never changed.
+
+    This is because, most of the time, you'll want to store your information elsewhere.
+    For example, if you have something that creates `Car`s, and you'd like to keep track of how many cars you've created,
+    put that on the class that creates the cars, as an instance variable!
+    **There's no harm in having a class/instance which is only used once.**
+    This concept is called a **singleton** -- a class which is only ever instantiated once, so only one copy exists.
+
+    <NoteBox type="info">
+        This is Kristal-specific, but things like `Game.world` are singletons. There's only one World instance, and it lives there.
+    </NoteBox>
+
     ### Constructors
 
     Take the code we used earlier:
