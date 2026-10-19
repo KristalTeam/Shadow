@@ -146,6 +146,14 @@ export default function Sidebar(props) {
             {toggleTitle}
             <Searchbar id="header-search" placeholder="Search Wiki" submit="Go"/>
             {content}
+            <button className={styles.secondary_button}
+                onClick={() => {
+                    const el = document.getElementById("wiki-container");
+                    el.dataset.font = el.dataset.font === "operator" ? "" : "operator";
+                }}
+            >
+                Change font
+            </button>
         </div>
         <div className={styles["mobile-sidebar"]}>
             <Searchbar id="mobile-header-search" placeholder="Search Wiki" submit="Go"/>
@@ -155,6 +163,14 @@ export default function Sidebar(props) {
                 </summary>
                 {content}
             </details>
+            <button className={styles.secondary_button}
+                onClick={() => {
+                    const el = document.getElementById("wiki-container");
+                    el.dataset.font = el.dataset.font === "operator" ? "" : "operator";
+                }}
+            >
+                Change font
+            </button>
         </div>
     </>
 }

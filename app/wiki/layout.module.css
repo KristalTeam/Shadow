@@ -12,6 +12,10 @@
     font-size: 20px;
 }
 
+.container:not([data-font="operator"]) { --font: var(--font-roboto); }
+
+.container[data-font="operator"] { --font: var(--font-operator); }
+
 .main {
     padding-top: 6rem;
     padding-bottom: 6rem;
