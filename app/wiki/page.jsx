@@ -8,7 +8,7 @@ export default function Page() {
     return <>
         <h1 className={styles.logo}>
             <picture className={styles.logo}>
-                <img src="title_logo_shadow.png" alt="Kristal" />
+                <img src="/title_logo_shadow.png" alt="Kristal" />
             </picture>
         </h1>
 

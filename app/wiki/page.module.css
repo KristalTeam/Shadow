@@ -3,6 +3,14 @@
     margin: auto;
     display: block;
     padding-bottom: 2rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
+
+    picture {
+        display: flex;
+        justify-content: center;
+
+        img {
+            max-width: 75%;
+            width: 48rem;
+        }
+    }
 }

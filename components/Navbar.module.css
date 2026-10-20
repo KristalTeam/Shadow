@@ -44,7 +44,6 @@
     display: none;
     width: 32px;
     height: 32px;
-    image-rendering: pixelated;
 
     background-color: white;
     mask-size: cover;

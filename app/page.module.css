@@ -1,6 +1,17 @@
 .logo {
-  padding-top: 6rem;
+  padding-top: 4rem;
   transition: 0.2s;
+  display: flex;
+
+  picture {
+    display: flex;
+    justify-content: center;
+
+    img {
+      max-width: 75%;
+      width: 48rem;
+    }
+  }
 }
 
 .logo:hover {
@@ -23,7 +34,8 @@
 }
 
 .screenshot {
-  width: 320px;
+  image-rendering: smooth;
+  width: 480px;
   height: auto;
   transition: 0.2s;
   justify-self: center;
@@ -36,7 +48,7 @@
 .screenshots {
   margin-top: 1rem;
   display: grid;
-  grid-gap: 4rem;
+  grid-gap: 2rem;
   grid-template-columns: 32fr;
   align-items: center;
   justify-items: center;
@@ -62,14 +74,26 @@
   
   .screenshots > :nth-child(odd) {
     text-align: left;
+
+    :last-child {
+      justify-self: left;
+    }
   }
 
   .screenshots > :nth-child(even) {
     text-align: right;
+
+    :last-child {
+      justify-self: right;
+    }
   }
 
   .screenshots > :nth-child(even) > :first-child {
     order: 2;
+  }
+
+  .screenshot_info {
+    width: 90%;
   }
 }
 
